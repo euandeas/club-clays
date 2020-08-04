@@ -33,7 +33,6 @@ namespace ClubClays
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
-        [ForeignKey]
         public string Symbol { get; set; }
     }
 
