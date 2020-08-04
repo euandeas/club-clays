@@ -14,6 +14,7 @@ namespace ClubClays.Fragments
         Toolbar toolbar;
         AppBarLayout appBarLayout;
         View titleTextView;
+        RelativeLayout collapsingRelativeLayout;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -29,15 +30,19 @@ namespace ClubClays.Fragments
 
             toolbar = view.FindViewById<Toolbar>(Resource.Id.toolbar);
             titleTextView = ToolbarTitle();
+            
             appBarLayout = view.FindViewById<AppBarLayout>(Resource.Id.appBar);
             appBarLayout.OffsetChanged += AppBarLayout_OffsetChanged;
+
+            collapsingRelativeLayout = view.FindViewById<RelativeLayout>(Resource.Id.collapsingRelativeLayout);
 
             return view;
         }
 
         private void AppBarLayout_OffsetChanged(object sender, AppBarLayout.OffsetChangedEventArgs e)
         {
-            titleTextView.Alpha = Math.Abs(e.VerticalOffset / (float)appBarLayout.TotalScrollRange);
+            titleTextView.Alpha = Math.Abs(e.VerticalOffset / (appBarLayout.TotalScrollRange - ((float)appBarLayout.TotalScrollRange / 2)));
+            collapsingRelativeLayout.Alpha = 1.0f - Math.Abs(e.VerticalOffset / (appBarLayout.TotalScrollRange-((float)appBarLayout.TotalScrollRange / 2)));
         }
 
         private View ToolbarTitle()
