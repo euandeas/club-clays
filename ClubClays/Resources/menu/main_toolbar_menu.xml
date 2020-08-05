@@ -4,7 +4,7 @@
 
   <item android:id="@+id/menu_settings"
         app:showAsAction="always"
-        android:title="Info"
-        android:icon="@mipmap/more_vert"/>
+        android:title="Settings"
+        android:icon="@drawable/more_vert"/>
 
 </menu>

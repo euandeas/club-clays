@@ -6,6 +6,7 @@ using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 using Android.Widget;
 using Google.Android.Material.AppBar;
 using System;
+using AndroidX.RecyclerView.Widget;
 
 namespace ClubClays.Fragments
 {
@@ -15,12 +16,24 @@ namespace ClubClays.Fragments
         AppBarLayout appBarLayout;
         View titleTextView;
         RelativeLayout collapsingRelativeLayout;
+        string currentDate;
+        string mainTitle;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
+            // non-graphical initialisations (you can assign variables, get Intent extras, and anything else that doesn't involve the View hierarchy)
             base.OnCreate(savedInstanceState);
 
-            // non-graphical initialisations (you can assign variables, get Intent extras, and anything else that doesn't involve the View hierarchy)
+            currentDate = DateTime.Now.ToLongDateString().Replace(", ", " ");
+            string timeOfDay = DateTime.Now.ToString("tt");
+            if (timeOfDay == "AM")
+            {
+                mainTitle = "Good Morning!";
+            }
+            else if (timeOfDay == "PM")
+            {
+                mainTitle = "Good Afternoon!";
+            }
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -29,8 +42,12 @@ namespace ClubClays.Fragments
             View view = inflater.Inflate(Resource.Layout.fragment_main, container, false);
 
             toolbar = view.FindViewById<Toolbar>(Resource.Id.toolbar);
+            toolbar.Title = mainTitle;
             titleTextView = ToolbarTitle();
-            
+
+            view.FindViewById<TextView>(Resource.Id.dateText).Text = currentDate;
+            view.FindViewById<TextView>(Resource.Id.mainTitleText).Text = mainTitle;
+
             appBarLayout = view.FindViewById<AppBarLayout>(Resource.Id.appBar);
             appBarLayout.OffsetChanged += AppBarLayout_OffsetChanged;
 
@@ -42,7 +59,7 @@ namespace ClubClays.Fragments
         private void AppBarLayout_OffsetChanged(object sender, AppBarLayout.OffsetChangedEventArgs e)
         {
             titleTextView.Alpha = Math.Abs(e.VerticalOffset / (appBarLayout.TotalScrollRange - ((float)appBarLayout.TotalScrollRange / 2)));
-            collapsingRelativeLayout.Alpha = 1.0f - Math.Abs(e.VerticalOffset / (appBarLayout.TotalScrollRange-((float)appBarLayout.TotalScrollRange / 2)));
+            collapsingRelativeLayout.Alpha = 1.0f - Math.Abs(e.VerticalOffset / (appBarLayout.TotalScrollRange - ((float)appBarLayout.TotalScrollRange / 2)));
         }
 
         private View ToolbarTitle()
@@ -58,6 +75,21 @@ namespace ClubClays.Fragments
             }
 
             return new View(Activity);
+        }
+    }
+
+    public class RecyclerAdapter : RecyclerView.Adapter
+    {
+        public override int ItemCount => throw new NotImplementedException();
+
+        public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
+        {
+            throw new NotImplementedException();
         }
     }
 }
