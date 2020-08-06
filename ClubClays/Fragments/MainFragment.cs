@@ -17,29 +17,29 @@ namespace ClubClays.Fragments
         View titleTextView;
         RelativeLayout collapsingRelativeLayout;
         string currentDate;
-        string mainTitle;
+        string mainTitle = "Welcome Back!";
 
         public override void OnCreate(Bundle savedInstanceState)
         {
             // non-graphical initialisations (you can assign variables, get Intent extras, and anything else that doesn't involve the View hierarchy)
             base.OnCreate(savedInstanceState);
-
-            currentDate = DateTime.Now.ToLongDateString().Replace(", ", " ");
-            string timeOfDay = DateTime.Now.ToString("tt");
-            if (timeOfDay == "AM")
-            {
-                mainTitle = "Good Morning!";
-            }
-            else if (timeOfDay == "PM")
-            {
-                mainTitle = "Good Afternoon!";
-            }
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             // do any graphical initialisations (e.g. You can assign your View variables)
             View view = inflater.Inflate(Resource.Layout.fragment_main, container, false);
+
+            currentDate = DateTime.Now.ToLongDateString().Replace(", ", " ");
+            string timeOfDay = DateTime.Now.ToString("tt");
+            if (timeOfDay == "am")
+            {
+                mainTitle = "Good Morning!";
+            }
+            else if (timeOfDay == "pm")
+            {
+                mainTitle = "Good Afternoon!";
+            }
 
             toolbar = view.FindViewById<Toolbar>(Resource.Id.toolbar);
             toolbar.Title = mainTitle;

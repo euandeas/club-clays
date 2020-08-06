@@ -10,8 +10,6 @@ namespace ClubClays
     [Activity(Label = "@string/app_name", Theme = "@style/SplashTheme", MainLauncher = true)]
     public class MainActivity : AppCompatActivity
     {
-        private MainFragment mainFragment = new MainFragment();
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
             SetTheme(Resource.Style.AppTheme);
@@ -23,7 +21,7 @@ namespace ClubClays
             if (savedInstanceState == null)
             {
                 FragmentTransaction fragmentTx = SupportFragmentManager.BeginTransaction();
-                fragmentTx.Replace(Resource.Id.container, mainFragment);
+                fragmentTx.Replace(Resource.Id.container, new MainFragment());
                 fragmentTx.Commit();
             }
         }
