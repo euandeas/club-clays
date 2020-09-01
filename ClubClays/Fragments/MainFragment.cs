@@ -2,11 +2,14 @@
 using Android.OS;
 using Android.Views;
 using Fragment = AndroidX.Fragment.App.Fragment;
+using FragmentTransaction = AndroidX.Fragment.App.FragmentTransaction;
 using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 using Android.Widget;
 using Google.Android.Material.AppBar;
 using System;
 using AndroidX.RecyclerView.Widget;
+using AndroidX.AppCompat.View.Menu;
+using AndroidX.AppCompat.App;
 
 namespace ClubClays.Fragments
 {
@@ -31,7 +34,7 @@ namespace ClubClays.Fragments
             View view = inflater.Inflate(Resource.Layout.fragment_main, container, false);
 
             currentDate = DateTime.Now.ToLongDateString().Replace(", ", " ");
-            string timeOfDay = DateTime.Now.ToString("tt");
+            string timeOfDay = DateTime.Now.ToString("tt").ToLower();
             if (timeOfDay == "am")
             {
                 mainTitle = "Good Morning!";
@@ -44,6 +47,8 @@ namespace ClubClays.Fragments
             toolbar = view.FindViewById<Toolbar>(Resource.Id.toolbar);
             toolbar.Title = mainTitle;
             titleTextView = ToolbarTitle();
+            ((AppCompatActivity)Activity).SetSupportActionBar(toolbar);
+            HasOptionsMenu = true;
 
             view.FindViewById<TextView>(Resource.Id.dateText).Text = currentDate;
             view.FindViewById<TextView>(Resource.Id.mainTitleText).Text = mainTitle;
@@ -75,6 +80,33 @@ namespace ClubClays.Fragments
             }
 
             return new View(Activity);
+        }
+
+        public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
+        {
+            inflater.Inflate(Resource.Menu.main_toolbar_menu, menu);
+
+            if (menu is MenuBuilder)
+            {
+                MenuBuilder m = (MenuBuilder)menu;
+                m.SetOptionalIconsVisible(true);
+            }
+
+            base.OnCreateOptionsMenu(menu, inflater);
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            if (item.ItemId == Resource.Id.menu_settings)
+            {
+                FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
+                fragmentTx.Replace(Resource.Id.container, new SettingsFragment());
+                fragmentTx.AddToBackStack(null);
+                fragmentTx.Commit();
+                Console.WriteLine("yo");
+            }
+
+            return base.OnOptionsItemSelected(item);
         }
     }
 

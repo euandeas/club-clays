@@ -31,5 +31,11 @@ namespace ClubClays
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+
+        public override bool OnSupportNavigateUp()
+        {
+            OnBackPressed();
+            return true;
+        }
     }
 }
