@@ -1,13 +1,47 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
   
-  <SwitchPreferenceCompat
-      app:key="notifications"
-      app:title="Enable message notifications"/>
+  <PreferenceCategory
+      app:key="datamanagement_category"
+      app:title="Manage Data">
 
-  <Preference
-      app:key="feedback"
-      app:title="Send feedback"
-      app:summary="Report technical issues or suggest new features"/>
+      <Preference
+        app:key="manage_shooters"
+        app:title="Manage Shooters"
+        app:summary="Report technical issues or suggest new features./n test"/>
+
+      <Preference
+        app:key="manage_shooters"
+        app:title="Manage Formats"
+        app:summary="Report technical issues or suggest new features./n test"/>
+
+  </PreferenceCategory>
+
+  <PreferenceCategory
+      app:key="appsettings_category"
+      app:title="App Settings">
+
+    <ListPreference
+        app:key="theme_preference"
+        app:title="App Theme"
+        app:entries="@array/theme_array"/>
+
+  </PreferenceCategory>
+
+  <PreferenceCategory
+      app:key="about_category"
+      app:title="About">
+
+      <Preference
+        app:key="getting_started"
+        app:title="Getting Started"
+        app:summary="How to use this app./n test"/>
+
+      <Preference
+        app:key="about"
+        app:title="About The Developer"
+        app:summary="Report technical issues or suggest new features./n test"/>
+
+  </PreferenceCategory>
 
 </PreferenceScreen>
