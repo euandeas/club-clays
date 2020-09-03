@@ -1,5 +1,4 @@
-﻿using Android.App;
-using Android.OS;
+﻿using Android.OS;
 using Android.Views;
 using Fragment = AndroidX.Fragment.App.Fragment;
 using FragmentTransaction = AndroidX.Fragment.App.FragmentTransaction;
@@ -10,6 +9,8 @@ using System;
 using AndroidX.RecyclerView.Widget;
 using AndroidX.AppCompat.View.Menu;
 using AndroidX.AppCompat.App;
+using Google.Android.Material.FloatingActionButton;
+using Google.Android.Material.BottomSheet;
 
 namespace ClubClays.Fragments
 {
@@ -58,7 +59,16 @@ namespace ClubClays.Fragments
 
             collapsingRelativeLayout = view.FindViewById<RelativeLayout>(Resource.Id.collapsingRelativeLayout);
 
+            FloatingActionButton fab = view.FindViewById<FloatingActionButton>(Resource.Id.fab);
+            fab.Click += Fab_Click;
+
             return view;
+        }
+
+        private void Fab_Click(object sender, EventArgs e)
+        {
+            NewShootBottomSheet bottomSheet = new NewShootBottomSheet();
+            bottomSheet.show(SupportFragmentManager);
         }
 
         private void AppBarLayout_OffsetChanged(object sender, AppBarLayout.OffsetChangedEventArgs e)
@@ -107,6 +117,17 @@ namespace ClubClays.Fragments
             }
 
             return base.OnOptionsItemSelected(item);
+        }
+
+
+    }
+
+    public class NewShootBottomSheet : BottomSheetDialogFragment
+    {
+        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+        {
+            View view = inflater.Inflate(Resource.Layout.newshoot_bottom_sheet, container, false);
+            return view;
         }
     }
 
