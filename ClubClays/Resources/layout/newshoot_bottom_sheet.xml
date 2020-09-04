@@ -26,6 +26,7 @@
 	    android:layout_height="wrap_content"
 	    cardview:cardElevation="0dp">
         <TextView
+            android:id="newformat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="15dp"
@@ -40,6 +41,7 @@
 	    android:layout_height="wrap_content"
 	    cardview:cardElevation="0dp">
         <TextView
+            android:id="trackformat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
@@ -54,6 +56,7 @@
 	    android:layout_height="wrap_content"
 	    cardview:cardElevation="0dp">
         <TextView
+            android:id="loadformat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
@@ -68,6 +71,7 @@
 	    android:layout_height="wrap_content"
 	    cardview:cardElevation="0dp">
 		<TextView
+            android:id="addprevious"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"

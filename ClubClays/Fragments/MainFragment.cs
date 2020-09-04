@@ -11,6 +11,7 @@ using AndroidX.AppCompat.View.Menu;
 using AndroidX.AppCompat.App;
 using Google.Android.Material.FloatingActionButton;
 using Google.Android.Material.BottomSheet;
+using AndroidX.CardView.Widget;
 
 namespace ClubClays.Fragments
 {
@@ -124,8 +125,28 @@ namespace ClubClays.Fragments
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             View view = inflater.Inflate(Resource.Layout.newshoot_bottom_sheet, container, false);
+
+            view.FindViewById<CardView>(Resource.Id.newformat).Click += (sender, e) => TransitionToStartShoot("newformat");
+            view.FindViewById<CardView>(Resource.Id.trackformat).Click += (sender, e) => TransitionToStartShoot("trackformat");
+            view.FindViewById<CardView>(Resource.Id.loadformat).Click += (sender, e) => TransitionToStartShoot("loadformat");
+            view.FindViewById<CardView>(Resource.Id.addprevious).Click += (sender, e) => TransitionToStartShoot("addprevious");
+
             return view;
         }
+
+        private void TransitionToStartShoot(string shootType)
+        {
+            //somefragment fragment = new somefragment();
+            Bundle arguments = new Bundle();
+            arguments.PutString("trackingtype", shootType);
+            fragment.SetArguments(arguments);
+
+            FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
+            fragmentTx.Replace(Resource.Id.container, fragment);
+            fragmentTx.AddToBackStack(null);
+            fragmentTx.Commit();
+        }
+
     }
 
     public class RecyclerAdapter : RecyclerView.Adapter
