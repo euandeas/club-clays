@@ -68,7 +68,7 @@ namespace ClubClays.Fragments
         private void Fab_Click(object sender, EventArgs e)
         {
             NewShootBottomSheet bottomSheet = new NewShootBottomSheet();
-            bottomSheet.show(SupportFragmentManager);
+            bottomSheet.Show(Activity.SupportFragmentManager, "NewShootBottomSheet");
         }
 
         private void AppBarLayout_OffsetChanged(object sender, AppBarLayout.OffsetChangedEventArgs e)
@@ -113,13 +113,10 @@ namespace ClubClays.Fragments
                 fragmentTx.Replace(Resource.Id.container, new SettingsFragment());
                 fragmentTx.AddToBackStack(null);
                 fragmentTx.Commit();
-                Console.WriteLine("yo");
             }
 
             return base.OnOptionsItemSelected(item);
         }
-
-
     }
 
     public class NewShootBottomSheet : BottomSheetDialogFragment
