@@ -24,7 +24,10 @@
     <ListPreference
         app:key="theme_preference"
         app:title="App Theme"
-        app:entries="@array/theme_array"/>
+        app:entries="@array/theme_array_entries"
+        app:entryValues="@array/theme_array_entryvalues"
+        app:defaultValue="@string/theme_def_value"
+        app:useSimpleSummaryProvider="true"/>
 
   </PreferenceCategory>
 

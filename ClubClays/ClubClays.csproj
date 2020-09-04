@@ -120,6 +120,9 @@
     <PackageReference Include="Xamarin.AndroidX.AppCompat">
       <Version>1.2.0.2</Version>
     </PackageReference>
+    <PackageReference Include="Xamarin.AndroidX.Arch.Core.Runtime">
+      <Version>2.1.0.4</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.CoordinatorLayout">
       <Version>1.1.0.3</Version>
     </PackageReference>

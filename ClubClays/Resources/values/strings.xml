@@ -1,9 +1,15 @@
 <resources>
     <string name="app_name">Club Clays</string>
     <string name="action_settings">Settings</string>
-    <string-array name="theme_array">
+    <string name="theme_def_value">light</string>
+    <string-array name="theme_array_entries">
       <item>Light</item>
       <item>Dark</item>
       <item>System Default</item>
+    </string-array>
+    <string-array name="theme_array_entryvalues">
+      <item>light</item>
+      <item>dark</item>
+      <item>sysdefault</item>
     </string-array>
 </resources>
