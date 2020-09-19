@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using SQLite;
+using SQLiteNetExtensions.Attributes;
 
-namespace ClubClays
+namespace ClubClays.DatabaseModels
 {
     //Main tables
     public class Shoots
@@ -17,34 +19,50 @@ namespace ClubClays
         public string DataCollectionType { get; set; }
         [MaxLength(250)]
         public string Notes { get; set; }
+
+        [OneToMany] 
+        public List<Stands> Stands { get; set; }
+
+        [OneToMany]
+        public List<OverallScores> OverallScores { get; set; }
     }
 
     public class Stands
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
+        [ForeignKey(typeof(Shoots))]
         public int ShootId { get; set; }
         public int StandNum { get; set; }
         public string StandType { get; set; }
         public string StandFormat { get; set; }
         public int NumPairs { get; set; }
+
+        [OneToMany]
+        public List<StandScores> StandScores { get; set; }
     }
 
     public class StandScores
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
+        [ForeignKey(typeof(Stands))]
         public int StandId { get; set; }
+        [ForeignKey(typeof(Shooters))]
         public int ShooterId { get; set; }
         public int StandTotal { get; set; }
         public int StandPercentageHit { get; set; }
         public int RunningTotal { get; set; }
+
+        [OneToMany]
+        public List<Shots> Shots { get; set; }
     }
 
     public class Shots
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
+        [ForeignKey(typeof(StandScores))]
         public int StandScoreId { get; set; }
         public int PairNumber { get; set; }
         public bool FirstShot { get; set; }
@@ -54,8 +72,10 @@ namespace ClubClays
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
+        [ForeignKey(typeof(Shoots))]
         public int ShootId { get; set; }
-        public int ShootersId { get; set; }
+        [ForeignKey(typeof(Shooters))]
+        public int ShooterId { get; set; }
         public int OverallTotal { get; set; }
         public int OverallPercentage { get; set; }
     }
@@ -64,7 +84,14 @@ namespace ClubClays
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public string Name { get; set; }
-        public char Class { get; set; }
+        [MaxLength(1)]
+        public string Class { get; set; }
+
+        [OneToMany]
+        public List<StandScores> StandScores { get; set; }
+
+        [OneToMany]
+        public List<OverallScores> OverallScores { get; set; }
     }
 
     //Shoot Format tables
@@ -76,11 +103,15 @@ namespace ClubClays
         public string EventType { get; set; }
         public string NumStands { get; set; }
         public string ClayAmount { get; set; }
+
+        [OneToMany]
+        public List<StandFormats> StandScores { get; set; }
     }
     public class StandFormats
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
+        [ForeignKey(typeof(ShootFormats))]
         public int ShootFormatId { get; set; }
         public string Symbol { get; set; }
         public int StandNum { get; set; }

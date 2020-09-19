@@ -139,12 +139,12 @@ namespace ClubClays.Fragments
             //somefragment fragment = new somefragment();
             Bundle arguments = new Bundle();
             arguments.PutString("trackingtype", shootType);
-            fragment.SetArguments(arguments);
+            //fragment.SetArguments(arguments);
 
-            FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
-            fragmentTx.Replace(Resource.Id.container, fragment);
-            fragmentTx.AddToBackStack(null);
-            fragmentTx.Commit();
+            //FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
+            //fragmentTx.Replace(Resource.Id.container, fragment);
+            //fragmentTx.AddToBackStack(null);
+            //fragmentTx.Commit();
         }
 
     }
