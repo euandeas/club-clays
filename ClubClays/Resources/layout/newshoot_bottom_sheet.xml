@@ -22,11 +22,11 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/newformat"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    cardview:cardElevation="0dp">
         <TextView
-            android:id="@+id/newformat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="15dp"
@@ -37,11 +37,11 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/trackformat"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    cardview:cardElevation="0dp">
         <TextView
-            android:id="@+id/trackformat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
@@ -52,11 +52,11 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/loadformat"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    cardview:cardElevation="0dp">
         <TextView
-            android:id="@+id/loadformat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
@@ -67,11 +67,11 @@
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/addprevious"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    cardview:cardElevation="0dp">
 		<TextView
-            android:id="@+id/addprevious"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="10dp"
