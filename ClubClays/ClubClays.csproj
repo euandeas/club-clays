@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseModels.cs" />
+    <Compile Include="Fragments\GeneralDataFragment.cs" />
     <Compile Include="Fragments\MainFragment.cs" />
     <Compile Include="Fragments\SettingsFragment.cs" />
     <Compile Include="MainActivity.cs" />

@@ -136,15 +136,15 @@ namespace ClubClays.Fragments
 
         private void TransitionToStartShoot(string shootType)
         {
-            //somefragment fragment = new somefragment();
             Bundle arguments = new Bundle();
             arguments.PutString("trackingtype", shootType);
-            //fragment.SetArguments(arguments);
 
-            //FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
-            //fragmentTx.Replace(Resource.Id.container, fragment);
-            //fragmentTx.AddToBackStack(null);
-            //fragmentTx.Commit();
+            FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
+            fragmentTx.Replace(Resource.Id.container, new GeneralDataFragment() { Arguments = arguments });
+            fragmentTx.AddToBackStack(null);
+            fragmentTx.Commit();
+
+            Dismiss();
         }
 
     }
