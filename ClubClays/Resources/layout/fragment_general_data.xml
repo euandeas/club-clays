@@ -5,4 +5,74 @@
     android:layout_height="match_parent">
 
     <!-- Event Type,Date, Location, starting stand, rotate shooters, add shooters. -->  
+    <TextView
+        android:text="Disciplines"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/disciplinesLabel"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"/>
+    <Spinner
+		android:id="@+id/disciplinesType"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+        android:gravity="center_horizontal"/>
+
+    <TextView
+        android:text="Date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/dateLabel"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"/>
+
+    <TextView
+        android:text="Location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/locationLabel"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"/>
+
+    <TextView
+        android:text="Shooters"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/shootersLabel"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"/>
+
+    <TextView
+        android:text="Options"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/optionsLabel"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"/>
+
+    <EditText
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/distanceLabel"
+        android:id="@+id/enteredDistance"
+        android:inputType="number"
+        android:textSize="22sp"
+        android:maxLength="8"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:paddingLeft="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="0.0dp"
+        android:textAlignment="center"/>
+    <Spinner
+		android:id="@+id/percentageType"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_toRightOf="@id/percentageTypeLabel"
+        android:gravity="center_horizontal"/>
 </LinearLayout>
