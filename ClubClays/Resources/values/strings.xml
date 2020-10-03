@@ -12,4 +12,10 @@
       <item>dark</item>
       <item>sysdefault</item>
     </string-array>
+  <string-array name="tracking_types">
+    <item>New Format</item>
+    <item>Track Format</item>
+    <item>Load Format</item>
+    <item>Add Previous</item>
+  </string-array>
 </resources>

@@ -419,6 +419,9 @@ namespace ClubClays
 			// aapt resource value: 0x7F030001
 			public const int theme_array_entryvalues = 2130903041;
 			
+			// aapt resource value: 0x7F030002
+			public const int tracking_types = 2130903042;
+			
 			static Array()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
