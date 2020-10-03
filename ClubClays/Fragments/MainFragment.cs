@@ -10,8 +10,6 @@ using AndroidX.RecyclerView.Widget;
 using AndroidX.AppCompat.View.Menu;
 using AndroidX.AppCompat.App;
 using Google.Android.Material.FloatingActionButton;
-using Google.Android.Material.BottomSheet;
-using AndroidX.CardView.Widget;
 
 namespace ClubClays.Fragments
 {
@@ -68,8 +66,10 @@ namespace ClubClays.Fragments
 
         private void Fab_Click(object sender, EventArgs e)
         {
-            NewShootBottomSheet bottomSheet = new NewShootBottomSheet();
-            bottomSheet.Show(Activity.SupportFragmentManager, "NewShootBottomSheet");
+            FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
+            fragmentTx.Replace(Resource.Id.container, new GeneralDataFragment());
+            fragmentTx.AddToBackStack(null);
+            fragmentTx.Commit();
         }
 
         private void AppBarLayout_OffsetChanged(object sender, AppBarLayout.OffsetChangedEventArgs e)
@@ -118,32 +118,6 @@ namespace ClubClays.Fragments
 
             return base.OnOptionsItemSelected(item);
         }
-    }
-
-    public class NewShootBottomSheet : BottomSheetDialogFragment
-    {
-        public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-        {
-            View view = inflater.Inflate(Resource.Layout.newshoot_bottom_sheet, container, false);
-
-            view.FindViewById<CardView>(Resource.Id.newformat).Click += (sender, e) => TransitionToStartShoot("newformat");
-            view.FindViewById<CardView>(Resource.Id.trackformat).Click += (sender, e) => TransitionToStartShoot("trackformat");
-            view.FindViewById<CardView>(Resource.Id.loadformat).Click += (sender, e) => TransitionToStartShoot("loadformat");
-            view.FindViewById<CardView>(Resource.Id.addprevious).Click += (sender, e) => TransitionToStartShoot("addprevious");
-
-            return view;
-        }
-
-        private void TransitionToStartShoot(string shootType)
-        {
-            FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
-            fragmentTx.Replace(Resource.Id.container, new GeneralDataFragment());
-            fragmentTx.AddToBackStack(null);
-            fragmentTx.Commit();
-
-            Dismiss();
-        }
-
     }
 
     public class RecyclerAdapter : RecyclerView.Adapter

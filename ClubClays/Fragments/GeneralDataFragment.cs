@@ -1,17 +1,18 @@
 ﻿using Android.App;
+using Android.Icu.Util;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using AndroidX.Fragment.App;
+using Java.Util;
 using System;
-using DialogFragment = AndroidX.Fragment.App.DialogFragment;
 using Fragment = AndroidX.Fragment.App.Fragment;
 
 namespace ClubClays.Fragments
 {
     public class GeneralDataFragment : Fragment, DatePickerDialog.IOnDateSetListener
     {
-        private Spinner dateSpinner;
+        private TextView datePickerView;
+        DateTime date;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -24,30 +25,27 @@ namespace ClubClays.Fragments
             // Use this to return your custom view for this Fragment
             View view = inflater.Inflate(Resource.Layout.fragment_general_data, container, false);
 
-            Spinner dateSpinner = view.FindViewById<Spinner>(Resource.Id.datePicker);
-            dateSpinner.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(dateSpinner_ItemSelected); ;
+            date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+            datePickerView = view.FindViewById<TextView>(Resource.Id.datePicker);
+            datePickerView.Text = $"{date.ToString("MMMM")} {date.ToString("dd")}, {date.ToString("yyyy")}";
+            datePickerView.Click += DatePickerView_Click;
 
             return view;
         }
 
-        private void dateSpinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        private void DatePickerView_Click(object sender, EventArgs e)
         {
-            DialogFragment datePicker = new DatePickerFragment();
-            datePicker.Show(Activity.SupportFragmentManager, "date picker");
+            DatePickerDialog datePicker = new DatePickerDialog(Activity, this, date.Year, date.Month - 1, date.Day);
+            TimeSpan diff = DateTime.Now - new DateTime(1970, 1, 1);
+            datePicker.DatePicker.MaxDate = (long)diff.TotalMilliseconds;
+            datePicker.Show();
         }
 
         public void OnDateSet(DatePicker view, int year, int month, int dayOfMonth)
         {
-            dateSpinner.TooltipText = "Test";
+            date =  new DateTime(year, month + 1, dayOfMonth);
+            datePickerView.Text = $"{date.ToString("MMMM")} {date.ToString("dd")}, {year}";
         }
 
-    }
-
-    public class DatePickerFragment : DialogFragment
-    {
-        public override Dialog OnCreateDialog(Bundle savedInstanceState)
-        {
-            return new DatePickerDialog(Activity, (DatePickerDialog.IOnDateSetListener)this, DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-        }
     }
 }

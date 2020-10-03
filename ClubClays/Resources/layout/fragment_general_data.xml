@@ -1,20 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:cardview="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"   
-            app:titleTextAppearance="@style/Toolbar.TitleText"
-            android:theme="@style/ThemeOverlay.AppCompat.Light"
-            app:title="New Shoot"/>
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"   
+        app:titleTextAppearance="@style/Toolbar.TitleText"
+        android:theme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="New Shoot"/>
 
     <!-- Event Type,Date, Location, rotate shooters, add shooters. -->  
+    <TextView
+        android:text="Tracking Type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/trackingTypeLabel"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"/>
+    <TextView
+        android:text="test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="?android:attr/spinnerStyle"
+        android:id="@+id/trackingtypePicker"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/darker_gray"/>
+
     <TextView
         android:text="Disciplines"
         android:layout_width="wrap_content"
@@ -23,11 +47,20 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingBottom="5dp"/>
-    <Spinner
-		android:id="@+id/disciplinesType"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-        android:gravity="center_horizontal"/>
+    <TextView
+        android:text="test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="?android:attr/spinnerStyle"
+        android:id="@+id/disciplinesPicker"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/darker_gray"/>
 
     <TextView
         android:text="Date"
@@ -37,11 +70,20 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingBottom="5dp"/>
-    <Spinner
-		android:id="@+id/datePicker"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-        android:gravity="center_horizontal"/>
+    <TextView
+        android:text="test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="?android:attr/spinnerStyle"
+        android:id="@+id/datePicker"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/darker_gray"/>
 
     <TextView
         android:text="Location"
@@ -51,11 +93,20 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingBottom="5dp"/>
-    <Spinner
-		android:id="@+id/locationPicker"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-        android:gravity="center_horizontal"/>
+    <TextView
+        android:text="test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="?android:attr/spinnerStyle"
+        android:id="@+id/locationPicker"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/darker_gray"/>
 
     <TextView
         android:text="Shooters"
@@ -65,11 +116,20 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingBottom="5dp"/>
-    <Spinner
-		android:id="@+id/shootersPicker"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-        android:gravity="center_horizontal"/>
+    <TextView
+        android:text="test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="?android:attr/spinnerStyle"
+        android:id="@+id/shootersPicker"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/darker_gray"/>
 
     <TextView
         android:text="Options"
