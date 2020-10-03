@@ -135,10 +135,9 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingBottom="5dp"/>
-    <CheckBox android:id="@+id/checkbox_meat"
+    <CheckBox android:id="@+id/rotateShootersCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Rotate Shooters"
-        android:onClick="onCheckboxClicked"/>
+        android:text="Rotate Shooters"/>
 
 </LinearLayout>
