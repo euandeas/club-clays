@@ -14,6 +14,7 @@ namespace ClubClays.Fragments
         private AlertDialog trackingTypeDialog;
         private TextView trackingTypePickerView;
         private string trackingType;
+        private string discipline;
         private DateTime date;
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -29,9 +30,14 @@ namespace ClubClays.Fragments
 
             trackingTypeDialog = TrackingTypeDialogBuilder();
             trackingTypeDialog.Show();
-
             trackingTypePickerView = view.FindViewById<TextView>(Resource.Id.trackingtypePicker);
             trackingTypePickerView.Click += TrackingTypePickerView_Click;
+
+            Spinner spinner = view.FindViewById<Spinner>(Resource.Id.disciplinesPicker);
+            spinner.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(spinner_ItemSelected);
+            var adapter = ArrayAdapter.CreateFromResource(view.Context, Resource.Array.disciplines, Android.Resource.Layout.SimpleSpinnerItem);
+            adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            spinner.Adapter = adapter;
 
             date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             datePickerView = view.FindViewById<TextView>(Resource.Id.datePicker);
@@ -39,6 +45,12 @@ namespace ClubClays.Fragments
             datePickerView.Click += DatePickerView_Click;
 
             return view;
+        }
+
+        private void spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            Spinner spinner = (Spinner)sender;
+            discipline = spinner.GetItemAtPosition(e.Position).ToString();
         }
 
         private void TrackingTypePickerView_Click(object sender, EventArgs e)

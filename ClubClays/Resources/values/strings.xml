@@ -18,4 +18,7 @@
     <item>Load Format</item>
     <item>Add Previous</item>
   </string-array>
+  <string-array name="disciplines">
+    <item>English Sporting</item>
+  </string-array>
 </resources>

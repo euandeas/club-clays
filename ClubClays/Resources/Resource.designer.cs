@@ -414,13 +414,16 @@ namespace ClubClays
 		{
 			
 			// aapt resource value: 0x7F030000
-			public const int theme_array_entries = 2130903040;
+			public const int disciplines = 2130903040;
 			
 			// aapt resource value: 0x7F030001
-			public const int theme_array_entryvalues = 2130903041;
+			public const int theme_array_entries = 2130903041;
 			
 			// aapt resource value: 0x7F030002
-			public const int tracking_types = 2130903042;
+			public const int theme_array_entryvalues = 2130903042;
+			
+			// aapt resource value: 0x7F030003
+			public const int tracking_types = 2130903043;
 			
 			static Array()
 			{

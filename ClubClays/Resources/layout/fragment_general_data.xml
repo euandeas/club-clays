@@ -47,15 +47,11 @@
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         android:paddingBottom="5dp"/>
-    <TextView
-        android:text="test"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="?android:attr/spinnerStyle"
-        android:id="@+id/disciplinesPicker"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="5dp"/>
+     <Spinner
+		android:id="@+id/disciplinesPicker"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+        android:gravity="center_horizontal"/>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
