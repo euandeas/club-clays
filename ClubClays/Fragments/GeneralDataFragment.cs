@@ -1,10 +1,12 @@
-﻿using Android.App;
-using Android.Content;
+﻿using Android.Content;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
 using System;
 using Fragment = AndroidX.Fragment.App.Fragment;
+using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
+using DatePickerDialog = Android.App.DatePickerDialog;
+using AndroidX.AppCompat.App;
 
 namespace ClubClays.Fragments
 {
@@ -28,6 +30,12 @@ namespace ClubClays.Fragments
             // Use this to return your custom view for this Fragment
             View view = inflater.Inflate(Resource.Layout.fragment_general_data, container, false);
 
+            Toolbar toolbar = view.FindViewById<Toolbar>(Resource.Id.toolbar);
+            ((AppCompatActivity)Activity).SetSupportActionBar(toolbar);
+            ActionBar supportBar = ((AppCompatActivity)Activity).SupportActionBar;
+            supportBar.SetDisplayHomeAsUpEnabled(true);
+            supportBar.SetDisplayShowHomeEnabled(true);
+
             trackingTypeDialog = TrackingTypeDialogBuilder();
             trackingTypeDialog.Show();
             trackingTypePickerView = view.FindViewById<TextView>(Resource.Id.trackingtypePicker);
@@ -48,9 +56,8 @@ namespace ClubClays.Fragments
         }
 
         private void spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
-        {
-            Spinner spinner = (Spinner)sender;
-            discipline = spinner.GetItemAtPosition(e.Position).ToString();
+        {          
+            discipline = (sender as Spinner).GetItemAtPosition(e.Position).ToString();
         }
 
         private void TrackingTypePickerView_Click(object sender, EventArgs e)

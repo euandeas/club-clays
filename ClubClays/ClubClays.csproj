@@ -83,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\add.xml" />
+    <AndroidResource Include="Resources\drawable\arrow_right.xml" />
     <AndroidResource Include="Resources\layout\activity_main.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
