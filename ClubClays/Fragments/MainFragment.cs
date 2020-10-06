@@ -120,7 +120,7 @@ namespace ClubClays.Fragments
         }
     }
 
-    public class RecyclerAdapter : RecyclerView.Adapter
+    public class PreviousShootsRecyclerAdapter : RecyclerView.Adapter
     {
         public override int ItemCount => throw new NotImplementedException();
 
