@@ -4,6 +4,9 @@ using AndroidX.RecyclerView.Widget;
 using ClubClays.DatabaseModels;
 using System.Collections.Generic;
 using Fragment = AndroidX.Fragment.App.Fragment;
+using SQLite;
+using System.IO;
+using System;
 
 namespace ClubClays.Fragments
 {
@@ -12,6 +15,8 @@ namespace ClubClays.Fragments
         // Required data types:
         private List<Shooters> selectedShooters;
         private List<Shooters> allShooters;
+
+        SQLiteConnection db;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -25,7 +30,12 @@ namespace ClubClays.Fragments
             // Use this to return your custom view for this Fragment
             View view = inflater.Inflate(Resource.Layout.fragment_shooters, container, false);
 
+            string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
+            db = new SQLiteConnection(dbPath);
 
+            var dbQuery = db.Table<Shooters>();
+            allShooters = dbQuery.ToList();
+            Console.WriteLine(allShooters);
 
             return view;
         }
