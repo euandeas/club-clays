@@ -6,15 +6,20 @@ using System.Collections.Generic;
 using Fragment = AndroidX.Fragment.App.Fragment;
 using SQLite;
 using System.IO;
-using System;
+using Android.Widget;
 
 namespace ClubClays.Fragments
 {
     public class ShootersFragment : Fragment
     {
         // Required data types:
-        private List<Shooters> selectedShooters;
-        private List<Shooters> allShooters;
+        public List<Shooters> selectedShooters;
+        public List<Shooters> allShooters;
+
+        public RecyclerView allRecyclerView;
+        public RecyclerView selectedRecyclerView;
+        private RecyclerView.LayoutManager allLayoutManager;
+        private RecyclerView.LayoutManager selectedLayoutManager;
 
         SQLiteConnection db;
 
@@ -33,22 +38,49 @@ namespace ClubClays.Fragments
             string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
             db = new SQLiteConnection(dbPath);
 
-            var dbQuery = db.Table<Shooters>();
-            allShooters = dbQuery.ToList();
-            Console.WriteLine(allShooters);
+            allShooters = db.Table<Shooters>().ToList();
+            selectedShooters = new List<Shooters>();
+
+            allLayoutManager = new LinearLayoutManager(Activity);
+            selectedLayoutManager = new LinearLayoutManager(Activity);
+
+            allRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.allRecyclerView);
+            allRecyclerView.SetLayoutManager(allLayoutManager);
+            allRecyclerView.SetAdapter(new ShootersRecyclerAdapter(this, allShooters, "all"));
+
+            selectedRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.selectedRecyclerView);
+            selectedRecyclerView.SetLayoutManager(selectedLayoutManager);
+            selectedRecyclerView.SetAdapter(new ShootersRecyclerAdapter(this, selectedShooters, "selected"));
 
             return view;
+        }
+
+        public void UpdateRecyclerViews(string type, int position)
+        {
+            if (type == "all")
+            {
+                selectedShooters.Add(allShooters[position]);
+                allShooters.RemoveAt(position);
+            }
+            else if (type == "selected")
+            {
+                allShooters.Add(selectedShooters[position]);
+                selectedShooters.RemoveAt(position);
+            }
         }
     }
 
     public class ShootersRecyclerAdapter : RecyclerView.Adapter
     {
         private List<Shooters> shooters;
+        private ShootersFragment parentFragment;
+        private string type;
 
         // Provide a reference to the views for each data item
         public class MyView : RecyclerView.ViewHolder
         {
             public View mMainView { get; set; }
+            public TextView mShooterName { get; set; }
             public MyView(View view) : base(view)
             {
                 mMainView = view;
@@ -64,19 +96,46 @@ namespace ClubClays.Fragments
         // Replace the contents of a view (invoked by layout manager)
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
-            throw new NotImplementedException();
+            MyView myHolder = holder as MyView;
+            myHolder.mShooterName.Text = shooters[position].Name;
         }
 
         // Create new views (invoked by layout manager)
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
-            throw new NotImplementedException();
+            View shooterCardView = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.shooters_item, parent, false);
+            TextView shootersName = shooterCardView.FindViewById<TextView>(Resource.Id.shootersName);
+
+            MyView view = new MyView(shooterCardView) { mShooterName = shootersName };
+
+            shooterCardView.Click += delegate
+            {
+                if (type == "all")
+                {
+                    parentFragment.selectedShooters.Add(parentFragment.allShooters[view.AdapterPosition]);
+                    parentFragment.allShooters.RemoveAt(view.AdapterPosition);
+                    NotifyDataSetChanged();
+                    parentFragment.selectedRecyclerView.GetAdapter().NotifyDataSetChanged();
+                }
+                else if (type == "selected")
+                {
+                    parentFragment.allShooters.Add(parentFragment.selectedShooters[view.AdapterPosition]);
+                    parentFragment.selectedShooters.RemoveAt(view.AdapterPosition);
+                    NotifyDataSetChanged();
+                    parentFragment.allRecyclerView.GetAdapter().NotifyDataSetChanged();
+                }
+            };
+
+            return view;
         }
 
         // Provide a suitable constructor (depends on the kind of dataset)
-        public ShootersRecyclerAdapter(List<Shooters> shootersList)
+        public ShootersRecyclerAdapter(ShootersFragment initialisingFragment, List<Shooters> shootersList, string recylerType)
         {
             shooters = shootersList;
+            parentFragment = initialisingFragment;
+            type = recylerType;
+
         }
     }
 }

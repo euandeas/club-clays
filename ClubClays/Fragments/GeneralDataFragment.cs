@@ -4,6 +4,7 @@ using Android.Views;
 using Android.Widget;
 using System;
 using Fragment = AndroidX.Fragment.App.Fragment;
+using FragmentTransaction = AndroidX.Fragment.App.FragmentTransaction;
 using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 using DatePickerDialog = Android.App.DatePickerDialog;
 using AndroidX.AppCompat.App;
@@ -29,7 +30,7 @@ namespace ClubClays.Fragments
         {
             // Use this to return your custom view for this Fragment
             View view = inflater.Inflate(Resource.Layout.fragment_general_data, container, false);
-
+            
             Toolbar toolbar = view.FindViewById<Toolbar>(Resource.Id.toolbar);
             ((AppCompatActivity)Activity).SetSupportActionBar(toolbar);
             ActionBar supportBar = ((AppCompatActivity)Activity).SupportActionBar;
@@ -49,10 +50,29 @@ namespace ClubClays.Fragments
 
             date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             datePickerView = view.FindViewById<TextView>(Resource.Id.datePicker);
-            datePickerView.Text = $"{date.ToString("MMMM")} {date.ToString("dd")}, {date.ToString("yyyy")}";
+            datePickerView.Text = $"{date:MMMM} {date:dd}, {date:yyyy}";
             datePickerView.Click += DatePickerView_Click;
 
+            var shootersSelection = view.FindViewById<TextView>(Resource.Id.shootersPicker);
+            shootersSelection.Text = "0 Shooter(s) Selected";
+            shootersSelection.Click += ShootersSelection_Click;
+
             return view;
+        }
+
+        private void ShootersSelection_Click(object sender, EventArgs e)
+        {
+            FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
+            ShootersFragment shootersFragment = new ShootersFragment();
+            shootersFragment.SetTargetFragment(this, 1);
+            fragmentTx.Replace(Resource.Id.container, shootersFragment);
+            fragmentTx.AddToBackStack(null);
+            fragmentTx.Commit();
+        }
+
+        public override void OnActivityResult(int requestCode, int resultCode, Intent data)
+        {
+            base.OnActivityResult(requestCode, resultCode, data);
         }
 
         private void spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
@@ -105,7 +125,7 @@ namespace ClubClays.Fragments
         public void OnDateSet(DatePicker view, int year, int month, int dayOfMonth)
         {
             date =  new DateTime(year, month + 1, dayOfMonth);
-            datePickerView.Text = $"{date.ToString("MMMM")} {date.ToString("dd")}, {year}";
+            datePickerView.Text = $"{date:MMMM} {date:dd}, {year}";
         }
 
     }
