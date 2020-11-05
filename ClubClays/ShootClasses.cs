@@ -1,9 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using AndroidX.Lifecycle;
+using ClubClays.DatabaseModels;
 
 namespace ClubClays
 {
+    class GeneralData : ViewModel
+    {
+        public List<Shooters> selectedShooters;
+        public List<Shooters> allShooters;
+
+        private string trackingType;
+        private string discipline;
+        private DateTime date;
+
+    }
+
     class Shoot : ViewModel
     {
         protected DateTime date;
