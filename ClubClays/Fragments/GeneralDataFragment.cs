@@ -65,7 +65,7 @@ namespace ClubClays.Fragments
             FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
             ShootersFragment shootersFragment = new ShootersFragment();
             shootersFragment.SetTargetFragment(this, 1);
-            fragmentTx.Replace(Resource.Id.container, shootersFragment);
+            fragmentTx.Add(Resource.Id.container, shootersFragment);
             fragmentTx.AddToBackStack(null);
             fragmentTx.Commit();
         }
