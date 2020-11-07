@@ -11,6 +11,8 @@ using System.Linq;
 using AndroidX.Lifecycle;
 using Android.Content;
 using AndroidX.Activity;
+using AndroidX.AppCompat.App;
+using System;
 
 namespace ClubClays.Fragments
 {
@@ -60,7 +62,19 @@ namespace ClubClays.Fragments
             selectedRecyclerView.SetLayoutManager(selectedLayoutManager);
             selectedRecyclerView.SetAdapter(new ShootersRecyclerAdapter(this, selectedShootersModel.selectedShooters, "selected"));
 
+            OnBackPressedDispatcher bp = new OnBackPressedDispatcher();
+            bp.AddCallback(this, new BackPress());
+
             return view;
+        }
+
+        public class BackPress : OnBackPressedCallback
+        {
+            public BackPress() : base(true) {}
+            public override void HandleOnBackPressed()
+            {
+                Console.WriteLine("Test");
+            }
         }
 
         public void UpdateRecyclerViews(string type, int position)
