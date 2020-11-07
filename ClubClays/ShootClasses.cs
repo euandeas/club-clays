@@ -1,9 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using AndroidX.Lifecycle;
+using ClubClays.DatabaseModels;
 
 namespace ClubClays
 {
+    public class SelectedShooters : ViewModel 
+    {
+        public List<Shooters> selectedShooters;
+        public List<Shooters> allShooters;
+    }
+
     class Shoot : ViewModel
     {
         protected DateTime date;

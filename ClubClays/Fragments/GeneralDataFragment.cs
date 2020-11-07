@@ -8,6 +8,11 @@ using FragmentTransaction = AndroidX.Fragment.App.FragmentTransaction;
 using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 using DatePickerDialog = Android.App.DatePickerDialog;
 using AndroidX.AppCompat.App;
+using AndroidX.Lifecycle;
+using SQLite;
+using System.IO;
+using ClubClays.DatabaseModels;
+using System.Collections.Generic;
 
 namespace ClubClays.Fragments
 {
@@ -19,6 +24,8 @@ namespace ClubClays.Fragments
         private string trackingType;
         private string discipline;
         private DateTime date;
+
+        private int numOfShootersSelected = 0;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -54,8 +61,14 @@ namespace ClubClays.Fragments
             datePickerView.Click += DatePickerView_Click;
 
             var shootersSelection = view.FindViewById<TextView>(Resource.Id.shootersPicker);
-            shootersSelection.Text = "0 Shooter(s) Selected";
+            shootersSelection.Text = $"{numOfShootersSelected} Shooter(s) Selected";
             shootersSelection.Click += ShootersSelection_Click;
+
+            string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
+            SQLiteConnection db = new SQLiteConnection(dbPath);
+            SelectedShooters selectedShootersModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(SelectedShooters))) as SelectedShooters;
+            selectedShootersModel.allShooters = db.Table<Shooters>().ToList();
+            selectedShootersModel.selectedShooters = new List<Shooters>();
 
             return view;
         }
@@ -65,7 +78,7 @@ namespace ClubClays.Fragments
             FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
             ShootersFragment shootersFragment = new ShootersFragment();
             shootersFragment.SetTargetFragment(this, 1);
-            fragmentTx.Replace(Resource.Id.container, shootersFragment);
+            fragmentTx.Add(Resource.Id.container, shootersFragment);
             fragmentTx.AddToBackStack(null);
             fragmentTx.Commit();
         }

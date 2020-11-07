@@ -7,21 +7,27 @@ using Fragment = AndroidX.Fragment.App.Fragment;
 using SQLite;
 using System.IO;
 using Android.Widget;
+using System.Linq;
+using AndroidX.Lifecycle;
+using Android.Content;
+using AndroidX.Activity;
 
 namespace ClubClays.Fragments
 {
     public class ShootersFragment : Fragment
     {
         // Required data types:
-        public List<Shooters> selectedShooters;
-        public List<Shooters> allShooters;
+        //public List<Shooters> selectedShooters;
+        //public List<Shooters> allShooters;
+
+        public SelectedShooters selectedShootersModel;
 
         public RecyclerView allRecyclerView;
         public RecyclerView selectedRecyclerView;
         private RecyclerView.LayoutManager allLayoutManager;
         private RecyclerView.LayoutManager selectedLayoutManager;
 
-        SQLiteConnection db;
+        //SQLiteConnection db;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -35,22 +41,24 @@ namespace ClubClays.Fragments
             // Use this to return your custom view for this Fragment
             View view = inflater.Inflate(Resource.Layout.fragment_shooters, container, false);
 
-            string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
-            db = new SQLiteConnection(dbPath);
+            //string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
+            //db = new SQLiteConnection(dbPath);
 
-            allShooters = db.Table<Shooters>().ToList();
-            selectedShooters = new List<Shooters>();
+            //allShooters = db.Table<Shooters>().ToList();
+            //selectedShooters = new List<Shooters>();
+
+            selectedShootersModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(SelectedShooters))) as SelectedShooters;
 
             allLayoutManager = new LinearLayoutManager(Activity);
             selectedLayoutManager = new LinearLayoutManager(Activity);
 
             allRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.allRecyclerView);
             allRecyclerView.SetLayoutManager(allLayoutManager);
-            allRecyclerView.SetAdapter(new ShootersRecyclerAdapter(this, allShooters, "all"));
+            allRecyclerView.SetAdapter(new ShootersRecyclerAdapter(this, selectedShootersModel.allShooters, "all"));
 
             selectedRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.selectedRecyclerView);
             selectedRecyclerView.SetLayoutManager(selectedLayoutManager);
-            selectedRecyclerView.SetAdapter(new ShootersRecyclerAdapter(this, selectedShooters, "selected"));
+            selectedRecyclerView.SetAdapter(new ShootersRecyclerAdapter(this, selectedShootersModel.selectedShooters, "selected"));
 
             return view;
         }
@@ -59,15 +67,15 @@ namespace ClubClays.Fragments
         {
             if (type == "all")
             {
-                selectedShooters.Add(allShooters[position]);
-                allShooters.RemoveAt(position);
+                selectedShootersModel.selectedShooters.Add(selectedShootersModel.allShooters[position]);
+                selectedShootersModel.allShooters.RemoveAt(position);
             }
             else if (type == "selected")
             {
-                allShooters.Add(selectedShooters[position]);
-                selectedShooters.RemoveAt(position);
+                selectedShootersModel.allShooters.Add(selectedShootersModel.selectedShooters[position]);
+                selectedShootersModel.selectedShooters.RemoveAt(position);
             }
-        }
+        }      
     }
 
     public class ShootersRecyclerAdapter : RecyclerView.Adapter
@@ -112,15 +120,15 @@ namespace ClubClays.Fragments
             {
                 if (type == "all")
                 {
-                    parentFragment.selectedShooters.Add(parentFragment.allShooters[view.AdapterPosition]);
-                    parentFragment.allShooters.RemoveAt(view.AdapterPosition);
+                    parentFragment.selectedShootersModel.selectedShooters.Add(parentFragment.selectedShootersModel.allShooters[view.AdapterPosition]);
+                    parentFragment.selectedShootersModel.allShooters.RemoveAt(view.AdapterPosition);
                     NotifyDataSetChanged();
                     parentFragment.selectedRecyclerView.GetAdapter().NotifyDataSetChanged();
                 }
                 else if (type == "selected")
                 {
-                    parentFragment.allShooters.Add(parentFragment.selectedShooters[view.AdapterPosition]);
-                    parentFragment.selectedShooters.RemoveAt(view.AdapterPosition);
+                    parentFragment.selectedShootersModel.allShooters.Add(parentFragment.selectedShootersModel.selectedShooters[view.AdapterPosition]);
+                    parentFragment.selectedShootersModel.selectedShooters.RemoveAt(view.AdapterPosition);
                     NotifyDataSetChanged();
                     parentFragment.allRecyclerView.GetAdapter().NotifyDataSetChanged();
                 }
@@ -135,7 +143,6 @@ namespace ClubClays.Fragments
             shooters = shootersList;
             parentFragment = initialisingFragment;
             type = recylerType;
-
         }
     }
 }
