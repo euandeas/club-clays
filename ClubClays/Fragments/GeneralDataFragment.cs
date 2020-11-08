@@ -25,7 +25,8 @@ namespace ClubClays.Fragments
         private string discipline;
         private DateTime date;
 
-        private int numOfShootersSelected = 0;
+        private TextView shootersSelection;
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -60,8 +61,8 @@ namespace ClubClays.Fragments
             datePickerView.Text = $"{date:MMMM} {date:dd}, {date:yyyy}";
             datePickerView.Click += DatePickerView_Click;
 
-            var shootersSelection = view.FindViewById<TextView>(Resource.Id.shootersPicker);
-            shootersSelection.Text = $"{numOfShootersSelected} Shooter(s) Selected";
+            shootersSelection = view.FindViewById<TextView>(Resource.Id.shootersPicker);
+            shootersSelection.Text = $"2 Shooter(s) Selected";
             shootersSelection.Click += ShootersSelection_Click;
 
             string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
@@ -85,7 +86,7 @@ namespace ClubClays.Fragments
 
         public override void OnActivityResult(int requestCode, int resultCode, Intent data)
         {
-            base.OnActivityResult(requestCode, resultCode, data);
+            shootersSelection.Text = $"{data.GetIntExtra("numSelected", 0)} Shooter(s) Selected";
         }
 
         private void spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)

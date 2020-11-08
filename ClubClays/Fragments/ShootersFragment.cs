@@ -50,6 +50,8 @@ namespace ClubClays.Fragments
             //selectedShooters = new List<Shooters>();
 
             selectedShootersModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(SelectedShooters))) as SelectedShooters;
+            selectedShootersModel.selectedShooters = new List<Shooters>();
+            selectedShootersModel.allShooters = new List<Shooters>();
 
             allLayoutManager = new LinearLayoutManager(Activity);
             selectedLayoutManager = new LinearLayoutManager(Activity);
@@ -62,19 +64,20 @@ namespace ClubClays.Fragments
             selectedRecyclerView.SetLayoutManager(selectedLayoutManager);
             selectedRecyclerView.SetAdapter(new ShootersRecyclerAdapter(this, selectedShootersModel.selectedShooters, "selected"));
 
-            OnBackPressedDispatcher bp = new OnBackPressedDispatcher();
-            bp.AddCallback(this, new BackPress());
-
             return view;
         }
 
-        public class BackPress : OnBackPressedCallback
+        public override void OnStop()
         {
-            public BackPress() : base(true) {}
-            public override void HandleOnBackPressed()
-            {
-                Console.WriteLine("Test");
-            }
+            SendResult();
+            base.OnStop();
+        }
+
+        public void SendResult()
+        {
+            Intent intent = new Intent();
+            intent.PutExtra("numSelected", selectedShootersModel.selectedShooters.Count);
+            TargetFragment.OnActivityResult(TargetRequestCode, 1, intent);
         }
 
         public void UpdateRecyclerViews(string type, int position)

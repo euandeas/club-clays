@@ -8,7 +8,7 @@ namespace ClubClays
     public class SelectedShooters : ViewModel 
     {
         public List<Shooters> selectedShooters;
-        public List<Shooters> allShooters;
+        public List<Shooters> allShooters; 
     }
 
     class Shoot : ViewModel
