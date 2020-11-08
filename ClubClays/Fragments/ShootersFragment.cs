@@ -43,12 +43,6 @@ namespace ClubClays.Fragments
             // Use this to return your custom view for this Fragment
             View view = inflater.Inflate(Resource.Layout.fragment_shooters, container, false);
 
-            //string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
-            //db = new SQLiteConnection(dbPath);
-
-            //allShooters = db.Table<Shooters>().ToList();
-            //selectedShooters = new List<Shooters>();
-
             selectedShootersModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(SelectedShooters))) as SelectedShooters;
             selectedShootersModel.selectedShooters = new List<Shooters>();
             selectedShootersModel.allShooters = new List<Shooters>();
