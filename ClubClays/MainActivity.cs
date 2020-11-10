@@ -49,7 +49,7 @@ namespace ClubClays
 
         public override bool OnSupportNavigateUp()
         {
-            OnBackPressed();
+            base.OnBackPressed();
             return true;
         }
     }

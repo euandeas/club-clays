@@ -4,24 +4,15 @@ using AndroidX.RecyclerView.Widget;
 using ClubClays.DatabaseModels;
 using System.Collections.Generic;
 using Fragment = AndroidX.Fragment.App.Fragment;
-using SQLite;
-using System.IO;
 using Android.Widget;
-using System.Linq;
 using AndroidX.Lifecycle;
 using Android.Content;
 using AndroidX.Activity;
-using AndroidX.AppCompat.App;
-using System;
 
 namespace ClubClays.Fragments
 {
     public class ShootersFragment : Fragment
     {
-        // Required data types:
-        //public List<Shooters> selectedShooters;
-        //public List<Shooters> allShooters;
-
         public SelectedShooters selectedShootersModel;
 
         public RecyclerView allRecyclerView;
@@ -58,13 +49,24 @@ namespace ClubClays.Fragments
             selectedRecyclerView.SetLayoutManager(selectedLayoutManager);
             selectedRecyclerView.SetAdapter(new ShootersRecyclerAdapter(this, selectedShootersModel.selectedShooters, "selected"));
 
+            Activity.OnBackPressedDispatcher.AddCallback(new BackPress(this));
+
             return view;
         }
-
-        public override void OnStop()
+        public class BackPress : OnBackPressedCallback
         {
-            SendResult();
-            base.OnStop();
+            ShootersFragment context;
+
+            public BackPress(ShootersFragment cont) : base(true)
+            {
+                context = cont;
+            }
+            public override void HandleOnBackPressed()
+            {
+                context.SendResult();
+                Remove();
+                context.Activity.OnBackPressed();
+            }
         }
 
         public void SendResult()
