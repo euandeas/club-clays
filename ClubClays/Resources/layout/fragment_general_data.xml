@@ -76,11 +76,12 @@
         android:text="test"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="?android:attr/spinnerStyle"
         android:id="@+id/locationPicker"
-        android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:paddingBottom="5dp"/>
+        android:paddingTop="5dp"
+        android:paddingLeft="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
 
     <TextView
         android:text="Shooters"

@@ -4,10 +4,15 @@ using AndroidX.RecyclerView.Widget;
 using ClubClays.DatabaseModels;
 using System.Collections.Generic;
 using Fragment = AndroidX.Fragment.App.Fragment;
+using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 using Android.Widget;
 using AndroidX.Lifecycle;
 using Android.Content;
 using AndroidX.Activity;
+using Google.Android.Material.FloatingActionButton;
+using AndroidX.AppCompat.App;
+using SQLite;
+using System.IO;
 
 namespace ClubClays.Fragments
 {
@@ -34,9 +39,13 @@ namespace ClubClays.Fragments
             // Use this to return your custom view for this Fragment
             View view = inflater.Inflate(Resource.Layout.fragment_shooters, container, false);
 
+            Toolbar toolbar = view.FindViewById<Toolbar>(Resource.Id.toolbar);
+            ((AppCompatActivity)Activity).SetSupportActionBar(toolbar);
+            ActionBar supportBar = ((AppCompatActivity)Activity).SupportActionBar;
+            supportBar.SetDisplayHomeAsUpEnabled(true);
+            supportBar.SetDisplayShowHomeEnabled(true);
+
             selectedShootersModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(SelectedShooters))) as SelectedShooters;
-            selectedShootersModel.selectedShooters = new List<Shooters>();
-            selectedShootersModel.allShooters = new List<Shooters>();
 
             allLayoutManager = new LinearLayoutManager(Activity);
             selectedLayoutManager = new LinearLayoutManager(Activity);
@@ -49,10 +58,40 @@ namespace ClubClays.Fragments
             selectedRecyclerView.SetLayoutManager(selectedLayoutManager);
             selectedRecyclerView.SetAdapter(new ShootersRecyclerAdapter(this, selectedShootersModel.selectedShooters, "selected"));
 
+            FloatingActionButton fab = view.FindViewById<FloatingActionButton>(Resource.Id.fab);
+            fab.Click += Fab_Click;
+
             Activity.OnBackPressedDispatcher.AddCallback(new BackPress(this));
 
             return view;
         }
+
+        private void Fab_Click(object sender, System.EventArgs e)
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(Activity);
+            builder.SetTitle("Add New Shooter");
+
+            View view = LayoutInflater.From(Activity).Inflate(Resource.Layout.dialogfragment_addshooters, null);
+
+            EditText shooterName = view.FindViewById<EditText>(Resource.Id.newShootersName);
+            EditText shooterClass = view.FindViewById<EditText>(Resource.Id.newShooterClass);
+
+            builder.SetView(view);
+            builder.SetPositiveButton("Add", (c, ev) => 
+            {
+                Shooters newShooter = new Shooters { Name = shooterName.Text, Class = shooterClass.Text };
+
+                string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
+                using SQLiteConnection db = new SQLiteConnection(dbPath);
+                db.Insert(newShooter);
+
+                selectedShootersModel.selectedShooters.Add(newShooter);
+            });
+            builder.SetNegativeButton("Cancel", (c, ev) => { });
+
+            builder.Show();
+        }
+
         public class BackPress : OnBackPressedCallback
         {
             ShootersFragment context;

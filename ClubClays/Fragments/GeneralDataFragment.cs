@@ -62,7 +62,7 @@ namespace ClubClays.Fragments
             datePickerView.Click += DatePickerView_Click;
 
             shootersSelection = view.FindViewById<TextView>(Resource.Id.shootersPicker);
-            shootersSelection.Text = $"2 Shooter(s) Selected";
+            shootersSelection.Text = "0 Shooter(s) Selected";
             shootersSelection.Click += ShootersSelection_Click;
 
             string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
