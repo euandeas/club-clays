@@ -25,8 +25,6 @@ namespace ClubClays.Fragments
         private RecyclerView.LayoutManager allLayoutManager;
         private RecyclerView.LayoutManager selectedLayoutManager;
 
-        //SQLiteConnection db;
-
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -105,7 +103,6 @@ namespace ClubClays.Fragments
                 context.SendResult();
                 Remove();
                 context.Activity.SupportFragmentManager.PopBackStack();
-                // context.Activity.OnBackPressed();
             }
         }
 
