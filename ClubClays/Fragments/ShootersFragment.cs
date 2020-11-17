@@ -104,7 +104,8 @@ namespace ClubClays.Fragments
             {
                 context.SendResult();
                 Remove();
-                context.Activity.OnBackPressed();
+                context.Activity.SupportFragmentManager.PopBackStack();
+                // context.Activity.OnBackPressed();
             }
         }
 
