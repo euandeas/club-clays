@@ -79,28 +79,7 @@ namespace ClubClays.Fragments
 
         private void NextButton_Click(object sender, EventArgs e)
         {
-            FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
 
-            if (trackingType == "Known Format")
-            {
-                _ = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(DeterminedShoot))) as DeterminedShoot;
-                var fragmentToTransitionToo = new StandSetupFragment();
-            }
-            else if (trackingType == "Track Format")
-            {
-                _ = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(UndeterminedShoot))) as UndeterminedShoot;
-                var fragmentToTransitionToo = null;
-
-            }
-            else if (trackingType == "Add Previous")
-            {
-                _ = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(PreviousShoot))) as PreviousShoot;
-                var fragmentToTransitionToo = null;
-            }
-
-            fragmentTx.Add(Resource.Id.container, fragmentToTransitionToo);
-            fragmentTx.AddToBackStack(null);
-            fragmentTx.Commit();
         }
 
         private void ShootersSelection_Click(object sender, EventArgs e)
