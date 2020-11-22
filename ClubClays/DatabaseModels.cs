@@ -33,10 +33,9 @@ namespace ClubClays.DatabaseModels
         public int Id { get; set; }
         [ForeignKey(typeof(Shoots))]
         public int ShootId { get; set; }
+        [ForeignKey(typeof(StandFormats))]
+        public int StandFormatId { get; set; }
         public int StandNum { get; set; }
-        public string StandType { get; set; }
-        public string StandFormat { get; set; }
-        public int NumPairs { get; set; }
 
         [OneToMany]
         public List<StandScores> StandScores { get; set; }
@@ -105,18 +104,32 @@ namespace ClubClays.DatabaseModels
         public string ClayAmount { get; set; }
 
         [OneToMany]
-        public List<StandFormats> StandScores { get; set; }
+        public List<SavedFormatsLink> SavedFormatsLink { get; set; }
     }
-    public class StandFormats
+
+    public class SavedFormatsLink
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         [ForeignKey(typeof(ShootFormats))]
         public int ShootFormatId { get; set; }
-        public string Symbol { get; set; }
+        [ForeignKey(typeof(StandFormats))]
+        public int StandFormatId { get; set; }
         public int StandNum { get; set; }
+    }
+
+    public class StandFormats
+    {
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
         public string StandType { get; set; }
         public string StandFormat { get; set; }
         public int NumPairs { get; set; }
+
+        [OneToMany]
+        public List<SavedFormatsLink> SavedFormatsLink { get; set; }
+
+        [OneToMany]
+        public List<Stands> Stands { get; set; }
     }
 }
