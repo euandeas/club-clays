@@ -5,10 +5,11 @@ using ClubClays.DatabaseModels;
 
 namespace ClubClays
 {
-    public class SelectedShooters : ViewModel 
+    public class ShooterStandData : ViewModel 
     {
         public List<Shooters> selectedShooters;
-        public List<Shooters> allShooters; 
+        public List<Shooters> allShooters;
+        public List<StandFormats> standFormats;
     }
 
     class Shoot : ViewModel

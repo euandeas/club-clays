@@ -5,15 +5,43 @@
 		android:layout_height="wrap_content"
 		android:id="@+id/shootersCard"
 		android:layout_marginBottom="1dp">
-		<TextView
-			android:text="Text"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:id="@+id/shootersName"
-			android:paddingLeft="10dp"
-			android:paddingRight="10dp"
-			android:paddingTop="5dp"
-			android:paddingBottom="5dp"
-			android:textStyle="italic"
-			android:textSize="20sp"/>
+		<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+			android:orientation="vertical">
+			<TextView
+				android:text="Stand Type"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:id="@+id/standType"
+				android:paddingLeft="10dp"
+				android:paddingRight="10dp"
+				android:paddingTop="5dp"
+				android:paddingBottom="5dp"
+				android:textStyle="italic"
+				android:textSize="20sp"/>
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal">
+				<TextView
+					android:text="Simultaneous"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:id="@+id/standFormat"
+					android:paddingLeft="10dp"
+					android:paddingRight="10dp"
+					android:paddingBottom="5dp"
+					android:textSize="10sp"/>
+				<TextView
+					android:text="5 Pairs"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:id="@+id/numOfPairs"
+					android:paddingLeft="10dp"
+					android:paddingRight="10dp"
+					android:paddingBottom="5dp"
+					android:textSize="10sp"/>
+			</LinearLayout>
+		</LinearLayout>		
 </androidx.cardview.widget.CardView>

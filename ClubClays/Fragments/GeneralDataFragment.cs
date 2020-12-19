@@ -26,6 +26,7 @@ namespace ClubClays.Fragments
         private DateTime date;
 
         private TextView shootersSelection;
+        private TextView standFormatting;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -67,14 +68,30 @@ namespace ClubClays.Fragments
 
             string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
             SQLiteConnection db = new SQLiteConnection(dbPath);
-            SelectedShooters selectedShootersModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(SelectedShooters))) as SelectedShooters;
-            selectedShootersModel.allShooters = db.Table<Shooters>().ToList();
-            selectedShootersModel.selectedShooters = new List<Shooters>();
+            ShooterStandData standShooterModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(ShooterStandData))) as ShooterStandData;
+            standShooterModel.allShooters = db.Table<Shooters>().ToList();
+            standShooterModel.selectedShooters = new List<Shooters>();
+
+            standFormatting = view.FindViewById<TextView>(Resource.Id.standFormatPicker);
+            standFormatting.Text = "0 Stand(s) Setup";
+            standFormatting.Click += StandFormatting_Click; ;
+
+            standShooterModel.standFormats = new List<StandFormats>();
 
             TextView nextButton = view.FindViewById<TextView>(Resource.Id.nextButton);
             nextButton.Click += NextButton_Click;
 
             return view;
+        }
+
+        private void StandFormatting_Click(object sender, EventArgs e)
+        {
+            FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
+            StandSetupFragment standSetupFragment = new StandSetupFragment();
+            standSetupFragment.SetTargetFragment(this, 2);
+            fragmentTx.Add(Resource.Id.container, standSetupFragment);
+            fragmentTx.AddToBackStack(null);
+            fragmentTx.Commit();
         }
 
         private void NextButton_Click(object sender, EventArgs e)

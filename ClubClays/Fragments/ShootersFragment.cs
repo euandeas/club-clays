@@ -18,7 +18,7 @@ namespace ClubClays.Fragments
 {
     public class ShootersFragment : Fragment
     {
-        public SelectedShooters selectedShootersModel;
+        public ShooterStandData selectedShootersModel;
 
         public RecyclerView allRecyclerView;
         public RecyclerView selectedRecyclerView;
@@ -43,7 +43,7 @@ namespace ClubClays.Fragments
             supportBar.SetDisplayHomeAsUpEnabled(true);
             supportBar.SetDisplayShowHomeEnabled(true);
 
-            selectedShootersModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(SelectedShooters))) as SelectedShooters;
+            selectedShootersModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(ShooterStandData))) as ShooterStandData;
 
             allLayoutManager = new LinearLayoutManager(Activity);
             selectedLayoutManager = new LinearLayoutManager(Activity);
