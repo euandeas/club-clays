@@ -83,21 +83,23 @@ namespace ClubClays
         }
     }
 
-    class UndeterminedShoot : ShootScoreManagement
+    class UnknownFormatShoot : ShootScoreManagement
     {
 
     }
 
-    class DeterminedShoot : ShootScoreManagement
+    class KnownFormatShoot : ShootScoreManagement
     {
 
     }
 
+    //for adding previous shoots
     class AddShoot : Shoot
     {
 
     }
 
+    //for viewing shoot history
     class PreviousShoot : Shoot 
     { 
 

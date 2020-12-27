@@ -21,12 +21,16 @@ namespace ClubClays.Fragments
         private TextView datePickerView;
         private AlertDialog trackingTypeDialog;
         private TextView trackingTypePickerView;
-        private string trackingType;
+        private string userOverallAction;
         private string discipline;
         private DateTime date;
 
         private TextView shootersSelection;
         private TextView standFormatting;
+        private Switch formatSwitch;
+        private LinearLayout formatSwitchLayout;
+
+        private ShooterStandData standShooterModel;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -68,9 +72,14 @@ namespace ClubClays.Fragments
 
             string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
             SQLiteConnection db = new SQLiteConnection(dbPath);
-            ShooterStandData standShooterModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(ShooterStandData))) as ShooterStandData;
+            standShooterModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(ShooterStandData))) as ShooterStandData;
             standShooterModel.allShooters = db.Table<Shooters>().ToList();
             standShooterModel.selectedShooters = new List<Shooters>();
+
+            formatSwitch = view.FindViewById<Switch>(Resource.Id.formatSwitch);
+            formatSwitch.CheckedChange += FormatSwitch_CheckedChange;
+
+            formatSwitchLayout = view.FindViewById<LinearLayout>(Resource.Id.formatSwitchLayout);
 
             standFormatting = view.FindViewById<TextView>(Resource.Id.standFormatPicker);
             standFormatting.Text = "0 Stand(s) Setup";
@@ -82,6 +91,18 @@ namespace ClubClays.Fragments
             nextButton.Click += NextButton_Click;
 
             return view;
+        }
+
+        private void FormatSwitch_CheckedChange(object sender, CompoundButton.CheckedChangeEventArgs e)
+        {
+            if (e.IsChecked == true)
+            {
+                standFormatting.Visibility = ViewStates.Visible;
+            }
+            else if (e.IsChecked == false)
+            {
+                standFormatting.Visibility = ViewStates.Gone;
+            }
         }
 
         private void StandFormatting_Click(object sender, EventArgs e)
@@ -96,7 +117,31 @@ namespace ClubClays.Fragments
 
         private void NextButton_Click(object sender, EventArgs e)
         {
+            FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
 
+            if (userOverallAction == "New Shoot")
+            {
+                if (formatSwitch.Checked == true)
+                {
+                    _ = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(KnownFormatShoot))) as KnownFormatShoot;
+                }
+                else if (formatSwitch.Checked == false)
+                {
+                    _ = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(UnknownFormatShoot))) as UnknownFormatShoot;
+                }
+                standShooterModel.Dispose();
+
+                //fragmentTx.Replace(Resource.Id.container, shootersFragment);
+                //fragmentTx.Commit();
+            }
+            else if (userOverallAction == "Add Shoot")
+            {
+                _ = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(AddShoot))) as AddShoot;
+                standShooterModel.Dispose();
+
+                //fragmentTx.Replace(Resource.Id.container, shootersFragment);
+                //fragmentTx.Commit();
+            }
         }
 
         private void ShootersSelection_Click(object sender, EventArgs e)
@@ -134,7 +179,7 @@ namespace ClubClays.Fragments
         private AlertDialog TrackingTypeDialogBuilder()
         {
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(Activity);
-            dialogBuilder.SetTitle("Tracking Type");
+            dialogBuilder.SetTitle("What would you like do to?");
             dialogBuilder.SetSingleChoiceItems(Resource.Array.tracking_types, -1, new EventHandler<DialogClickEventArgs>(DialogOnClickListerner));
             return dialogBuilder.Create();
         }
@@ -144,13 +189,14 @@ namespace ClubClays.Fragments
             switch (e.Which)
             {
                 case 0:
-                    trackingType = "Known Format";
+                    userOverallAction = "New Shoot";
+                    formatSwitchLayout.Visibility = ViewStates.Visible;
+                    formatSwitch.Checked = true;
                     break;
                 case 1:
-                    trackingType = "Track Format";
-                    break;
-                case 2:
-                    trackingType = "Add Previous";
+                    userOverallAction = "Add Shoot";
+                    formatSwitchLayout.Visibility = ViewStates.Gone;
+                    standFormatting.Visibility = ViewStates.Visible;
                     break;
             }
             trackingTypePickerView.Text = trackingType;

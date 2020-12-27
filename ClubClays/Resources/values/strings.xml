@@ -13,9 +13,8 @@
       <item>sysdefault</item>
     </string-array>
   <string-array name="tracking_types">
-    <item>Known Format</item>
-    <item>Track Format</item>
-    <item>Add Previous</item>
+    <item>New Shoot</item>
+    <item>Add Shoot</item>
   </string-array>
   <string-array name="disciplines">
     <item>English Sporting</item>
