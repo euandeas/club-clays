@@ -73,6 +73,9 @@
     <Compile Include="Fragments\SettingsFragment.cs" />
     <Compile Include="Fragments\ShootersFragment.cs" />
     <Compile Include="Fragments\StandSetupFragment.cs" />
+    <Compile Include="ItemMoveCallBack.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -190,7 +193,7 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\layout\dialogfragment_addshooters.xml">
+    <AndroidResource Include="Resources\layout\dialogfragment_addshooter.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -201,6 +204,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\stand_item.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\dialogfragment_addstand.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

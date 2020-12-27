@@ -13,6 +13,7 @@ using Google.Android.Material.FloatingActionButton;
 using AndroidX.AppCompat.App;
 using SQLite;
 using System.IO;
+using Color = Android.Graphics.Color;
 
 namespace ClubClays.Fragments
 {
@@ -50,11 +51,17 @@ namespace ClubClays.Fragments
 
             allRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.allRecyclerView);
             allRecyclerView.SetLayoutManager(allLayoutManager);
-            allRecyclerView.SetAdapter(new ShootersRecyclerAdapter(this, selectedShootersModel.allShooters, "all"));
+
+            RecyclerView.Adapter standsAdapter = new ShootersRecyclerAdapter(ref selectedShootersModel, ref allRecyclerView, "selected");
+            ItemTouchHelper.Callback callback = new ItemMoveCallback((ItemMoveCallback.ItemTouchHelperContract)standsAdapter);
+            ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
 
             selectedRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.selectedRecyclerView);
             selectedRecyclerView.SetLayoutManager(selectedLayoutManager);
-            selectedRecyclerView.SetAdapter(new ShootersRecyclerAdapter(this, selectedShootersModel.selectedShooters, "selected"));
+            touchHelper.AttachToRecyclerView(selectedRecyclerView);
+
+            allRecyclerView.SetAdapter(new ShootersRecyclerAdapter(ref selectedShootersModel, ref selectedRecyclerView, "all"));
+            selectedRecyclerView.SetAdapter(standsAdapter);
 
             FloatingActionButton fab = view.FindViewById<FloatingActionButton>(Resource.Id.fab);
             fab.Click += Fab_Click;
@@ -69,7 +76,7 @@ namespace ClubClays.Fragments
             AlertDialog.Builder builder = new AlertDialog.Builder(Activity);
             builder.SetTitle("Add New Shooter");
 
-            View view = LayoutInflater.From(Activity).Inflate(Resource.Layout.dialogfragment_addshooters, null);
+            View view = LayoutInflater.From(Activity).Inflate(Resource.Layout.dialogfragment_addshooter, null);
 
             EditText shooterName = view.FindViewById<EditText>(Resource.Id.newShootersName);
             EditText shooterClass = view.FindViewById<EditText>(Resource.Id.newShooterClass);
@@ -111,27 +118,14 @@ namespace ClubClays.Fragments
             Intent intent = new Intent();
             intent.PutExtra("numSelected", selectedShootersModel.selectedShooters.Count);
             TargetFragment.OnActivityResult(TargetRequestCode, 1, intent);
-        }
-
-        public void UpdateRecyclerViews(string type, int position)
-        {
-            if (type == "all")
-            {
-                selectedShootersModel.selectedShooters.Add(selectedShootersModel.allShooters[position]);
-                selectedShootersModel.allShooters.RemoveAt(position);
-            }
-            else if (type == "selected")
-            {
-                selectedShootersModel.allShooters.Add(selectedShootersModel.selectedShooters[position]);
-                selectedShootersModel.selectedShooters.RemoveAt(position);
-            }
-        }      
+        }  
     }
 
-    public class ShootersRecyclerAdapter : RecyclerView.Adapter
+    public class ShootersRecyclerAdapter : RecyclerView.Adapter, ItemMoveCallback.ItemTouchHelperContract
     {
         private List<Shooters> shooters;
-        private ShootersFragment parentFragment;
+        private ShooterStandData shootersModel;
+        private RecyclerView otherRecyclerView;
         private string type;
 
         // Provide a reference to the views for each data item
@@ -170,29 +164,74 @@ namespace ClubClays.Fragments
             {
                 if (type == "all")
                 {
-                    parentFragment.selectedShootersModel.selectedShooters.Add(parentFragment.selectedShootersModel.allShooters[view.AdapterPosition]);
-                    parentFragment.selectedShootersModel.allShooters.RemoveAt(view.AdapterPosition);
+                    shootersModel.selectedShooters.Add(shootersModel.allShooters[view.AdapterPosition]);
+                    shootersModel.allShooters.RemoveAt(view.AdapterPosition);
                     NotifyDataSetChanged();
-                    parentFragment.selectedRecyclerView.GetAdapter().NotifyDataSetChanged();
+                    otherRecyclerView.GetAdapter().NotifyDataSetChanged();
                 }
                 else if (type == "selected")
                 {
-                    parentFragment.selectedShootersModel.allShooters.Add(parentFragment.selectedShootersModel.selectedShooters[view.AdapterPosition]);
-                    parentFragment.selectedShootersModel.selectedShooters.RemoveAt(view.AdapterPosition);
+                    shootersModel.allShooters.Add(shootersModel.selectedShooters[view.AdapterPosition]);
+                    shootersModel.selectedShooters.RemoveAt(view.AdapterPosition);
                     NotifyDataSetChanged();
-                    parentFragment.allRecyclerView.GetAdapter().NotifyDataSetChanged();
+                    otherRecyclerView.GetAdapter().NotifyDataSetChanged();
                 }
             };
 
             return view;
         }
 
-        // Provide a suitable constructor (depends on the kind of dataset)
-        public ShootersRecyclerAdapter(ShootersFragment initialisingFragment, List<Shooters> shootersList, string recylerType)
+        public void onRowMoved(int fromPosition, int toPosition)
         {
-            shooters = shootersList;
-            parentFragment = initialisingFragment;
+            if (fromPosition < toPosition)
+            {
+                for (int i = fromPosition; i < toPosition; i++)
+                {
+                    Swap(shooters, i, i + 1);
+                }
+            }
+            else
+            {
+                for (int i = fromPosition; i > toPosition; i--)
+                {
+                    Swap(shooters, i, i - 1);
+                }
+            }
+            NotifyItemMoved(fromPosition, toPosition);
+        }
+
+        public void onRowSelected(RecyclerView.ViewHolder myViewHolder)
+        {
+            myViewHolder.ItemView.SetBackgroundColor(Color.Gray);
+        }
+
+        public void onRowClear(RecyclerView.ViewHolder myViewHolder)
+        {
+            myViewHolder.ItemView.SetBackgroundColor(Color.White);
+        }
+
+        public static void Swap<T>(IList<T> list, int indexA, int indexB)
+        {
+            T tmp = list[indexA];
+            list[indexA] = list[indexB];
+            list[indexB] = tmp;
+        }
+
+        // Provide a suitable constructor (depends on the kind of dataset)
+        public ShootersRecyclerAdapter(ref ShooterStandData viewModel, ref RecyclerView otherRecycler, string recylerType)
+        {
+            shootersModel = viewModel;
             type = recylerType;
+            otherRecyclerView = otherRecycler;
+
+            if (type == "all")
+            {
+                shooters = shootersModel.allShooters;
+            }
+            else if (type == "selected")
+            {
+                shooters = shootersModel.selectedShooters;
+            }
         }
     }
 }

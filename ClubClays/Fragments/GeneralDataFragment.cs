@@ -111,7 +111,14 @@ namespace ClubClays.Fragments
 
         public override void OnActivityResult(int requestCode, int resultCode, Intent data)
         {
-            shootersSelection.Text = $"{data.GetIntExtra("numSelected", 0)} Shooter(s) Selected";
+            if (requestCode == 1)
+            {
+                shootersSelection.Text = $"{data.GetIntExtra("numSelected", 0)} Shooter(s) Selected";
+            }
+            else if (requestCode == 2)
+            {
+                standFormatting.Text = $"{data.GetIntExtra("standsCreated", 0)} Stand(s) Setup";
+            }  
         }
 
         private void spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)

@@ -40,13 +40,7 @@ namespace ClubClays.Fragments
             supportBar.SetDisplayShowHomeEnabled(true);
 
             standsModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(ShooterStandData))) as ShooterStandData;
-            standsModel.standFormats.Add(new StandFormats {StandType = "Test1", StandFormat = "Test1", NumPairs = 5 });
-            standsModel.standFormats.Add(new StandFormats { StandType = "Test2", StandFormat = "Test2", NumPairs = 5 });
-            standsModel.standFormats.Add(new StandFormats { StandType = "Test3", StandFormat = "Test3", NumPairs = 5 });
-            standsModel.standFormats.Add(new StandFormats { StandType = "Test4", StandFormat = "Test4", NumPairs = 5 });
-
-            RecyclerView.Adapter standsAdapter = new StandsRecyclerAdapter(this, standsModel.standFormats);
-
+            RecyclerView.Adapter standsAdapter = new StandsRecyclerAdapter(ref standsModel);
             ItemTouchHelper.Callback callback = new ItemMoveCallback((ItemMoveCallback.ItemTouchHelperContract)standsAdapter);
             ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
             standsLayoutManager = new LinearLayoutManager(Activity);
@@ -54,8 +48,6 @@ namespace ClubClays.Fragments
             touchHelper.AttachToRecyclerView(standsRecyclerView);
             standsRecyclerView.SetLayoutManager(standsLayoutManager);
             standsRecyclerView.SetAdapter(standsAdapter);
-
-
 
             FloatingActionButton fab = view.FindViewById<FloatingActionButton>(Resource.Id.fab);
             fab.Click += Fab_Click; ;
@@ -66,7 +58,23 @@ namespace ClubClays.Fragments
 
         private void Fab_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            AlertDialog.Builder builder = new AlertDialog.Builder(Activity);
+            builder.SetTitle("Add New Stand");
+
+            View view = LayoutInflater.From(Activity).Inflate(Resource.Layout.dialogfragment_addstand, null);
+
+            EditText standType = view.FindViewById<EditText>(Resource.Id.newStandType);
+            EditText standFormat = view.FindViewById<EditText>(Resource.Id.newStandFormat);
+            EditText numOfPairs = view.FindViewById<EditText>(Resource.Id.newNumOfPairs);
+
+            builder.SetView(view);
+            builder.SetPositiveButton("Add", (c, ev) =>
+            {
+                standsModel.standFormats.Add(new StandFormats { StandType = standType.Text, StandFormat = standFormat.Text, NumPairs = int.Parse(numOfPairs.Text) });
+            });
+            builder.SetNegativeButton("Cancel", (c, ev) => { });
+
+            builder.Show();
         }
 
         public class BackPress : OnBackPressedCallback
@@ -87,7 +95,7 @@ namespace ClubClays.Fragments
         public void SendResult()
         {
             Intent intent = new Intent();
-            intent.PutExtra("numSelected", standsModel.standFormats.Count);
+            intent.PutExtra("standsCreated", standsModel.standFormats.Count);
             TargetFragment.OnActivityResult(TargetRequestCode, 2, intent);
         }
     }
@@ -95,7 +103,6 @@ namespace ClubClays.Fragments
     public class StandsRecyclerAdapter : RecyclerView.Adapter, ItemMoveCallback.ItemTouchHelperContract
     {
         private List<StandFormats> stands;
-        private StandSetupFragment parentFragment;
 
         // Provide a reference to the views for each data item
         public class MyView : RecyclerView.ViewHolder
@@ -179,67 +186,9 @@ namespace ClubClays.Fragments
         }
 
         // Provide a suitable constructor (depends on the kind of dataset)
-        public StandsRecyclerAdapter(StandSetupFragment initialisingFragment, List<StandFormats> standsList)
+        public StandsRecyclerAdapter(ref ShooterStandData viewModel)
         {
-            stands = standsList;
-            parentFragment = initialisingFragment;
-        }
-    }
-
-    public class ItemMoveCallback : ItemTouchHelper.Callback
-    {
-        private ItemTouchHelperContract mAdapter;
-        
-        public ItemMoveCallback(ItemTouchHelperContract adapter)
-        {
-            mAdapter = adapter;
-        }
-
-        public interface ItemTouchHelperContract
-        {
-            void onRowMoved(int fromPosition, int toPosition);
-            void onRowSelected(RecyclerView.ViewHolder myViewHolder);
-            void onRowClear(RecyclerView.ViewHolder myViewHolder);
-        }
-
-        public override bool IsLongPressDragEnabled => true;
-        public override bool IsItemViewSwipeEnabled => true;
-
-        public override int GetMovementFlags(RecyclerView p0, RecyclerView.ViewHolder p1)
-        {
-            int dragFlags = ItemTouchHelper.Up | ItemTouchHelper.Down;
-            return MakeMovementFlags(dragFlags, 0);
-        }
-
-        public override bool OnMove(RecyclerView p0, RecyclerView.ViewHolder p1, RecyclerView.ViewHolder p2)
-        {
-            mAdapter.onRowMoved(p1.AdapterPosition, p2.AdapterPosition);
-            return true;
-        }
-
-        public override void OnSwiped(RecyclerView.ViewHolder p0, int p1){}
-
-        public override void OnSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState)
-        {
-            if (actionState != ItemTouchHelper.ActionStateIdle)
-            {
-                if (viewHolder.GetType() == typeof(RecyclerView.ViewHolder))
-                {                 
-                    mAdapter.onRowSelected(viewHolder);
-                }
-            }
-            base.OnSelectedChanged(viewHolder, actionState);
-        }
-
-        public override void ClearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder)
-        {
-            base.ClearView(recyclerView, viewHolder);
-
-            if (viewHolder.GetType() == typeof(RecyclerView.ViewHolder))
-            {
-                RecyclerView.ViewHolder myViewHolder = viewHolder;
-                mAdapter.onRowClear(myViewHolder);
-            }
+            stands = viewModel.standFormats; 
         }
     }
 }
