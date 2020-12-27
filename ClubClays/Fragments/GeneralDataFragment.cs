@@ -199,7 +199,7 @@ namespace ClubClays.Fragments
                     standFormatting.Visibility = ViewStates.Visible;
                     break;
             }
-            trackingTypePickerView.Text = trackingType;
+            trackingTypePickerView.Text = userOverallAction;
             (sender as AlertDialog).Dismiss();
         }
 
@@ -216,6 +216,5 @@ namespace ClubClays.Fragments
             date =  new DateTime(year, month + 1, dayOfMonth);
             datePickerView.Text = $"{date:MMMM} {date:dd}, {year}";
         }
-
     }
 }
