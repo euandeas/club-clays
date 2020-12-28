@@ -85,12 +85,18 @@ namespace ClubClays
 
     class UnknownFormatShoot : ShootScoreManagement
     {
+        public UnknownFormatShoot(Shooters shooters, DateTime setDate, string location, bool roatateShooters, string discipline)
+        {
 
+        }
     }
 
     class KnownFormatShoot : ShootScoreManagement
     {
+        public KnownFormatShoot(Shooters shooters, StandFormats stands, DateTime setDate, string location, bool roatateShooters, string discipline)
+        {
 
+        }
     }
 
     //for adding previous shoots

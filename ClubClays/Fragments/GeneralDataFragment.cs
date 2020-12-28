@@ -131,7 +131,7 @@ namespace ClubClays.Fragments
                 }
                 standShooterModel.Dispose();
 
-                //fragmentTx.Replace(Resource.Id.container, shootersFragment);
+                //fragmentTx.Replace(Resource.Id.container, );
                 //fragmentTx.Commit();
             }
             else if (userOverallAction == "Add Shoot")
@@ -139,7 +139,7 @@ namespace ClubClays.Fragments
                 _ = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(AddShoot))) as AddShoot;
                 standShooterModel.Dispose();
 
-                //fragmentTx.Replace(Resource.Id.container, shootersFragment);
+                //fragmentTx.Replace(Resource.Id.container, );
                 //fragmentTx.Commit();
             }
         }
@@ -192,11 +192,15 @@ namespace ClubClays.Fragments
                     userOverallAction = "New Shoot";
                     formatSwitchLayout.Visibility = ViewStates.Visible;
                     formatSwitch.Checked = true;
+                    datePickerView.Clickable = false;
+                    date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                    datePickerView.Text = $"{date:MMMM} {date:dd}, {date:yyyy}";
                     break;
                 case 1:
                     userOverallAction = "Add Shoot";
                     formatSwitchLayout.Visibility = ViewStates.Gone;
                     standFormatting.Visibility = ViewStates.Visible;
+                    datePickerView.Clickable = true;
                     break;
             }
             trackingTypePickerView.Text = userOverallAction;
