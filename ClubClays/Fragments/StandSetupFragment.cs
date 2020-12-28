@@ -108,6 +108,7 @@ namespace ClubClays.Fragments
         public class MyView : RecyclerView.ViewHolder
         {
             public View mMainView { get; set; }
+            public TextView mStandNumber { get; set; }
             public TextView mStandType { get; set; }
             public TextView mStandFormat { get; set; }
             public TextView mNumPairs { get; set; }
@@ -127,6 +128,7 @@ namespace ClubClays.Fragments
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
             MyView myHolder = holder as MyView;
+            myHolder.mStandNumber.Text = $"Stand {position + 1}";
             myHolder.mStandType.Text = stands[position].StandType;
             myHolder.mStandFormat.Text = stands[position].StandFormat;
             myHolder.mNumPairs.Text = stands[position].NumPairs.ToString();
@@ -136,11 +138,12 @@ namespace ClubClays.Fragments
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
             View standCardView = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.stand_item, parent, false);
+            TextView StandNum = standCardView.FindViewById<TextView>(Resource.Id.standNumber);
             TextView StandType = standCardView.FindViewById<TextView>(Resource.Id.standType);
             TextView StandFormat = standCardView.FindViewById<TextView>(Resource.Id.standFormat);
             TextView NumPairs = standCardView.FindViewById<TextView>(Resource.Id.numOfPairs);
 
-            MyView view = new MyView(standCardView) { mStandType = StandType, mStandFormat = StandFormat, mNumPairs = NumPairs };
+            MyView view = new MyView(standCardView) { mStandNumber = StandNum, mStandType = StandType, mStandFormat = StandFormat, mNumPairs = NumPairs };
 
             standCardView.Click += delegate
             {
@@ -169,13 +172,12 @@ namespace ClubClays.Fragments
         }
 
         public void onRowSelected(RecyclerView.ViewHolder myViewHolder)
-        {
-            myViewHolder.ItemView.SetBackgroundColor(Color.Gray);
+        {            
         }
 
         public void onRowClear(RecyclerView.ViewHolder myViewHolder)
         {
-            myViewHolder.ItemView.SetBackgroundColor(Color.White);
+            NotifyDataSetChanged();
         }
 
         public static void Swap<T>(IList<T> list, int indexA, int indexB)

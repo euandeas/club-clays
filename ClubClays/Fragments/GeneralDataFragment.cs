@@ -28,7 +28,9 @@ namespace ClubClays.Fragments
         private TextView shootersSelection;
         private TextView standFormatting;
         private Switch formatSwitch;
+        private Switch startSwitch;
         private LinearLayout formatSwitchLayout;
+        private EditText startStandInput;
 
         private ShooterStandData standShooterModel;
 
@@ -87,10 +89,28 @@ namespace ClubClays.Fragments
 
             standShooterModel.standFormats = new List<StandFormats>();
 
+            startSwitch = view.FindViewById<Switch>(Resource.Id.startingStandSwitch);
+            startSwitch.CheckedChange += StartSwitch_CheckedChange;
+            startStandInput = view.FindViewById<EditText>(Resource.Id.startingStand);
+            startSwitch.Checked = false;
+            startStandInput.Visibility = ViewStates.Gone;
+
             TextView nextButton = view.FindViewById<TextView>(Resource.Id.nextButton);
             nextButton.Click += NextButton_Click;
 
             return view;
+        }
+
+        private void StartSwitch_CheckedChange(object sender, CompoundButton.CheckedChangeEventArgs e)
+        {
+            if (e.IsChecked == true)
+            {
+                startStandInput.Visibility = ViewStates.Visible;
+            }
+            else if (e.IsChecked == false)
+            {
+                startStandInput.Visibility = ViewStates.Gone;
+            }
         }
 
         private void FormatSwitch_CheckedChange(object sender, CompoundButton.CheckedChangeEventArgs e)
@@ -117,6 +137,29 @@ namespace ClubClays.Fragments
 
         private void NextButton_Click(object sender, EventArgs e)
         {
+            if (standShooterModel.selectedShooters.Count == 0 )
+            {
+                Toast.MakeText(Activity, $"No shooters selected!", ToastLength.Short).Show();
+                return;
+            }
+            if ((userOverallAction == "Add Shoot") || ((formatSwitch.Checked == true) && (userOverallAction == "New Shoot") && (standShooterModel.standFormats.Count == 0)))
+            {
+                Toast.MakeText(Activity, $"No stands created!", ToastLength.Short).Show();
+                return;
+            }
+
+            int startStand = 1;
+            if (startSwitch.Checked)
+            {
+                int standNum = int.Parse(startStandInput.Text);
+                if (standNum > standShooterModel.standFormats.Count)
+                {
+                    Toast.MakeText(Activity, $"Starting stand does not exist!", ToastLength.Short).Show();
+                    startStandInput.Text = "1";
+                    return;
+                }
+            }
+
             FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
 
             if (userOverallAction == "New Shoot")

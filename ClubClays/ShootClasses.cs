@@ -16,17 +16,12 @@ namespace ClubClays
     {
         protected DateTime date;
         protected string location;
-        protected string eventType;
-        protected string trackingType;
+        protected string discipline;
         protected int numOfStands;
         protected int numOfClays;
         protected int startingStand;
         protected string userNotes;
         protected bool rotateShooters;
-
-        protected int currentStand;
-        protected int currentPair;
-        protected string currentShooterName;
 
         protected Dictionary<int, Shooter> ShootersById;
         protected SortedList<int, Stand> StandsByNum;
@@ -61,6 +56,11 @@ namespace ClubClays
 
     class ShootScoreManagement : Shoot
     {
+        protected int currentStand;
+        protected int currentPair;
+        protected string currentShooterName;
+        protected string trackingType;
+
         public void AddScore() 
         {
          
@@ -85,16 +85,28 @@ namespace ClubClays
 
     class UnknownFormatShoot : ShootScoreManagement
     {
-        public UnknownFormatShoot(Shooters shooters, DateTime setDate, string location, bool roatateShooters, string discipline)
+        public void Initialise(Shooters shooters, DateTime date, string location, bool rotateShooters, string discipline, int startingStand)
         {
-
+            this.date = date;
+            this.location = location;
+            this.rotateShooters = rotateShooters;
+            this.discipline = discipline;
+            this.startingStand = startingStand;
+            trackingType = "Unknown";
         }
     }
 
     class KnownFormatShoot : ShootScoreManagement
     {
-        public KnownFormatShoot(Shooters shooters, StandFormats stands, DateTime setDate, string location, bool roatateShooters, string discipline)
+        public void Initialise(Shooters shooters, StandFormats stands, DateTime date, string location, bool rotateShooters, string discipline, int startingStand)
         {
+            // Simple data initialisation
+            this.date = date;
+            this.location = location;
+            this.rotateShooters = rotateShooters;
+            this.discipline = discipline;
+            this.startingStand = startingStand;
+            trackingType = "Known";
 
         }
     }

@@ -39,7 +39,7 @@ namespace ClubClays
         {
             if (actionState != ItemTouchHelper.ActionStateIdle)
             {
-                if (viewHolder.GetType() == typeof(RecyclerView.ViewHolder))
+                if (viewHolder.GetType() != typeof(RecyclerView.ViewHolder))
                 {
                     mAdapter.onRowSelected(viewHolder);
                 }
@@ -51,7 +51,7 @@ namespace ClubClays
         {
             base.ClearView(recyclerView, viewHolder);
 
-            if (viewHolder.GetType() == typeof(RecyclerView.ViewHolder))
+            if (viewHolder.GetType() != typeof(RecyclerView.ViewHolder))
             {
                 RecyclerView.ViewHolder myViewHolder = viewHolder;
                 mAdapter.onRowClear(myViewHolder);

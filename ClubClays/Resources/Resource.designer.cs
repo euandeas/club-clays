@@ -26,7 +26,6 @@ namespace ClubClays
 		public static void UpdateIdValues()
 		{
 			global::Xamarin.Essentials.Resource.Attribute.alpha = global::ClubClays.Resource.Attribute.alpha;
-			global::Xamarin.Essentials.Resource.Attribute.coordinatorLayoutStyle = global::ClubClays.Resource.Attribute.coordinatorLayoutStyle;
 			global::Xamarin.Essentials.Resource.Attribute.font = global::ClubClays.Resource.Attribute.font;
 			global::Xamarin.Essentials.Resource.Attribute.fontProviderAuthority = global::ClubClays.Resource.Attribute.fontProviderAuthority;
 			global::Xamarin.Essentials.Resource.Attribute.fontProviderCerts = global::ClubClays.Resource.Attribute.fontProviderCerts;
@@ -37,23 +36,15 @@ namespace ClubClays
 			global::Xamarin.Essentials.Resource.Attribute.fontStyle = global::ClubClays.Resource.Attribute.fontStyle;
 			global::Xamarin.Essentials.Resource.Attribute.fontVariationSettings = global::ClubClays.Resource.Attribute.fontVariationSettings;
 			global::Xamarin.Essentials.Resource.Attribute.fontWeight = global::ClubClays.Resource.Attribute.fontWeight;
-			global::Xamarin.Essentials.Resource.Attribute.keylines = global::ClubClays.Resource.Attribute.keylines;
-			global::Xamarin.Essentials.Resource.Attribute.layout_anchor = global::ClubClays.Resource.Attribute.layout_anchor;
-			global::Xamarin.Essentials.Resource.Attribute.layout_anchorGravity = global::ClubClays.Resource.Attribute.layout_anchorGravity;
-			global::Xamarin.Essentials.Resource.Attribute.layout_behavior = global::ClubClays.Resource.Attribute.layout_behavior;
-			global::Xamarin.Essentials.Resource.Attribute.layout_dodgeInsetEdges = global::ClubClays.Resource.Attribute.layout_dodgeInsetEdges;
-			global::Xamarin.Essentials.Resource.Attribute.layout_insetEdge = global::ClubClays.Resource.Attribute.layout_insetEdge;
-			global::Xamarin.Essentials.Resource.Attribute.layout_keyline = global::ClubClays.Resource.Attribute.layout_keyline;
-			global::Xamarin.Essentials.Resource.Attribute.statusBarBackground = global::ClubClays.Resource.Attribute.statusBarBackground;
 			global::Xamarin.Essentials.Resource.Attribute.ttcIndex = global::ClubClays.Resource.Attribute.ttcIndex;
+			global::Xamarin.Essentials.Resource.Color.androidx_core_ripple_material_light = global::ClubClays.Resource.Color.androidx_core_ripple_material_light;
+			global::Xamarin.Essentials.Resource.Color.androidx_core_secondary_text_default_material_light = global::ClubClays.Resource.Color.androidx_core_secondary_text_default_material_light;
 			global::Xamarin.Essentials.Resource.Color.browser_actions_bg_grey = global::ClubClays.Resource.Color.browser_actions_bg_grey;
 			global::Xamarin.Essentials.Resource.Color.browser_actions_divider_color = global::ClubClays.Resource.Color.browser_actions_divider_color;
 			global::Xamarin.Essentials.Resource.Color.browser_actions_text_color = global::ClubClays.Resource.Color.browser_actions_text_color;
 			global::Xamarin.Essentials.Resource.Color.browser_actions_title_color = global::ClubClays.Resource.Color.browser_actions_title_color;
 			global::Xamarin.Essentials.Resource.Color.notification_action_color_filter = global::ClubClays.Resource.Color.notification_action_color_filter;
 			global::Xamarin.Essentials.Resource.Color.notification_icon_bg_color = global::ClubClays.Resource.Color.notification_icon_bg_color;
-			global::Xamarin.Essentials.Resource.Color.ripple_material_light = global::ClubClays.Resource.Color.ripple_material_light;
-			global::Xamarin.Essentials.Resource.Color.secondary_text_default_material_light = global::ClubClays.Resource.Color.secondary_text_default_material_light;
 			global::Xamarin.Essentials.Resource.Dimension.browser_actions_context_menu_max_width = global::ClubClays.Resource.Dimension.browser_actions_context_menu_max_width;
 			global::Xamarin.Essentials.Resource.Dimension.browser_actions_context_menu_min_padding = global::ClubClays.Resource.Dimension.browser_actions_context_menu_min_padding;
 			global::Xamarin.Essentials.Resource.Dimension.compat_button_inset_horizontal_material = global::ClubClays.Resource.Dimension.compat_button_inset_horizontal_material;
@@ -128,43 +119,28 @@ namespace ClubClays
 			global::Xamarin.Essentials.Resource.Id.action_divider = global::ClubClays.Resource.Id.action_divider;
 			global::Xamarin.Essentials.Resource.Id.action_image = global::ClubClays.Resource.Id.action_image;
 			global::Xamarin.Essentials.Resource.Id.action_text = global::ClubClays.Resource.Id.action_text;
-			global::Xamarin.Essentials.Resource.Id.all = global::ClubClays.Resource.Id.all;
 			global::Xamarin.Essentials.Resource.Id.async = global::ClubClays.Resource.Id.async;
 			global::Xamarin.Essentials.Resource.Id.blocking = global::ClubClays.Resource.Id.blocking;
-			global::Xamarin.Essentials.Resource.Id.bottom = global::ClubClays.Resource.Id.bottom;
 			global::Xamarin.Essentials.Resource.Id.browser_actions_header_text = global::ClubClays.Resource.Id.browser_actions_header_text;
 			global::Xamarin.Essentials.Resource.Id.browser_actions_menu_items = global::ClubClays.Resource.Id.browser_actions_menu_items;
 			global::Xamarin.Essentials.Resource.Id.browser_actions_menu_item_icon = global::ClubClays.Resource.Id.browser_actions_menu_item_icon;
 			global::Xamarin.Essentials.Resource.Id.browser_actions_menu_item_text = global::ClubClays.Resource.Id.browser_actions_menu_item_text;
 			global::Xamarin.Essentials.Resource.Id.browser_actions_menu_view = global::ClubClays.Resource.Id.browser_actions_menu_view;
-			global::Xamarin.Essentials.Resource.Id.center = global::ClubClays.Resource.Id.center;
-			global::Xamarin.Essentials.Resource.Id.center_horizontal = global::ClubClays.Resource.Id.center_horizontal;
-			global::Xamarin.Essentials.Resource.Id.center_vertical = global::ClubClays.Resource.Id.center_vertical;
 			global::Xamarin.Essentials.Resource.Id.chronometer = global::ClubClays.Resource.Id.chronometer;
-			global::Xamarin.Essentials.Resource.Id.clip_horizontal = global::ClubClays.Resource.Id.clip_horizontal;
-			global::Xamarin.Essentials.Resource.Id.clip_vertical = global::ClubClays.Resource.Id.clip_vertical;
 			global::Xamarin.Essentials.Resource.Id.dialog_button = global::ClubClays.Resource.Id.dialog_button;
-			global::Xamarin.Essentials.Resource.Id.end = global::ClubClays.Resource.Id.end;
-			global::Xamarin.Essentials.Resource.Id.fill = global::ClubClays.Resource.Id.fill;
-			global::Xamarin.Essentials.Resource.Id.fill_horizontal = global::ClubClays.Resource.Id.fill_horizontal;
-			global::Xamarin.Essentials.Resource.Id.fill_vertical = global::ClubClays.Resource.Id.fill_vertical;
 			global::Xamarin.Essentials.Resource.Id.forever = global::ClubClays.Resource.Id.forever;
 			global::Xamarin.Essentials.Resource.Id.icon = global::ClubClays.Resource.Id.icon;
 			global::Xamarin.Essentials.Resource.Id.icon_group = global::ClubClays.Resource.Id.icon_group;
 			global::Xamarin.Essentials.Resource.Id.info = global::ClubClays.Resource.Id.info;
 			global::Xamarin.Essentials.Resource.Id.italic = global::ClubClays.Resource.Id.italic;
-			global::Xamarin.Essentials.Resource.Id.left = global::ClubClays.Resource.Id.left;
 			global::Xamarin.Essentials.Resource.Id.line1 = global::ClubClays.Resource.Id.line1;
 			global::Xamarin.Essentials.Resource.Id.line3 = global::ClubClays.Resource.Id.line3;
-			global::Xamarin.Essentials.Resource.Id.none = global::ClubClays.Resource.Id.none;
 			global::Xamarin.Essentials.Resource.Id.normal = global::ClubClays.Resource.Id.normal;
 			global::Xamarin.Essentials.Resource.Id.notification_background = global::ClubClays.Resource.Id.notification_background;
 			global::Xamarin.Essentials.Resource.Id.notification_main_column = global::ClubClays.Resource.Id.notification_main_column;
 			global::Xamarin.Essentials.Resource.Id.notification_main_column_container = global::ClubClays.Resource.Id.notification_main_column_container;
-			global::Xamarin.Essentials.Resource.Id.right = global::ClubClays.Resource.Id.right;
 			global::Xamarin.Essentials.Resource.Id.right_icon = global::ClubClays.Resource.Id.right_icon;
 			global::Xamarin.Essentials.Resource.Id.right_side = global::ClubClays.Resource.Id.right_side;
-			global::Xamarin.Essentials.Resource.Id.start = global::ClubClays.Resource.Id.start;
 			global::Xamarin.Essentials.Resource.Id.tag_accessibility_actions = global::ClubClays.Resource.Id.tag_accessibility_actions;
 			global::Xamarin.Essentials.Resource.Id.tag_accessibility_clickable_spans = global::ClubClays.Resource.Id.tag_accessibility_clickable_spans;
 			global::Xamarin.Essentials.Resource.Id.tag_accessibility_heading = global::ClubClays.Resource.Id.tag_accessibility_heading;
@@ -177,7 +153,6 @@ namespace ClubClays
 			global::Xamarin.Essentials.Resource.Id.text2 = global::ClubClays.Resource.Id.text2;
 			global::Xamarin.Essentials.Resource.Id.time = global::ClubClays.Resource.Id.time;
 			global::Xamarin.Essentials.Resource.Id.title = global::ClubClays.Resource.Id.title;
-			global::Xamarin.Essentials.Resource.Id.top = global::ClubClays.Resource.Id.top;
 			global::Xamarin.Essentials.Resource.Integer.status_bar_notification_info_maxnum = global::ClubClays.Resource.Integer.status_bar_notification_info_maxnum;
 			global::Xamarin.Essentials.Resource.Layout.browser_actions_context_menu_page = global::ClubClays.Resource.Layout.browser_actions_context_menu_page;
 			global::Xamarin.Essentials.Resource.Layout.browser_actions_context_menu_row = global::ClubClays.Resource.Layout.browser_actions_context_menu_row;
@@ -188,6 +163,10 @@ namespace ClubClays
 			global::Xamarin.Essentials.Resource.Layout.notification_template_icon_group = global::ClubClays.Resource.Layout.notification_template_icon_group;
 			global::Xamarin.Essentials.Resource.Layout.notification_template_part_chronometer = global::ClubClays.Resource.Layout.notification_template_part_chronometer;
 			global::Xamarin.Essentials.Resource.Layout.notification_template_part_time = global::ClubClays.Resource.Layout.notification_template_part_time;
+			global::Xamarin.Essentials.Resource.String.copy_toast_msg = global::ClubClays.Resource.String.copy_toast_msg;
+			global::Xamarin.Essentials.Resource.String.fallback_menu_item_copy_link = global::ClubClays.Resource.String.fallback_menu_item_copy_link;
+			global::Xamarin.Essentials.Resource.String.fallback_menu_item_open_in_browser = global::ClubClays.Resource.String.fallback_menu_item_open_in_browser;
+			global::Xamarin.Essentials.Resource.String.fallback_menu_item_share_link = global::ClubClays.Resource.String.fallback_menu_item_share_link;
 			global::Xamarin.Essentials.Resource.String.status_bar_notification_info_overflow = global::ClubClays.Resource.String.status_bar_notification_info_overflow;
 			global::Xamarin.Essentials.Resource.Style.TextAppearance_Compat_Notification = global::ClubClays.Resource.Style.TextAppearance_Compat_Notification;
 			global::Xamarin.Essentials.Resource.Style.TextAppearance_Compat_Notification_Info = global::ClubClays.Resource.Style.TextAppearance_Compat_Notification_Info;
@@ -196,22 +175,10 @@ namespace ClubClays
 			global::Xamarin.Essentials.Resource.Style.TextAppearance_Compat_Notification_Title = global::ClubClays.Resource.Style.TextAppearance_Compat_Notification_Title;
 			global::Xamarin.Essentials.Resource.Style.Widget_Compat_NotificationActionContainer = global::ClubClays.Resource.Style.Widget_Compat_NotificationActionContainer;
 			global::Xamarin.Essentials.Resource.Style.Widget_Compat_NotificationActionText = global::ClubClays.Resource.Style.Widget_Compat_NotificationActionText;
-			global::Xamarin.Essentials.Resource.Style.Widget_Support_CoordinatorLayout = global::ClubClays.Resource.Style.Widget_Support_CoordinatorLayout;
 			global::Xamarin.Essentials.Resource.Styleable.ColorStateListItem = global::ClubClays.Resource.Styleable.ColorStateListItem;
 			global::Xamarin.Essentials.Resource.Styleable.ColorStateListItem_alpha = global::ClubClays.Resource.Styleable.ColorStateListItem_alpha;
 			global::Xamarin.Essentials.Resource.Styleable.ColorStateListItem_android_alpha = global::ClubClays.Resource.Styleable.ColorStateListItem_android_alpha;
 			global::Xamarin.Essentials.Resource.Styleable.ColorStateListItem_android_color = global::ClubClays.Resource.Styleable.ColorStateListItem_android_color;
-			global::Xamarin.Essentials.Resource.Styleable.CoordinatorLayout = global::ClubClays.Resource.Styleable.CoordinatorLayout;
-			global::Xamarin.Essentials.Resource.Styleable.CoordinatorLayout_keylines = global::ClubClays.Resource.Styleable.CoordinatorLayout_keylines;
-			global::Xamarin.Essentials.Resource.Styleable.CoordinatorLayout_Layout = global::ClubClays.Resource.Styleable.CoordinatorLayout_Layout;
-			global::Xamarin.Essentials.Resource.Styleable.CoordinatorLayout_Layout_android_layout_gravity = global::ClubClays.Resource.Styleable.CoordinatorLayout_Layout_android_layout_gravity;
-			global::Xamarin.Essentials.Resource.Styleable.CoordinatorLayout_Layout_layout_anchor = global::ClubClays.Resource.Styleable.CoordinatorLayout_Layout_layout_anchor;
-			global::Xamarin.Essentials.Resource.Styleable.CoordinatorLayout_Layout_layout_anchorGravity = global::ClubClays.Resource.Styleable.CoordinatorLayout_Layout_layout_anchorGravity;
-			global::Xamarin.Essentials.Resource.Styleable.CoordinatorLayout_Layout_layout_behavior = global::ClubClays.Resource.Styleable.CoordinatorLayout_Layout_layout_behavior;
-			global::Xamarin.Essentials.Resource.Styleable.CoordinatorLayout_Layout_layout_dodgeInsetEdges = global::ClubClays.Resource.Styleable.CoordinatorLayout_Layout_layout_dodgeInsetEdges;
-			global::Xamarin.Essentials.Resource.Styleable.CoordinatorLayout_Layout_layout_insetEdge = global::ClubClays.Resource.Styleable.CoordinatorLayout_Layout_layout_insetEdge;
-			global::Xamarin.Essentials.Resource.Styleable.CoordinatorLayout_Layout_layout_keyline = global::ClubClays.Resource.Styleable.CoordinatorLayout_Layout_layout_keyline;
-			global::Xamarin.Essentials.Resource.Styleable.CoordinatorLayout_statusBarBackground = global::ClubClays.Resource.Styleable.CoordinatorLayout_statusBarBackground;
 			global::Xamarin.Essentials.Resource.Styleable.FontFamily = global::ClubClays.Resource.Styleable.FontFamily;
 			global::Xamarin.Essentials.Resource.Styleable.FontFamilyFont = global::ClubClays.Resource.Styleable.FontFamilyFont;
 			global::Xamarin.Essentials.Resource.Styleable.FontFamilyFont_android_font = global::ClubClays.Resource.Styleable.FontFamilyFont_android_font;
@@ -246,6 +213,7 @@ namespace ClubClays
 			global::Xamarin.Essentials.Resource.Styleable.GradientColor_android_startY = global::ClubClays.Resource.Styleable.GradientColor_android_startY;
 			global::Xamarin.Essentials.Resource.Styleable.GradientColor_android_tileMode = global::ClubClays.Resource.Styleable.GradientColor_android_tileMode;
 			global::Xamarin.Essentials.Resource.Styleable.GradientColor_android_type = global::ClubClays.Resource.Styleable.GradientColor_android_type;
+			global::Xamarin.Essentials.Resource.Xml.image_share_filepaths = global::ClubClays.Resource.Xml.image_share_filepaths;
 			global::Xamarin.Essentials.Resource.Xml.xamarin_essentials_fileprovider_file_paths = global::ClubClays.Resource.Xml.xamarin_essentials_fileprovider_file_paths;
 		}
 		
@@ -5655,133 +5623,148 @@ namespace ClubClays
 			public const int standFormatPicker = 2131296544;
 			
 			// aapt resource value: 0x7F090121
-			public const int standRecyclerView = 2131296545;
-			
-			// aapt resource value: 0x7F090123
-			public const int standsLabel = 2131296547;
+			public const int standNumber = 2131296545;
 			
 			// aapt resource value: 0x7F090122
-			public const int standType = 2131296546;
+			public const int standRecyclerView = 2131296546;
 			
 			// aapt resource value: 0x7F090124
-			public const int start = 2131296548;
+			public const int standsLabel = 2131296548;
+			
+			// aapt resource value: 0x7F090123
+			public const int standType = 2131296547;
 			
 			// aapt resource value: 0x7F090125
-			public const int stretch = 2131296549;
+			public const int start = 2131296549;
 			
 			// aapt resource value: 0x7F090126
-			public const int submenuarrow = 2131296550;
+			public const int startingStand = 2131296550;
 			
 			// aapt resource value: 0x7F090127
-			public const int submit_area = 2131296551;
+			public const int startingStandSwitch = 2131296551;
 			
 			// aapt resource value: 0x7F090128
-			public const int switchWidget = 2131296552;
+			public const int startingStandSwitchLabel = 2131296552;
+			
+			// aapt resource value: 0x7F090129
+			public const int startingStandSwitchLayout = 2131296553;
+			
+			// aapt resource value: 0x7F09012A
+			public const int stretch = 2131296554;
+			
+			// aapt resource value: 0x7F09012B
+			public const int submenuarrow = 2131296555;
+			
+			// aapt resource value: 0x7F09012C
+			public const int submit_area = 2131296556;
+			
+			// aapt resource value: 0x7F09012D
+			public const int switchWidget = 2131296557;
 			
 			// aapt resource value: 0x7F090007
 			public const int SYM = 2131296263;
 			
-			// aapt resource value: 0x7F090129
-			public const int tabMode = 2131296553;
-			
-			// aapt resource value: 0x7F09012A
-			public const int tag_accessibility_actions = 2131296554;
-			
-			// aapt resource value: 0x7F09012B
-			public const int tag_accessibility_clickable_spans = 2131296555;
-			
-			// aapt resource value: 0x7F09012C
-			public const int tag_accessibility_heading = 2131296556;
-			
-			// aapt resource value: 0x7F09012D
-			public const int tag_accessibility_pane_title = 2131296557;
-			
 			// aapt resource value: 0x7F09012E
-			public const int tag_screen_reader_focusable = 2131296558;
+			public const int tabMode = 2131296558;
 			
 			// aapt resource value: 0x7F09012F
-			public const int tag_transition_group = 2131296559;
+			public const int tag_accessibility_actions = 2131296559;
 			
 			// aapt resource value: 0x7F090130
-			public const int tag_unhandled_key_event_manager = 2131296560;
+			public const int tag_accessibility_clickable_spans = 2131296560;
 			
 			// aapt resource value: 0x7F090131
-			public const int tag_unhandled_key_listeners = 2131296561;
+			public const int tag_accessibility_heading = 2131296561;
 			
 			// aapt resource value: 0x7F090132
-			public const int test_checkbox_android_button_tint = 2131296562;
+			public const int tag_accessibility_pane_title = 2131296562;
 			
 			// aapt resource value: 0x7F090133
-			public const int test_checkbox_app_button_tint = 2131296563;
+			public const int tag_screen_reader_focusable = 2131296563;
 			
 			// aapt resource value: 0x7F090134
-			public const int test_radiobutton_android_button_tint = 2131296564;
+			public const int tag_transition_group = 2131296564;
 			
 			// aapt resource value: 0x7F090135
-			public const int test_radiobutton_app_button_tint = 2131296565;
+			public const int tag_unhandled_key_event_manager = 2131296565;
 			
 			// aapt resource value: 0x7F090136
-			public const int text = 2131296566;
+			public const int tag_unhandled_key_listeners = 2131296566;
 			
 			// aapt resource value: 0x7F090137
-			public const int text2 = 2131296567;
+			public const int test_checkbox_android_button_tint = 2131296567;
 			
 			// aapt resource value: 0x7F090138
-			public const int textEnd = 2131296568;
-			
-			// aapt resource value: 0x7F09013E
-			public const int textinput_counter = 2131296574;
-			
-			// aapt resource value: 0x7F09013F
-			public const int textinput_error = 2131296575;
-			
-			// aapt resource value: 0x7F090140
-			public const int textinput_helper_text = 2131296576;
-			
-			// aapt resource value: 0x7F090141
-			public const int textinput_placeholder = 2131296577;
-			
-			// aapt resource value: 0x7F090142
-			public const int textinput_prefix_text = 2131296578;
-			
-			// aapt resource value: 0x7F090143
-			public const int textinput_suffix_text = 2131296579;
+			public const int test_checkbox_app_button_tint = 2131296568;
 			
 			// aapt resource value: 0x7F090139
-			public const int textSpacerNoButtons = 2131296569;
+			public const int test_radiobutton_android_button_tint = 2131296569;
 			
 			// aapt resource value: 0x7F09013A
-			public const int textSpacerNoTitle = 2131296570;
+			public const int test_radiobutton_app_button_tint = 2131296570;
 			
 			// aapt resource value: 0x7F09013B
-			public const int textStart = 2131296571;
+			public const int text = 2131296571;
 			
 			// aapt resource value: 0x7F09013C
-			public const int text_input_end_icon = 2131296572;
+			public const int text2 = 2131296572;
 			
 			// aapt resource value: 0x7F09013D
-			public const int text_input_start_icon = 2131296573;
+			public const int textEnd = 2131296573;
+			
+			// aapt resource value: 0x7F090143
+			public const int textinput_counter = 2131296579;
 			
 			// aapt resource value: 0x7F090144
-			public const int time = 2131296580;
+			public const int textinput_error = 2131296580;
 			
 			// aapt resource value: 0x7F090145
-			public const int title = 2131296581;
+			public const int textinput_helper_text = 2131296581;
 			
 			// aapt resource value: 0x7F090146
-			public const int titleDividerNoCustom = 2131296582;
+			public const int textinput_placeholder = 2131296582;
 			
 			// aapt resource value: 0x7F090147
-			public const int title_template = 2131296583;
+			public const int textinput_prefix_text = 2131296583;
 			
 			// aapt resource value: 0x7F090148
-			public const int toolbar = 2131296584;
+			public const int textinput_suffix_text = 2131296584;
+			
+			// aapt resource value: 0x7F09013E
+			public const int textSpacerNoButtons = 2131296574;
+			
+			// aapt resource value: 0x7F09013F
+			public const int textSpacerNoTitle = 2131296575;
+			
+			// aapt resource value: 0x7F090140
+			public const int textStart = 2131296576;
+			
+			// aapt resource value: 0x7F090141
+			public const int text_input_end_icon = 2131296577;
+			
+			// aapt resource value: 0x7F090142
+			public const int text_input_start_icon = 2131296578;
 			
 			// aapt resource value: 0x7F090149
-			public const int top = 2131296585;
+			public const int time = 2131296585;
 			
 			// aapt resource value: 0x7F09014A
-			public const int topPanel = 2131296586;
+			public const int title = 2131296586;
+			
+			// aapt resource value: 0x7F09014B
+			public const int titleDividerNoCustom = 2131296587;
+			
+			// aapt resource value: 0x7F09014C
+			public const int title_template = 2131296588;
+			
+			// aapt resource value: 0x7F09014D
+			public const int toolbar = 2131296589;
+			
+			// aapt resource value: 0x7F09014E
+			public const int top = 2131296590;
+			
+			// aapt resource value: 0x7F09014F
+			public const int topPanel = 2131296591;
 			
 			// aapt resource value: 0x7F090008
 			public const int TOP_END = 2131296264;
@@ -5789,71 +5772,71 @@ namespace ClubClays
 			// aapt resource value: 0x7F090009
 			public const int TOP_START = 2131296265;
 			
-			// aapt resource value: 0x7F09014B
-			public const int touch_outside = 2131296587;
-			
-			// aapt resource value: 0x7F09014C
-			public const int trackingTypeLabel = 2131296588;
-			
-			// aapt resource value: 0x7F09014D
-			public const int trackingtypePicker = 2131296589;
-			
-			// aapt resource value: 0x7F09014E
-			public const int transition_current_scene = 2131296590;
-			
-			// aapt resource value: 0x7F09014F
-			public const int transition_layout_save = 2131296591;
-			
 			// aapt resource value: 0x7F090150
-			public const int transition_position = 2131296592;
+			public const int touch_outside = 2131296592;
 			
 			// aapt resource value: 0x7F090151
-			public const int transition_scene_layoutid_cache = 2131296593;
+			public const int trackingTypeLabel = 2131296593;
 			
 			// aapt resource value: 0x7F090152
-			public const int transition_transform = 2131296594;
+			public const int trackingtypePicker = 2131296594;
 			
 			// aapt resource value: 0x7F090153
-			public const int typeLabel = 2131296595;
+			public const int transition_current_scene = 2131296595;
 			
 			// aapt resource value: 0x7F090154
-			public const int @unchecked = 2131296596;
+			public const int transition_layout_save = 2131296596;
 			
 			// aapt resource value: 0x7F090155
-			public const int uniform = 2131296597;
+			public const int transition_position = 2131296597;
 			
 			// aapt resource value: 0x7F090156
-			public const int unlabeled = 2131296598;
+			public const int transition_scene_layoutid_cache = 2131296598;
 			
 			// aapt resource value: 0x7F090157
-			public const int up = 2131296599;
+			public const int transition_transform = 2131296599;
 			
 			// aapt resource value: 0x7F090158
-			public const int useLogo = 2131296600;
+			public const int typeLabel = 2131296600;
 			
 			// aapt resource value: 0x7F090159
-			public const int view_offset_helper = 2131296601;
+			public const int @unchecked = 2131296601;
 			
 			// aapt resource value: 0x7F09015A
-			public const int view_tree_saved_state_registry_owner = 2131296602;
+			public const int uniform = 2131296602;
 			
 			// aapt resource value: 0x7F09015B
-			public const int visible = 2131296603;
+			public const int unlabeled = 2131296603;
 			
 			// aapt resource value: 0x7F09015C
-			public const int visible_removing_fragment_view_tag = 2131296604;
-			
-			// aapt resource value: 0x7F09015E
-			public const int withinBounds = 2131296606;
+			public const int up = 2131296604;
 			
 			// aapt resource value: 0x7F09015D
-			public const int withText = 2131296605;
+			public const int useLogo = 2131296605;
+			
+			// aapt resource value: 0x7F09015E
+			public const int view_offset_helper = 2131296606;
 			
 			// aapt resource value: 0x7F09015F
-			public const int wrap_content = 2131296607;
+			public const int view_tree_saved_state_registry_owner = 2131296607;
 			
 			// aapt resource value: 0x7F090160
-			public const int zero_corner_chip = 2131296608;
+			public const int visible = 2131296608;
+			
+			// aapt resource value: 0x7F090161
+			public const int visible_removing_fragment_view_tag = 2131296609;
+			
+			// aapt resource value: 0x7F090163
+			public const int withinBounds = 2131296611;
+			
+			// aapt resource value: 0x7F090162
+			public const int withText = 2131296610;
+			
+			// aapt resource value: 0x7F090164
+			public const int wrap_content = 2131296612;
+			
+			// aapt resource value: 0x7F090165
+			public const int zero_corner_chip = 2131296613;
 			
 			static Id()
 			{
@@ -6547,178 +6530,190 @@ namespace ClubClays
 			public const int copy = 2131755044;
 			
 			// aapt resource value: 0x7F100025
-			public const int error_icon_content_description = 2131755045;
+			public const int copy_toast_msg = 2131755045;
 			
 			// aapt resource value: 0x7F100026
-			public const int expand_button_title = 2131755046;
+			public const int error_icon_content_description = 2131755046;
 			
 			// aapt resource value: 0x7F100027
-			public const int exposed_dropdown_menu_content_description = 2131755047;
+			public const int expand_button_title = 2131755047;
 			
 			// aapt resource value: 0x7F100028
-			public const int fab_transformation_scrim_behavior = 2131755048;
+			public const int exposed_dropdown_menu_content_description = 2131755048;
 			
 			// aapt resource value: 0x7F100029
-			public const int fab_transformation_sheet_behavior = 2131755049;
+			public const int fab_transformation_scrim_behavior = 2131755049;
 			
 			// aapt resource value: 0x7F10002A
-			public const int hide_bottom_view_on_scroll_behavior = 2131755050;
+			public const int fab_transformation_sheet_behavior = 2131755050;
 			
 			// aapt resource value: 0x7F10002B
-			public const int icon_content_description = 2131755051;
+			public const int fallback_menu_item_copy_link = 2131755051;
 			
 			// aapt resource value: 0x7F10002C
-			public const int item_view_role_description = 2131755052;
+			public const int fallback_menu_item_open_in_browser = 2131755052;
 			
 			// aapt resource value: 0x7F10002D
-			public const int material_slider_range_end = 2131755053;
+			public const int fallback_menu_item_share_link = 2131755053;
 			
 			// aapt resource value: 0x7F10002E
-			public const int material_slider_range_start = 2131755054;
+			public const int hide_bottom_view_on_scroll_behavior = 2131755054;
 			
 			// aapt resource value: 0x7F10002F
-			public const int mtrl_badge_numberless_content_description = 2131755055;
+			public const int icon_content_description = 2131755055;
 			
 			// aapt resource value: 0x7F100030
-			public const int mtrl_chip_close_icon_content_description = 2131755056;
+			public const int item_view_role_description = 2131755056;
 			
 			// aapt resource value: 0x7F100031
-			public const int mtrl_exceed_max_badge_number_content_description = 2131755057;
+			public const int material_slider_range_end = 2131755057;
 			
 			// aapt resource value: 0x7F100032
-			public const int mtrl_exceed_max_badge_number_suffix = 2131755058;
+			public const int material_slider_range_start = 2131755058;
 			
 			// aapt resource value: 0x7F100033
-			public const int mtrl_picker_a11y_next_month = 2131755059;
+			public const int mtrl_badge_numberless_content_description = 2131755059;
 			
 			// aapt resource value: 0x7F100034
-			public const int mtrl_picker_a11y_prev_month = 2131755060;
+			public const int mtrl_chip_close_icon_content_description = 2131755060;
 			
 			// aapt resource value: 0x7F100035
-			public const int mtrl_picker_announce_current_selection = 2131755061;
+			public const int mtrl_exceed_max_badge_number_content_description = 2131755061;
 			
 			// aapt resource value: 0x7F100036
-			public const int mtrl_picker_cancel = 2131755062;
+			public const int mtrl_exceed_max_badge_number_suffix = 2131755062;
 			
 			// aapt resource value: 0x7F100037
-			public const int mtrl_picker_confirm = 2131755063;
+			public const int mtrl_picker_a11y_next_month = 2131755063;
 			
 			// aapt resource value: 0x7F100038
-			public const int mtrl_picker_date_header_selected = 2131755064;
+			public const int mtrl_picker_a11y_prev_month = 2131755064;
 			
 			// aapt resource value: 0x7F100039
-			public const int mtrl_picker_date_header_title = 2131755065;
+			public const int mtrl_picker_announce_current_selection = 2131755065;
 			
 			// aapt resource value: 0x7F10003A
-			public const int mtrl_picker_date_header_unselected = 2131755066;
+			public const int mtrl_picker_cancel = 2131755066;
 			
 			// aapt resource value: 0x7F10003B
-			public const int mtrl_picker_day_of_week_column_header = 2131755067;
+			public const int mtrl_picker_confirm = 2131755067;
 			
 			// aapt resource value: 0x7F10003C
-			public const int mtrl_picker_invalid_format = 2131755068;
+			public const int mtrl_picker_date_header_selected = 2131755068;
 			
 			// aapt resource value: 0x7F10003D
-			public const int mtrl_picker_invalid_format_example = 2131755069;
+			public const int mtrl_picker_date_header_title = 2131755069;
 			
 			// aapt resource value: 0x7F10003E
-			public const int mtrl_picker_invalid_format_use = 2131755070;
+			public const int mtrl_picker_date_header_unselected = 2131755070;
 			
 			// aapt resource value: 0x7F10003F
-			public const int mtrl_picker_invalid_range = 2131755071;
+			public const int mtrl_picker_day_of_week_column_header = 2131755071;
 			
 			// aapt resource value: 0x7F100040
-			public const int mtrl_picker_navigate_to_year_description = 2131755072;
+			public const int mtrl_picker_invalid_format = 2131755072;
 			
 			// aapt resource value: 0x7F100041
-			public const int mtrl_picker_out_of_range = 2131755073;
+			public const int mtrl_picker_invalid_format_example = 2131755073;
 			
 			// aapt resource value: 0x7F100042
-			public const int mtrl_picker_range_header_only_end_selected = 2131755074;
+			public const int mtrl_picker_invalid_format_use = 2131755074;
 			
 			// aapt resource value: 0x7F100043
-			public const int mtrl_picker_range_header_only_start_selected = 2131755075;
+			public const int mtrl_picker_invalid_range = 2131755075;
 			
 			// aapt resource value: 0x7F100044
-			public const int mtrl_picker_range_header_selected = 2131755076;
+			public const int mtrl_picker_navigate_to_year_description = 2131755076;
 			
 			// aapt resource value: 0x7F100045
-			public const int mtrl_picker_range_header_title = 2131755077;
+			public const int mtrl_picker_out_of_range = 2131755077;
 			
 			// aapt resource value: 0x7F100046
-			public const int mtrl_picker_range_header_unselected = 2131755078;
+			public const int mtrl_picker_range_header_only_end_selected = 2131755078;
 			
 			// aapt resource value: 0x7F100047
-			public const int mtrl_picker_save = 2131755079;
+			public const int mtrl_picker_range_header_only_start_selected = 2131755079;
 			
 			// aapt resource value: 0x7F100048
-			public const int mtrl_picker_text_input_date_hint = 2131755080;
+			public const int mtrl_picker_range_header_selected = 2131755080;
 			
 			// aapt resource value: 0x7F100049
-			public const int mtrl_picker_text_input_date_range_end_hint = 2131755081;
+			public const int mtrl_picker_range_header_title = 2131755081;
 			
 			// aapt resource value: 0x7F10004A
-			public const int mtrl_picker_text_input_date_range_start_hint = 2131755082;
+			public const int mtrl_picker_range_header_unselected = 2131755082;
 			
 			// aapt resource value: 0x7F10004B
-			public const int mtrl_picker_text_input_day_abbr = 2131755083;
+			public const int mtrl_picker_save = 2131755083;
 			
 			// aapt resource value: 0x7F10004C
-			public const int mtrl_picker_text_input_month_abbr = 2131755084;
+			public const int mtrl_picker_text_input_date_hint = 2131755084;
 			
 			// aapt resource value: 0x7F10004D
-			public const int mtrl_picker_text_input_year_abbr = 2131755085;
+			public const int mtrl_picker_text_input_date_range_end_hint = 2131755085;
 			
 			// aapt resource value: 0x7F10004E
-			public const int mtrl_picker_toggle_to_calendar_input_mode = 2131755086;
+			public const int mtrl_picker_text_input_date_range_start_hint = 2131755086;
 			
 			// aapt resource value: 0x7F10004F
-			public const int mtrl_picker_toggle_to_day_selection = 2131755087;
+			public const int mtrl_picker_text_input_day_abbr = 2131755087;
 			
 			// aapt resource value: 0x7F100050
-			public const int mtrl_picker_toggle_to_text_input_mode = 2131755088;
+			public const int mtrl_picker_text_input_month_abbr = 2131755088;
 			
 			// aapt resource value: 0x7F100051
-			public const int mtrl_picker_toggle_to_year_selection = 2131755089;
+			public const int mtrl_picker_text_input_year_abbr = 2131755089;
 			
 			// aapt resource value: 0x7F100052
-			public const int not_set = 2131755090;
+			public const int mtrl_picker_toggle_to_calendar_input_mode = 2131755090;
 			
 			// aapt resource value: 0x7F100053
-			public const int password_toggle_content_description = 2131755091;
+			public const int mtrl_picker_toggle_to_day_selection = 2131755091;
 			
 			// aapt resource value: 0x7F100054
-			public const int path_password_eye = 2131755092;
+			public const int mtrl_picker_toggle_to_text_input_mode = 2131755092;
 			
 			// aapt resource value: 0x7F100055
-			public const int path_password_eye_mask_strike_through = 2131755093;
+			public const int mtrl_picker_toggle_to_year_selection = 2131755093;
 			
 			// aapt resource value: 0x7F100056
-			public const int path_password_eye_mask_visible = 2131755094;
+			public const int not_set = 2131755094;
 			
 			// aapt resource value: 0x7F100057
-			public const int path_password_strike_through = 2131755095;
+			public const int password_toggle_content_description = 2131755095;
 			
 			// aapt resource value: 0x7F100058
-			public const int preference_copied = 2131755096;
+			public const int path_password_eye = 2131755096;
 			
 			// aapt resource value: 0x7F100059
-			public const int search_menu_title = 2131755097;
+			public const int path_password_eye_mask_strike_through = 2131755097;
 			
 			// aapt resource value: 0x7F10005A
-			public const int status_bar_notification_info_overflow = 2131755098;
+			public const int path_password_eye_mask_visible = 2131755098;
 			
 			// aapt resource value: 0x7F10005B
-			public const int summary_collapsed_preference_list = 2131755099;
+			public const int path_password_strike_through = 2131755099;
 			
 			// aapt resource value: 0x7F10005C
-			public const int theme_def_value = 2131755100;
+			public const int preference_copied = 2131755100;
 			
 			// aapt resource value: 0x7F10005D
-			public const int v7_preference_off = 2131755101;
+			public const int search_menu_title = 2131755101;
 			
 			// aapt resource value: 0x7F10005E
-			public const int v7_preference_on = 2131755102;
+			public const int status_bar_notification_info_overflow = 2131755102;
+			
+			// aapt resource value: 0x7F10005F
+			public const int summary_collapsed_preference_list = 2131755103;
+			
+			// aapt resource value: 0x7F100060
+			public const int theme_def_value = 2131755104;
+			
+			// aapt resource value: 0x7F100061
+			public const int v7_preference_off = 2131755105;
+			
+			// aapt resource value: 0x7F100062
+			public const int v7_preference_on = 2131755106;
 			
 			static String()
 			{
@@ -13245,25 +13240,28 @@ namespace ClubClays
 		{
 			
 			// aapt resource value: 0x7F130000
-			public const int preferences = 2131951616;
+			public const int image_share_filepaths = 2131951616;
 			
 			// aapt resource value: 0x7F130001
-			public const int standalone_badge = 2131951617;
+			public const int preferences = 2131951617;
 			
 			// aapt resource value: 0x7F130002
-			public const int standalone_badge_gravity_bottom_end = 2131951618;
+			public const int standalone_badge = 2131951618;
 			
 			// aapt resource value: 0x7F130003
-			public const int standalone_badge_gravity_bottom_start = 2131951619;
+			public const int standalone_badge_gravity_bottom_end = 2131951619;
 			
 			// aapt resource value: 0x7F130004
-			public const int standalone_badge_gravity_top_start = 2131951620;
+			public const int standalone_badge_gravity_bottom_start = 2131951620;
 			
 			// aapt resource value: 0x7F130005
-			public const int standalone_badge_offset = 2131951621;
+			public const int standalone_badge_gravity_top_start = 2131951621;
 			
 			// aapt resource value: 0x7F130006
-			public const int xamarin_essentials_fileprovider_file_paths = 2131951622;
+			public const int standalone_badge_offset = 2131951622;
+			
+			// aapt resource value: 0x7F130007
+			public const int xamarin_essentials_fileprovider_file_paths = 2131951623;
 			
 			static Xml()
 			{
