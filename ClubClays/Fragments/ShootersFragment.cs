@@ -91,6 +91,7 @@ namespace ClubClays.Fragments
                 db.Insert(newShooter);
 
                 selectedShootersModel.selectedShooters.Add(newShooter);
+                
             });
             builder.SetNegativeButton("Cancel", (c, ev) => { });
 

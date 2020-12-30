@@ -260,7 +260,7 @@ namespace ClubClays.Fragments
 
         public void OnDateSet(DatePicker view, int year, int month, int dayOfMonth)
         {
-            date =  new DateTime(year, month + 1, dayOfMonth);
+            date = new DateTime(year, month + 1, dayOfMonth);
             datePickerView.Text = $"{date:MMMM} {date:dd}, {year}";
         }
     }

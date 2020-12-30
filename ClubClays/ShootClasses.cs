@@ -31,6 +31,13 @@ namespace ClubClays
             string standType;
             string standFormat;
             int numOfPairs;
+
+            public Stand(string standType, string standFormat, int numOfPairs)
+            {
+                this.standType = standType;
+                this.standFormat = standFormat;
+                this.numOfPairs = numOfPairs;
+            }
         }
 
         protected class Shooter
@@ -48,6 +55,12 @@ namespace ClubClays
                 int runningTotalAtStand;
                 SortedList<int, bool[]> ShotsByPairNum;
             }
+
+            public Shooter(string name, string shooterClass)
+            {
+                this.name = name;
+                this.shooterClass = shooterClass;
+            }
         }
 
         public void SaveShootData() { }
@@ -60,6 +73,20 @@ namespace ClubClays
         protected int currentPair;
         protected string currentShooterName;
         protected string trackingType;
+
+        public void InitialiseBasics(List<Shooters> shooters, DateTime date, string location, bool rotateShooters, string discipline, int startingStand)
+        {
+            this.date = date;
+            this.location = location;
+            this.rotateShooters = rotateShooters;
+            this.discipline = discipline;
+            this.startingStand = startingStand;
+
+            foreach (Shooters shooter in shooters)
+            {
+                ShootersById.Add(shooter.Id, new Shooter(shooter.Name, shooter.Class));
+            }
+        }
 
         public void AddScore() 
         {
@@ -85,29 +112,27 @@ namespace ClubClays
 
     class UnknownFormatShoot : ShootScoreManagement
     {
-        public void Initialise(Shooters shooters, DateTime date, string location, bool rotateShooters, string discipline, int startingStand)
+        public void Initialise(List<Shooters> shooters, DateTime date, string location, bool rotateShooters, string discipline, int startingStand)
         {
-            this.date = date;
-            this.location = location;
-            this.rotateShooters = rotateShooters;
-            this.discipline = discipline;
-            this.startingStand = startingStand;
+            InitialiseBasics(shooters, date, location, rotateShooters, discipline, startingStand);
             trackingType = "Unknown";
         }
     }
 
     class KnownFormatShoot : ShootScoreManagement
     {
-        public void Initialise(Shooters shooters, StandFormats stands, DateTime date, string location, bool rotateShooters, string discipline, int startingStand)
+        public void Initialise(List<Shooters> shooters, List<StandFormats> stands, DateTime date, string location, bool rotateShooters, string discipline, int startingStand)
         {
             // Simple data initialisation
-            this.date = date;
-            this.location = location;
-            this.rotateShooters = rotateShooters;
-            this.discipline = discipline;
-            this.startingStand = startingStand;
+            InitialiseBasics(shooters, date, location, rotateShooters, discipline, startingStand);
             trackingType = "Known";
 
+            int standNum = 1;
+            foreach (StandFormats stand in stands)
+            {
+                StandsByNum.Add(standNum, new Stand(stand.StandType, stand.StandFormat, stand.NumPairs));
+                standNum++;
+            }
         }
     }
 
