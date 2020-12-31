@@ -23,7 +23,9 @@ namespace ClubClays.Fragments
         private TextView trackingTypePickerView;
         private string userOverallAction;
         private string discipline;
+        private string location;
         private DateTime date;
+        private bool rotateShooters;
 
         private TextView shootersSelection;
         private TextView standFormatting;
@@ -158,6 +160,10 @@ namespace ClubClays.Fragments
                     startStandInput.Text = "1";
                     return;
                 }
+                else
+                {
+                    startStand = standNum;
+                }
             }
 
             FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
@@ -166,25 +172,30 @@ namespace ClubClays.Fragments
             {
                 if (formatSwitch.Checked == true)
                 {
-                    _ = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(KnownFormatShoot))) as KnownFormatShoot;
+                    KnownFormatShoot activeShootModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(KnownFormatShoot))) as KnownFormatShoot;
+                    activeShootModel.Initialise(standShooterModel.selectedShooters, standShooterModel.standFormats, date, location, rotateShooters, discipline, startStand);
+
+                    fragmentTx.Replace(Resource.Id.container, new ScoreTakingFragment());
+                    fragmentTx.Commit();
                 }
                 else if (formatSwitch.Checked == false)
                 {
-                    _ = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(UnknownFormatShoot))) as UnknownFormatShoot;
-                }
-                standShooterModel.Dispose();
+                    UnknownFormatShoot activeShootModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(UnknownFormatShoot))) as UnknownFormatShoot;
+                    activeShootModel.Initialise(standShooterModel.selectedShooters, date, location, rotateShooters, discipline, startStand);
 
-                //fragmentTx.Replace(Resource.Id.container, );
-                //fragmentTx.Commit();
+                    //fragmentTx.Replace(Resource.Id.container, );
+                    //fragmentTx.Commit();
+                }
             }
             else if (userOverallAction == "Add Shoot")
             {
-                _ = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(AddShoot))) as AddShoot;
-                standShooterModel.Dispose();
+                AddShoot activeShootModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(AddShoot))) as AddShoot;
 
                 //fragmentTx.Replace(Resource.Id.container, );
                 //fragmentTx.Commit();
             }
+
+            standShooterModel.Dispose();
         }
 
         private void ShootersSelection_Click(object sender, EventArgs e)

@@ -70,6 +70,7 @@
     <Compile Include="DatabaseModels.cs" />
     <Compile Include="Fragments\GeneralDataFragment.cs" />
     <Compile Include="Fragments\MainFragment.cs" />
+    <Compile Include="Fragments\ScoreTakingFragment.cs" />
     <Compile Include="Fragments\SettingsFragment.cs" />
     <Compile Include="Fragments\ShootersFragment.cs" />
     <Compile Include="Fragments\StandSetupFragment.cs" />
@@ -131,6 +132,9 @@
     </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.Arch.Core.Runtime">
       <Version>2.1.0.7</Version>
+    </PackageReference>
+    <PackageReference Include="Xamarin.AndroidX.ConstraintLayout">
+      <Version>2.0.4.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.AndroidX.CoordinatorLayout">
       <Version>1.1.0.6</Version>
@@ -209,6 +213,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\dialogfragment_addstand.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\fragment_score_taking.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

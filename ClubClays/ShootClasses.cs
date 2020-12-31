@@ -74,7 +74,7 @@ namespace ClubClays
         protected string currentShooterName;
         protected string trackingType;
 
-        public void InitialiseBasics(List<Shooters> shooters, DateTime date, string location, bool rotateShooters, string discipline, int startingStand)
+        protected void InitialiseBasics(List<Shooters> shooters, DateTime date, string location, bool rotateShooters, string discipline, int startingStand)
         {
             this.date = date;
             this.location = location;
