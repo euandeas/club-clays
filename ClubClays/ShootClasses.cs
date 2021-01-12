@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using AndroidX.Lifecycle;
 using ClubClays.DatabaseModels;
 
@@ -23,14 +24,14 @@ namespace ClubClays
         protected string userNotes;
         protected bool rotateShooters;
 
-        protected Dictionary<int, Shooter> ShootersById;
+        protected Dictionary<int, Shooter> ShootersByOriginalPos;
         protected SortedList<int, Stand> StandsByNum;
 
         protected struct Stand
         {
-            string standType;
-            string standFormat;
-            int numOfPairs;
+            public string standType;
+            public string standFormat;
+            public int numOfPairs;
 
             public Stand(string standType, string standFormat, int numOfPairs)
             {
@@ -42,6 +43,7 @@ namespace ClubClays
 
         protected class Shooter
         {
+            public int id;
             public string name;
             public string shooterClass;
             public int overallTotal;
@@ -50,14 +52,15 @@ namespace ClubClays
 
             public struct StandScore
             {
-                int standTotal;
-                int standPercentage;
-                int runningTotalAtStand;
-                SortedList<int, bool[]> ShotsByPairNum;
+                public int standTotal;
+                public int standPercentage;
+                public int runningTotalAtStand;
+                public SortedList<int, bool[]> ShotsByPairNum;
             }
 
-            public Shooter(string name, string shooterClass)
+            public Shooter(int id,string name, string shooterClass)
             {
+                this.id = id;
                 this.name = name;
                 this.shooterClass = shooterClass;
             }
@@ -71,10 +74,17 @@ namespace ClubClays
     {
         protected int currentStand;
         protected int currentPair;
-        protected string currentShooterName;
+        protected int currentShooterIndex;
         protected string trackingType;
 
-        protected void InitialiseBasics(List<Shooters> shooters, DateTime date, string location, bool rotateShooters, string discipline, int startingStand)
+        public int CurrentStand { get => currentStand; }
+        public int CurrentPair { get => currentPair; }
+        public string CurrentShooterName { get => ShootersByOriginalPos.ElementAt(currentShooterIndex).Value.name; }
+        public string TrackingType { get => trackingType; }
+
+        public string CurrentStandScore { get => $"{ShootersByOriginalPos.ElementAt(currentShooterIndex).Value.StandScoresByStandNum[currentStand].standTotal}/{StandsByNum[currentStand].numOfPairs}"; }
+
+        public void InitialiseBasics(List<Shooters> shooters, DateTime date, string location, bool rotateShooters, string discipline, int startingStand)
         {
             this.date = date;
             this.location = location;
@@ -82,9 +92,22 @@ namespace ClubClays
             this.discipline = discipline;
             this.startingStand = startingStand;
 
+            trackingType = "Unknown";
+
+            int counter = 1;
             foreach (Shooters shooter in shooters)
             {
-                ShootersById.Add(shooter.Id, new Shooter(shooter.Name, shooter.Class));
+                ShootersByOriginalPos.Add(counter++, new Shooter(shooter.Id, shooter.Name, shooter.Class));
+            }
+        }
+
+        public void InitialiseStands(List<StandFormats> stands)
+        {
+            trackingType = "Known";
+            int standNum = 1;
+            foreach (StandFormats stand in stands)
+            {
+                StandsByNum.Add(standNum++, new Stand(stand.StandType, stand.StandFormat, stand.NumPairs));
             }
         }
 
@@ -96,43 +119,6 @@ namespace ClubClays
         public void UndoScore() 
         {
 
-        }
-
-        public bool GetCurrentData(out int Stand, out int Pair, out string ShooterName)
-        {
-            Stand = currentStand;
-            Pair = currentPair;
-            ShooterName = currentShooterName;
-
-            bool isLastPair = true;
-
-            return isLastPair;
-        }
-    }
-
-    class UnknownFormatShoot : ShootScoreManagement
-    {
-        public void Initialise(List<Shooters> shooters, DateTime date, string location, bool rotateShooters, string discipline, int startingStand)
-        {
-            InitialiseBasics(shooters, date, location, rotateShooters, discipline, startingStand);
-            trackingType = "Unknown";
-        }
-    }
-
-    class KnownFormatShoot : ShootScoreManagement
-    {
-        public void Initialise(List<Shooters> shooters, List<StandFormats> stands, DateTime date, string location, bool rotateShooters, string discipline, int startingStand)
-        {
-            // Simple data initialisation
-            InitialiseBasics(shooters, date, location, rotateShooters, discipline, startingStand);
-            trackingType = "Known";
-
-            int standNum = 1;
-            foreach (StandFormats stand in stands)
-            {
-                StandsByNum.Add(standNum, new Stand(stand.StandType, stand.StandFormat, stand.NumPairs));
-                standNum++;
-            }
         }
     }
 

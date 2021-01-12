@@ -15,49 +15,49 @@
         android:theme="@style/ThemeOverlay.AppCompat.Light"/>
 
     <RelativeLayout
-            android:id="@+id/relativeLayout"
-            android:layout_width="match_parent"
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="50dp">
+        <TextView
+            android:id="@+id/shooterNameText"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="50dp">
-            <TextView
-                android:id="@+id/shooterNameText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true" 
-                android:textSize="28sp"
-                android:text="Shooter Name"/> 
-            <TextView
-                android:id="@+id/standNumberText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/shooterNameText"
-                android:layout_centerHorizontal="true"
-                android:textSize="18sp"
-                android:text="Stand Number"/>
-            <TextView
-                android:id="@+id/pairNumberText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/standNumberText"
-                android:layout_centerHorizontal="true"
-                android:textSize="16sp"
-                android:text="Pair Number"/>
-        </RelativeLayout>
+            android:layout_centerHorizontal="true" 
+            android:textSize="28sp"
+            android:text="Shooter Name"/> 
+        <TextView
+            android:id="@+id/standNumberText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/shooterNameText"
+            android:layout_centerHorizontal="true"
+            android:textSize="18sp"
+            android:text="Stand Number"/>
+        <TextView
+            android:id="@+id/pairNumberText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/standNumberText"
+            android:layout_centerHorizontal="true"
+            android:textSize="16sp"
+            android:text="Pair Number"/>
+    </RelativeLayout>
 
     <LinearLayout
-            android:id="@+id/scoreLinearLayout"
-            android:layout_width="match_parent"
+        android:id="@+id/scoreLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="30dp">
+        <TextView
+            android:id="@+id/currentScoreText"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="30dp">
-            <TextView
-                android:id="@+id/currentScoreText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/mainTitleText"
-                android:layout_gravity="center_horizontal"
-                android:textSize="16sp"
-                android:text="Current Stand Score"/>
+            android:layout_below="@+id/mainTitleText"
+            android:layout_gravity="center_horizontal"
+            android:textSize="16sp"
+            android:text="Current Stand Score"/>
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -90,19 +90,19 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
     
     <LinearLayout
-            android:id="@+id/nextLinearLayout"
-            android:layout_width="match_parent"
+        android:id="@+id/nextLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/currentScoreText"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/currentScoreText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/mainTitleText"
-                android:layout_gravity="center_horizontal"
-                android:textSize="16sp"
-                android:text="Next"
-                android:textColor="@android:color/holo_blue_light"/>
+            android:layout_below="@+id/mainTitleText"
+            android:layout_gravity="center_horizontal"
+            android:textSize="16sp"
+            android:text="Next"
+            android:textColor="@android:color/holo_blue_light"/>
     </LinearLayout>
 
 </LinearLayout>
