@@ -27,8 +27,7 @@ namespace ClubClays.Fragments
             Toolbar toolbar = view.FindViewById<Toolbar>(Resource.Id.toolbar);
             ((AppCompatActivity)Activity).SetSupportActionBar(toolbar);
             ActionBar supportBar = ((AppCompatActivity)Activity).SupportActionBar;
-
-            
+ 
             scoreManagementModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(ShootScoreManagement))) as ShootScoreManagement;
             trackingType = scoreManagementModel.TrackingType;
 
@@ -38,9 +37,9 @@ namespace ClubClays.Fragments
             TextView currentStandScoreLabel = view.FindViewById<TextView>(Resource.Id.currentScoreText);
 
             shooterNameLabel.Text = scoreManagementModel.CurrentShooterName;
-            standNumLabel.Text = $"{scoreManagementModel.CurrentStand}";
-            pairNumLabel.Text = $"{scoreManagementModel.CurrentPair}";
-            currentStandScoreLabel.Text = scoreManagementModel.CurrentStandScore;
+            standNumLabel.Text = $"Stand: {scoreManagementModel.CurrentStand}";
+            pairNumLabel.Text = $"Pair: {scoreManagementModel.CurrentPair}";
+            currentStandScoreLabel.Text = $"Current Score: {scoreManagementModel.CurrentStandScore}";
 
 
 

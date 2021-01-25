@@ -170,19 +170,18 @@ namespace ClubClays.Fragments
 
             if (userOverallAction == "New Shoot")
             {
+                ShootScoreManagement activeShootModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(ShootScoreManagement))) as ShootScoreManagement;
+                activeShootModel.InitialiseBasics(standShooterModel.selectedShooters, date, location, rotateShooters, discipline, startStand);
+
                 if (formatSwitch.Checked == true)
                 {
-                    KnownFormatShoot activeShootModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(KnownFormatShoot))) as KnownFormatShoot;
-                    activeShootModel.Initialise(standShooterModel.selectedShooters, standShooterModel.standFormats, date, location, rotateShooters, discipline, startStand);
-
+                    activeShootModel.InitialiseStands(standShooterModel.standFormats);
+                    
                     fragmentTx.Replace(Resource.Id.container, new ScoreTakingFragment());
                     fragmentTx.Commit();
                 }
                 else if (formatSwitch.Checked == false)
-                {
-                    UnknownFormatShoot activeShootModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(UnknownFormatShoot))) as UnknownFormatShoot;
-                    activeShootModel.Initialise(standShooterModel.selectedShooters, date, location, rotateShooters, discipline, startStand);
-
+                {                    
                     //fragmentTx.Replace(Resource.Id.container, );
                     //fragmentTx.Commit();
                 }

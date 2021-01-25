@@ -24,8 +24,8 @@ namespace ClubClays
         protected string userNotes;
         protected bool rotateShooters;
 
-        protected Dictionary<int, Shooter> ShootersByOriginalPos;
-        protected SortedList<int, Stand> StandsByNum;
+        protected Dictionary<int, Shooter> ShootersByOriginalPos = new Dictionary<int, Shooter>();
+        protected SortedList<int, Stand> StandsByNum = new SortedList<int, Stand>();
 
         protected struct Stand
         {
@@ -48,7 +48,7 @@ namespace ClubClays
             public string shooterClass;
             public int overallTotal;
             public int overallPercentage;
-            public SortedList<int, StandScore> StandScoresByStandNum;
+            public SortedList<int, StandScore> StandScoresByStandNum = new SortedList<int, StandScore>();
 
             public struct StandScore
             {
@@ -56,6 +56,14 @@ namespace ClubClays
                 public int standPercentage;
                 public int runningTotalAtStand;
                 public SortedList<int, bool[]> ShotsByPairNum;
+
+                public StandScore(int standTotal, int standPercentage, int runningTotalAtStand, SortedList<int, bool[]> ShotsByPairNum)
+                {
+                    this.standTotal = standTotal;
+                    this.standPercentage = standPercentage;
+                    this.runningTotalAtStand = runningTotalAtStand;
+                    this.ShotsByPairNum = ShotsByPairNum;
+                }
             }
 
             public Shooter(int id,string name, string shooterClass)
@@ -72,8 +80,8 @@ namespace ClubClays
 
     class ShootScoreManagement : Shoot
     {
-        protected int currentStand;
-        protected int currentPair;
+        protected int currentStand = 1;
+        protected int currentPair = 1;
         protected int currentShooterIndex;
         protected string trackingType;
 
@@ -82,7 +90,18 @@ namespace ClubClays
         public string CurrentShooterName { get => ShootersByOriginalPos.ElementAt(currentShooterIndex).Value.name; }
         public string TrackingType { get => trackingType; }
 
-        public string CurrentStandScore { get => $"{ShootersByOriginalPos.ElementAt(currentShooterIndex).Value.StandScoresByStandNum[currentStand].standTotal}/{StandsByNum[currentStand].numOfPairs}"; }
+        public string CurrentStandScore { get
+            {
+                if (currentPair == 1)
+                {
+                    return $"0/{StandsByNum[currentStand].numOfPairs}";
+                }
+                else
+                {
+                    return $"{ShootersByOriginalPos.ElementAt(currentShooterIndex).Value.StandScoresByStandNum[currentStand].standTotal}/{StandsByNum[currentStand].numOfPairs}";
+                }               
+            }
+        }
 
         public void InitialiseBasics(List<Shooters> shooters, DateTime date, string location, bool rotateShooters, string discipline, int startingStand)
         {
@@ -92,6 +111,8 @@ namespace ClubClays
             this.discipline = discipline;
             this.startingStand = startingStand;
 
+
+            currentStand = startingStand;
             trackingType = "Unknown";
 
             int counter = 1;
