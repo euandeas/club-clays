@@ -94,11 +94,11 @@ namespace ClubClays
             {
                 if (currentPair == 1)
                 {
-                    return $"0/{StandsByNum[currentStand].numOfPairs}";
+                    return $"0/{(StandsByNum[currentStand].numOfPairs)*2}";
                 }
                 else
                 {
-                    return $"{ShootersByOriginalPos.ElementAt(currentShooterIndex).Value.StandScoresByStandNum[currentStand].standTotal}/{StandsByNum[currentStand].numOfPairs}";
+                    return $"{ShootersByOriginalPos.ElementAt(currentShooterIndex).Value.StandScoresByStandNum[currentStand].standTotal}/{(StandsByNum[currentStand].numOfPairs)*2}";
                 }               
             }
         }
