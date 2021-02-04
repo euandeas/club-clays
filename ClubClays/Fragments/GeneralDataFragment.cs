@@ -234,6 +234,7 @@ namespace ClubClays.Fragments
             AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(Activity);
             dialogBuilder.SetTitle("What would you like do to?");
             dialogBuilder.SetSingleChoiceItems(Resource.Array.tracking_types, -1, new EventHandler<DialogClickEventArgs>(DialogOnClickListerner));
+            dialogBuilder.SetCancelable(false);
             return dialogBuilder.Create();
         }
 
