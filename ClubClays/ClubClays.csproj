@@ -90,6 +90,12 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\add.xml" />
     <AndroidResource Include="Resources\drawable\arrow_right.xml" />
+    <AndroidResource Include="Resources\drawable\hit_hit_miss_button.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\drawable\miss_hit_miss_button.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\layout\activity_main.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -218,6 +224,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\fragment_score_taking.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\default_hit_miss_button.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
