@@ -50,19 +50,19 @@ namespace ClubClays
             public int overallPercentage;
             public SortedList<int, StandScore> StandScoresByStandNum = new SortedList<int, StandScore>();
 
-            public struct StandScore
+            public class StandScore
             {
                 public int standTotal;
                 public int standPercentage;
                 public int runningTotalAtStand;
-                public SortedList<int, bool[]> ShotsByPairNum;
+                public SortedList<int, int[]> ShotsByPairNum;
 
-                public StandScore(int standTotal, int standPercentage, int runningTotalAtStand, SortedList<int, bool[]> ShotsByPairNum)
+                public StandScore(int standTotal, int standPercentage, int runningTotalAtStand)
                 {
                     this.standTotal = standTotal;
                     this.standPercentage = standPercentage;
                     this.runningTotalAtStand = runningTotalAtStand;
-                    this.ShotsByPairNum = ShotsByPairNum;
+                    ShotsByPairNum = new SortedList<int, int[]>();
                 }
             }
 
@@ -120,6 +120,7 @@ namespace ClubClays
             {
                 ShootersByOriginalPos.Add(counter++, new Shooter(shooter.Id, shooter.Name, shooter.Class));
             }
+
         }
 
         public void InitialiseStands(List<StandFormats> stands)
@@ -132,9 +133,28 @@ namespace ClubClays
             }
         }
 
-        public void AddScore() 
+        public void AddScore(int shot1Val, int shot2Val)
         {
-         
+            int hits = CalculateHits(shot1Val, shot2Val);
+
+            Shooter shooter = ShootersByOriginalPos.ElementAt(currentShooterIndex).Value;
+            if (!shooter.StandScoresByStandNum.ContainsKey(currentStand))
+            {
+                shooter.StandScoresByStandNum.Add(currentStand, new Shooter.StandScore(0, 0, shooter.overallTotal));
+            }
+
+            shooter.StandScoresByStandNum[currentStand].ShotsByPairNum.Add(currentPair, new int[] { shot1Val, shot2Val });
+
+            shooter.StandScoresByStandNum[currentStand].standTotal += hits;
+
+        }
+
+        private int CalculateHits(int val1, int val2)
+        {
+            int total = 0;
+            if (val1 == 1) { total++; }
+            if (val2 == 1) { total++; }
+            return total;
         }
 
         public void UndoScore() 

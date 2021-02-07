@@ -59,7 +59,7 @@ namespace ClubClays.Fragments
 
         private void NextButton_Click(object sender, System.EventArgs e)
         {
-            throw new System.NotImplementedException();
+            scoreManagementModel.AddScore(shot1Val, shot2Val);
         }
 
         private void Shot1Button_Click(object sender, System.EventArgs e)
