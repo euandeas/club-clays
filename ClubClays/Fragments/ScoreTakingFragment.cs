@@ -68,11 +68,18 @@ namespace ClubClays.Fragments
             {
                 if (scoreManagementModel.LastShooter)
                 {
-                    scoreManagementModel.NextShooter();
+                    if (trackingType == "Known")
+                    {
+                        scoreManagementModel.NextStand();
+                    }
+                    else if (trackingType == "Unknown") 
+                    { 
+                    
+                    }
                 }
                 else
                 {
-                    
+                    scoreManagementModel.NextShooter();
                 }
             }
             else

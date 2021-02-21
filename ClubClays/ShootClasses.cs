@@ -187,10 +187,14 @@ namespace ClubClays
 
         public void NextShooter()
         {
-
+            currentPair = 1;
+            currentShooterIndex += 1;
         }
         public void NextStand()
         {
+            currentStand = 1;
+            currentPair = 1;
+            currentShooterIndex = 0;
 
         }
         public void UndoScore() 
