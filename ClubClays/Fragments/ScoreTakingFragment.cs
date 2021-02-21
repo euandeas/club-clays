@@ -2,6 +2,7 @@
 using Android.Views;
 using Android.Widget;
 using AndroidX.AppCompat.App;
+using AndroidX.Fragment.App;
 using AndroidX.Lifecycle;
 using Fragment = AndroidX.Fragment.App.Fragment;
 using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
@@ -60,6 +61,25 @@ namespace ClubClays.Fragments
         private void NextButton_Click(object sender, System.EventArgs e)
         {
             scoreManagementModel.AddScore(shot1Val, shot2Val);
+
+            FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
+
+            if (scoreManagementModel.LastPair)
+            {
+                if (scoreManagementModel.LastShooter)
+                {
+                    scoreManagementModel.NextShooter();
+                }
+                else
+                {
+                    
+                }
+            }
+            else
+            {
+                fragmentTx.Replace(Resource.Id.container, new ScoreTakingFragment());
+                fragmentTx.Commit();
+            }
         }
 
         private void Shot1Button_Click(object sender, System.EventArgs e)

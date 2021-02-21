@@ -82,7 +82,7 @@ namespace ClubClays
     {
         protected int currentStand = 1;
         protected int currentPair = 1;
-        protected int currentShooterIndex;
+        protected int currentShooterIndex = 0;
         protected string trackingType;
 
         public int CurrentStand { get => currentStand; }
@@ -100,6 +100,32 @@ namespace ClubClays
                 {
                     return $"{ShootersByOriginalPos.ElementAt(currentShooterIndex).Value.StandScoresByStandNum[currentStand].standTotal}/{(StandsByNum[currentStand].numOfPairs)*2}";
                 }               
+            }
+        }
+
+        public bool LastPair { get
+            {
+                if (currentPair == StandsByNum[currentStand].numOfPairs)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public bool LastShooter{ get
+            {
+                if (currentShooterIndex == ShootersByOriginalPos.Count - 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 
@@ -144,9 +170,11 @@ namespace ClubClays
             }
 
             shooter.StandScoresByStandNum[currentStand].ShotsByPairNum.Add(currentPair, new int[] { shot1Val, shot2Val });
-
             shooter.StandScoresByStandNum[currentStand].standTotal += hits;
+            shooter.overallTotal += hits;
+            shooter.StandScoresByStandNum[currentStand].runningTotalAtStand = shooter.overallTotal;
 
+            currentPair += 1;
         }
 
         private int CalculateHits(int val1, int val2)
@@ -157,6 +185,14 @@ namespace ClubClays
             return total;
         }
 
+        public void NextShooter()
+        {
+
+        }
+        public void NextStand()
+        {
+
+        }
         public void UndoScore() 
         {
 
