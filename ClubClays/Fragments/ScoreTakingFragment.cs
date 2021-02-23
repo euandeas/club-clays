@@ -17,6 +17,7 @@ namespace ClubClays.Fragments
         int shot1Val = 0;
         int shot2Val = 0;
 
+        bool nextClicked = false;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -60,33 +61,50 @@ namespace ClubClays.Fragments
 
         private void NextButton_Click(object sender, System.EventArgs e)
         {
-            scoreManagementModel.AddScore(shot1Val, shot2Val);
-
-            FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
-
             if (scoreManagementModel.LastPair)
             {
+                scoreManagementModel.AddScore(shot1Val, shot2Val);
+                ShowFinalScore();
+            }
+            else
+            {
+                scoreManagementModel.AddScore(shot1Val, shot2Val);
+                FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
+                fragmentTx.Replace(Resource.Id.container, new ScoreTakingFragment());
+                fragmentTx.Commit();
+            }
+        }
+
+        private void ShowFinalScore()
+        {
+            AlertDialog.Builder builder = new AlertDialog.Builder(Activity);
+            builder.SetTitle($"Final Stand Score For {scoreManagementModel.CurrentShooterName}");
+            builder.SetCancelable(false);
+
+            View view = LayoutInflater.From(Activity).Inflate(Resource.Layout.dialogfragment_finalstandscore, null);
+
+            EditText shooterName = view.FindViewById<EditText>(Resource.Id.newShootersName);
+
+            builder.SetView(view);
+            builder.SetPositiveButton("Next", (c, ev) => 
+            {
+                FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
+
                 if (scoreManagementModel.LastShooter)
-                {
-                    if (trackingType == "Known")
-                    {
-                        scoreManagementModel.NextStand();
-                    }
-                    else if (trackingType == "Unknown") 
-                    { 
-                    
-                    }
+                {                  
+                    //fragmentTx.Replace(Resource.Id.container, new OverallScores());
+                    //fragmentTx.Commit();
                 }
                 else
                 {
                     scoreManagementModel.NextShooter();
+                    
+                    fragmentTx.Replace(Resource.Id.container, new ScoreTakingFragment());
+                    fragmentTx.Commit();
                 }
-            }
-            else
-            {
-                fragmentTx.Replace(Resource.Id.container, new ScoreTakingFragment());
-                fragmentTx.Commit();
-            }
+            });
+
+            builder.Show();
         }
 
         private void Shot1Button_Click(object sender, System.EventArgs e)
