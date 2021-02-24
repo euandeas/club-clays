@@ -73,6 +73,7 @@
     <Compile Include="Fragments\ScoreTakingFragment.cs" />
     <Compile Include="Fragments\SettingsFragment.cs" />
     <Compile Include="Fragments\ShootersFragment.cs" />
+    <Compile Include="Fragments\ShootScoreFragment.cs" />
     <Compile Include="Fragments\StandSetupFragment.cs" />
     <Compile Include="ItemMoveCallBack.cs">
       <SubType>Code</SubType>
@@ -235,6 +236,11 @@
   <ItemGroup>
     <AndroidResource Include="Resources\layout\dialogfragment_finalstandscore.xml">
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\fragment_shoot_score.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
