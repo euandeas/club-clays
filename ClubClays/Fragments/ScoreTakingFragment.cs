@@ -78,12 +78,12 @@ namespace ClubClays.Fragments
         private void ShowFinalScore()
         {
             AlertDialog.Builder builder = new AlertDialog.Builder(Activity);
-            builder.SetTitle($"Final Stand Score For {scoreManagementModel.CurrentShooterName}");
+            builder.SetTitle($"Stand Score For {scoreManagementModel.CurrentShooterName}");
             builder.SetCancelable(false);
 
             View view = LayoutInflater.From(Activity).Inflate(Resource.Layout.dialogfragment_finalstandscore, null);
 
-            EditText shooterName = view.FindViewById<EditText>(Resource.Id.newShootersName);
+            view.FindViewById<TextView>(Resource.Id.scoreLabel).Text = scoreManagementModel.CurrentStandScore;
 
             builder.SetView(view);
             builder.SetPositiveButton("Next", (c, ev) => 
