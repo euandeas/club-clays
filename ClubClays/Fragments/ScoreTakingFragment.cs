@@ -17,7 +17,6 @@ namespace ClubClays.Fragments
         int shot1Val = 0;
         int shot2Val = 0;
 
-        bool nextClicked = false;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);

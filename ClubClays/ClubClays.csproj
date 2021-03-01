@@ -70,6 +70,7 @@
     <Compile Include="DatabaseModels.cs" />
     <Compile Include="Fragments\GeneralDataFragment.cs" />
     <Compile Include="Fragments\MainFragment.cs" />
+    <Compile Include="Fragments\ScoreTableFragment.cs" />
     <Compile Include="Fragments\ScoreTakingFragment.cs" />
     <Compile Include="Fragments\SettingsFragment.cs" />
     <Compile Include="Fragments\ShootersFragment.cs" />
@@ -241,6 +242,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\fragment_shoot_score.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\fragment_score_table.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
