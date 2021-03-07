@@ -94,9 +94,9 @@ namespace ClubClays.Fragments
 
         public void SendResult()
         {
-            Intent intent = new Intent();
-            intent.PutExtra("standsCreated", standsModel.standFormats.Count);
-            TargetFragment.OnActivityResult(TargetRequestCode, 2, intent);
+            Bundle result = new Bundle();
+            result.PutInt("standsCreated", standsModel.standFormats.Count);
+            Activity.SupportFragmentManager.SetFragmentResult("2", result);
         }
     }
 

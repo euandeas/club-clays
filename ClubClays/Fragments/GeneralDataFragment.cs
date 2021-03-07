@@ -13,6 +13,7 @@ using SQLite;
 using System.IO;
 using ClubClays.DatabaseModels;
 using System.Collections.Generic;
+using AndroidX.Fragment.App;
 
 namespace ClubClays.Fragments
 {
@@ -47,7 +48,7 @@ namespace ClubClays.Fragments
         {
             // Use this to return your custom view for this Fragment
             View view = inflater.Inflate(Resource.Layout.fragment_general_data, container, false);
-            
+
             Toolbar toolbar = view.FindViewById<Toolbar>(Resource.Id.toolbar);
             ((AppCompatActivity)Activity).SetSupportActionBar(toolbar);
             ActionBar supportBar = ((AppCompatActivity)Activity).SupportActionBar;
@@ -131,15 +132,15 @@ namespace ClubClays.Fragments
         {
             FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
             StandSetupFragment standSetupFragment = new StandSetupFragment();
-            standSetupFragment.SetTargetFragment(this, 2);
             fragmentTx.Add(Resource.Id.container, standSetupFragment);
             fragmentTx.AddToBackStack(null);
             fragmentTx.Commit();
+            Activity.SupportFragmentManager.SetFragmentResultListener("2", this, new FragResult(this));
         }
 
         private void NextButton_Click(object sender, EventArgs e)
         {
-            if (standShooterModel.selectedShooters.Count == 0 )
+            if (standShooterModel.selectedShooters.Count == 0)
             {
                 Toast.MakeText(Activity, $"No shooters selected!", ToastLength.Short).Show();
                 return;
@@ -176,12 +177,12 @@ namespace ClubClays.Fragments
                 if (formatSwitch.Checked == true)
                 {
                     activeShootModel.InitialiseStands(standShooterModel.standFormats);
-                    
+
                     fragmentTx.Replace(Resource.Id.container, new ScoreTakingFragment());
                     fragmentTx.Commit();
                 }
                 else if (formatSwitch.Checked == false)
-                {                    
+                {
                     //fragmentTx.Replace(Resource.Id.container, );
                     //fragmentTx.Commit();
                 }
@@ -201,22 +202,30 @@ namespace ClubClays.Fragments
         {
             FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
             ShootersFragment shootersFragment = new ShootersFragment();
-            shootersFragment.SetTargetFragment(this, 1);
             fragmentTx.Add(Resource.Id.container, shootersFragment);
             fragmentTx.AddToBackStack(null);
             fragmentTx.Commit();
+            Activity.SupportFragmentManager.SetFragmentResultListener("1", this, new FragResult(this));
         }
 
-        public override void OnActivityResult(int requestCode, int resultCode, Intent data)
+        public class FragResult : Java.Lang.Object, IFragmentResultListener
         {
-            if (requestCode == 1)
+            GeneralDataFragment context;
+            public FragResult(GeneralDataFragment context)
             {
-                shootersSelection.Text = $"{data.GetIntExtra("numSelected", 0)} Shooter(s) Selected";
+                this.context = context;
             }
-            else if (requestCode == 2)
+            public void OnFragmentResult(string p0, Bundle p1)
             {
-                standFormatting.Text = $"{data.GetIntExtra("standsCreated", 0)} Stand(s) Setup";
-            }  
+                if (p0 == "1")
+                {
+                    context.shootersSelection.Text = $"{p1.GetInt("numSelected", 0)} Shooter(s) Selected";
+                }
+                else if (p0 == "2")
+                {
+                    context.standFormatting.Text = $"{p1.GetInt("standsCreated", 0)} Stand(s) Setup";
+                }
+            }
         }
 
         private void spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)

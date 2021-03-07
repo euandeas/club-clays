@@ -116,9 +116,9 @@ namespace ClubClays.Fragments
 
         public void SendResult()
         {
-            Intent intent = new Intent();
-            intent.PutExtra("numSelected", selectedShootersModel.selectedShooters.Count);
-            TargetFragment.OnActivityResult(TargetRequestCode, 1, intent);
+            Bundle result = new Bundle();
+            result.PutInt("numSelected", selectedShootersModel.selectedShooters.Count);
+            Activity.SupportFragmentManager.SetFragmentResult("1", result);
         }  
     }
 

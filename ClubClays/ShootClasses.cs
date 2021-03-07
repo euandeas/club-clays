@@ -98,7 +98,7 @@ namespace ClubClays
                 }
                 else
                 {
-                    return $"{ShootersByOriginalPos.ElementAt(currentShooterIndex).Value.StandScoresByStandNum[currentStand].standTotal}/{(StandsByNum[currentStand].numOfPairs)*2}";
+                    return $"{ShootersByOriginalPos.ElementAt(currentShooterIndex).Value.StandScoresByStandNum[currentStand].standTotal}/{StandsByNum[currentStand].numOfPairs*2}";
                 }               
             }
         }
@@ -127,6 +127,12 @@ namespace ClubClays
                     return false;
                 }
             }
+        }
+
+        public int CurrentNumStands { get
+            {
+                return StandsByNum.Count();
+            }       
         }
 
         public void InitialiseBasics(List<Shooters> shooters, DateTime date, string location, bool rotateShooters, string discipline, int startingStand)

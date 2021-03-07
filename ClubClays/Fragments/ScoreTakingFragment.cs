@@ -91,8 +91,8 @@ namespace ClubClays.Fragments
 
                 if (scoreManagementModel.LastShooter)
                 {                  
-                    //fragmentTx.Replace(Resource.Id.container, new OverallScores());
-                    //fragmentTx.Commit();
+                    fragmentTx.Replace(Resource.Id.container, new ShootScoreFragment());
+                    fragmentTx.Commit();
                 }
                 else
                 {
