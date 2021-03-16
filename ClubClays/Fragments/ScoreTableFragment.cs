@@ -5,6 +5,7 @@ using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using AndroidX.AppCompat.App;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,9 +26,20 @@ namespace ClubClays.Fragments
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             // Use this to return your custom view for this Fragment
-            // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
+            View view = inflater.Inflate(Resource.Layout.fragment_score_table, container, false);
 
-            return base.OnCreateView(inflater, container, savedInstanceState);
+            TableLayout tableLayout = view.FindViewById<TableLayout>(Resource.Id.scoreTable);
+
+            TableRow tableRow0 = new TableRow(Context);
+            TextView tv0 = new TextView(Context);
+            tv0.Text = "Test0";
+            tableRow0.AddView(tv0);
+            TextView tv1 = new TextView(Context);
+            tv1.Text = "Test1";
+            tableRow0.AddView(tv1);
+            tableLayout.AddView(tableRow0);
+
+            return view;
         }
     }
 }
