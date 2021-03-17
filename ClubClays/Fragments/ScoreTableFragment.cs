@@ -1,5 +1,6 @@
 ﻿using Android.App;
 using Android.Content;
+using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
 using Android.Util;
@@ -52,7 +53,17 @@ namespace ClubClays.Fragments
             }
             else
             {
-
+                TopRowOfTable(tableLayout, scoreManagementModel.PairsInStand(whichStand));
+                for (int x = 1; x <= scoreManagementModel.NumberOfShooters; x++)
+                {
+                    List<string> shooterData = scoreManagementModel.ShooterOverallData(x);
+                    TableRow tableRow = new TableRow(Context);
+                    foreach (string text in shooterData)
+                    {
+                        AddViewToRow(tableRow, text);
+                    }
+                    tableLayout.AddView(tableRow);
+                }
             }
 
             return view;
@@ -61,6 +72,7 @@ namespace ClubClays.Fragments
         public void TopRowOfTable(TableLayout tableLayout, int numSections)
         {
             TableRow tableRow = new TableRow(Context);
+            tableRow.SetBackgroundColor(Color.Rgb(96, 125, 139));
             AddViewToRow(tableRow, "Name");
             for (int x = 1; x <= numSections; x++)
             {
@@ -74,6 +86,7 @@ namespace ClubClays.Fragments
         {
             TextView tv = new TextView(Context);
             tv.Text = text;
+            tv.SetPadding((int)(5 * Resources.DisplayMetrics.Density + 0.5f), 0, 0, 0);
             tableRow.AddView(tv);
             tv.Dispose();
         }

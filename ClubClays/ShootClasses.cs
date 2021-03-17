@@ -43,24 +43,34 @@ namespace ClubClays
             }
         }
 
+        public int PairsInStand(int StandNum)
+        {
+            return StandsByNum[StandNum].numOfPairs;
+        }
+
         public List<string> ShooterOverallData(int shooterOriginalNum)
         {
             List<string> overallData = new List<string>();
             overallData.Add(ShootersByOriginalPos[shooterOriginalNum].name);
-            for (int x = 1; x <= ShootersByOriginalPos[shooterOriginalNum].StandScoresByStandNum.Count; x++)
+            for (int x = 1; x <= StandsByNum.Count(); x++)
             {
-                int standTotal = ShootersByOriginalPos[shooterOriginalNum].StandScoresByStandNum[x].standTotal;
-                if (standTotal == null)
+                try
+                {
+                    int standTotal = ShootersByOriginalPos[shooterOriginalNum].StandScoresByStandNum[x].standTotal;
+                    overallData.Add($"{standTotal}");
+                }
+                catch
                 {
                     overallData.Add("0");
-                }
-                else
-                {
-                    overallData.Add($"{standTotal}");
                 }
             }
             overallData.Add($"{ShootersByOriginalPos[shooterOriginalNum].overallTotal}");
             return overallData;
+        }
+
+        public List<string> ShooterStandData(int shooterOriginalNum, int StandNum)
+        {
+            return null;
         }
 
         protected struct Stand
