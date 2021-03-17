@@ -27,6 +27,42 @@ namespace ClubClays
         protected Dictionary<int, Shooter> ShootersByOriginalPos = new Dictionary<int, Shooter>();
         protected SortedList<int, Stand> StandsByNum = new SortedList<int, Stand>();
 
+        public int CurrentNumStands
+        {
+            get
+            {
+                return StandsByNum.Count();
+            }
+        }
+
+        public int NumberOfShooters
+        {
+            get
+            {
+                return ShootersByOriginalPos.Count();
+            }
+        }
+
+        public List<string> ShooterOverallData(int shooterOriginalNum)
+        {
+            List<string> overallData = new List<string>();
+            overallData.Add(ShootersByOriginalPos[shooterOriginalNum].name);
+            for (int x = 1; x <= ShootersByOriginalPos[shooterOriginalNum].StandScoresByStandNum.Count; x++)
+            {
+                int standTotal = ShootersByOriginalPos[shooterOriginalNum].StandScoresByStandNum[x].standTotal;
+                if (standTotal == null)
+                {
+                    overallData.Add("0");
+                }
+                else
+                {
+                    overallData.Add($"{standTotal}");
+                }
+            }
+            overallData.Add($"{ShootersByOriginalPos[shooterOriginalNum].overallTotal}");
+            return overallData;
+        }
+
         protected struct Stand
         {
             public string standType;
@@ -127,12 +163,6 @@ namespace ClubClays
                     return false;
                 }
             }
-        }
-
-        public int CurrentNumStands { get
-            {
-                return StandsByNum.Count();
-            }       
         }
 
         public void InitialiseBasics(List<Shooters> shooters, DateTime date, string location, bool rotateShooters, string discipline, int startingStand)

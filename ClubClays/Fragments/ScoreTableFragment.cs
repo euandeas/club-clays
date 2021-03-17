@@ -6,6 +6,7 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using AndroidX.AppCompat.App;
+using AndroidX.Lifecycle;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace ClubClays.Fragments
 {
     public class ScoreTableFragment : Fragment
     {
+        private ShootScoreManagement scoreManagementModel;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -28,18 +30,52 @@ namespace ClubClays.Fragments
             // Use this to return your custom view for this Fragment
             View view = inflater.Inflate(Resource.Layout.fragment_score_table, container, false);
 
+            int whichStand = Arguments.GetInt("standNum", 0);
+
+            scoreManagementModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(ShootScoreManagement))) as ShootScoreManagement;
+            
             TableLayout tableLayout = view.FindViewById<TableLayout>(Resource.Id.scoreTable);
 
-            TableRow tableRow0 = new TableRow(Context);
-            TextView tv0 = new TextView(Context);
-            tv0.Text = "Test0";
-            tableRow0.AddView(tv0);
-            TextView tv1 = new TextView(Context);
-            tv1.Text = "Test1";
-            tableRow0.AddView(tv1);
-            tableLayout.AddView(tableRow0);
+            if (whichStand == 0)
+            {
+                TopRowOfTable(tableLayout, scoreManagementModel.CurrentNumStands);
+                for (int x = 1; x <= scoreManagementModel.NumberOfShooters; x++)
+                {
+                    List<string> shooterData = scoreManagementModel.ShooterOverallData(x);
+                    TableRow tableRow = new TableRow(Context);
+                    foreach (string text in shooterData)
+                    {
+                        AddViewToRow(tableRow, text);
+                    }
+                    tableLayout.AddView(tableRow);
+                }
+            }
+            else
+            {
+
+            }
 
             return view;
+        }
+
+        public void TopRowOfTable(TableLayout tableLayout, int numSections)
+        {
+            TableRow tableRow = new TableRow(Context);
+            AddViewToRow(tableRow, "Name");
+            for (int x = 1; x <= numSections; x++)
+            {
+                AddViewToRow(tableRow, $"{x}");
+            }
+            AddViewToRow(tableRow, "Total");
+            tableLayout.AddView(tableRow);
+        }
+
+        public void AddViewToRow(TableRow tableRow, string text)
+        {
+            TextView tv = new TextView(Context);
+            tv.Text = text;
+            tableRow.AddView(tv);
+            tv.Dispose();
         }
     }
 }
