@@ -56,12 +56,18 @@ namespace ClubClays.Fragments
                 TopRowOfTable(tableLayout, scoreManagementModel.PairsInStand(whichStand));
                 for (int x = 1; x <= scoreManagementModel.NumberOfShooters; x++)
                 {
-                    List<string> shooterData = scoreManagementModel.ShooterOverallData(x);
-                    TableRow tableRow = new TableRow(Context);
-                    foreach (string text in shooterData)
+            
+                    scoreManagementModel.ShooterStandData(x, whichStand, out string name, out string total, out SortedList<int, int[]> hits);
+                    
+                    TableRow tableRow = new TableRow(Context); 
+                    AddViewToRow(tableRow, name);
+
+                    for (int y = 1; y <= hits.Count; x++)
                     {
-                        AddViewToRow(tableRow, text);
+                        AddDoubleViewToRow(tableRow, hits[y]);
                     }
+
+                    AddViewToRow(tableRow, total);
                     tableLayout.AddView(tableRow);
                 }
             }
@@ -89,6 +95,25 @@ namespace ClubClays.Fragments
             tv.SetPadding((int)(5 * Resources.DisplayMetrics.Density + 0.5f), 0, 0, 0);
             tableRow.AddView(tv);
             tv.Dispose();
+        }
+
+        public void AddDoubleViewToRow(TableRow tableRow, int[] text)
+        {
+            LinearLayout linearLayout = new LinearLayout(Context);
+            linearLayout.Orientation = Orientation.Horizontal;
+            
+            TextView tv0 = new TextView(Context);
+            tv0.Text = $"{text[0]}";
+            tv0.SetPadding((int)(5 * Resources.DisplayMetrics.Density + 0.5f), 0, 0, 0);
+
+            TextView tv1 = new TextView(Context);
+            tv1.Text = $"{text[1]}";
+            tv1.SetPadding((int)(5 * Resources.DisplayMetrics.Density + 0.5f), 0, 0, 0);
+
+            linearLayout.AddView(tv0);
+            linearLayout.AddView(tv1);
+
+            tableRow.AddView(linearLayout);
         }
     }
 }
