@@ -70,8 +70,22 @@ namespace ClubClays
         public void ShooterStandData(int shooterOriginalNum, int StandNum, out string name, out string total, out SortedList<int, int[]> hits)
         {
             name = ShootersByOriginalPos[shooterOriginalNum].name;
-            total = $"{ShootersByOriginalPos[shooterOriginalNum].StandScoresByStandNum[StandNum].standTotal}";
-            hits = ShootersByOriginalPos[shooterOriginalNum].StandScoresByStandNum[StandNum].ShotsByPairNum;
+            if (StandNum <= ShootersByOriginalPos[shooterOriginalNum].StandScoresByStandNum.Count)
+            {
+                total = $"{ShootersByOriginalPos[shooterOriginalNum].StandScoresByStandNum[StandNum].standTotal}";
+                hits = ShootersByOriginalPos[shooterOriginalNum].StandScoresByStandNum[StandNum].ShotsByPairNum;
+            }
+            else
+            {
+                int[] standardHitMiss = { 0, 0 };
+                SortedList<int, int[]> hitsForStand = new SortedList<int, int[]>();
+                total = "0";
+                for (int x = 1; x <= StandsByNum[StandNum].numOfPairs; x++)
+                {
+                    hitsForStand.Add(x, standardHitMiss);
+                }
+                hits = hitsForStand;
+            }
         }
 
         protected struct Stand

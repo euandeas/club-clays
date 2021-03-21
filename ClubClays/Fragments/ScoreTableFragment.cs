@@ -62,7 +62,7 @@ namespace ClubClays.Fragments
                     TableRow tableRow = new TableRow(Context); 
                     AddViewToRow(tableRow, name);
 
-                    for (int y = 1; y <= hits.Count; x++)
+                    for (int y = 1; y <= hits.Count; y++)
                     {
                         AddDoubleViewToRow(tableRow, hits[y]);
                     }
@@ -103,17 +103,34 @@ namespace ClubClays.Fragments
             linearLayout.Orientation = Orientation.Horizontal;
             
             TextView tv0 = new TextView(Context);
-            tv0.Text = $"{text[0]}";
+            tv0.Text = TranslateHitMiss(text[0]);
             tv0.SetPadding((int)(5 * Resources.DisplayMetrics.Density + 0.5f), 0, 0, 0);
 
             TextView tv1 = new TextView(Context);
-            tv1.Text = $"{text[1]}";
+            tv1.Text = TranslateHitMiss(text[1]);
             tv1.SetPadding((int)(5 * Resources.DisplayMetrics.Density + 0.5f), 0, 0, 0);
 
             linearLayout.AddView(tv0);
             linearLayout.AddView(tv1);
 
             tableRow.AddView(linearLayout);
+        }
+
+        public string TranslateHitMiss(int value)
+        {
+            switch (value)
+            {
+                default:
+                    return " ";
+                
+                case 1:
+                    return "X";
+                
+                case 2:
+                    return "O";
+
+            }
+                
         }
     }
 }
