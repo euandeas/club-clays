@@ -3,6 +3,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Util;
 using Android.Views;
+using Android.Widget;
 using AndroidX.AppCompat.App;
 using AndroidX.AppCompat.Widget;
 using AndroidX.Fragment.App;
@@ -16,6 +17,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Fragment = AndroidX.Fragment.App.Fragment;
+using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 
 namespace ClubClays.Fragments
 {
@@ -46,7 +48,25 @@ namespace ClubClays.Fragments
             TabLayout tabLayout = view.FindViewById<TabLayout>(Resource.Id.tab_layout);
             new TabLayoutMediator(tabLayout, viewPager, new tabConfigStrat()).Attach();
 
+            TextView nextButton = view.FindViewById<TextView>(Resource.Id.nextButton);
+            nextButton.Click += NextButton_Click;
+
             return view;
+        }
+
+        private void NextButton_Click(object sender, EventArgs e)
+        {
+            if (scoreManagementModel.LastStand)
+            {
+                //finish shoot
+            }
+            else
+            {
+                scoreManagementModel.NextStand();
+                FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
+                fragmentTx.Replace(Resource.Id.container, new ScoreTakingFragment());
+                fragmentTx.Commit();
+            }
         }
 
         public class tabConfigStrat : Java.Lang.Object, TabLayoutMediator.ITabConfigurationStrategy

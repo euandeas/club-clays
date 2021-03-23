@@ -190,6 +190,19 @@ namespace ClubClays
             }
         }
 
+        public bool LastStand{ get
+            {
+                if (currentStand == StandsByNum.Count)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
         public void InitialiseBasics(List<Shooters> shooters, DateTime date, string location, bool rotateShooters, string discipline, int startingStand)
         {
             this.date = date;
@@ -253,7 +266,7 @@ namespace ClubClays
         }
         public void NextStand()
         {
-            currentStand = 1;
+            currentStand += 1;
             currentPair = 1;
             currentShooterIndex = 0;
 
