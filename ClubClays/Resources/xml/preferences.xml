@@ -8,12 +8,12 @@
       <Preference
         app:key="manage_shooters"
         app:title="Manage Shooters"
-        app:summary="Report technical issues or suggest new features./n test"/>
+        app:summary="Report technical issues or suggest new features."/>
 
       <Preference
         app:key="manage_shooters"
         app:title="Manage Formats"
-        app:summary="Report technical issues or suggest new features./n test"/>
+        app:summary="Report technical issues or suggest new features."/>
 
   </PreferenceCategory>
 

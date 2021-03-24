@@ -56,17 +56,17 @@ namespace ClubClays.Fragments
 
         private void NextButton_Click(object sender, EventArgs e)
         {
+            FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
             if (scoreManagementModel.LastStand)
             {
-                //finish shoot
+                fragmentTx.Replace(Resource.Id.container, new ShootEndFragment());
             }
             else
             {
                 scoreManagementModel.NextStand();
-                FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
                 fragmentTx.Replace(Resource.Id.container, new ScoreTakingFragment());
-                fragmentTx.Commit();
             }
+            fragmentTx.Commit();
         }
 
         public class tabConfigStrat : Java.Lang.Object, TabLayoutMediator.ITabConfigurationStrategy
