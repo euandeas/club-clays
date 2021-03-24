@@ -5,6 +5,7 @@ using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using AndroidX.Lifecycle;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,8 @@ namespace ClubClays.Fragments
 {
     public class ShootEndFragment : Fragment
     {
+        private ShootScoreManagement scoreManagementModel;
+        private EditText usernotes;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -28,14 +31,21 @@ namespace ClubClays.Fragments
             // Use this to return your custom view for this Fragment
             View view = inflater.Inflate(Resource.Layout.fragment_shoot_end, container, false);
 
-            view.FindViewById<EditText>(Resource.Id.shootNotes).Click += ShootEndFragment_Click;
+            scoreManagementModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(ShootScoreManagement))) as ShootScoreManagement;
+
+            usernotes = view.FindViewById<EditText>(Resource.Id.shootNotes);
+            view.FindViewById<TextView>(Resource.Id.saveButton).Click += Save_Click;
 
             return view;
         }
 
-        private void ShootEndFragment_Click(object sender, EventArgs e)
+        private void Save_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            scoreManagementModel.UserNotes = usernotes.Text;
+            //scoreManagementModel.SaveShootData();
+            scoreManagementModel.Dispose();
+            Context.StartActivity(new Intent(Context, typeof(MainActivity)));
+            Activity.Finish();
         }
     }
 }

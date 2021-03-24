@@ -203,6 +203,12 @@ namespace ClubClays
             }
         }
 
+        public string UserNotes{set 
+            {
+                userNotes = value;
+            }
+        }
+
         public void InitialiseBasics(List<Shooters> shooters, DateTime date, string location, bool rotateShooters, string discipline, int startingStand)
         {
             this.date = date;
