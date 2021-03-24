@@ -28,7 +28,15 @@ namespace ClubClays
                 db.CreateTable<DatabaseModels.SavedFormatsLink>();
                 db.CreateTable<DatabaseModels.StandShotsLink>();
 
-                db.Insert(new DatabaseModels.Shots())
+                db.Insert(new DatabaseModels.Shots() { FirstShot = 0, SecondShot = 0 });
+                db.Insert(new DatabaseModels.Shots() { FirstShot = 1, SecondShot = 1 });
+                db.Insert(new DatabaseModels.Shots() { FirstShot = 2, SecondShot = 2 });
+                db.Insert(new DatabaseModels.Shots() { FirstShot = 0, SecondShot = 1 });
+                db.Insert(new DatabaseModels.Shots() { FirstShot = 0, SecondShot = 2 });
+                db.Insert(new DatabaseModels.Shots() { FirstShot = 1, SecondShot = 0 });
+                db.Insert(new DatabaseModels.Shots() { FirstShot = 2, SecondShot = 0 });             
+                db.Insert(new DatabaseModels.Shots() { FirstShot = 1, SecondShot = 2 });
+                db.Insert(new DatabaseModels.Shots() { FirstShot = 2, SecondShot = 1 });
             }
 
             SetTheme(Resource.Style.AppTheme);

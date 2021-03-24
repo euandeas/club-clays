@@ -72,8 +72,8 @@ namespace ClubClays.DatabaseModels
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
-        public bool FirstShot { get; set; }
-        public bool SecondShot { get; set; }
+        public int FirstShot { get; set; }
+        public int SecondShot { get; set; }
 
         [OneToMany]
         public List<StandShotsLink> StandsShotsLink { get; set; }
