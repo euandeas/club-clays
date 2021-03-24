@@ -54,18 +54,29 @@ namespace ClubClays.DatabaseModels
         public int RunningTotal { get; set; }
 
         [OneToMany]
-        public List<Shots> Shots { get; set; }
+        public List<StandShotsLink> StandsShotsLink { get; set; }
+    }
+
+    public class StandShotsLink
+    {
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
+        [ForeignKey(typeof(StandScores))]
+        public int StandScoresId { get; set; }
+        [ForeignKey(typeof(Shots))]
+        public int shotsId { get; set; }
+        public int PairNum { get; set; }
     }
 
     public class Shots
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
-        [ForeignKey(typeof(StandScores))]
-        public int StandScoreId { get; set; }
-        public int PairNumber { get; set; }
         public bool FirstShot { get; set; }
         public bool SecondShot { get; set; }
+
+        [OneToMany]
+        public List<StandShotsLink> StandsShotsLink { get; set; }
     }
     public class OverallScores
     {

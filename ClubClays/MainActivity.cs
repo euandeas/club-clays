@@ -25,6 +25,10 @@ namespace ClubClays
                 db.CreateTable<DatabaseModels.Shooters>();
                 db.CreateTable<DatabaseModels.ShootFormats>();
                 db.CreateTable<DatabaseModels.StandFormats>();
+                db.CreateTable<DatabaseModels.SavedFormatsLink>();
+                db.CreateTable<DatabaseModels.StandShotsLink>();
+
+                db.Insert(new DatabaseModels.Shots())
             }
 
             SetTheme(Resource.Style.AppTheme);
