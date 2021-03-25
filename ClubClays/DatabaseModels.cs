@@ -17,7 +17,7 @@ namespace ClubClays.DatabaseModels
         public int ClayAmount { get; set; }
         public int StartingStand { get; set; }
         public string DataCollectionType { get; set; }
-        [MaxLength(250)]
+        [MaxLength(255)]
         public string Notes { get; set; }
 
         [OneToMany] 
