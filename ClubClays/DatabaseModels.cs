@@ -135,8 +135,11 @@ namespace ClubClays.DatabaseModels
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
+        [Indexed(Name = "StandFormatData", Order = 1, Unique = true)]
         public string StandType { get; set; }
+        [Indexed(Name = "StandFormatData", Order = 2, Unique = true)]
         public string StandFormat { get; set; }
+        [Indexed(Name = "StandFormatData", Order = 3, Unique = true)]
         public int NumPairs { get; set; }
 
         [OneToMany]
