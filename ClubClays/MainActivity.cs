@@ -28,15 +28,14 @@ namespace ClubClays
                 db.CreateTable<DatabaseModels.SavedFormatsLink>();
                 db.CreateTable<DatabaseModels.StandShotsLink>();
 
-                db.Query<DatabaseModels.Shots>("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (0, 0, 0);");
-                db.Query<DatabaseModels.Shots>("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (1, 1, 1);");
-                db.Query<DatabaseModels.Shots>("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (2, 2, 2);");
-                db.Query<DatabaseModels.Shots>("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (3, 0, 1);");
-                db.Query<DatabaseModels.Shots>("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (4, 0, 2);");
-                db.Query<DatabaseModels.Shots>("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (5, 1, 0);");
-                db.Query<DatabaseModels.Shots>("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (6, 2, 0);");
-                db.Query<DatabaseModels.Shots>("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (7, 1, 2);");
-
+                db.CreateCommand("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (0, 0, 0);").ExecuteNonQuery();
+                db.CreateCommand("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (1, 1, 1);").ExecuteNonQuery();
+                db.CreateCommand("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (2, 2, 2);").ExecuteNonQuery();
+                db.CreateCommand("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (3, 0, 1);").ExecuteNonQuery();
+                db.CreateCommand("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (4, 0, 2);").ExecuteNonQuery();
+                db.CreateCommand("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (5, 1, 0);").ExecuteNonQuery();
+                db.CreateCommand("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (6, 2, 0);").ExecuteNonQuery();
+                db.CreateCommand("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (7, 1, 2);").ExecuteNonQuery();
             }
 
             SetTheme(Resource.Style.AppTheme);
