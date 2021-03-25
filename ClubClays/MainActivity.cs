@@ -28,15 +28,15 @@ namespace ClubClays
                 db.CreateTable<DatabaseModels.SavedFormatsLink>();
                 db.CreateTable<DatabaseModels.StandShotsLink>();
 
-                db.Insert(new DatabaseModels.Shots() { FirstShot = 0, SecondShot = 0 });
-                db.Insert(new DatabaseModels.Shots() { FirstShot = 1, SecondShot = 1 });
-                db.Insert(new DatabaseModels.Shots() { FirstShot = 2, SecondShot = 2 });
-                db.Insert(new DatabaseModels.Shots() { FirstShot = 0, SecondShot = 1 });
-                db.Insert(new DatabaseModels.Shots() { FirstShot = 0, SecondShot = 2 });
-                db.Insert(new DatabaseModels.Shots() { FirstShot = 1, SecondShot = 0 });
-                db.Insert(new DatabaseModels.Shots() { FirstShot = 2, SecondShot = 0 });             
-                db.Insert(new DatabaseModels.Shots() { FirstShot = 1, SecondShot = 2 });
-                db.Insert(new DatabaseModels.Shots() { FirstShot = 2, SecondShot = 1 });
+                db.Query<DatabaseModels.Shots>("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (0, 0, 0);");
+                db.Query<DatabaseModels.Shots>("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (1, 1, 1);");
+                db.Query<DatabaseModels.Shots>("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (2, 2, 2);");
+                db.Query<DatabaseModels.Shots>("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (3, 0, 1);");
+                db.Query<DatabaseModels.Shots>("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (4, 0, 2);");
+                db.Query<DatabaseModels.Shots>("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (5, 1, 0);");
+                db.Query<DatabaseModels.Shots>("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (6, 2, 0);");
+                db.Query<DatabaseModels.Shots>("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (7, 1, 2);");
+
             }
 
             SetTheme(Resource.Style.AppTheme);

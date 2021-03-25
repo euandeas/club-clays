@@ -70,7 +70,7 @@ namespace ClubClays.DatabaseModels
 
     public class Shots
     {
-        [PrimaryKey, AutoIncrement]
+        [PrimaryKey]
         public int Id { get; set; }
         [Indexed(Name = "ShotPair", Order = 1, Unique = true)]
         public int FirstShot { get; set; }
