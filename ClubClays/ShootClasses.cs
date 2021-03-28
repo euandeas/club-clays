@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using AndroidX.Lifecycle;
 using ClubClays.DatabaseModels;
+using SQLite;
 
 namespace ClubClays
 {
@@ -135,8 +137,21 @@ namespace ClubClays
             }
         }
 
-        public void SaveShootData() { }
+        public void SaveShootData() 
+        {
+            CalculateStats();
+
+            string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
+            using (var db = new SQLiteConnection(dbPath))
+            {
+                Shoots newShoot = new Shoots() { Date = date, Location = location, EventType = discipline, NumStands = numOfStands, ClayAmount = numOfClays, StartingStand = startingStand, Notes = userNotes };
+                db.Insert(newShoot);
+
+                int shootId = newShoot.Id;
+            }
+        }
         public void SaveFormat() { }
+        public void CalculateStats() { }
     }
 
     class ShootScoreManagement : Shoot
