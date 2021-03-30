@@ -210,11 +210,20 @@ namespace ClubClays
         public void SaveFormat() { }
         public void CalculateStats() 
         {
-            /* 
-             * Stats to calculate:
-             * each shooters percentage
-             * each stand percentage
-             */
+            // Calculate total number of clays
+            for (int x = 1; x <= StandsByNum.Count; x++)
+            {
+                numOfClays += StandsByNum[x].numOfPairs;
+            }
+
+            for (int y = 1; y <= ShootersByOriginalPos.Count; y++)
+            {
+                // Calculate their overall percentage 
+                for (int x = 1; x <= StandsByNum.Count; x++)
+                {
+                    // calculate each stand percentage
+                }
+            }
         }
     }
 
