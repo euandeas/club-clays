@@ -148,9 +148,6 @@ namespace ClubClays
 
                 for (int x = 1; x <= StandsByNum.Count; x++)
                 {
-                    // need to check if this obeys unique parameters 
-                    //StandFormats standFormat = new StandFormats() { StandType = StandsByNum[x].standType, StandFormat = StandsByNum[x].standFormat, NumPairs = StandsByNum[x].numOfPairs };
-                    //db.Insert(standFormat);
                     db.CreateCommand($"INSERT OR IGNORE INTO StandFormats(StandType, StandFormat, NumPairs) VALUES ('{StandsByNum[x].standType}', '{StandsByNum[x].standFormat}', {StandsByNum[x].numOfPairs});").ExecuteNonQuery();
                     int standFormatId = db.CreateCommand($"SELECT Id From StandFormats WHERE StandType = '{StandsByNum[x].standType}' AND StandFormat = '{StandsByNum[x].standFormat}' AND NumPairs = {StandsByNum[x].numOfPairs}").ExecuteScalar<int>();
                     
