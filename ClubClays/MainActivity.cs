@@ -36,6 +36,7 @@ namespace ClubClays
                 db.CreateCommand("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (5, 1, 0);").ExecuteNonQuery();
                 db.CreateCommand("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (6, 2, 0);").ExecuteNonQuery();
                 db.CreateCommand("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (7, 1, 2);").ExecuteNonQuery();
+                db.CreateCommand("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (8, 2, 1);").ExecuteNonQuery();
             }
 
             SetTheme(Resource.Style.AppTheme);

@@ -147,11 +147,74 @@ namespace ClubClays
                 Shoots newShoot = new Shoots() { Date = date, Location = location, EventType = discipline, NumStands = numOfStands, ClayAmount = numOfClays, StartingStand = startingStand, Notes = userNotes };
                 db.Insert(newShoot);
 
-                int shootId = newShoot.Id;
+                for (int x = 1; x <= StandsByNum.Count; x++)
+                {
+                    // need to check if this obeys unique parameters
+                    StandFormats standFormat = new StandFormats() { StandType = StandsByNum[x].standType, StandFormat = StandsByNum[x].standFormat, NumPairs = StandsByNum[x].numOfPairs };
+                    
+                    Stands newStand = new Stands() { ShootId = newShoot.Id, StandFormatId = standFormat.Id, StandNum = x };
+                    db.Insert(newStand);
+                    
+                    for (int y = 1; y <= ShootersByOriginalPos.Count; y++)
+                    {
+                        StandScores newStandScore = new StandScores() { StandId = newStand.Id, ShooterId = ShootersByOriginalPos[y].id, StandTotal = ShootersByOriginalPos[y].StandScoresByStandNum[x].standTotal, StandPercentageHit = ShootersByOriginalPos[y].StandScoresByStandNum[x].standPercentage, RunningTotal = ShootersByOriginalPos[y].StandScoresByStandNum[x].runningTotalAtStand };
+                        db.Insert(newStandScore);
+
+                        for (int z = 1; z <= ShootersByOriginalPos[y].StandScoresByStandNum[x].ShotsByPairNum.Count; z++)
+                        {
+                            int id = 0;
+
+                            switch ($"{ShootersByOriginalPos[y].StandScoresByStandNum[x].ShotsByPairNum[z][0]}{ShootersByOriginalPos[y].StandScoresByStandNum[x].ShotsByPairNum[z][1]}")
+                            {
+                                case "00":
+                                    id = 0;
+                                    break;
+                                case "11":
+                                    id = 1;
+                                    break;
+                                case "22":
+                                    id = 2;
+                                    break;
+                                case "01":
+                                    id = 3;
+                                    break;
+                                case "02":
+                                    id = 4;
+                                    break;
+                                case "10":
+                                    id = 5;
+                                    break;
+                                case "20":
+                                    id = 6;
+                                    break;
+                                case "12":
+                                    id = 7;
+                                    break;
+                                case "21":
+                                    id = 8;
+                                    break;
+                            }
+
+                            db.Insert(new StandShotsLink() { StandScoresId = newStandScore.Id, shotsId = id, PairNum = z });
+                        }
+                    }
+                }
+
+                for (int w = 1; w <= ShootersByOriginalPos.Count; w++)
+                {
+                    OverallScores newOverallScore = new OverallScores() { ShootId = newShoot.Id, ShooterId = ShootersByOriginalPos[w].id, OverallTotal = ShootersByOriginalPos[w].overallTotal, OverallPercentage = ShootersByOriginalPos[w].overallPercentage };
+                    db.Insert(newOverallScore);
+                }
             }
         }
         public void SaveFormat() { }
-        public void CalculateStats() { }
+        public void CalculateStats() 
+        {
+            /* 
+             * Stats to calculate:
+             * each shooters percentage
+             */
+        }
     }
 
     class ShootScoreManagement : Shoot
