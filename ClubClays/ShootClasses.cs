@@ -20,8 +20,7 @@ namespace ClubClays
         protected DateTime date;
         protected string location;
         protected string discipline;
-        protected int numOfStands;
-        protected int numOfClays;
+        protected int numOfClays = 0;
         protected int startingStand;
         protected string userNotes;
         protected bool rotateShooters;
@@ -144,15 +143,18 @@ namespace ClubClays
             string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
             using (var db = new SQLiteConnection(dbPath))
             {
-                Shoots newShoot = new Shoots() { Date = date, Location = location, EventType = discipline, NumStands = numOfStands, ClayAmount = numOfClays, StartingStand = startingStand, Notes = userNotes };
+                Shoots newShoot = new Shoots() { Date = date, Location = location, EventType = discipline, NumStands = StandsByNum.Count, ClayAmount = numOfClays, StartingStand = startingStand, Notes = userNotes };
                 db.Insert(newShoot);
 
                 for (int x = 1; x <= StandsByNum.Count; x++)
                 {
-                    // need to check if this obeys unique parameters
-                    StandFormats standFormat = new StandFormats() { StandType = StandsByNum[x].standType, StandFormat = StandsByNum[x].standFormat, NumPairs = StandsByNum[x].numOfPairs };
+                    // need to check if this obeys unique parameters 
+                    //StandFormats standFormat = new StandFormats() { StandType = StandsByNum[x].standType, StandFormat = StandsByNum[x].standFormat, NumPairs = StandsByNum[x].numOfPairs };
+                    //db.Insert(standFormat);
+                    db.CreateCommand($"INSERT OR IGNORE INTO StandFormats(StandType, StandFormat, NumPairs) VALUES ('{StandsByNum[x].standType}', '{StandsByNum[x].standFormat}', {StandsByNum[x].numOfPairs});").ExecuteNonQuery();
+                    int standFormatId = db.CreateCommand($"SELECT Id From StandFormats WHERE StandType = '{StandsByNum[x].standType}' AND StandFormat = '{StandsByNum[x].standFormat}' AND NumPairs = {StandsByNum[x].numOfPairs}").ExecuteScalar<int>();
                     
-                    Stands newStand = new Stands() { ShootId = newShoot.Id, StandFormatId = standFormat.Id, StandNum = x };
+                    Stands newStand = new Stands() { ShootId = newShoot.Id, StandFormatId = standFormatId, StandNum = x };
                     db.Insert(newStand);
                     
                     for (int y = 1; y <= ShootersByOriginalPos.Count; y++)
@@ -210,18 +212,17 @@ namespace ClubClays
         public void SaveFormat() { }
         public void CalculateStats() 
         {
-            // Calculate total number of clays
             for (int x = 1; x <= StandsByNum.Count; x++)
             {
-                numOfClays += StandsByNum[x].numOfPairs;
+                numOfClays += StandsByNum[x].numOfPairs*2;
             }
 
             for (int y = 1; y <= ShootersByOriginalPos.Count; y++)
             {
-                // Calculate their overall percentage 
+                ShootersByOriginalPos[y].overallPercentage = (int)Math.Round((double)ShootersByOriginalPos[y].overallTotal / numOfClays * 100);
                 for (int x = 1; x <= StandsByNum.Count; x++)
                 {
-                    // calculate each stand percentage
+                    ShootersByOriginalPos[y].StandScoresByStandNum[x].standPercentage = (int)Math.Round((double)ShootersByOriginalPos[y].StandScoresByStandNum[x].standTotal / (StandsByNum[x].numOfPairs*2) * 100);
                 }
             }
         }

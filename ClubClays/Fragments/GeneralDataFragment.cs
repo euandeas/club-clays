@@ -24,7 +24,7 @@ namespace ClubClays.Fragments
         private TextView trackingTypePickerView;
         private string userOverallAction;
         private string discipline;
-        private string location;
+        private string location = "test";
         private DateTime date;
         private bool rotateShooters;
 
