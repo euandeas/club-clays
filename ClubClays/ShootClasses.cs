@@ -213,6 +213,7 @@ namespace ClubClays
             /* 
              * Stats to calculate:
              * each shooters percentage
+             * each stand percentage
              */
         }
     }
