@@ -12,6 +12,7 @@ using AndroidX.AppCompat.App;
 using Google.Android.Material.FloatingActionButton;
 using System.IO;
 using SQLite;
+using System.Collections.Generic;
 
 namespace ClubClays.Fragments
 {
@@ -63,13 +64,21 @@ namespace ClubClays.Fragments
             FloatingActionButton fab = view.FindViewById<FloatingActionButton>(Resource.Id.fab);
             fab.Click += Fab_Click;
 
+            List<DatabaseModels.Shoots> shoots;
+
             string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
             using (var db = new SQLiteConnection(dbPath))
             {
-                var test = db.Table<DatabaseModels.Shoots>();
+                shoots = db.Table<DatabaseModels.Shoots>().ToList();
             }
 
-                return view;
+            LinearLayoutManager LayoutManager = new LinearLayoutManager(Activity);
+            RecyclerView shootsRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.recyclerView);
+            shootsRecyclerView.SetLayoutManager(LayoutManager);
+            shootsRecyclerView.SetAdapter(new PreviousShootsRecyclerAdapter(shoots));
+
+
+            return view;
         }
 
         private void Fab_Click(object sender, EventArgs e)
@@ -130,33 +139,47 @@ namespace ClubClays.Fragments
 
     public class PreviousShootsRecyclerAdapter : RecyclerView.Adapter
     {
-        TableQuery<DatabaseModels.Shoots> allShoots;
+        List<DatabaseModels.Shoots> allShoots;
 
         public class MyView : RecyclerView.ViewHolder
         {
             public View mMainView { get; set; }
+            public TextView mShootTitle { get; set; }
+            public TextView mShootInfo { get; set; }
+            public TextView mShootLocation { get; set; }
             public MyView(View view) : base(view)
             {
                 mMainView = view;
             }
         }
-        public override int ItemCount => allShoots.Count();
+        public override int ItemCount => allShoots.Count;
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
             MyView myHolder = holder as MyView;
+            myHolder.mShootTitle.Text = $"{allShoots[position].EventType} on {allShoots[position].Date.ToShortDateString()}";
+            myHolder.mShootInfo.Text = $"{allShoots[position].NumStands} Stand(s), {allShoots[position].ClayAmount} Clays";
+            myHolder.mShootLocation.Text = $"{allShoots[position].Location}";
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
             View shootCardView = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.shoot_item, parent, false);
+            TextView shootTitle = shootCardView.FindViewById<TextView>(Resource.Id.shootTitle);
+            TextView shootInfo = shootCardView.FindViewById<TextView>(Resource.Id.shootInfo);
+            TextView shootLocation = shootCardView.FindViewById<TextView>(Resource.Id.shootLocation);
 
-            MyView view = new MyView(shootCardView) {  };
+            MyView view = new MyView(shootCardView) { mShootTitle = shootTitle, mShootInfo = shootInfo, mShootLocation = shootLocation };
+
+            shootCardView.Click += delegate
+            {
+
+            };
 
             return view;
         }
 
-        PreviousShootsRecyclerAdapter(TableQuery<DatabaseModels.Shoots> shoots)
+        public PreviousShootsRecyclerAdapter(List<DatabaseModels.Shoots> shoots)
         {
             allShoots = shoots;
         }
