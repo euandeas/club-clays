@@ -141,10 +141,7 @@ namespace ClubClays.Fragments
         }
 
         // Return the size of data set (invoked by the layout manager)
-        public override int ItemCount
-        {
-            get { return shooters.Count; }
-        }
+        public override int ItemCount => shooters.Count;
 
         // Replace the contents of a view (invoked by layout manager)
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)

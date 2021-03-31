@@ -10,6 +10,8 @@ using AndroidX.RecyclerView.Widget;
 using AndroidX.AppCompat.View.Menu;
 using AndroidX.AppCompat.App;
 using Google.Android.Material.FloatingActionButton;
+using System.IO;
+using SQLite;
 
 namespace ClubClays.Fragments
 {
@@ -61,7 +63,13 @@ namespace ClubClays.Fragments
             FloatingActionButton fab = view.FindViewById<FloatingActionButton>(Resource.Id.fab);
             fab.Click += Fab_Click;
 
-            return view;
+            string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
+            using (var db = new SQLiteConnection(dbPath))
+            {
+                var test = db.Table<DatabaseModels.Shoots>();
+            }
+
+                return view;
         }
 
         private void Fab_Click(object sender, EventArgs e)
@@ -122,16 +130,35 @@ namespace ClubClays.Fragments
 
     public class PreviousShootsRecyclerAdapter : RecyclerView.Adapter
     {
-        public override int ItemCount => throw new NotImplementedException();
+        TableQuery<DatabaseModels.Shoots> allShoots;
+
+        public class MyView : RecyclerView.ViewHolder
+        {
+            public View mMainView { get; set; }
+            public MyView(View view) : base(view)
+            {
+                mMainView = view;
+            }
+        }
+        public override int ItemCount => allShoots.Count();
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
-            throw new NotImplementedException();
+            MyView myHolder = holder as MyView;
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
-            throw new NotImplementedException();
+            View shootCardView = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.shoot_item, parent, false);
+
+            MyView view = new MyView(shootCardView) {  };
+
+            return view;
+        }
+
+        PreviousShootsRecyclerAdapter(TableQuery<DatabaseModels.Shoots> shoots)
+        {
+            allShoots = shoots;
         }
     }
 }
