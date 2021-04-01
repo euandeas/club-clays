@@ -69,14 +69,13 @@ namespace ClubClays.Fragments
             string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
             using (var db = new SQLiteConnection(dbPath))
             {
-                shoots = db.Table<DatabaseModels.Shoots>().ToList();
+                shoots = db.Table<DatabaseModels.Shoots>().OrderByDescending(s => s.Date).ToList();
             }
 
             LinearLayoutManager LayoutManager = new LinearLayoutManager(Activity);
             RecyclerView shootsRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.recyclerView);
             shootsRecyclerView.SetLayoutManager(LayoutManager);
             shootsRecyclerView.SetAdapter(new PreviousShootsRecyclerAdapter(shoots));
-
 
             return view;
         }

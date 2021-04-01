@@ -94,6 +94,7 @@ namespace ClubClays.DatabaseModels
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
+        [Indexed(Name = "Name", Order = 1, Unique = true)]
         public string Name { get; set; }
         [MaxLength(1)]
         public string Class { get; set; }
