@@ -1,20 +1,17 @@
 ﻿using Android.OS;
 using Android.Views;
-using Android.Widget;
 using AndroidX.AppCompat.App;
-using AndroidX.Fragment.App;
 using AndroidX.Lifecycle;
 using AndroidX.ViewPager2.Widget;
 using Google.Android.Material.Tabs;
-using System;
 using Fragment = AndroidX.Fragment.App.Fragment;
 using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 
 namespace ClubClays.Fragments
 {
-    public class ShootScoreFragment : Fragment
+    public class PreviousShootFragment : Fragment
     {
-        private ShootScoreManagement scoreManagementModel;
+        PreviousShoot previousShootModel;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -25,40 +22,23 @@ namespace ClubClays.Fragments
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             // Use this to return your custom view for this Fragment
-            View view = inflater.Inflate(Resource.Layout.fragment_shoot_score, container, false);
+            View view = inflater.Inflate(Resource.Layout.fragment_previous_shoot, container, false);
+
+            previousShootModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(PreviousShoot))) as PreviousShoot;
+            previousShootModel.InitialisePreviousShoot(Arguments.GetInt("ShootID", 1));
 
             Toolbar toolbar = view.FindViewById<Toolbar>(Resource.Id.toolbar);
             ((AppCompatActivity)Activity).SetSupportActionBar(toolbar);
             ActionBar supportBar = ((AppCompatActivity)Activity).SupportActionBar;
-
-            scoreManagementModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(ShootScoreManagement))) as ShootScoreManagement;
+            supportBar.Title = "{Shoot Type} on {Date}";
 
             ViewPager2 viewPager = view.FindViewById<ViewPager2>(Resource.Id.view_pager);
-            viewPager.Adapter = new ScoreViewPagerAdapter(this, scoreManagementModel.NumStands);
+            viewPager.Adapter = new ScoreViewPagerAdapter(this, previousShootModel.NumStands);
 
             TabLayout tabLayout = view.FindViewById<TabLayout>(Resource.Id.tab_layout);
             new TabLayoutMediator(tabLayout, viewPager, new TabConfigStrat()).Attach();
 
-            TextView nextButton = view.FindViewById<TextView>(Resource.Id.nextButton);
-            nextButton.Click += NextButton_Click;
-
             return view;
         }
-
-        private void NextButton_Click(object sender, EventArgs e)
-        {
-            FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
-            if (scoreManagementModel.LastStand)
-            {
-                fragmentTx.Replace(Resource.Id.container, new ShootEndFragment());
-            }
-            else
-            {
-                scoreManagementModel.NextStand();
-                fragmentTx.Replace(Resource.Id.container, new ScoreTakingFragment());
-            }
-            fragmentTx.Commit();
-        }
-
     }
 }

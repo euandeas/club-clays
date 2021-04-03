@@ -23,12 +23,11 @@ namespace ClubClays
         protected int numOfClays = 0;
         protected int startingStand;
         protected string userNotes;
-        protected bool rotateShooters;
 
         protected Dictionary<int, Shooter> ShootersByOriginalPos = new Dictionary<int, Shooter>();
         protected SortedList<int, Stand> StandsByNum = new SortedList<int, Stand>();
 
-        public int CurrentNumStands
+        public int NumStands
         {
             get
             {
@@ -231,6 +230,7 @@ namespace ClubClays
         protected int currentPair = 1;
         protected int currentShooterIndex = 0;
         protected string trackingType;
+        protected bool rotateShooters;
 
         public int CurrentStand { get => currentStand; }
         public int CurrentPair { get => currentPair; }
@@ -377,7 +377,44 @@ namespace ClubClays
 
     //for viewing shoot history
     class PreviousShoot : Shoot 
-    { 
+    {
+        protected Dictionary<int,int> shooterOriginalPosByID = new Dictionary<int, int>();
+        public void InitialisePreviousShoot(int shootID)
+        {
+            string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
+            using (var db = new SQLiteConnection(dbPath))
+            {
+                var shoot = db.Get<Shoots>(shootID);
+                date = shoot.Date;
+                location = shoot.Location;
+                discipline = shoot.EventType;
+                startingStand = shoot.StartingStand;
 
+                int counter = 1;
+                var overallScores = db.Table<OverallScores>().Where<OverallScores>(s => s.ShootId == shoot.Id).ToList();
+                foreach (OverallScores overallScore in overallScores)
+                {
+                    var shooter = db.Get<Shooters>(overallScore.ShooterId);
+                    shooterOriginalPosByID.Add(overallScore.ShooterId, counter);
+                    ShootersByOriginalPos.Add(counter, new Shooter(shooter.Id, shooter.Name, shooter.Class));
+                    ShootersByOriginalPos[counter].overallPercentage = overallScore.OverallPercentage;
+                    ShootersByOriginalPos[counter].overallTotal = overallScore.OverallTotal;
+                    counter++;
+                }
+
+                var stands = db.Table<Stands>().Where<Stands>(s => s.ShootId == shoot.Id).OrderBy(s => s.StandNum).ToList();
+                foreach (Stands stand in stands)
+                {
+                    var standFormats = db.Get<StandFormats>(stand.StandNum);
+                    StandsByNum.Add(stand.StandNum, new Stand(standFormats.StandType, standFormats.StandFormat, standFormats.NumPairs));
+
+                    var standScores = db.Table<StandScores>().Where<StandScores>(s => s.StandId == stand.Id).ToList();
+                    foreach (StandScores standScore in standScores)
+                    {
+                        ShootersByOriginalPos[shooterOriginalPosByID[standScore.ShooterId]].StandScoresByStandNum.Add();
+                    }
+                }
+            }
+        }
     }
 }

@@ -88,7 +88,7 @@ namespace ClubClays.Fragments
 
                 string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
                 using SQLiteConnection db = new SQLiteConnection(dbPath);
-                db.CreateCommand($"INSERT OR IGNORE INTO Shooters(Name, Class) VALUES ({shooterName.Text}, {shooterClass.Text});").ExecuteNonQuery();
+                db.CreateCommand($"INSERT OR IGNORE INTO Shooters(Name, Class) VALUES ('{shooterName.Text}', '{shooterClass.Text}');").ExecuteNonQuery();
                 db.Close();
 
                 selectedShootersModel.selectedShooters.Add(newShooter);

@@ -13,6 +13,7 @@ using Google.Android.Material.FloatingActionButton;
 using System.IO;
 using SQLite;
 using System.Collections.Generic;
+using AndroidX.Fragment.App;
 
 namespace ClubClays.Fragments
 {
@@ -75,7 +76,7 @@ namespace ClubClays.Fragments
             LinearLayoutManager LayoutManager = new LinearLayoutManager(Activity);
             RecyclerView shootsRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.recyclerView);
             shootsRecyclerView.SetLayoutManager(LayoutManager);
-            shootsRecyclerView.SetAdapter(new PreviousShootsRecyclerAdapter(shoots));
+            shootsRecyclerView.SetAdapter(new PreviousShootsRecyclerAdapter(shoots, Activity));
 
             return view;
         }
@@ -139,6 +140,7 @@ namespace ClubClays.Fragments
     public class PreviousShootsRecyclerAdapter : RecyclerView.Adapter
     {
         List<DatabaseModels.Shoots> allShoots;
+        FragmentActivity activity;
 
         public class MyView : RecyclerView.ViewHolder
         {
@@ -172,15 +174,23 @@ namespace ClubClays.Fragments
 
             shootCardView.Click += delegate
             {
+                Fragment fragment = new PreviousShootFragment();
+                Bundle args = new Bundle();
+                args.PutInt("ShootID", allShoots[view.AdapterPosition].Id);
+                fragment.Arguments = args;
 
+                FragmentTransaction fragmentTx = activity.SupportFragmentManager.BeginTransaction();
+                fragmentTx.Replace(Resource.Id.container, fragment);
+                fragmentTx.Commit();
             };
 
             return view;
         }
 
-        public PreviousShootsRecyclerAdapter(List<DatabaseModels.Shoots> shoots)
+        public PreviousShootsRecyclerAdapter(List<DatabaseModels.Shoots> shoots, FragmentActivity activity)
         {
             allShoots = shoots;
+            this.activity = activity;
         }
     }
 }

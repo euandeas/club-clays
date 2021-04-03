@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using SQLite;
-using SQLiteNetExtensions.Attributes;
 
 namespace ClubClays.DatabaseModels
 {
@@ -18,51 +16,33 @@ namespace ClubClays.DatabaseModels
         public int StartingStand { get; set; }
         [MaxLength(255)]
         public string Notes { get; set; }
-
-        [OneToMany] 
-        public List<Stands> Stands { get; set; }
-
-        [OneToMany]
-        public List<OverallScores> OverallScores { get; set; }
     }
 
     public class Stands
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
-        [ForeignKey(typeof(Shoots))]
         public int ShootId { get; set; }
-        [ForeignKey(typeof(StandFormats))]
         public int StandFormatId { get; set; }
         public int StandNum { get; set; }
-
-        [OneToMany]
-        public List<StandScores> StandScores { get; set; }
     }
 
     public class StandScores
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
-        [ForeignKey(typeof(Stands))]
         public int StandId { get; set; }
-        [ForeignKey(typeof(Shooters))]
         public int ShooterId { get; set; }
         public int StandTotal { get; set; }
         public int StandPercentageHit { get; set; }
         public int RunningTotal { get; set; }
-
-        [OneToMany]
-        public List<StandShotsLink> StandsShotsLink { get; set; }
     }
 
     public class StandShotsLink
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
-        [ForeignKey(typeof(StandScores))]
         public int StandScoresId { get; set; }
-        [ForeignKey(typeof(Shots))]
         public int shotsId { get; set; }
         public int PairNum { get; set; }
     }
@@ -75,17 +55,12 @@ namespace ClubClays.DatabaseModels
         public int FirstShot { get; set; }
         [Indexed(Name = "ShotPair", Order = 2, Unique = true)]
         public int SecondShot { get; set; }
-
-        [OneToMany]
-        public List<StandShotsLink> StandsShotsLink { get; set; }
     }
     public class OverallScores
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
-        [ForeignKey(typeof(Shoots))]
         public int ShootId { get; set; }
-        [ForeignKey(typeof(Shooters))]
         public int ShooterId { get; set; }
         public int OverallTotal { get; set; }
         public int OverallPercentage { get; set; }
@@ -98,12 +73,6 @@ namespace ClubClays.DatabaseModels
         public string Name { get; set; }
         [MaxLength(1)]
         public string Class { get; set; }
-
-        [OneToMany]
-        public List<StandScores> StandScores { get; set; }
-
-        [OneToMany]
-        public List<OverallScores> OverallScores { get; set; }
     }
 
     //Shoot Format tables
@@ -115,18 +84,13 @@ namespace ClubClays.DatabaseModels
         public string EventType { get; set; }
         public string NumStands { get; set; }
         public string ClayAmount { get; set; }
-
-        [OneToMany]
-        public List<SavedFormatsLink> SavedFormatsLink { get; set; }
     }
 
     public class SavedFormatsLink
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
-        [ForeignKey(typeof(ShootFormats))]
         public int ShootFormatId { get; set; }
-        [ForeignKey(typeof(StandFormats))]
         public int StandFormatId { get; set; }
         public int StandNum { get; set; }
     }
@@ -141,11 +105,5 @@ namespace ClubClays.DatabaseModels
         public string StandFormat { get; set; }
         [Indexed(Name = "StandFormatData", Order = 3, Unique = true)]
         public int NumPairs { get; set; }
-
-        [OneToMany]
-        public List<SavedFormatsLink> SavedFormatsLink { get; set; }
-
-        [OneToMany]
-        public List<Stands> Stands { get; set; }
     }
 }

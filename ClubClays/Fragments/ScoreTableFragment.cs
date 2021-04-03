@@ -39,7 +39,7 @@ namespace ClubClays.Fragments
 
             if (whichStand == 0)
             {
-                TopRowOfTable(tableLayout, scoreManagementModel.CurrentNumStands);
+                TopRowOfTable(tableLayout, scoreManagementModel.NumStands);
                 for (int x = 1; x <= scoreManagementModel.NumberOfShooters; x++)
                 {
                     List<string> shooterData = scoreManagementModel.ShooterOverallData(x);
