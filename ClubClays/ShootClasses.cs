@@ -379,6 +379,17 @@ namespace ClubClays
     class PreviousShoot : Shoot 
     {
         protected Dictionary<int,int> shooterOriginalPosByID = new Dictionary<int, int>();
+        
+        public DateTime Date
+        {
+            get { return date; }   
+        }
+
+        public string EventType
+        {
+            get { return discipline; }
+        }
+
         public void InitialisePreviousShoot(int shootID)
         {
             string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
@@ -411,7 +422,15 @@ namespace ClubClays
                     var standScores = db.Table<StandScores>().Where<StandScores>(s => s.StandId == stand.Id).ToList();
                     foreach (StandScores standScore in standScores)
                     {
-                        ShootersByOriginalPos[shooterOriginalPosByID[standScore.ShooterId]].StandScoresByStandNum.Add();
+                        var shooterStandScore = new Shooter.StandScore(standScore.StandTotal, standScore.StandPercentageHit, standScore.RunningTotal);
+
+                        var shotPairs = db.Table<StandShotsLink>().Where<StandShotsLink>(s => s.StandScoresId == stand.Id).ToList();
+                        foreach (StandShotsLink shotPair in shotPairs)
+                        {
+                            shooterStandScore.ShotsByPairNum.Add(shotPair.PairNum, new int[] { db.Get<Shots>(shotPair.shotsId).FirstShot, db.Get<Shots>(shotPair.shotsId).SecondShot });
+                        }
+
+                        ShootersByOriginalPos[shooterOriginalPosByID[standScore.ShooterId]].StandScoresByStandNum.Add(stand.StandNum, shooterStandScore);
                     }
                 }
             }

@@ -30,15 +30,23 @@ namespace ClubClays.Fragments
             Toolbar toolbar = view.FindViewById<Toolbar>(Resource.Id.toolbar);
             ((AppCompatActivity)Activity).SetSupportActionBar(toolbar);
             ActionBar supportBar = ((AppCompatActivity)Activity).SupportActionBar;
-            supportBar.Title = "{Shoot Type} on {Date}";
+            supportBar.Title = $"{previousShootModel.EventType} on {previousShootModel.Date.ToShortDateString()}";
+            supportBar.SetDisplayHomeAsUpEnabled(true);
+            supportBar.SetDisplayShowHomeEnabled(true);
 
             ViewPager2 viewPager = view.FindViewById<ViewPager2>(Resource.Id.view_pager);
-            viewPager.Adapter = new ScoreViewPagerAdapter(this, previousShootModel.NumStands);
+            viewPager.Adapter = new ScoreViewPagerAdapter(this, previousShootModel.NumStands, "previousShoot");
 
             TabLayout tabLayout = view.FindViewById<TabLayout>(Resource.Id.tab_layout);
             new TabLayoutMediator(tabLayout, viewPager, new TabConfigStrat()).Attach();
 
             return view;
+        }
+
+        public override void OnDestroy()
+        {
+            base.OnDestroy();
+            previousShootModel.Dispose();
         }
     }
 }

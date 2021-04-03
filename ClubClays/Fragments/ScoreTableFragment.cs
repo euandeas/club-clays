@@ -18,7 +18,7 @@ namespace ClubClays.Fragments
 {
     public class ScoreTableFragment : Fragment
     {
-        private ShootScoreManagement scoreManagementModel;
+        private Shoot scoreManagementModel;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -32,9 +32,17 @@ namespace ClubClays.Fragments
             View view = inflater.Inflate(Resource.Layout.fragment_score_table, container, false);
 
             int whichStand = Arguments.GetInt("standNum", 0);
+            string viewAccessingScore = Arguments.GetString("ViewAccessingScore", "previousShoot");
 
-            scoreManagementModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(ShootScoreManagement))) as ShootScoreManagement;
-            
+            if (viewAccessingScore == "currentShoot")
+            {
+                scoreManagementModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(ShootScoreManagement))) as Shoot;
+            }
+            else if (viewAccessingScore == "previousShoot")
+            {
+                scoreManagementModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(PreviousShoot))) as Shoot;
+            }
+
             TableLayout tableLayout = view.FindViewById<TableLayout>(Resource.Id.scoreTable);
 
             if (whichStand == 0)

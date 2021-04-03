@@ -9,9 +9,11 @@ namespace ClubClays
     public class ScoreViewPagerAdapter : FragmentStateAdapter
     {
         int numOfStands;
-        public ScoreViewPagerAdapter(Fragment fa, int numOfStands) : base(fa)
+        string viewAccessingScore;
+        public ScoreViewPagerAdapter(Fragment fa, int numOfStands, string requestingView) : base(fa)
         {
             this.numOfStands = numOfStands;
+            viewAccessingScore = requestingView;
         }
         public override int ItemCount => numOfStands + 1;
 
@@ -20,6 +22,7 @@ namespace ClubClays
             Fragment fragment = new ScoreTableFragment();
             Bundle args = new Bundle();
             args.PutInt("standNum", p0);
+            args.PutString("ViewAccessingScore", viewAccessingScore);
             fragment.Arguments = args;
             return fragment;
         }

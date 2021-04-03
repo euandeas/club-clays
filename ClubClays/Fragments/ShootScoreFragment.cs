@@ -34,7 +34,7 @@ namespace ClubClays.Fragments
             scoreManagementModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(ShootScoreManagement))) as ShootScoreManagement;
 
             ViewPager2 viewPager = view.FindViewById<ViewPager2>(Resource.Id.view_pager);
-            viewPager.Adapter = new ScoreViewPagerAdapter(this, scoreManagementModel.NumStands);
+            viewPager.Adapter = new ScoreViewPagerAdapter(this, scoreManagementModel.NumStands, "currentShoot");
 
             TabLayout tabLayout = view.FindViewById<TabLayout>(Resource.Id.tab_layout);
             new TabLayoutMediator(tabLayout, viewPager, new TabConfigStrat()).Attach();

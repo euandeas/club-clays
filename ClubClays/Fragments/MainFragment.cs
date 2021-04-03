@@ -181,6 +181,7 @@ namespace ClubClays.Fragments
 
                 FragmentTransaction fragmentTx = activity.SupportFragmentManager.BeginTransaction();
                 fragmentTx.Replace(Resource.Id.container, fragment);
+                fragmentTx.AddToBackStack(null);
                 fragmentTx.Commit();
             };
 
