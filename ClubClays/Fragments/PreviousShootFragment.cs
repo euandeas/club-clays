@@ -1,5 +1,6 @@
 ﻿using Android.OS;
 using Android.Views;
+using AndroidX.Activity;
 using AndroidX.AppCompat.App;
 using AndroidX.Lifecycle;
 using AndroidX.ViewPager2.Widget;
@@ -11,7 +12,7 @@ namespace ClubClays.Fragments
 {
     public class PreviousShootFragment : Fragment
     {
-        PreviousShoot previousShootModel;
+        private PreviousShoot previousShootModel;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -43,10 +44,10 @@ namespace ClubClays.Fragments
             return view;
         }
 
-        public override void OnDestroy()
+
+        public override void OnStop()
         {
-            base.OnDestroy();
-            previousShootModel.Dispose();
+            base.OnStop();
         }
     }
 }

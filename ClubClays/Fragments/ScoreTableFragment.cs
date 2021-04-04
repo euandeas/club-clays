@@ -36,11 +36,11 @@ namespace ClubClays.Fragments
 
             if (viewAccessingScore == "currentShoot")
             {
-                scoreManagementModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(ShootScoreManagement))) as Shoot;
+                scoreManagementModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(ShootScoreManagement))) as ShootScoreManagement;
             }
             else if (viewAccessingScore == "previousShoot")
             {
-                scoreManagementModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(PreviousShoot))) as Shoot;
+                scoreManagementModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(PreviousShoot))) as PreviousShoot;
             }
 
             TableLayout tableLayout = view.FindViewById<TableLayout>(Resource.Id.scoreTable);
