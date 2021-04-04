@@ -2,9 +2,11 @@
 using Android.Views;
 using AndroidX.Activity;
 using AndroidX.AppCompat.App;
+using AndroidX.Fragment.App;
 using AndroidX.Lifecycle;
 using AndroidX.ViewPager2.Widget;
 using Google.Android.Material.Tabs;
+using System;
 using Fragment = AndroidX.Fragment.App.Fragment;
 using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 
@@ -44,10 +46,10 @@ namespace ClubClays.Fragments
             return view;
         }
 
-
         public override void OnStop()
         {
             base.OnStop();
+            Activity.ViewModelStore.Clear();
         }
     }
 }

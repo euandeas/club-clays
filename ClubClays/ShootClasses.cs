@@ -416,7 +416,7 @@ namespace ClubClays
                 var stands = db.Table<Stands>().Where<Stands>(s => s.ShootId == shoot.Id).OrderBy(s => s.StandNum).ToList();
                 foreach (Stands stand in stands)
                 {
-                    var standFormats = db.Get<StandFormats>(stand.StandNum);
+                    var standFormats = db.Get<StandFormats>(stand.StandFormatId);
                     StandsByNum.Add(stand.StandNum, new Stand(standFormats.StandType, standFormats.StandFormat, standFormats.NumPairs));
 
                     var standScores = db.Table<StandScores>().Where<StandScores>(s => s.StandId == stand.Id).ToList();

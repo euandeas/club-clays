@@ -1,17 +1,10 @@
-﻿using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Util;
+﻿using Android.OS;
 using Android.Views;
 using Android.Widget;
+using AndroidX.Fragment.App;
 using AndroidX.Lifecycle;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Fragment = AndroidX.Fragment.App.Fragment;
-using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 
 namespace ClubClays.Fragments
 {
@@ -43,9 +36,11 @@ namespace ClubClays.Fragments
         {
             scoreManagementModel.UserNotes = usernotes.Text;
             scoreManagementModel.SaveShootData();
-            scoreManagementModel.Dispose();
-            Context.StartActivity(new Intent(Context, typeof(MainActivity)));
-            Activity.Finish();
+            Activity.ViewModelStore.Clear();
+            Activity.SupportFragmentManager.PopBackStackImmediate(null, FragmentManager.PopBackStackInclusive);
+            FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
+            fragmentTx.Replace(Resource.Id.container, new MainFragment());
+            fragmentTx.Commit();
         }
     }
 }
