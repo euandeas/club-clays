@@ -54,7 +54,7 @@ namespace ClubClays
             overallData.Add(ShootersByOriginalPos[shooterOriginalNum].name);
             for (int x = 1; x <= StandsByNum.Count(); x++)
             {
-                if(x <= ShootersByOriginalPos[shooterOriginalNum].StandScoresByStandNum.Count)
+                if(ShootersByOriginalPos[shooterOriginalNum].StandScoresByStandNum.ContainsKey(x))
                 {
                     overallData.Add($"{ShootersByOriginalPos[shooterOriginalNum].StandScoresByStandNum[x].standTotal}");
                 }
@@ -70,7 +70,7 @@ namespace ClubClays
         public void ShooterStandData(int shooterOriginalNum, int StandNum, out string name, out string total, out SortedList<int, int[]> hits)
         {
             name = ShootersByOriginalPos[shooterOriginalNum].name;
-            if (StandNum <= ShootersByOriginalPos[shooterOriginalNum].StandScoresByStandNum.Count)
+            if (ShootersByOriginalPos[shooterOriginalNum].StandScoresByStandNum.ContainsKey(StandNum))
             {
                 total = $"{ShootersByOriginalPos[shooterOriginalNum].StandScoresByStandNum[StandNum].standTotal}";
                 hits = ShootersByOriginalPos[shooterOriginalNum].StandScoresByStandNum[StandNum].ShotsByPairNum;
@@ -232,6 +232,7 @@ namespace ClubClays
         protected string trackingType;
         protected bool rotateShooters;
         protected int shootersCompletedStand = 0;
+        protected int standsCompleted = 0;
 
         public int CurrentStand { get => currentStand; }
         public int CurrentPair { get => currentPair; }
@@ -279,7 +280,7 @@ namespace ClubClays
 
         public bool LastStand{ get
             {
-                if (currentStand == StandsByNum.Count)
+                if (standsCompleted == StandsByNum.Count-1)
                 {
                     return true;
                 }
@@ -359,7 +360,8 @@ namespace ClubClays
         public void NextStand()
         {
             shootersCompletedStand = 0;
-            currentStand += 1;
+            standsCompleted += 1;
+            currentStand = (currentStand % StandsByNum.Count) + 1;
             currentPair = 1;
             if (rotateShooters)
             {
