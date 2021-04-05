@@ -231,6 +231,7 @@ namespace ClubClays
         protected int currentShooterIndex = 0;
         protected string trackingType;
         protected bool rotateShooters;
+        protected int shootersCompletedStand = 0;
 
         public int CurrentStand { get => currentStand; }
         public int CurrentPair { get => currentPair; }
@@ -265,7 +266,7 @@ namespace ClubClays
 
         public bool LastShooter{ get
             {
-                if (currentShooterIndex == ShootersByOriginalPos.Count - 1)
+                if (shootersCompletedStand == ShootersByOriginalPos.Count - 1)
                 {
                     return true;
                 }
@@ -303,7 +304,6 @@ namespace ClubClays
             this.discipline = discipline;
             this.startingStand = startingStand;
 
-
             currentStand = startingStand;
             trackingType = "Unknown";
 
@@ -312,7 +312,6 @@ namespace ClubClays
             {
                 ShootersByOriginalPos.Add(counter++, new Shooter(shooter.Id, shooter.Name, shooter.Class));
             }
-
         }
 
         public void InitialiseStands(List<StandFormats> stands)
@@ -353,15 +352,23 @@ namespace ClubClays
 
         public void NextShooter()
         {
+            shootersCompletedStand += 1;
             currentPair = 1;
-            currentShooterIndex += 1;
+            currentShooterIndex = (currentShooterIndex + 1) % ShootersByOriginalPos.Count;
         }
         public void NextStand()
         {
+            shootersCompletedStand = 0;
             currentStand += 1;
             currentPair = 1;
-            currentShooterIndex = 0;
-
+            if (rotateShooters)
+            {
+                currentShooterIndex = 0 + ((currentStand-1) % ShootersByOriginalPos.Count);
+            }
+            else
+            {
+                currentShooterIndex = 0;
+            }
         }
         public void UndoScore() 
         {
@@ -424,7 +431,7 @@ namespace ClubClays
                     {
                         var shooterStandScore = new Shooter.StandScore(standScore.StandTotal, standScore.StandPercentageHit, standScore.RunningTotal);
 
-                        var shotPairs = db.Table<StandShotsLink>().Where<StandShotsLink>(s => s.StandScoresId == stand.Id).ToList();
+                        var shotPairs = db.Table<StandShotsLink>().Where<StandShotsLink>(s => s.StandScoresId == standScore.Id).ToList();
                         foreach (StandShotsLink shotPair in shotPairs)
                         {
                             shooterStandScore.ShotsByPairNum.Add(shotPair.PairNum, new int[] { db.Get<Shots>(shotPair.shotsId).FirstShot, db.Get<Shots>(shotPair.shotsId).SecondShot });

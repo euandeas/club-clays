@@ -72,7 +72,6 @@
         android:paddingRight="10dp"
         android:paddingBottom="5dp"/>
     <EditText
-        android:text="test"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/locationPicker"
@@ -80,7 +79,8 @@
         android:paddingTop="5dp"
         android:paddingLeft="10dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"/>
+        android:layout_marginRight="10dp"
+        android:maxLength="32"/>
 
     <TextView
         android:text="Shooters"
@@ -91,7 +91,6 @@
         android:paddingRight="10dp"
         android:paddingBottom="5dp"/>
     <TextView
-        android:text="test"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/SpinnerStyle_ArrowRight"
@@ -131,7 +130,6 @@
     </LinearLayout>
 
     <TextView
-        android:text="test"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/SpinnerStyle_ArrowRight"

@@ -8,12 +8,12 @@
       <Preference
         app:key="manage_shooters"
         app:title="Manage Shooters"
-        app:summary="Report technical issues or suggest new features."/>
+        app:summary="Add, edit or remove shooters."/>
 
       <Preference
-        app:key="manage_shooters"
+        app:key="manage_formats"
         app:title="Manage Formats"
-        app:summary="Report technical issues or suggest new features."/>
+        app:summary="Add, edit or remove formats."/>
 
   </PreferenceCategory>
 
@@ -38,12 +38,12 @@
       <Preference
         app:key="getting_started"
         app:title="Getting Started"
-        app:summary="How to use this app./n test"/>
+        app:summary="Add Explanation Here"/>
 
       <Preference
         app:key="about"
         app:title="About The Developer"
-        app:summary="Report technical issues or suggest new features./n test"/>
+        app:summary="Add Explanation Here"/>
 
   </PreferenceCategory>
 

@@ -31,5 +31,6 @@
         android:layout_height="wrap_content"
         android:id="@+id/newShooterClass"
         android:paddingBottom="5dp"
-        android:inputType="text" />
+        android:inputType="text"
+        android:maxLength="1"/>
 </LinearLayout>

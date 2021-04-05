@@ -24,9 +24,8 @@ namespace ClubClays.Fragments
         private TextView trackingTypePickerView;
         private string userOverallAction;
         private string discipline;
-        private string location = "test";
+        private string location;
         private DateTime date;
-        private bool rotateShooters;
 
         private TextView shootersSelection;
         private TextView standFormatting;
@@ -34,6 +33,8 @@ namespace ClubClays.Fragments
         private Switch startSwitch;
         private LinearLayout formatSwitchLayout;
         private EditText startStandInput;
+        private TextView optionsLabel;
+        private CheckBox rotateShootersCheckBox;
 
         private ShooterStandData standShooterModel;
 
@@ -71,6 +72,9 @@ namespace ClubClays.Fragments
             datePickerView.Text = $"{date:MMMM} {date:dd}, {date:yyyy}";
             datePickerView.Click += DatePickerView_Click;
 
+            EditText locationInput = view.FindViewById<EditText>(Resource.Id.locationPicker);
+            location = locationInput.Text;
+
             shootersSelection = view.FindViewById<TextView>(Resource.Id.shootersPicker);
             shootersSelection.Text = "0 Shooter(s) Selected";
             shootersSelection.Click += ShootersSelection_Click;
@@ -97,6 +101,10 @@ namespace ClubClays.Fragments
             startStandInput = view.FindViewById<EditText>(Resource.Id.startingStand);
             startSwitch.Checked = false;
             startStandInput.Visibility = ViewStates.Gone;
+
+            optionsLabel = view.FindViewById<TextView>(Resource.Id.optionsLabel);
+
+            rotateShootersCheckBox = view.FindViewById<CheckBox>(Resource.Id.rotateShootersCheckBox);
 
             TextView nextButton = view.FindViewById<TextView>(Resource.Id.nextButton);
             nextButton.Click += NextButton_Click;
@@ -172,7 +180,7 @@ namespace ClubClays.Fragments
             if (userOverallAction == "New Shoot")
             {
                 ShootScoreManagement activeShootModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(ShootScoreManagement))) as ShootScoreManagement;
-                activeShootModel.InitialiseBasics(standShooterModel.selectedShooters, date, location, rotateShooters, discipline, startStand);
+                activeShootModel.InitialiseBasics(standShooterModel.selectedShooters, date, location, rotateShootersCheckBox.Checked, discipline, startStand);
 
                 if (formatSwitch.Checked == true)
                 {
@@ -258,12 +266,16 @@ namespace ClubClays.Fragments
                     datePickerView.Clickable = false;
                     date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
                     datePickerView.Text = $"{date:MMMM} {date:dd}, {date:yyyy}";
+                    optionsLabel.Visibility = ViewStates.Visible;
+                    rotateShootersCheckBox.Visibility = ViewStates.Visible;
                     break;
                 case 1:
                     userOverallAction = "Add Shoot";
                     formatSwitchLayout.Visibility = ViewStates.Gone;
                     standFormatting.Visibility = ViewStates.Visible;
                     datePickerView.Clickable = true;
+                    optionsLabel.Visibility = ViewStates.Gone;
+                    rotateShootersCheckBox.Visibility = ViewStates.Gone;
                     break;
             }
             trackingTypePickerView.Text = userOverallAction;
