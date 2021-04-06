@@ -5,6 +5,7 @@ using AndroidX.AppCompat.App;
 using AndroidX.Fragment.App;
 using AndroidX.Lifecycle;
 using AndroidX.ViewPager2.Widget;
+using ClubClays.DatabaseModels;
 using Google.Android.Material.Tabs;
 using System;
 using Fragment = AndroidX.Fragment.App.Fragment;
@@ -48,16 +49,47 @@ namespace ClubClays.Fragments
         private void NextButton_Click(object sender, EventArgs e)
         {
             FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
-            if (scoreManagementModel.LastStand)
+            if (scoreManagementModel.TrackingType == "Unknown")
             {
-                fragmentTx.Replace(Resource.Id.container, new ShootEndFragment());
+                AlertDialog.Builder builder = new AlertDialog.Builder(Activity);
+                builder.SetTitle("Add Next Stand");
+
+                View view = LayoutInflater.From(Activity).Inflate(Resource.Layout.dialogfragment_addstand, null);
+
+                EditText standType = view.FindViewById<EditText>(Resource.Id.newStandType);
+                EditText standFormat = view.FindViewById<EditText>(Resource.Id.newStandFormat);
+                EditText numOfPairs = view.FindViewById<EditText>(Resource.Id.newNumOfPairs);
+
+                builder.SetView(view);
+                builder.SetPositiveButton("Add", (c, ev) =>
+                {
+                    scoreManagementModel.AddStand( new StandFormats { StandType = standType.Text, StandFormat = standFormat.Text, NumPairs = int.Parse(numOfPairs.Text) });
+                    scoreManagementModel.NextStand();
+                    fragmentTx.Replace(Resource.Id.container, new ScoreTakingFragment());
+                    fragmentTx.Commit();
+                });
+                builder.SetNegativeButton("Finish Shoot", (c, ev) => 
+                {
+                    fragmentTx.Replace(Resource.Id.container, new ShootEndFragment());
+                    fragmentTx.Commit();
+                });
+
+                builder.Show();
             }
             else
             {
-                scoreManagementModel.NextStand();
-                fragmentTx.Replace(Resource.Id.container, new ScoreTakingFragment());
+                if (scoreManagementModel.LastStand)
+                {
+                    fragmentTx.Replace(Resource.Id.container, new ShootEndFragment());
+                }
+                else
+                {
+                    scoreManagementModel.NextStand();
+                    fragmentTx.Replace(Resource.Id.container, new ScoreTakingFragment());
+                }
+                fragmentTx.Commit();
+            
             }
-            fragmentTx.Commit();
         }
 
     }

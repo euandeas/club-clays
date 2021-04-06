@@ -30,6 +30,7 @@ namespace ClubClays.Fragments
         private TextView shootersSelection;
         private TextView standFormatting;
         private Switch formatSwitch;
+        private TextView startStandLabel;
         private Switch startSwitch;
         private LinearLayout formatSwitchLayout;
         private EditText startStandInput;
@@ -96,6 +97,7 @@ namespace ClubClays.Fragments
 
             standShooterModel.standFormats = new List<StandFormats>();
 
+            startStandLabel = view.FindViewById<TextView>(Resource.Id.startingStandSwitchLabel);
             startSwitch = view.FindViewById<Switch>(Resource.Id.startingStandSwitch);
             startSwitch.CheckedChange += StartSwitch_CheckedChange;
             startStandInput = view.FindViewById<EditText>(Resource.Id.startingStand);
@@ -121,6 +123,7 @@ namespace ClubClays.Fragments
             else if (e.IsChecked == false)
             {
                 startStandInput.Visibility = ViewStates.Gone;
+                startStandInput.Text = "1";
             }
         }
 
@@ -153,7 +156,7 @@ namespace ClubClays.Fragments
                 Toast.MakeText(Activity, $"No shooters selected!", ToastLength.Short).Show();
                 return;
             }
-            if ((userOverallAction == "Add Shoot") || ((formatSwitch.Checked == true) && (userOverallAction == "New Shoot") && (standShooterModel.standFormats.Count == 0)))
+            if (((userOverallAction == "Add Shoot") || ((formatSwitch.Checked == true) && (userOverallAction == "New Shoot")) && (standShooterModel.standFormats.Count == 0)))
             {
                 Toast.MakeText(Activity, $"No stands created!", ToastLength.Short).Show();
                 return;
@@ -188,11 +191,30 @@ namespace ClubClays.Fragments
 
                     fragmentTx.Replace(Resource.Id.container, new ScoreTakingFragment());
                     fragmentTx.Commit();
+                    standShooterModel.Dispose();
                 }
                 else if (formatSwitch.Checked == false)
                 {
-                    //fragmentTx.Replace(Resource.Id.container, );
-                    //fragmentTx.Commit();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Activity);
+                    builder.SetTitle("Add First Stand");
+
+                    View view = LayoutInflater.From(Activity).Inflate(Resource.Layout.dialogfragment_addstand, null);
+
+                    EditText standType = view.FindViewById<EditText>(Resource.Id.newStandType);
+                    EditText standFormat = view.FindViewById<EditText>(Resource.Id.newStandFormat);
+                    EditText numOfPairs = view.FindViewById<EditText>(Resource.Id.newNumOfPairs);
+
+                    builder.SetView(view);
+                    builder.SetPositiveButton("Add", (c, ev) =>
+                    {
+                        activeShootModel.AddStand(new StandFormats { StandType = standType.Text, StandFormat = standFormat.Text, NumPairs = int.Parse(numOfPairs.Text) });
+                        fragmentTx.Replace(Resource.Id.container, new ScoreTakingFragment());
+                        fragmentTx.Commit();
+                        standShooterModel.Dispose();
+                    });
+                    builder.SetNegativeButton("Cancel", (c, ev) => { return; });
+
+                    builder.Show();
                 }
             }
             else if (userOverallAction == "Add Shoot")
@@ -201,9 +223,8 @@ namespace ClubClays.Fragments
 
                 //fragmentTx.Replace(Resource.Id.container, );
                 //fragmentTx.Commit();
+                standShooterModel.Dispose();
             }
-
-            standShooterModel.Dispose();
         }
 
         private void ShootersSelection_Click(object sender, EventArgs e)
@@ -268,6 +289,8 @@ namespace ClubClays.Fragments
                     datePickerView.Text = $"{date:MMMM} {date:dd}, {date:yyyy}";
                     optionsLabel.Visibility = ViewStates.Visible;
                     rotateShootersCheckBox.Visibility = ViewStates.Visible;
+                    startSwitch.Checked = false;
+                    startStandLabel.Visibility = ViewStates.Visible;
                     break;
                 case 1:
                     userOverallAction = "Add Shoot";
@@ -276,6 +299,9 @@ namespace ClubClays.Fragments
                     datePickerView.Clickable = true;
                     optionsLabel.Visibility = ViewStates.Gone;
                     rotateShootersCheckBox.Visibility = ViewStates.Gone;
+                    startSwitch.Checked = false;
+                    startSwitch.Visibility = ViewStates.Gone;
+                    startStandLabel.Visibility = ViewStates.Gone;
                     break;
             }
             trackingTypePickerView.Text = userOverallAction;

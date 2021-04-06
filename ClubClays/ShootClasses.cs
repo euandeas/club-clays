@@ -291,7 +291,7 @@ namespace ClubClays
             }
         }
 
-        public string UserNotes{set 
+        public string UserNotes{ set 
             {
                 userNotes = value;
             }
@@ -323,6 +323,11 @@ namespace ClubClays
             {
                 StandsByNum.Add(standNum++, new Stand(stand.StandType, stand.StandFormat, stand.NumPairs));
             }
+        }
+
+        public void AddStand(StandFormats stand)
+        {
+            StandsByNum.Add(StandsByNum.Count + 1, new Stand(stand.StandType, stand.StandFormat, stand.NumPairs));
         }
 
         public void AddScore(int shot1Val, int shot2Val)
