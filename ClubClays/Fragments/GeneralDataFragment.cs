@@ -156,7 +156,7 @@ namespace ClubClays.Fragments
                 Toast.MakeText(Activity, $"No shooters selected!", ToastLength.Short).Show();
                 return;
             }
-            if (((userOverallAction == "Add Shoot") || ((formatSwitch.Checked == true) && (userOverallAction == "New Shoot")) && (standShooterModel.standFormats.Count == 0)))
+            if (((userOverallAction == "Add Shoot") || ((formatSwitch.Checked == true) && (userOverallAction == "New Shoot"))) && (standShooterModel.standFormats.Count == 0))
             {
                 Toast.MakeText(Activity, $"No stands created!", ToastLength.Short).Show();
                 return;
