@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Android.App;
+using AndroidX.Core.Content;
 using AndroidX.Lifecycle;
 using ClubClays.DatabaseModels;
 using SQLite;
@@ -223,9 +225,9 @@ namespace ClubClays
                 }
             }
         }
-        public string ShootToCSV()
-        {
-            string csvPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), $"{discipline}{date.ToShortDateString()}.csv");
+        public Java.IO.File ShootToCSV()
+        {         
+            string csvPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), $"{discipline.Replace(" ","")}{date:yyyyMMdd}.csv");
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine("Overall");
@@ -249,7 +251,9 @@ namespace ClubClays
                 sb.Clear();
             }
 
-            return csvPath;
+            var file = new Java.IO.File(csvPath);
+
+            return file;
         }
     }
 

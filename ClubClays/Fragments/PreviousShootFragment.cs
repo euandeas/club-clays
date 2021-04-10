@@ -1,15 +1,21 @@
-﻿using Android.OS;
+﻿using Android.Content;
+using Android.OS;
 using Android.Views;
 using Android.Widget;
 using AndroidX.Activity;
+using AndroidX.Activity.Result;
+using AndroidX.Activity.Result.Contract;
 using AndroidX.AppCompat.App;
 using AndroidX.AppCompat.View.Menu;
+using AndroidX.Core.App;
+using AndroidX.Core.Content;
 using AndroidX.Fragment.App;
 using AndroidX.Lifecycle;
 using AndroidX.ViewPager2.Widget;
 using Google.Android.Material.AppBar;
 using Google.Android.Material.Tabs;
 using System;
+using System.IO;
 using Fragment = AndroidX.Fragment.App.Fragment;
 using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 
@@ -63,7 +69,7 @@ namespace ClubClays.Fragments
 
         public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
         {
-            inflater.Inflate(Resource.Menu.main_toolbar_menu, menu);
+            inflater.Inflate(Resource.Menu.previous_shoot_toolbar_menu, menu);
 
             if (menu is MenuBuilder)
             {
@@ -72,6 +78,24 @@ namespace ClubClays.Fragments
             }
 
             base.OnCreateOptionsMenu(menu, inflater);
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            if (item.ItemId == Resource.Id.share_csv)
+            {
+                var file = previousShootModel.ShootToCSV();
+                var uri = FileProvider.GetUriForFile(Context, "com.euandeas.clubclays", file);
+                
+                Intent shareIntent = new Intent();
+                shareIntent.SetAction(Intent.ActionSend);
+                shareIntent.PutExtra(Intent.ExtraStream, uri);
+                shareIntent.SetType("text/csv");
+                StartActivity(Intent.CreateChooser(shareIntent, "Share Shoot as CSV"));
+                //file.Delete();
+            }
+
+            return base.OnOptionsItemSelected(item);
         }
 
         private void AppBarLayout_OffsetChanged(object sender, AppBarLayout.OffsetChangedEventArgs e)
