@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
 using AndroidX.Lifecycle;
 using ClubClays.DatabaseModels;
 using SQLite;
@@ -221,6 +222,34 @@ namespace ClubClays
                     ShootersByOriginalPos[y].StandScoresByStandNum[x].standPercentage = (int)Math.Round((double)ShootersByOriginalPos[y].StandScoresByStandNum[x].standTotal / (StandsByNum[x].numOfPairs*2) * 100);
                 }
             }
+        }
+        public string ShootToCSV()
+        {
+            string csvPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), $"{discipline}{date.ToShortDateString()}.csv");
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine("Overall");
+            for (int x = 1; x <= ShootersByOriginalPos.Count(); x++)
+            {
+                List<string> shooterData = ShooterOverallData(x);
+                sb.AppendLine(string.Join(',', shooterData));
+            }
+            File.AppendAllText(csvPath, sb.ToString());
+            sb.Clear();
+
+            for (int x = 1; x <= StandsByNum.Count; x++)
+            {
+                sb.AppendLine($"Stand {x}");
+                for (int y = 1; y <= ShootersByOriginalPos.Count(); y++)
+                {
+                    ShooterStandData(y, x, out string name, out string total, out SortedList<int, int[]> hits);
+                    sb.AppendLine($"{name},{string.Join(',', hits)},{total}");
+                }
+                File.AppendAllText(csvPath, sb.ToString());
+                sb.Clear();
+            }
+
+            return csvPath;
         }
     }
 
