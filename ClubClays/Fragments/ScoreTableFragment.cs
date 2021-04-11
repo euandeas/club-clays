@@ -137,8 +137,7 @@ namespace ClubClays.Fragments
                 case 2:
                     return "O";
 
-            }
-                
+            }              
         }
     }
 }

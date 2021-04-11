@@ -23,7 +23,9 @@ namespace ClubClays.Fragments
 {
     public class PreviousShootFragment : Fragment
     {
+        private ActivityResultLauncher launcher;
         private PreviousShoot previousShootModel;
+        Java.IO.File file;
         Toolbar toolbar;
         View titleTextView;
         AppBarLayout appBarLayout;
@@ -40,6 +42,8 @@ namespace ClubClays.Fragments
         {
             // Use this to return your custom view for this Fragment
             View view = inflater.Inflate(Resource.Layout.fragment_previous_shoot, container, false);
+
+            launcher = RegisterForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallBack(this));
 
             previousShootModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(PreviousShoot))) as PreviousShoot;
             previousShootModel.InitialisePreviousShoot(Arguments.GetInt("ShootID", 1));
@@ -84,18 +88,36 @@ namespace ClubClays.Fragments
         {
             if (item.ItemId == Resource.Id.share_csv)
             {
-                var file = previousShootModel.ShootToCSV();
+                file = previousShootModel.ShootToCSV();
                 var uri = FileProvider.GetUriForFile(Context, "com.euandeas.clubclays", file);
                 
                 Intent shareIntent = new Intent();
                 shareIntent.SetAction(Intent.ActionSend);
                 shareIntent.PutExtra(Intent.ExtraStream, uri);
                 shareIntent.SetType("text/csv");
-                StartActivity(Intent.CreateChooser(shareIntent, "Share Shoot as CSV"));
-                //file.Delete();
+                launcher.Launch(Intent.CreateChooser(shareIntent, "Share Shoot as CSV"));
             }
 
             return base.OnOptionsItemSelected(item);
+        }
+
+        class ActivityResultCallBack : Java.Lang.Object, IActivityResultCallback
+        {
+            PreviousShootFragment context;
+            public ActivityResultCallBack(PreviousShootFragment cont)
+            {
+                context = cont;
+            }
+
+            public void OnActivityResult(Java.Lang.Object p0)
+            {
+                context.DeleteCSV();
+            }
+        }
+
+        public void DeleteCSV()
+        {
+            file.Delete();
         }
 
         private void AppBarLayout_OffsetChanged(object sender, AppBarLayout.OffsetChangedEventArgs e)
@@ -117,12 +139,6 @@ namespace ClubClays.Fragments
             }
 
             return new View(Activity);
-        }
-
-        public override void OnStop()
-        {
-            base.OnStop();
-            Activity.ViewModelStore.Clear();
         }
     }
 }

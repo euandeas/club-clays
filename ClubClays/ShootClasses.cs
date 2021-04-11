@@ -241,11 +241,17 @@ namespace ClubClays
 
             for (int x = 1; x <= StandsByNum.Count; x++)
             {
+                sb.AppendLine("");
                 sb.AppendLine($"Stand {x}");
                 for (int y = 1; y <= ShootersByOriginalPos.Count(); y++)
                 {
                     ShooterStandData(y, x, out string name, out string total, out SortedList<int, int[]> hits);
-                    sb.AppendLine($"{name},{string.Join(',', hits)},{total}");
+                    sb.Append($"{name},");
+                    for (int z = 1; z <= hits.Count; z++)
+                    {
+                        sb.Append($"{TranslateHitMiss(hits[z][0])}{TranslateHitMiss(hits[z][1])},");
+                    }
+                    sb.AppendLine($"{total}");
                 }
                 File.AppendAllText(csvPath, sb.ToString());
                 sb.Clear();
@@ -254,6 +260,21 @@ namespace ClubClays
             var file = new Java.IO.File(csvPath);
 
             return file;
+        }
+        public string TranslateHitMiss(int value)
+        {
+            switch (value)
+            {
+                default:
+                    return " ";
+
+                case 1:
+                    return "X";
+
+                case 2:
+                    return "O";
+
+            }
         }
     }
 
