@@ -226,15 +226,27 @@ namespace ClubClays
             }
         }
         public Java.IO.File ShootToCSV()
-        {         
+        {
+            CalculateStats();
             string csvPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), $"{discipline.Replace(" ","")}{date:yyyyMMdd}.csv");
             StringBuilder sb = new StringBuilder();
 
-            sb.AppendLine("Overall");
+            // HEADER
+            sb.AppendLine("OVERALL");
+            sb.Append("NAME,");
+            for (int x = 1; x <= StandsByNum.Count; x++)
+            {
+                sb.Append($"STAND {x},");
+            }
+            sb.Append($"TOTAL /{numOfClays*2},");
+            sb.AppendLine("%");
+
+            // OVERALL DATA
             for (int x = 1; x <= ShootersByOriginalPos.Count(); x++)
             {
                 List<string> shooterData = ShooterOverallData(x);
-                sb.AppendLine(string.Join(',', shooterData));
+                sb.Append(string.Join(',', shooterData));
+                sb.AppendLine($",{ShootersByOriginalPos[x].overallPercentage}");
             }
             File.AppendAllText(csvPath, sb.ToString());
             sb.Clear();
@@ -242,7 +254,15 @@ namespace ClubClays
             for (int x = 1; x <= StandsByNum.Count; x++)
             {
                 sb.AppendLine("");
-                sb.AppendLine($"Stand {x}");
+                sb.AppendLine($"STAND {x}");
+                sb.Append("NAME,");
+                for (int z = 1; z <= StandsByNum[x].numOfPairs; z++)
+                {
+                    sb.Append($"PAIR {z},");
+                }
+                sb.Append($"TOTAL /{StandsByNum[x].numOfPairs*2},");
+                sb.AppendLine("%");
+
                 for (int y = 1; y <= ShootersByOriginalPos.Count(); y++)
                 {
                     ShooterStandData(y, x, out string name, out string total, out SortedList<int, int[]> hits);
@@ -251,7 +271,8 @@ namespace ClubClays
                     {
                         sb.Append($"{TranslateHitMiss(hits[z][0])}{TranslateHitMiss(hits[z][1])},");
                     }
-                    sb.AppendLine($"{total}");
+                    sb.Append($"{total}");
+                    sb.AppendLine($",{ShootersByOriginalPos[y].StandScoresByStandNum[x].standPercentage}");
                 }
                 File.AppendAllText(csvPath, sb.ToString());
                 sb.Clear();
