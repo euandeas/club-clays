@@ -248,7 +248,7 @@ namespace ClubClays
                 sb.Append(string.Join(',', shooterData));
                 sb.AppendLine($",{ShootersByOriginalPos[x].overallPercentage}");
             }
-            File.AppendAllText(csvPath, sb.ToString());
+            File.WriteAllText(csvPath, sb.ToString());
             sb.Clear();
 
             for (int x = 1; x <= StandsByNum.Count; x++)
