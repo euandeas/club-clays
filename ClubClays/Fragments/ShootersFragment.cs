@@ -19,7 +19,7 @@ namespace ClubClays.Fragments
 {
     public class ShootersFragment : Fragment
     {
-        public ShooterStandData selectedShootersModel;
+        private ShooterStandData selectedShootersModel;
 
         public RecyclerView allRecyclerView;
         public RecyclerView selectedRecyclerView;

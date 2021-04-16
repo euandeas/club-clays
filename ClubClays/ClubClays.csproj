@@ -75,8 +75,10 @@
     <Compile Include="Fragments\ScoreTakingFragment.cs" />
     <Compile Include="Fragments\SettingsFragment.cs" />
     <Compile Include="Fragments\ShootEndFragment.cs" />
+    <Compile Include="Fragments\ShooterManagementFragment.cs" />
     <Compile Include="Fragments\ShootersFragment.cs" />
     <Compile Include="Fragments\ShootScoreFragment.cs" />
+    <Compile Include="Fragments\StandFormatsManagmentFragment.cs" />
     <Compile Include="Fragments\StandSetupFragment.cs" />
     <Compile Include="ItemMoveCallBack.cs">
       <SubType>Code</SubType>
@@ -101,6 +103,8 @@
     <AndroidResource Include="Resources\drawable\miss_hit_miss_button.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\drawable\outline_delete.xml" />
+    <AndroidResource Include="Resources\drawable\outline_edit.xml" />
     <AndroidResource Include="Resources\layout\activity_main.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
@@ -272,6 +276,15 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\xml\file_paths.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\shootermanagement_item.xml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\outline_share.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

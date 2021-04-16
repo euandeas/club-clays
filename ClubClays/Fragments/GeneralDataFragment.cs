@@ -84,6 +84,7 @@ namespace ClubClays.Fragments
             SQLiteConnection db = new SQLiteConnection(dbPath);
             standShooterModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(ShooterStandData))) as ShooterStandData;
             standShooterModel.allShooters = db.Table<Shooters>().ToList();
+            db.Close();
             standShooterModel.selectedShooters = new List<Shooters>();
 
             formatSwitch = view.FindViewById<Switch>(Resource.Id.formatSwitch);
@@ -228,7 +229,7 @@ namespace ClubClays.Fragments
         }
 
         private void ShootersSelection_Click(object sender, EventArgs e)
-        {
+        { 
             FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
             ShootersFragment shootersFragment = new ShootersFragment();
             fragmentTx.Add(Resource.Id.container, shootersFragment);

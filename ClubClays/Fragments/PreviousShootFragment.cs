@@ -2,18 +2,18 @@
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using AndroidX.Activity;
 using AndroidX.Activity.Result;
 using AndroidX.Activity.Result.Contract;
 using AndroidX.AppCompat.App;
 using AndroidX.AppCompat.View.Menu;
-using AndroidX.Core.App;
 using AndroidX.Core.Content;
 using AndroidX.Fragment.App;
 using AndroidX.Lifecycle;
 using AndroidX.ViewPager2.Widget;
+using ClubClays.DatabaseModels;
 using Google.Android.Material.AppBar;
 using Google.Android.Material.Tabs;
+using SQLite;
 using System;
 using System.IO;
 using Fragment = AndroidX.Fragment.App.Fragment;
@@ -25,6 +25,7 @@ namespace ClubClays.Fragments
     {
         private ActivityResultLauncher launcher;
         private PreviousShoot previousShootModel;
+        int shootId;
         Java.IO.File file;
         Toolbar toolbar;
         View titleTextView;
@@ -45,8 +46,10 @@ namespace ClubClays.Fragments
 
             launcher = RegisterForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallBack(this));
 
+            shootId = Arguments.GetInt("ShootID");
+
             previousShootModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(PreviousShoot))) as PreviousShoot;
-            previousShootModel.InitialisePreviousShoot(Arguments.GetInt("ShootID", 1));
+            previousShootModel.InitialisePreviousShoot(shootId);
 
             toolbar = view.FindViewById<Toolbar>(Resource.Id.toolbar);
             ((AppCompatActivity)Activity).SetSupportActionBar(toolbar);
@@ -96,6 +99,37 @@ namespace ClubClays.Fragments
                 shareIntent.PutExtra(Intent.ExtraStream, uri);
                 shareIntent.SetType("text/csv");
                 launcher.Launch(Intent.CreateChooser(shareIntent, "Share Shoot as CSV"));
+            }
+            else if(item.ItemId == Resource.Id.delete_shoot)
+            {
+                AlertDialog.Builder builder = new AlertDialog.Builder(Activity);
+                builder.SetMessage("Are you sure you want to delete this shoot?");
+                builder.SetPositiveButton("Yes", (c, ev) =>
+                {
+                    string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
+                    using (var db = new SQLiteConnection(dbPath))
+                    {
+                        db.Delete<Shoots>(shootId);
+                        db.CreateCommand($"DELETE FROM OverallScores WHERE ShootId = {shootId};").ExecuteNonQuery();
+
+                        var standsToDelete = db.Table<Stands>().Where(s => s.ShootId == shootId).ToList();
+                        db.CreateCommand($"DELETE FROM Stands WHERE ShootId = {shootId};").ExecuteNonQuery();
+                        foreach (var stand in standsToDelete)
+                        {
+                            var standsScoresToDelete = db.Table<StandScores>().Where(s => s.StandId == stand.Id).ToList();
+                            db.CreateCommand($"DELETE FROM StandScores WHERE StandId = {stand.Id};").ExecuteNonQuery();
+                            foreach (var standScore in standsScoresToDelete)
+                            {
+                                db.CreateCommand($"DELETE FROM StandShotsLink WHERE StandScoresId = {standScore.Id};").ExecuteNonQuery();
+                            }
+                        }
+                    }
+
+                    Activity.OnBackPressed();
+                });
+
+                builder.SetNegativeButton("No", (c, ev) => { });
+                builder.Show();
             }
 
             return base.OnOptionsItemSelected(item);

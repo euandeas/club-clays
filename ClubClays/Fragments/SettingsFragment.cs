@@ -1,6 +1,7 @@
 ﻿using Android.OS;
 using Android.Views;
 using AndroidX.AppCompat.App;
+using AndroidX.Fragment.App;
 using AndroidX.Preference;
 using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 
@@ -12,6 +13,27 @@ namespace ClubClays.Fragments
         public override void OnCreatePreferences(Bundle savedInstanceState, string rootKey)
         {
             SetPreferencesFromResource(Resource.Xml.preferences, rootKey);
+            Preference manageShooters = FindPreference("manage_shooters");
+            Preference manageFormats = FindPreference("manage_formats");
+
+            manageShooters.PreferenceClick += ManageShooters_PreferenceClick;
+            manageFormats.PreferenceClick += ManageFormats_PreferenceClick;
+        }
+
+        private void ManageFormats_PreferenceClick(object sender, Preference.PreferenceClickEventArgs e)
+        {
+            FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
+            fragmentTx.Replace(Resource.Id.container, new StandFormatsManagmentFragment());
+            fragmentTx.AddToBackStack(null);
+            fragmentTx.Commit();
+        }
+
+        private void ManageShooters_PreferenceClick(object sender, Preference.PreferenceClickEventArgs e)
+        {
+            FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
+            fragmentTx.Replace(Resource.Id.container, new ShooterManagementFragment());
+            fragmentTx.AddToBackStack(null);
+            fragmentTx.Commit();
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
