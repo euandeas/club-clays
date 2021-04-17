@@ -14,6 +14,7 @@ using System.IO;
 using ClubClays.DatabaseModels;
 using System.Collections.Generic;
 using AndroidX.Fragment.App;
+using Google.Android.Material.TextField;
 
 namespace ClubClays.Fragments
 {
@@ -21,18 +22,23 @@ namespace ClubClays.Fragments
     {
         private TextView datePickerView;
         private AlertDialog trackingTypeDialog;
+        private TextInputLayout trackingTypeLayout;
         private TextView trackingTypePickerView;
         private string userOverallAction;
         private string discipline;
         private string location;
+        private TextInputLayout shootersLayout;
+        private TextInputLayout dateLayout;
         private DateTime date;
 
         private TextView shootersSelection;
+        private TextInputLayout standFormattingLayout;
         private TextView standFormatting;
         private Switch formatSwitch;
         private TextView startStandLabel;
         private Switch startSwitch;
         private LinearLayout formatSwitchLayout;
+        private TextInputLayout startStandLayout;
         private EditText startStandInput;
         private TextView optionsLabel;
         private CheckBox rotateShootersCheckBox;
@@ -59,24 +65,27 @@ namespace ClubClays.Fragments
 
             trackingTypeDialog = TrackingTypeDialogBuilder();
             trackingTypeDialog.Show();
-            trackingTypePickerView = view.FindViewById<TextView>(Resource.Id.trackingtypePicker);
+            trackingTypeLayout = view.FindViewById<TextInputLayout>(Resource.Id.trackingtype);
+            trackingTypePickerView = view.FindViewById<TextInputEditText>(Resource.Id.trackingtypeEditText);
             trackingTypePickerView.Click += TrackingTypePickerView_Click;
 
-            Spinner spinner = view.FindViewById<Spinner>(Resource.Id.disciplinesPicker);
-            spinner.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(spinner_ItemSelected);
+            AutoCompleteTextView spinner = view.FindViewById<AutoCompleteTextView>(Resource.Id.disciplineDropdown);
+            spinner.ItemClick += new EventHandler<AdapterView.ItemClickEventArgs>(spinner_ItemSelected);
+            //spinner.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(spinner_ItemSelected);
             var adapter = ArrayAdapter.CreateFromResource(view.Context, Resource.Array.disciplines, Android.Resource.Layout.SimpleSpinnerItem);
             adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             spinner.Adapter = adapter;
 
             date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-            datePickerView = view.FindViewById<TextView>(Resource.Id.datePicker);
+            datePickerView = view.FindViewById<TextInputEditText>(Resource.Id.dateEditText);
             datePickerView.Text = $"{date:MMMM} {date:dd}, {date:yyyy}";
             datePickerView.Click += DatePickerView_Click;
 
-            EditText locationInput = view.FindViewById<EditText>(Resource.Id.locationPicker);
+            EditText locationInput = view.FindViewById<TextInputEditText>(Resource.Id.locationEditText);
             location = locationInput.Text;
 
-            shootersSelection = view.FindViewById<TextView>(Resource.Id.shootersPicker);
+            shootersLayout = view.FindViewById<TextInputLayout>(Resource.Id.shooters);
+            shootersSelection = view.FindViewById<TextInputEditText>(Resource.Id.shootersEditText);
             shootersSelection.Text = "0 Shooter(s) Selected";
             shootersSelection.Click += ShootersSelection_Click;
 
@@ -90,23 +99,21 @@ namespace ClubClays.Fragments
             formatSwitch = view.FindViewById<Switch>(Resource.Id.formatSwitch);
             formatSwitch.CheckedChange += FormatSwitch_CheckedChange;
 
-            formatSwitchLayout = view.FindViewById<LinearLayout>(Resource.Id.formatSwitchLayout);
-
-            standFormatting = view.FindViewById<TextView>(Resource.Id.standFormatPicker);
+            standFormattingLayout = view.FindViewById<TextInputLayout>(Resource.Id.stands);
+            standFormatting = view.FindViewById<TextInputEditText>(Resource.Id.standsEditText);
             standFormatting.Text = "0 Stand(s) Setup";
             standFormatting.Click += StandFormatting_Click; ;
 
             standShooterModel.standFormats = new List<StandFormats>();
 
-            startStandLabel = view.FindViewById<TextView>(Resource.Id.startingStandSwitchLabel);
             startSwitch = view.FindViewById<Switch>(Resource.Id.startingStandSwitch);
             startSwitch.CheckedChange += StartSwitch_CheckedChange;
-            startStandInput = view.FindViewById<EditText>(Resource.Id.startingStand);
+            startStandLayout = view.FindViewById<TextInputLayout>(Resource.Id.customStartStand);
+            startStandInput = view.FindViewById<TextInputEditText>(Resource.Id.startStandEditText);
             startSwitch.Checked = false;
-            startStandInput.Visibility = ViewStates.Gone;
+            startStandLayout.Visibility = ViewStates.Gone;
 
             optionsLabel = view.FindViewById<TextView>(Resource.Id.optionsLabel);
-
             rotateShootersCheckBox = view.FindViewById<CheckBox>(Resource.Id.rotateShootersCheckBox);
 
             TextView nextButton = view.FindViewById<TextView>(Resource.Id.nextButton);
@@ -119,11 +126,11 @@ namespace ClubClays.Fragments
         {
             if (e.IsChecked == true)
             {
-                startStandInput.Visibility = ViewStates.Visible;
+                startStandLayout.Visibility = ViewStates.Visible;
             }
             else if (e.IsChecked == false)
             {
-                startStandInput.Visibility = ViewStates.Gone;
+                startStandLayout.Visibility = ViewStates.Gone;
                 startStandInput.Text = "1";
             }
         }
@@ -132,11 +139,15 @@ namespace ClubClays.Fragments
         {
             if (e.IsChecked == true)
             {
-                standFormatting.Visibility = ViewStates.Visible;
+                standFormattingLayout.Visibility = ViewStates.Visible;
+                startSwitch.Visibility = ViewStates.Visible;
             }
             else if (e.IsChecked == false)
             {
-                standFormatting.Visibility = ViewStates.Gone;
+                startSwitch.Visibility = ViewStates.Gone;
+                standFormattingLayout.Visibility = ViewStates.Gone;
+                startStandLayout.Visibility = ViewStates.Gone;
+                startStandInput.Text = "1";
             }
         }
 
@@ -258,9 +269,9 @@ namespace ClubClays.Fragments
             }
         }
 
-        private void spinner_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
-        {          
-            discipline = (sender as Spinner).GetItemAtPosition(e.Position).ToString();
+        private void spinner_ItemSelected(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            discipline = (sender as AutoCompleteTextView).Text;
         }
 
         private void TrackingTypePickerView_Click(object sender, EventArgs e)
@@ -283,26 +294,27 @@ namespace ClubClays.Fragments
             {
                 case 0:
                     userOverallAction = "New Shoot";
-                    formatSwitchLayout.Visibility = ViewStates.Visible;
+                    formatSwitch.Visibility = ViewStates.Visible;
                     formatSwitch.Checked = true;
-                    datePickerView.Clickable = false;
+                    datePickerView.Enabled = false;
                     date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
                     datePickerView.Text = $"{date:MMMM} {date:dd}, {date:yyyy}";
                     optionsLabel.Visibility = ViewStates.Visible;
                     rotateShootersCheckBox.Visibility = ViewStates.Visible;
                     startSwitch.Checked = false;
-                    startStandLabel.Visibility = ViewStates.Visible;
+                    startSwitch.Visibility = ViewStates.Visible;
+                    startStandInput.Visibility = ViewStates.Visible;
                     break;
                 case 1:
                     userOverallAction = "Add Shoot";
-                    formatSwitchLayout.Visibility = ViewStates.Gone;
+                    formatSwitch.Visibility = ViewStates.Gone;
                     standFormatting.Visibility = ViewStates.Visible;
-                    datePickerView.Clickable = true;
+                    datePickerView.Enabled = true;
                     optionsLabel.Visibility = ViewStates.Gone;
                     rotateShootersCheckBox.Visibility = ViewStates.Gone;
                     startSwitch.Checked = false;
                     startSwitch.Visibility = ViewStates.Gone;
-                    startStandLabel.Visibility = ViewStates.Gone;
+                    startStandInput.Visibility = ViewStates.Gone;
                     break;
             }
             trackingTypePickerView.Text = userOverallAction;
