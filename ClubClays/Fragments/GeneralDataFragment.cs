@@ -26,18 +26,14 @@ namespace ClubClays.Fragments
         private TextView trackingTypePickerView;
         private string userOverallAction;
         private string discipline;
-        private string location;
-        private TextInputLayout shootersLayout;
-        private TextInputLayout dateLayout;
+        private TextInputEditText locationInput;
         private DateTime date;
 
         private TextView shootersSelection;
         private TextInputLayout standFormattingLayout;
         private TextView standFormatting;
         private Switch formatSwitch;
-        private TextView startStandLabel;
         private Switch startSwitch;
-        private LinearLayout formatSwitchLayout;
         private TextInputLayout startStandLayout;
         private EditText startStandInput;
         private TextView optionsLabel;
@@ -71,7 +67,6 @@ namespace ClubClays.Fragments
 
             AutoCompleteTextView spinner = view.FindViewById<AutoCompleteTextView>(Resource.Id.disciplineDropdown);
             spinner.ItemClick += new EventHandler<AdapterView.ItemClickEventArgs>(spinner_ItemSelected);
-            //spinner.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(spinner_ItemSelected);
             var adapter = ArrayAdapter.CreateFromResource(view.Context, Resource.Array.disciplines, Android.Resource.Layout.SimpleSpinnerItem);
             adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             spinner.Adapter = adapter;
@@ -81,10 +76,9 @@ namespace ClubClays.Fragments
             datePickerView.Text = $"{date:MMMM} {date:dd}, {date:yyyy}";
             datePickerView.Click += DatePickerView_Click;
 
-            EditText locationInput = view.FindViewById<TextInputEditText>(Resource.Id.locationEditText);
-            location = locationInput.Text;
+            locationInput = view.FindViewById<TextInputEditText>(Resource.Id.locationEditText);
 
-            shootersLayout = view.FindViewById<TextInputLayout>(Resource.Id.shooters);
+            //shootersLayout = view.FindViewById<TextInputLayout>(Resource.Id.shooters);
             shootersSelection = view.FindViewById<TextInputEditText>(Resource.Id.shootersEditText);
             shootersSelection.Text = "0 Shooter(s) Selected";
             shootersSelection.Click += ShootersSelection_Click;
@@ -195,7 +189,7 @@ namespace ClubClays.Fragments
             if (userOverallAction == "New Shoot")
             {
                 ShootScoreManagement activeShootModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(ShootScoreManagement))) as ShootScoreManagement;
-                activeShootModel.InitialiseBasics(standShooterModel.selectedShooters, date, location, rotateShootersCheckBox.Checked, discipline, startStand);
+                activeShootModel.InitialiseBasics(standShooterModel.selectedShooters, date, locationInput.Text, rotateShootersCheckBox.Checked, discipline, startStand);
 
                 if (formatSwitch.Checked == true)
                 {

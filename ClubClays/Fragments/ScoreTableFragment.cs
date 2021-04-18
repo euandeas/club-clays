@@ -47,7 +47,7 @@ namespace ClubClays.Fragments
 
             if (whichStand == 0)
             {
-                TopRowOfTable(tableLayout, scoreManagementModel.NumStands);
+                TopRowOfTable(tableLayout, scoreManagementModel.NumStands, scoreManagementModel.NumClays);
                 for (int x = 1; x <= scoreManagementModel.NumberOfShooters; x++)
                 {
                     List<string> shooterData = scoreManagementModel.ShooterOverallData(x);
@@ -61,7 +61,7 @@ namespace ClubClays.Fragments
             }
             else
             {
-                TopRowOfTable(tableLayout, scoreManagementModel.PairsInStand(whichStand));
+                TopRowOfTable(tableLayout, scoreManagementModel.PairsInStand(whichStand), scoreManagementModel.PairsInStand(whichStand)*2);
                 for (int x = 1; x <= scoreManagementModel.NumberOfShooters; x++)
                 {
             
@@ -83,7 +83,7 @@ namespace ClubClays.Fragments
             return view;
         }
 
-        public void TopRowOfTable(TableLayout tableLayout, int numSections)
+        public void TopRowOfTable(TableLayout tableLayout, int numSections, int totalNumClays)
         {
             TableRow tableRow = new TableRow(Context);
             tableRow.SetBackgroundColor(Color.Rgb(96, 125, 139));
@@ -92,7 +92,7 @@ namespace ClubClays.Fragments
             {
                 AddViewToRow(tableRow, $"{x}");
             }
-            AddViewToRow(tableRow, "Total");
+            AddViewToRow(tableRow, $"Total /{totalNumClays}");
             tableLayout.AddView(tableRow);
         }
 

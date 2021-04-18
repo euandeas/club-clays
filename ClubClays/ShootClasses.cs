@@ -38,6 +38,14 @@ namespace ClubClays
             }
         }
 
+        public int NumClays
+        {
+            get
+            {
+                return numOfClays;
+            }
+        }
+
         public int NumberOfShooters
         {
             get
@@ -238,7 +246,7 @@ namespace ClubClays
             {
                 sb.Append($"STAND {x},");
             }
-            sb.Append($"TOTAL /{numOfClays*2},");
+            sb.Append($"TOTAL /{numOfClays},");
             sb.AppendLine("%");
 
             // OVERALL DATA
@@ -489,6 +497,7 @@ namespace ClubClays
                 location = shoot.Location;
                 discipline = shoot.EventType;
                 startingStand = shoot.StartingStand;
+                numOfClays = shoot.ClayAmount;
 
                 int counter = 1;
                 var overallScores = db.Table<OverallScores>().Where<OverallScores>(s => s.ShootId == shoot.Id).ToList();
