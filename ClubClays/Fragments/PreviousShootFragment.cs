@@ -103,7 +103,8 @@ namespace ClubClays.Fragments
             else if(item.ItemId == Resource.Id.delete_shoot)
             {
                 MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(Activity);
-                builder.SetMessage("Are you sure you want to delete this shoot?");
+                builder.SetTitle("Delete shoot?");
+                builder.SetMessage("This will remove the shoot and its data from your device.");
                 builder.SetPositiveButton("Yes", (c, ev) =>
                 {
                     string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");

@@ -159,7 +159,8 @@ namespace ClubClays.Fragments
             deleteButton.Click += delegate
             {
                 MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(cont);
-                builder.SetMessage("Are you sure you want to delete this shooter? This will remove all their accompanying data from shoots.");
+                builder.SetTitle("Delete shooter?");
+                builder.SetMessage("This will remove all their accompanying data from shoots.");
                 builder.SetPositiveButton("Yes", (c, ev) =>
                 {
                     string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
