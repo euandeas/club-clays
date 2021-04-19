@@ -1,111 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:cardview="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        app:title=""
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"   
-        app:titleTextAppearance="@style/Toolbar.TitleText"
-        android:theme="@style/ThemeOverlay.AppCompat.Light"/>
-
-    <RelativeLayout
-        android:id="@+id/relativeLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="50dp">
-        <TextView
-            android:id="@+id/shooterNameText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true" 
-            android:textSize="28sp"
-            android:text="Shooter Name"/> 
-        <TextView
-            android:id="@+id/standNumberText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/shooterNameText"
-            android:layout_centerHorizontal="true"
-            android:textSize="18sp"
-            android:text="Stand Number"/>
-        <TextView
-            android:id="@+id/pairNumberText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/standNumberText"
-            android:layout_centerHorizontal="true"
-            android:textSize="16sp"
-            android:text="Pair Number"/>
-    </RelativeLayout>
-
-    <LinearLayout
-        android:id="@+id/scoreLinearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="30dp">
-        <TextView
-            android:id="@+id/currentScoreText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/mainTitleText"
-            android:layout_gravity="center_horizontal"
-            android:textSize="16sp"
-            android:text="Current Stand Score"/>
-    </LinearLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/buttonsLinearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:paddingTop="60dp"
-        android:paddingBottom="50dp">
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="45dp"
-            android:layout_marginEnd="22dp"
-            app:backgroundTint="@null"
-            android:background="@drawable/default_hit_miss_button"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toStartOf="@id/button2"
-            app:layout_constraintStart_toStartOf="parent"/>
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="22dp"
-            android:layout_marginEnd="45dp"
-            app:backgroundTint="@null"
-            android:background="@drawable/default_hit_miss_button"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/button1"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
     
     <LinearLayout
-        android:id="@+id/nextLinearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
-        <TextView
-            android:id="@+id/nextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/mainTitleText"
-            android:layout_gravity="center_horizontal"
-            android:textSize="16sp"
-            android:text="Next"
-            android:textColor="@android:color/holo_blue_light"/>
-    </LinearLayout>
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                app:title=""
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"   
+                app:titleTextAppearance="@style/Toolbar.TitleText"
+                android:theme="@style/ThemeOverlay.MaterialComponents.Light"/>
 
-</LinearLayout>
+            <RelativeLayout
+                android:id="@+id/relativeLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="50dp">
+                <TextView
+                    android:id="@+id/shooterNameText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true" 
+                    android:textSize="28sp"
+                    android:text="Shooter Name"/> 
+                <TextView
+                    android:id="@+id/standNumberText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/shooterNameText"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="18sp"
+                    android:text="Stand Number"/>
+                <TextView
+                    android:id="@+id/pairNumberText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/standNumberText"
+                    android:layout_centerHorizontal="true"
+                    android:textSize="16sp"
+                    android:text="Pair Number"/>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/scoreLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="30dp">
+                <TextView
+                    android:id="@+id/currentScoreText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/mainTitleText"
+                    android:layout_gravity="center_horizontal"
+                    android:textSize="16sp"
+                    android:text="Current Stand Score"/>
+            </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/buttonsLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="60dp"
+            android:paddingBottom="50dp">
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="45dp"
+                android:layout_marginEnd="22dp"
+                app:backgroundTint="@null"
+                android:background="@drawable/default_hit_miss_button"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toStartOf="@id/button2"
+                app:layout_constraintStart_toStartOf="parent"/>
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="22dp"
+                android:layout_marginEnd="45dp"
+                app:backgroundTint="@null"
+                android:background="@drawable/default_hit_miss_button"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/button1"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    
+    </LinearLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/nextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fabSize="normal"
+        android:layout_gravity="end|bottom"
+        android:src="@drawable/arrow_right"
+        android:layout_margin="20dp" />    
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
-        android:theme="@style/ThemeOverlay.AppCompat.Light"
+        android:theme="@style/ThemeOverlay.MaterialComponents.Light"
         app:elevation="0dp">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -52,8 +52,8 @@
             app:layout_collapseMode="pin"
             android:background="?attr/colorPrimary"   
             app:titleTextAppearance="@style/Toolbar.TitleText"
-            app:menu="@menu/main_toolbar_menu"
-            android:theme="@style/ThemeOverlay.AppCompat.Light">
+            app:menu="@menu/previous_shoot_toolbar_menu"
+            android:theme="@style/ThemeOverlay.MaterialComponents.Light">
                     
         </androidx.appcompat.widget.Toolbar>
 
@@ -61,7 +61,9 @@
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:tabMode="scrollable"/>
+            app:tabMode="scrollable"
+            app:tabIndicatorColor="@color/colorAccent"
+            android:background="@color/colorPrimary"/>
 
     </com.google.android.material.appbar.AppBarLayout>
     

@@ -15,6 +15,8 @@ using ClubClays.DatabaseModels;
 using System.Collections.Generic;
 using AndroidX.Fragment.App;
 using Google.Android.Material.TextField;
+using Google.Android.Material.Dialog;
+using Google.Android.Material.FloatingActionButton;
 
 namespace ClubClays.Fragments
 {
@@ -22,7 +24,6 @@ namespace ClubClays.Fragments
     {
         private TextView datePickerView;
         private AlertDialog trackingTypeDialog;
-        private TextInputLayout trackingTypeLayout;
         private TextView trackingTypePickerView;
         private string userOverallAction;
         private string discipline;
@@ -61,7 +62,6 @@ namespace ClubClays.Fragments
 
             trackingTypeDialog = TrackingTypeDialogBuilder();
             trackingTypeDialog.Show();
-            trackingTypeLayout = view.FindViewById<TextInputLayout>(Resource.Id.trackingtype);
             trackingTypePickerView = view.FindViewById<TextInputEditText>(Resource.Id.trackingtypeEditText);
             trackingTypePickerView.Click += TrackingTypePickerView_Click;
 
@@ -110,8 +110,8 @@ namespace ClubClays.Fragments
             optionsLabel = view.FindViewById<TextView>(Resource.Id.optionsLabel);
             rotateShootersCheckBox = view.FindViewById<CheckBox>(Resource.Id.rotateShootersCheckBox);
 
-            TextView nextButton = view.FindViewById<TextView>(Resource.Id.nextButton);
-            nextButton.Click += NextButton_Click;
+            FloatingActionButton fab = view.FindViewById<FloatingActionButton>(Resource.Id.nextButton);
+            fab.Click += NextButton_Click;
 
             return view;
         }
@@ -201,7 +201,7 @@ namespace ClubClays.Fragments
                 }
                 else if (formatSwitch.Checked == false)
                 {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(Activity);
+                    MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(Activity);
                     builder.SetTitle("Add First Stand");
 
                     View view = LayoutInflater.From(Activity).Inflate(Resource.Layout.dialogfragment_addstand, null);
@@ -275,8 +275,8 @@ namespace ClubClays.Fragments
 
         private AlertDialog TrackingTypeDialogBuilder()
         {
-            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(Activity);
-            dialogBuilder.SetTitle("What would you like do to?");
+            MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(Activity);
+            dialogBuilder.SetTitle("Mode");
             dialogBuilder.SetSingleChoiceItems(Resource.Array.tracking_types, -1, new EventHandler<DialogClickEventArgs>(DialogOnClickListerner));
             dialogBuilder.SetCancelable(false);
             return dialogBuilder.Create();

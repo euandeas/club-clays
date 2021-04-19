@@ -1,19 +1,16 @@
 ﻿using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Util;
 using Android.Views;
 using Android.Widget;
 using AndroidX.AppCompat.App;
 using AndroidX.RecyclerView.Widget;
 using ClubClays.DatabaseModels;
+using Google.Android.Material.Dialog;
 using Google.Android.Material.FloatingActionButton;
 using SQLite;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using Fragment = AndroidX.Fragment.App.Fragment;
 using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 
@@ -62,7 +59,7 @@ namespace ClubClays.Fragments
 
         private void Fab_Click(object sender, EventArgs e)
         {
-            AlertDialog.Builder builder = new AlertDialog.Builder(Activity);
+            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(Activity);
             builder.SetTitle("Add New Shooter");
 
             View view = LayoutInflater.From(Activity).Inflate(Resource.Layout.dialogfragment_addshooter, null);
@@ -130,7 +127,7 @@ namespace ClubClays.Fragments
 
             editButton.Click += delegate
             {
-                AlertDialog.Builder builder = new AlertDialog.Builder(cont);
+                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(cont);
                 builder.SetTitle("Edit Shooter");
 
                 View layoutview = LayoutInflater.From(cont).Inflate(Resource.Layout.dialogfragment_addshooter, null);
@@ -161,7 +158,7 @@ namespace ClubClays.Fragments
             
             deleteButton.Click += delegate
             {
-                AlertDialog.Builder builder = new AlertDialog.Builder(cont);
+                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(cont);
                 builder.SetMessage("Are you sure you want to delete this shooter? This will remove all their accompanying data from shoots.");
                 builder.SetPositiveButton("Yes", (c, ev) =>
                 {

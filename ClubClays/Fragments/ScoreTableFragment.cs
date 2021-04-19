@@ -1,17 +1,9 @@
-﻿using Android.App;
-using Android.Content;
-using Android.Graphics;
+﻿using Android.Graphics;
 using Android.OS;
-using Android.Runtime;
-using Android.Util;
 using Android.Views;
 using Android.Widget;
-using AndroidX.AppCompat.App;
 using AndroidX.Lifecycle;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Fragment = AndroidX.Fragment.App.Fragment;
 
 namespace ClubClays.Fragments

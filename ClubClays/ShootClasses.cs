@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Android.App;
-using AndroidX.Core.Content;
 using AndroidX.Lifecycle;
 using ClubClays.DatabaseModels;
 using SQLite;
@@ -411,6 +409,7 @@ namespace ClubClays
         public void AddStand(StandFormats stand)
         {
             StandsByNum.Add(StandsByNum.Count + 1, new Stand(stand.StandType, stand.StandFormat, stand.NumPairs));
+            numOfClays += StandsByNum[StandsByNum.Count].numOfPairs*2;
         }
 
         public void AddScore(int shot1Val, int shot2Val)

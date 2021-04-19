@@ -18,7 +18,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"   
             app:titleTextAppearance="@style/Toolbar.TitleText"
-            android:theme="@style/ThemeOverlay.AppCompat.Light"
+            android:theme="@style/ThemeOverlay.MaterialComponents.Light"
             app:title="Stands"/>
 
         <androidx.recyclerview.widget.RecyclerView

@@ -8,11 +8,10 @@ using AndroidX.AppCompat.App;
 using AndroidX.Lifecycle;
 using Google.Android.Material.FloatingActionButton;
 using AndroidX.Activity;
-using Android.Content;
 using ClubClays.DatabaseModels;
 using System.Collections.Generic;
 using Android.Widget;
-using Android.Graphics;
+using Google.Android.Material.Dialog;
 
 namespace ClubClays.Fragments
 {
@@ -58,7 +57,7 @@ namespace ClubClays.Fragments
 
         private void Fab_Click(object sender, EventArgs e)
         {
-            AlertDialog.Builder builder = new AlertDialog.Builder(Activity);
+            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(Activity);
             builder.SetTitle("Add New Stand");
 
             View view = LayoutInflater.From(Activity).Inflate(Resource.Layout.dialogfragment_addstand, null);

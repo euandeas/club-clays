@@ -4,6 +4,8 @@ using Android.Widget;
 using AndroidX.AppCompat.App;
 using AndroidX.Fragment.App;
 using AndroidX.Lifecycle;
+using Google.Android.Material.Dialog;
+using Google.Android.Material.FloatingActionButton;
 using Fragment = AndroidX.Fragment.App.Fragment;
 using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 
@@ -52,8 +54,8 @@ namespace ClubClays.Fragments
             shot1Button.Click += Shot1Button_Click;
             shot2Button.Click += Shot2Button_Click;
 
-            TextView nextButton = view.FindViewById<TextView>(Resource.Id.nextButton);
-            nextButton.Click += NextButton_Click;
+            FloatingActionButton fab = view.FindViewById<FloatingActionButton>(Resource.Id.nextButton);
+            fab.Click += NextButton_Click;
 
             return view;
         }
@@ -76,7 +78,7 @@ namespace ClubClays.Fragments
 
         private void ShowFinalScore()
         {
-            AlertDialog.Builder builder = new AlertDialog.Builder(Activity);
+            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(Activity);
             builder.SetTitle($"Stand Score For {scoreManagementModel.CurrentShooterName}");
             builder.SetCancelable(false);
 

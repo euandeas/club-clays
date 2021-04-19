@@ -6,6 +6,8 @@ using AndroidX.Fragment.App;
 using AndroidX.Lifecycle;
 using AndroidX.ViewPager2.Widget;
 using ClubClays.DatabaseModels;
+using Google.Android.Material.Dialog;
+using Google.Android.Material.FloatingActionButton;
 using Google.Android.Material.Tabs;
 using System;
 using Fragment = AndroidX.Fragment.App.Fragment;
@@ -40,8 +42,8 @@ namespace ClubClays.Fragments
             TabLayout tabLayout = view.FindViewById<TabLayout>(Resource.Id.tab_layout);
             new TabLayoutMediator(tabLayout, viewPager, new TabConfigStrat()).Attach();
 
-            TextView nextButton = view.FindViewById<TextView>(Resource.Id.nextButton);
-            nextButton.Click += NextButton_Click;
+            FloatingActionButton fab = view.FindViewById<FloatingActionButton>(Resource.Id.nextButton);
+            fab.Click += NextButton_Click;
 
             return view;
         }
@@ -51,7 +53,7 @@ namespace ClubClays.Fragments
             FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
             if (scoreManagementModel.TrackingType == "Unknown")
             {
-                AlertDialog.Builder builder = new AlertDialog.Builder(Activity);
+                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(Activity);
                 builder.SetTitle("Add Next Stand");
 
                 View view = LayoutInflater.From(Activity).Inflate(Resource.Layout.dialogfragment_addstand, null);

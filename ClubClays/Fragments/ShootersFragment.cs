@@ -7,13 +7,13 @@ using Fragment = AndroidX.Fragment.App.Fragment;
 using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 using Android.Widget;
 using AndroidX.Lifecycle;
-using Android.Content;
 using AndroidX.Activity;
 using Google.Android.Material.FloatingActionButton;
 using AndroidX.AppCompat.App;
 using SQLite;
 using System.IO;
 using Color = Android.Graphics.Color;
+using Google.Android.Material.Dialog;
 
 namespace ClubClays.Fragments
 {
@@ -73,7 +73,7 @@ namespace ClubClays.Fragments
 
         private void Fab_Click(object sender, System.EventArgs e)
         {
-            AlertDialog.Builder builder = new AlertDialog.Builder(Activity);
+            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(Activity);
             builder.SetTitle("Add New Shooter");
 
             View view = LayoutInflater.From(Activity).Inflate(Resource.Layout.dialogfragment_addshooter, null);

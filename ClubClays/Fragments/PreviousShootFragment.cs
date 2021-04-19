@@ -7,11 +7,11 @@ using AndroidX.Activity.Result.Contract;
 using AndroidX.AppCompat.App;
 using AndroidX.AppCompat.View.Menu;
 using AndroidX.Core.Content;
-using AndroidX.Fragment.App;
 using AndroidX.Lifecycle;
 using AndroidX.ViewPager2.Widget;
 using ClubClays.DatabaseModels;
 using Google.Android.Material.AppBar;
+using Google.Android.Material.Dialog;
 using Google.Android.Material.Tabs;
 using SQLite;
 using System;
@@ -102,7 +102,7 @@ namespace ClubClays.Fragments
             }
             else if(item.ItemId == Resource.Id.delete_shoot)
             {
-                AlertDialog.Builder builder = new AlertDialog.Builder(Activity);
+                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(Activity);
                 builder.SetMessage("Are you sure you want to delete this shoot?");
                 builder.SetPositiveButton("Yes", (c, ev) =>
                 {
