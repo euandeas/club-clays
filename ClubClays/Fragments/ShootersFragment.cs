@@ -93,7 +93,8 @@ namespace ClubClays.Fragments
                 db.Close();
 
                 selectedShootersModel.selectedShooters.Add(shooter[0]);
-                
+                selectedRecyclerView.GetAdapter().NotifyDataSetChanged();
+
             });
             builder.SetNegativeButton("Cancel", (c, ev) => { });
 

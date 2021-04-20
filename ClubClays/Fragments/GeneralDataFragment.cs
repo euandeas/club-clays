@@ -206,12 +206,12 @@ namespace ClubClays.Fragments
 
                     View view = LayoutInflater.From(Activity).Inflate(Resource.Layout.dialogfragment_addstand, null);
 
-                    EditText standType = view.FindViewById<EditText>(Resource.Id.newStandType);
-                    EditText standFormat = view.FindViewById<EditText>(Resource.Id.newStandFormat);
-                    EditText numOfPairs = view.FindViewById<EditText>(Resource.Id.newNumOfPairs);
+                    TextInputEditText standType = view.FindViewById<TextInputEditText>(Resource.Id.newStandType);
+                    TextInputEditText standFormat = view.FindViewById<TextInputEditText>(Resource.Id.newStandFormat);
+                    TextInputEditText numOfPairs = view.FindViewById<TextInputEditText>(Resource.Id.newNumOfPairs);
 
                     builder.SetView(view);
-                    builder.SetPositiveButton("Add", (c, ev) =>
+                    builder.SetPositiveButton("Start", (c, ev) =>
                     {
                         activeShootModel.AddStand(new StandFormats { StandType = standType.Text, StandFormat = standFormat.Text, NumPairs = int.Parse(numOfPairs.Text) });
                         fragmentTx.Replace(Resource.Id.container, new ScoreTakingFragment());

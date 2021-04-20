@@ -3,6 +3,8 @@ using Android.Views;
 using Android.Widget;
 using AndroidX.Fragment.App;
 using AndroidX.Lifecycle;
+using Google.Android.Material.FloatingActionButton;
+using Google.Android.Material.TextField;
 using System;
 using Fragment = AndroidX.Fragment.App.Fragment;
 
@@ -11,7 +13,7 @@ namespace ClubClays.Fragments
     public class ShootEndFragment : Fragment
     {
         private ShootScoreManagement scoreManagementModel;
-        private EditText usernotes;
+        private TextInputEditText usernotes;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -26,8 +28,8 @@ namespace ClubClays.Fragments
 
             scoreManagementModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(ShootScoreManagement))) as ShootScoreManagement;
 
-            usernotes = view.FindViewById<EditText>(Resource.Id.shootNotes);
-            view.FindViewById<TextView>(Resource.Id.saveButton).Click += Save_Click;
+            usernotes = view.FindViewById<TextInputEditText>(Resource.Id.shootNotes);
+            view.FindViewById<FloatingActionButton>(Resource.Id.saveButton).Click += Save_Click;
 
             return view;
         }

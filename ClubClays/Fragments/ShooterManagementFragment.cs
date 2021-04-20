@@ -7,6 +7,7 @@ using AndroidX.RecyclerView.Widget;
 using ClubClays.DatabaseModels;
 using Google.Android.Material.Dialog;
 using Google.Android.Material.FloatingActionButton;
+using Google.Android.Material.TextField;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -132,8 +133,8 @@ namespace ClubClays.Fragments
 
                 View layoutview = LayoutInflater.From(cont).Inflate(Resource.Layout.dialogfragment_addshooter, null);
 
-                EditText shooterName = layoutview.FindViewById<EditText>(Resource.Id.newShootersName);
-                EditText shooterClass = layoutview.FindViewById<EditText>(Resource.Id.newShooterClass);
+                TextInputEditText shooterName = layoutview.FindViewById<TextInputEditText>(Resource.Id.newShootersName);
+                TextInputEditText shooterClass = layoutview.FindViewById<TextInputEditText>(Resource.Id.newShooterClass);
 
                 shooterName.Text = shooters[view.AdapterPosition].Name;
                 shooterClass.Text = shooters[view.AdapterPosition].Class;

@@ -9,6 +9,7 @@ using ClubClays.DatabaseModels;
 using Google.Android.Material.Dialog;
 using Google.Android.Material.FloatingActionButton;
 using Google.Android.Material.Tabs;
+using Google.Android.Material.TextField;
 using System;
 using Fragment = AndroidX.Fragment.App.Fragment;
 using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
@@ -58,9 +59,9 @@ namespace ClubClays.Fragments
 
                 View view = LayoutInflater.From(Activity).Inflate(Resource.Layout.dialogfragment_addstand, null);
 
-                EditText standType = view.FindViewById<EditText>(Resource.Id.newStandType);
-                EditText standFormat = view.FindViewById<EditText>(Resource.Id.newStandFormat);
-                EditText numOfPairs = view.FindViewById<EditText>(Resource.Id.newNumOfPairs);
+                TextInputEditText standType = view.FindViewById<TextInputEditText>(Resource.Id.newStandType);
+                TextInputEditText standFormat = view.FindViewById<TextInputEditText>(Resource.Id.newStandFormat);
+                TextInputEditText numOfPairs = view.FindViewById<TextInputEditText>(Resource.Id.newNumOfPairs);
 
                 builder.SetView(view);
                 builder.SetPositiveButton("Add", (c, ev) =>

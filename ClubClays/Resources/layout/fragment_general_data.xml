@@ -37,7 +37,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Mode"
-                android:focusable="false"/>
+                android:focusable="false"
+                android:longClickable="false"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <View
@@ -104,12 +105,17 @@
             android:paddingRight="10dp"
             android:paddingBottom="5dp"
             app:boxStrokeColor="@color/colorAccent"
-            app:hintTextColor="@color/colorAccent">
+            app:hintTextColor="@color/colorAccent"
+            app:counterEnabled="true"
+            app:counterMaxLength="64">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/locationEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Location"/>
+                android:hint="Location"
+                android:maxLength="64"
+                android:maxLines="1"
+                android:inputType="text"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -130,7 +136,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Shooters"
-                android:focusable="false"/>
+                android:focusable="false"
+                android:longClickable="false"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <Switch
@@ -157,7 +164,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Stands"
-                android:focusable="false"/>
+                android:focusable="false"
+                android:longClickable="false"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <Switch

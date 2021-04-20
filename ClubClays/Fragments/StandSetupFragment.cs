@@ -70,6 +70,7 @@ namespace ClubClays.Fragments
             builder.SetPositiveButton("Add", (c, ev) =>
             {
                 standsModel.standFormats.Add(new StandFormats { StandType = standType.Text, StandFormat = standFormat.Text, NumPairs = int.Parse(numOfPairs.Text) });
+                standsRecyclerView.GetAdapter().NotifyDataSetChanged();
             });
             builder.SetNegativeButton("Cancel", (c, ev) => { });
 
@@ -143,10 +144,6 @@ namespace ClubClays.Fragments
             TextView NumPairs = standCardView.FindViewById<TextView>(Resource.Id.numOfPairs);
 
             MyView view = new MyView(standCardView) { mStandNumber = StandNum, mStandType = StandType, mStandFormat = StandFormat, mNumPairs = NumPairs };
-
-            standCardView.Click += delegate
-            {
-            };
 
             return view;
         }

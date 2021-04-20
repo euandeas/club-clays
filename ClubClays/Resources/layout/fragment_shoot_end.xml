@@ -1,40 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        app:title="Finish Shoot"
-        android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"   
-        app:titleTextAppearance="@style/Toolbar.TitleText"
-        android:theme="@style/ThemeOverlay.MaterialComponents.Light"/>
-
-    <EditText
-        android:id="@+id/shootNotes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="textMultiLine"
-        android:maxLength="255"
-        android:hint="Enter Shoot Notes"/>
-
     <LinearLayout
-        android:id="@+id/nextLinearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
-        <TextView
-            android:id="@+id/saveButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:textSize="16sp"
-            android:text="Save &amp; Exit"
-            android:textColor="@android:color/holo_blue_light"/>
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            app:title="Finish Shoot"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"   
+            app:titleTextAppearance="@style/Toolbar.TitleText"
+            android:theme="@style/ThemeOverlay.MaterialComponents.Light"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/notes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="5dp"
+                app:boxStrokeColor="@color/colorAccent"
+                app:hintTextColor="@color/colorAccent"
+                app:counterEnabled="true"
+                app:counterMaxLength="256">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/shootNotes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Notes"
+                    android:maxLength="256"
+                    android:maxLines="16"
+                    android:inputType="textMultiLine"/>
+        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
-</LinearLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fabSize="normal"
+        android:layout_gravity="end|bottom"
+        android:src="@drawable/outline_done"
+        android:layout_margin="20dp" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
