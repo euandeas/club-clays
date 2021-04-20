@@ -217,11 +217,6 @@ namespace ClubClays
         public void SaveFormat() { }
         public void CalculateStats() 
         {
-            for (int x = 1; x <= StandsByNum.Count; x++)
-            {
-                numOfClays += StandsByNum[x].numOfPairs*2;
-            }
-
             for (int y = 1; y <= ShootersByOriginalPos.Count; y++)
             {
                 ShootersByOriginalPos[y].overallPercentage = (int)Math.Round((double)ShootersByOriginalPos[y].overallTotal / numOfClays * 100);
@@ -403,6 +398,7 @@ namespace ClubClays
             foreach (StandFormats stand in stands)
             {
                 StandsByNum.Add(standNum++, new Stand(stand.StandType, stand.StandFormat, stand.NumPairs));
+                numOfClays += stand.NumPairs * 2;
             }
         }
 
