@@ -21,7 +21,7 @@ using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 
 namespace ClubClays.Fragments
 {
-    public class PreviousShootFragment : Fragment
+    public class PreviousShootFragment : Fragment, IActivityResultCallback
     {
         private ActivityResultLauncher launcher;
         private PreviousShoot previousShootModel;
@@ -44,7 +44,7 @@ namespace ClubClays.Fragments
             // Use this to return your custom view for this Fragment
             View view = inflater.Inflate(Resource.Layout.fragment_previous_shoot, container, false);
 
-            launcher = RegisterForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallBack(this));
+            launcher = RegisterForActivityResult(new ActivityResultContracts.StartActivityForResult(), this);
 
             shootId = Arguments.GetInt("ShootID");
 
@@ -136,25 +136,6 @@ namespace ClubClays.Fragments
             return base.OnOptionsItemSelected(item);
         }
 
-        class ActivityResultCallBack : Java.Lang.Object, IActivityResultCallback
-        {
-            PreviousShootFragment context;
-            public ActivityResultCallBack(PreviousShootFragment cont)
-            {
-                context = cont;
-            }
-
-            public void OnActivityResult(Java.Lang.Object p0)
-            {
-                context.DeleteCSV();
-            }
-        }
-
-        public void DeleteCSV()
-        {
-            file.Delete();
-        }
-
         private void AppBarLayout_OffsetChanged(object sender, AppBarLayout.OffsetChangedEventArgs e)
         {
             titleTextView.Alpha = Math.Abs(e.VerticalOffset / (appBarLayout.TotalScrollRange - ((float)appBarLayout.TotalScrollRange / 2)));
@@ -174,6 +155,11 @@ namespace ClubClays.Fragments
             }
 
             return new View(Activity);
+        }
+
+        public void OnActivityResult(Java.Lang.Object p0)
+        {
+            file.Delete();
         }
     }
 }
