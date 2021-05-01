@@ -232,7 +232,6 @@ namespace ClubClays
             string csvPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), $"{discipline.Replace(" ","")}{date:yyyyMMdd}.csv");
             StringBuilder sb = new StringBuilder();
 
-            // HEADER
             sb.AppendLine("OVERALL");
             sb.Append("NAME,");
             for (int x = 1; x <= StandsByNum.Count; x++)
@@ -242,7 +241,6 @@ namespace ClubClays
             sb.Append($"TOTAL /{numOfClays},");
             sb.AppendLine("%");
 
-            // OVERALL DATA
             for (int x = 1; x <= ShootersByOriginalPos.Count(); x++)
             {
                 List<string> shooterData = ShooterOverallData(x);

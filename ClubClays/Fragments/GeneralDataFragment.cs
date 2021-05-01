@@ -78,7 +78,6 @@ namespace ClubClays.Fragments
 
             locationInput = view.FindViewById<TextInputEditText>(Resource.Id.locationEditText);
 
-            //shootersLayout = view.FindViewById<TextInputLayout>(Resource.Id.shooters);
             shootersSelection = view.FindViewById<TextInputEditText>(Resource.Id.shootersEditText);
             shootersSelection.Text = "0 Shooter(s) Selected";
             shootersSelection.Click += ShootersSelection_Click;
