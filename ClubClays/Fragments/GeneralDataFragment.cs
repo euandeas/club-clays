@@ -17,10 +17,11 @@ using AndroidX.Fragment.App;
 using Google.Android.Material.TextField;
 using Google.Android.Material.Dialog;
 using Google.Android.Material.FloatingActionButton;
+using Google.Android.Material.DatePicker;
 
 namespace ClubClays.Fragments
 {
-    public class GeneralDataFragment : Fragment, DatePickerDialog.IOnDateSetListener
+    public class GeneralDataFragment : Fragment, IMaterialPickerOnPositiveButtonClickListener, IFragmentResultListener
     {
         private TextView datePickerView;
         private AlertDialog trackingTypeDialog;
@@ -28,6 +29,7 @@ namespace ClubClays.Fragments
         private string userOverallAction;
         private string discipline;
         private TextInputEditText locationInput;
+        private MaterialDatePicker picker;
         private DateTime date;
 
         private TextView shootersSelection;
@@ -151,7 +153,7 @@ namespace ClubClays.Fragments
             fragmentTx.Add(Resource.Id.container, standSetupFragment);
             fragmentTx.AddToBackStack(null);
             fragmentTx.Commit();
-            Activity.SupportFragmentManager.SetFragmentResultListener("2", this, new FragResult(this));
+            Activity.SupportFragmentManager.SetFragmentResultListener("2", this, this);
         }
 
         private void NextButton_Click(object sender, EventArgs e)
@@ -239,27 +241,7 @@ namespace ClubClays.Fragments
             fragmentTx.Add(Resource.Id.container, shootersFragment);
             fragmentTx.AddToBackStack(null);
             fragmentTx.Commit();
-            Activity.SupportFragmentManager.SetFragmentResultListener("1", this, new FragResult(this));
-        }
-
-        public class FragResult : Java.Lang.Object, IFragmentResultListener
-        {
-            GeneralDataFragment context;
-            public FragResult(GeneralDataFragment context)
-            {
-                this.context = context;
-            }
-            public void OnFragmentResult(string p0, Bundle p1)
-            {
-                if (p0 == "1")
-                {
-                    context.shootersSelection.Text = $"{p1.GetInt("numSelected", 0)} Shooter(s) Selected";
-                }
-                else if (p0 == "2")
-                {
-                    context.standFormatting.Text = $"{p1.GetInt("standsCreated", 0)} Stand(s) Setup";
-                }
-            }
+            Activity.SupportFragmentManager.SetFragmentResultListener("1", this, this);
         }
 
         private void spinner_ItemSelected(object sender, AdapterView.ItemClickEventArgs e)
@@ -316,16 +298,36 @@ namespace ClubClays.Fragments
 
         private void DatePickerView_Click(object sender, EventArgs e)
         {
-            DatePickerDialog datePicker = new DatePickerDialog(Activity, this, date.Year, date.Month - 1, date.Day);
             TimeSpan diff = DateTime.Now - new DateTime(1970, 1, 1);
-            datePicker.DatePicker.MaxDate = (long)diff.TotalMilliseconds;
-            datePicker.Show();
+            var constraintsBuilder = new CalendarConstraints.Builder();
+            constraintsBuilder.SetValidator(DateValidatorPointBackward.Before((long)diff.TotalMilliseconds));
+            constraintsBuilder.SetEnd((long)diff.TotalMilliseconds);
+
+            MaterialDatePicker.Builder mDatePicker = MaterialDatePicker.Builder.DatePicker();
+            mDatePicker.SetSelection((long)(date - new DateTime(1970, 1, 1)).TotalMilliseconds);
+            mDatePicker.SetCalendarConstraints(constraintsBuilder.Build());
+            picker = mDatePicker.Build();
+            picker.AddOnPositiveButtonClickListener(this);
+
+            picker.Show(ChildFragmentManager, "");
         }
 
-        public void OnDateSet(DatePicker view, int year, int month, int dayOfMonth)
+        public void OnPositiveButtonClick(Java.Lang.Object p0)
         {
-            date = new DateTime(year, month + 1, dayOfMonth);
-            datePickerView.Text = $"{date:MMMM} {date:dd}, {year}";
+            date = new DateTime(1970, 1, 1).Add(TimeSpan.FromMilliseconds((double)p0));
+            datePickerView.Text = $"{date:MMMM} {date:dd}, {date:yyyy}";
+        }
+
+        public void OnFragmentResult(string p0, Bundle p1)
+        {
+            if (p0 == "1")
+            {
+                shootersSelection.Text = $"{p1.GetInt("numSelected", 0)} Shooter(s) Selected";
+            }
+            else if (p0 == "2")
+            {
+                standFormatting.Text = $"{p1.GetInt("standsCreated", 0)} Stand(s) Setup";
+            }
         }
     }
 }
