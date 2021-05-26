@@ -72,7 +72,6 @@
     <Compile Include="Fragments\MainFragment.cs" />
     <Compile Include="Fragments\PreviousShootFragment.cs" />
     <Compile Include="Fragments\ScoreTableFragment.cs" />
-    <Compile Include="Fragments\ScoreTakingFragment.cs" />
     <Compile Include="Fragments\SettingsFragment.cs" />
     <Compile Include="Fragments\ShootEndFragment.cs" />
     <Compile Include="Fragments\ShooterManagementFragment.cs" />
