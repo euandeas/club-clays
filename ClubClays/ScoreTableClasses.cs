@@ -9,21 +9,28 @@ namespace ClubClays
     public class ScoreViewPagerAdapter : FragmentStateAdapter
     {
         int numOfStands;
-        string viewAccessingScore;
-        public ScoreViewPagerAdapter(Fragment fa, int numOfStands, string requestingView) : base(fa)
+        public ScoreViewPagerAdapter(Fragment fa, int numOfStands) : base(fa)
         {
             this.numOfStands = numOfStands;
-            viewAccessingScore = requestingView;
         }
         public override int ItemCount => numOfStands + 1;
 
         public override Fragment CreateFragment(int p0)
         {
-            Fragment fragment = new ScoreTableFragment();
-            Bundle args = new Bundle();
-            args.PutInt("standNum", p0);
-            args.PutString("ViewAccessingScore", viewAccessingScore);
-            fragment.Arguments = args;
+            Fragment fragment;
+            Bundle args;
+
+            if (p0 == 0)
+            {
+                fragment = new OverallScoreFragment();
+            }
+            else
+            {
+                fragment = new StandScoreFragment();
+                args = new Bundle();
+                args.PutInt("standNum", p0);
+                fragment.Arguments = args;
+            }
             return fragment;
         }
     }
