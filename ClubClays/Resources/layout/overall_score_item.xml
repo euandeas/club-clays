@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:cardview="http://schemas.android.com/apk/res-auto"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/shootersCard"
+		android:layout_marginBottom="1dp">
+		<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+			android:orientation="vertical">
+			<LinearLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal">
+				<TextView
+					android:text="Shooter Name"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:id="@+id/shooterName"
+					android:paddingLeft="10dp"
+					android:paddingRight="10dp"
+					android:paddingBottom="5dp"
+					android:textSize="15sp"
+					android:paddingTop="5dp"/>
+				<TextView
+					android:text="10"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:id="@+id/overallTotal"
+					android:paddingLeft="10dp"
+					android:paddingRight="10dp"
+					android:paddingBottom="5dp"
+					android:textSize="15sp"
+					android:gravity="right"/>
+			</LinearLayout>
+			<TableLayout
+				android:id="@+id/scoresTable"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:padding="5dp"
+				android:stretchColumns="*">
+			</TableLayout>
+		</LinearLayout>
+</androidx.cardview.widget.CardView>

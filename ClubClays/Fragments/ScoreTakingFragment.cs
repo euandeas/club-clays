@@ -27,14 +27,13 @@ namespace ClubClays.Fragments
             ((AppCompatActivity)Activity).SetSupportActionBar(toolbar);
             ActionBar supportBar = ((AppCompatActivity)Activity).SupportActionBar;
 
-            scoreManagementModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(ShootScoreManagement))) as ShootScoreManagement;
+            ShootScoreManagement scoreManagementModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(ShootScoreManagement))) as ShootScoreManagement;
 
             ViewPager2 viewPager = view.FindViewById<ViewPager2>(Resource.Id.view_pager);
             viewPager.Adapter = new ScoreViewPagerAdapter(this, scoreManagementModel.NumStands);
 
             TabLayout tabLayout = view.FindViewById<TabLayout>(Resource.Id.tab_layout);
             new TabLayoutMediator(tabLayout, viewPager, new TabConfigStrat()).Attach();
-
 
             return view;
         }
