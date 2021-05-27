@@ -34,12 +34,11 @@
 					android:textSize="15sp"
 					android:gravity="right"/>
 			</LinearLayout>
-			<TableLayout
-				android:id="@+id/scoresTable"
+			<LinearLayout
+				android:id="@+id/scoresLayout"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:padding="5dp"
-				android:stretchColumns="*">
-			</TableLayout>
+				android:orientation="horizontal">
+			</LinearLayout>
 		</LinearLayout>
 </androidx.cardview.widget.CardView>

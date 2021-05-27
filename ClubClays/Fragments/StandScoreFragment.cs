@@ -43,7 +43,7 @@ namespace ClubClays.Fragments
             public View mMainView { get; set; }
             public TextView mShooterName { get; set; }
             public TextView mShooterStandTotal { get; set; }
-            public RecyclerView mShooterStandTotals { get; set; }
+            public LinearLayout mStandHits { get; set; }
             public MyView(View view) : base(view)
             {
                 mMainView = view;
@@ -64,8 +64,9 @@ namespace ClubClays.Fragments
             View standCardView = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.stand_score_item, parent, false);
             TextView shooterName = standCardView.FindViewById<TextView>(Resource.Id.shooterName);
             TextView shooterStandTotal = standCardView.FindViewById<TextView>(Resource.Id.overallTotal);
+            LinearLayout standHits = standCardView.FindViewById<LinearLayout>(Resource.Id.hitsLayout);
 
-            MyView view = new MyView(standCardView) { mShooterName = shooterName, mShooterStandTotal = shooterStandTotal, mShooterStandTotals = shooterStandTotals };
+            MyView view = new MyView(standCardView) { mShooterName = shooterName, mShooterStandTotal = shooterStandTotal, mStandHits = standHits };
 
             standCardView.Click += delegate
             {

@@ -42,7 +42,7 @@ namespace ClubClays.Fragments
             public View mMainView { get; set; }
             public TextView mShooterName { get; set; }
             public TextView mShooterOverallTotal { get; set; }
-            public TableLayout mShooterStandTotals { get; set; }
+            public LinearLayout mShooterStandTotals { get; set; }
             public MyView(View view) : base(view)
             {
                 mMainView = view;
@@ -63,7 +63,7 @@ namespace ClubClays.Fragments
             View overallCardView = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.overall_score_item, parent, false);
             TextView shooterName = overallCardView.FindViewById<TextView>(Resource.Id.shooterName);
             TextView shooterOverallTotal = overallCardView.FindViewById<TextView>(Resource.Id.overallTotal);
-            TableLayout shooterStandTotals = overallCardView.FindViewById<TableLayout>(Resource.Id.scoresTable);
+            LinearLayout shooterStandTotals = overallCardView.FindViewById<LinearLayout>(Resource.Id.scoresLayout);
 
             MyView view = new MyView(overallCardView) { mShooterName = shooterName, mShooterOverallTotal = shooterOverallTotal, mShooterStandTotals = shooterStandTotals };
 
