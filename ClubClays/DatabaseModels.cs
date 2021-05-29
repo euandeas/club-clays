@@ -43,9 +43,7 @@ namespace ClubClays.DatabaseModels
         public int StandScoreId { get; set; }
         public string Num { get; set; }
         public string Type { get; set; }
-        [Indexed(Name = "ShotPair", Order = 1, Unique = true)]
         public int FirstShot { get; set; }
-        [Indexed(Name = "ShotPair", Order = 2, Unique = true)]
         public int SecondShot { get; set; }
     }
     public class OverallScores
@@ -78,23 +76,22 @@ namespace ClubClays.DatabaseModels
         public string ClayAmount { get; set; }
     }
 
-    public class SavedFormatsLink
-    {
-        [PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
-        public int ShootFormatId { get; set; }
-        public int StandFormatId { get; set; }
-        public int StandNum { get; set; }
-    }
-
     public class StandFormats
     {
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
+        public int ShootFormatId { get; set; }
         [Indexed(Name = "StandFormatData", Order = 1, Unique = true)]
         public string StandType { get; set; }
         [Indexed(Name = "StandFormatData", Order = 2, Unique = true)]
-
-        public int NumPairs { get; set; }
+        public int NumClays { get; set; }
+    }
+    public class StandShotsFormats
+    {
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
+        public int StandFormatId { get; set; }
+        public int ShotNum { get; set; }
+        public string Type { get; set; }
     }
 }
