@@ -12,8 +12,7 @@ namespace ClubClays.DatabaseModels
         public string Location { get; set; }
         public string EventType { get; set; }
         public int NumStands { get; set; }
-        public int ClayAmount { get; set; }
-        public int StartingStand { get; set; }
+        public int NumClays { get; set; }
         [MaxLength(255)]
         public string Notes { get; set; }
     }
@@ -23,8 +22,9 @@ namespace ClubClays.DatabaseModels
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public int ShootId { get; set; }
-        public int StandFormatId { get; set; }
         public int StandNum { get; set; }
+        public string StandType { get; set; }
+        public string NumClays { get; set; }
     }
 
     public class StandScores
@@ -34,23 +34,15 @@ namespace ClubClays.DatabaseModels
         public int StandId { get; set; }
         public int ShooterId { get; set; }
         public int StandTotal { get; set; }
-        public int StandPercentageHit { get; set; }
-        public int RunningTotal { get; set; }
-    }
-
-    public class StandShotsLink
-    {
-        [PrimaryKey, AutoIncrement]
-        public int Id { get; set; }
-        public int StandScoresId { get; set; }
-        public int shotsId { get; set; }
-        public int PairNum { get; set; }
     }
 
     public class Shots
     {
         [PrimaryKey]
         public int Id { get; set; }
+        public int StandScoreId { get; set; }
+        public string Num { get; set; }
+        public string Type { get; set; }
         [Indexed(Name = "ShotPair", Order = 1, Unique = true)]
         public int FirstShot { get; set; }
         [Indexed(Name = "ShotPair", Order = 2, Unique = true)]
@@ -102,8 +94,7 @@ namespace ClubClays.DatabaseModels
         [Indexed(Name = "StandFormatData", Order = 1, Unique = true)]
         public string StandType { get; set; }
         [Indexed(Name = "StandFormatData", Order = 2, Unique = true)]
-        public string StandFormat { get; set; }
-        [Indexed(Name = "StandFormatData", Order = 3, Unique = true)]
+
         public int NumPairs { get; set; }
     }
 }
