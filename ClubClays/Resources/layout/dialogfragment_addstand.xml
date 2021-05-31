@@ -43,21 +43,4 @@
                 android:inputType="text"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:paddingTop="5dp"
-            app:boxStrokeColor="@color/colorAccent"
-            app:hintTextColor="@color/colorAccent">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/newStandFormat"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Stand Format"
-                android:maxLength="10"
-                android:maxLines="1"
-                android:inputType="text"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
 </LinearLayout>

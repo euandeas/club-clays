@@ -94,9 +94,7 @@ namespace ClubClays.DatabaseModels
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public int ShootFormatId { get; set; }
-        [Indexed(Name = "StandFormatData", Order = 1, Unique = true)]
         public string StandType { get; set; }
-        [Indexed(Name = "StandFormatData", Order = 2, Unique = true)]
         public int NumClays { get; set; }
     }
     public class StandShotsFormats

@@ -3,10 +3,13 @@ using Android.OS;
 using Android.Views;
 using Android.Widget;
 using AndroidX.AppCompat.App;
+using AndroidX.Fragment.App;
 using AndroidX.Lifecycle;
 using AndroidX.RecyclerView.Widget;
 using AndroidX.ViewPager2.Widget;
 using Google.Android.Material.Tabs;
+using System;
+using System.Collections.Generic;
 using Fragment = AndroidX.Fragment.App.Fragment;
 using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 
@@ -29,7 +32,7 @@ namespace ClubClays.Fragments
             LinearLayoutManager LayoutManager = new LinearLayoutManager(Activity);
             RecyclerView StandScoresRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.recyclerView);
             StandScoresRecyclerView.SetLayoutManager(LayoutManager);
-            StandScoresRecyclerView.SetAdapter(new StandScoresRecyclerAdapter(Context));
+            StandScoresRecyclerView.SetAdapter(new StandScoresRecyclerAdapter(Activity, Context, Arguments.GetInt("standNum")));
 
             return view;
         }
@@ -37,7 +40,9 @@ namespace ClubClays.Fragments
 
     public class StandScoresRecyclerAdapter : RecyclerView.Adapter
     {
+        ShootScoreManagement scoreManagementModel;
         Context context;
+        int standNum;
         public class MyView : RecyclerView.ViewHolder
         {
             public View mMainView { get; set; }
@@ -49,14 +54,28 @@ namespace ClubClays.Fragments
                 mMainView = view;
             }
         }
-        public override int ItemCount => 5;
+        public override int ItemCount => scoreManagementModel.NumberOfShooters;
 
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
             MyView myHolder = holder as MyView;
-            //myHolder.mShooterName.Text = $"{allShoots[position].EventType} on {allShoots[position].Date.ToShortDateString()}";
-            //myHolder.mShooterOverallTotal.Text = $"{allShoots[position].NumStands} Stand(s), {allShoots[position].ClayAmount} Clays";
-            //myHolder.mShooterStandTotals.Text = $"{allShoots[position].Location}";
+
+            scoreManagementModel.ShooterStandData(position, standNum, out string name, out int standTotal, out List<Tuple<string, int[]>> shots);
+            myHolder.mShooterName.Text = name;
+            myHolder.mShooterStandTotal.Text = $"{standTotal}";
+            foreach (Tuple<string, int[]> shot in shots)
+            {
+                if(shot.Item1 == "Pair")
+                {
+                    Button view1 = new Button(context);
+                    Button view2 = new Button(context);
+                    view1.Tag = "";
+                    view2.Tag = "";
+
+                    myHolder.mStandHits.AddView(view1);
+                    myHolder.mStandHits.AddView(view2);
+                }
+            }
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
@@ -68,18 +87,14 @@ namespace ClubClays.Fragments
 
             MyView view = new MyView(standCardView) { mShooterName = shooterName, mShooterStandTotal = shooterStandTotal, mStandHits = standHits };
 
-            standCardView.Click += delegate
-            {
-            };
-
             return view;
         }
 
-        public StandScoresRecyclerAdapter(Context context)
+        public StandScoresRecyclerAdapter(FragmentActivity activity, Context context, int standNum)
         {
+            scoreManagementModel = new ViewModelProvider(activity).Get(Java.Lang.Class.FromType(typeof(ShootScoreManagement))) as ShootScoreManagement;
             this.context = context;
+            this.standNum = standNum;
         }
-
-
     }
 }

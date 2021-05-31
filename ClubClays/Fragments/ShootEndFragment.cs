@@ -37,7 +37,7 @@ namespace ClubClays.Fragments
         private void Save_Click(object sender, EventArgs e)
         {
             scoreManagementModel.UserNotes = usernotes.Text;
-            scoreManagementModel.SaveShootData();
+            //scoreManagementModel.SaveShootData();
             Activity.ViewModelStore.Clear();
             Activity.SupportFragmentManager.PopBackStackImmediate(null, FragmentManager.PopBackStackInclusive);
             FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();

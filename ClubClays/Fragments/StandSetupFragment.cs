@@ -63,13 +63,17 @@ namespace ClubClays.Fragments
             View view = LayoutInflater.From(Activity).Inflate(Resource.Layout.dialogfragment_addstand, null);
 
             EditText standType = view.FindViewById<EditText>(Resource.Id.newStandType);
-            EditText standFormat = view.FindViewById<EditText>(Resource.Id.newStandFormat);
             EditText numOfPairs = view.FindViewById<EditText>(Resource.Id.newNumOfPairs);
 
             builder.SetView(view);
             builder.SetPositiveButton("Add", (c, ev) =>
             {
-                standsModel.standFormats.Add(new StandFormats { StandType = standType.Text, StandFormat = standFormat.Text, NumPairs = int.Parse(numOfPairs.Text) });
+                List<string> shotformat = new List<string>();
+                for (int x = 1; x <= int.Parse(numOfPairs.Text); x++)
+                {
+                    shotformat.Add("Pair");
+                }
+                standsModel.standFormats.Add(new Stand(standType.Text, shotformat));
                 standsRecyclerView.GetAdapter().NotifyDataSetChanged();
             });
             builder.SetNegativeButton("Cancel", (c, ev) => { });
@@ -102,7 +106,7 @@ namespace ClubClays.Fragments
 
     public class StandsRecyclerAdapter : RecyclerView.Adapter, ItemMoveCallback.ItemTouchHelperContract
     {
-        private List<StandFormats> stands;
+        private List<Stand> stands;
 
         // Provide a reference to the views for each data item
         public class MyView : RecyclerView.ViewHolder
@@ -110,8 +114,7 @@ namespace ClubClays.Fragments
             public View mMainView { get; set; }
             public TextView mStandNumber { get; set; }
             public TextView mStandType { get; set; }
-            public TextView mStandFormat { get; set; }
-            public TextView mNumPairs { get; set; }
+            public TextView mNumClays { get; set; }
             public MyView(View view) : base(view)
             {
                 mMainView = view;
@@ -129,9 +132,8 @@ namespace ClubClays.Fragments
         {
             MyView myHolder = holder as MyView;
             myHolder.mStandNumber.Text = $"Stand {position + 1}";
-            myHolder.mStandType.Text = stands[position].StandType;
-            myHolder.mStandFormat.Text = stands[position].StandFormat;
-            myHolder.mNumPairs.Text = stands[position].NumPairs.ToString();
+            myHolder.mStandType.Text = stands[position].standType;
+            myHolder.mNumClays.Text = stands[position].NumClays.ToString();
         }
 
         // Create new views (invoked by layout manager)
@@ -140,10 +142,9 @@ namespace ClubClays.Fragments
             View standCardView = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.stand_item, parent, false);
             TextView StandNum = standCardView.FindViewById<TextView>(Resource.Id.standNumber);
             TextView StandType = standCardView.FindViewById<TextView>(Resource.Id.standType);
-            TextView StandFormat = standCardView.FindViewById<TextView>(Resource.Id.standFormat);
-            TextView NumPairs = standCardView.FindViewById<TextView>(Resource.Id.numOfPairs);
+            TextView NumClays = standCardView.FindViewById<TextView>(Resource.Id.numOfClays);
 
-            MyView view = new MyView(standCardView) { mStandNumber = StandNum, mStandType = StandType, mStandFormat = StandFormat, mNumPairs = NumPairs };
+            MyView view = new MyView(standCardView) { mStandNumber = StandNum, mStandType = StandType, mNumClays = NumClays };
 
             return view;
         }
