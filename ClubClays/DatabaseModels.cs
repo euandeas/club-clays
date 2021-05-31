@@ -42,10 +42,9 @@ namespace ClubClays.DatabaseModels
         public int Id { get; set; }
         public int StandScoreId { get; set; }
         public string Num { get; set; }
-        public string Type { get; set; }
-        public int FirstShot { get; set; }
-        public int SecondShot { get; set; }
+        public int ShotCode { get; set; }
     }
+
     public class OverallScores
     {
         [PrimaryKey, AutoIncrement]
