@@ -43,6 +43,20 @@ namespace ClubClays.DatabaseModels
         public int StandScoreId { get; set; }
         public string Num { get; set; }
         public int ShotCode { get; set; }
+        /* 
+          0 - Single, Not Taken
+          1 - Single, Hit
+          2 - Single, Miss
+          3 - Pair, Not Taken, Not Taken
+          4 - Pair, Hit, Hit
+          5 - Pair, Miss, Miss
+          6 - Pair, Not Taken, Hit
+          7 - Pair, Not Taken, Miss
+          8 - Pair, Hit, Not Taken
+          9 - Pair, Miss, Not Taken
+          10 - Pair, Hit, Miss
+          11 - Pair, Miss, Hit
+        */
     }
 
     public class OverallScores
