@@ -361,12 +361,6 @@ namespace ClubClays
         }
     }
 
-    //for adding previous shoots
-    class AddShoot : Shoot
-    {
-
-    }
-
     //for viewing shoot history
     class PreviousShoot : Shoot 
     {

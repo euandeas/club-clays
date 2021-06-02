@@ -7030,85 +7030,79 @@ namespace ClubClays
 			public const int touch_outside = 2131296711;
 			
 			// aapt resource value: 0x7F0901C8
-			public const int trackingtype = 2131296712;
+			public const int transitionToEnd = 2131296712;
 			
 			// aapt resource value: 0x7F0901C9
-			public const int trackingtypeEditText = 2131296713;
+			public const int transitionToStart = 2131296713;
 			
 			// aapt resource value: 0x7F0901CA
-			public const int transitionToEnd = 2131296714;
+			public const int transition_current_scene = 2131296714;
 			
 			// aapt resource value: 0x7F0901CB
-			public const int transitionToStart = 2131296715;
+			public const int transition_layout_save = 2131296715;
 			
 			// aapt resource value: 0x7F0901CC
-			public const int transition_current_scene = 2131296716;
+			public const int transition_position = 2131296716;
 			
 			// aapt resource value: 0x7F0901CD
-			public const int transition_layout_save = 2131296717;
+			public const int transition_scene_layoutid_cache = 2131296717;
 			
 			// aapt resource value: 0x7F0901CE
-			public const int transition_position = 2131296718;
+			public const int transition_transform = 2131296718;
 			
 			// aapt resource value: 0x7F0901CF
-			public const int transition_scene_layoutid_cache = 2131296719;
+			public const int triangle = 2131296719;
 			
 			// aapt resource value: 0x7F0901D0
-			public const int transition_transform = 2131296720;
+			public const int @unchecked = 2131296720;
 			
 			// aapt resource value: 0x7F0901D1
-			public const int triangle = 2131296721;
+			public const int uniform = 2131296721;
 			
 			// aapt resource value: 0x7F0901D2
-			public const int @unchecked = 2131296722;
+			public const int unlabeled = 2131296722;
 			
 			// aapt resource value: 0x7F0901D3
-			public const int uniform = 2131296723;
+			public const int up = 2131296723;
 			
 			// aapt resource value: 0x7F0901D4
-			public const int unlabeled = 2131296724;
+			public const int useLogo = 2131296724;
 			
 			// aapt resource value: 0x7F0901D5
-			public const int up = 2131296725;
+			public const int view_offset_helper = 2131296725;
 			
 			// aapt resource value: 0x7F0901D6
-			public const int useLogo = 2131296726;
+			public const int view_pager = 2131296726;
 			
 			// aapt resource value: 0x7F0901D7
-			public const int view_offset_helper = 2131296727;
+			public const int view_tree_lifecycle_owner = 2131296727;
 			
 			// aapt resource value: 0x7F0901D8
-			public const int view_pager = 2131296728;
+			public const int view_tree_saved_state_registry_owner = 2131296728;
 			
 			// aapt resource value: 0x7F0901D9
-			public const int view_tree_lifecycle_owner = 2131296729;
+			public const int view_tree_view_model_store_owner = 2131296729;
 			
 			// aapt resource value: 0x7F0901DA
-			public const int view_tree_saved_state_registry_owner = 2131296730;
+			public const int visible = 2131296730;
 			
 			// aapt resource value: 0x7F0901DB
-			public const int view_tree_view_model_store_owner = 2131296731;
-			
-			// aapt resource value: 0x7F0901DC
-			public const int visible = 2131296732;
+			public const int visible_removing_fragment_view_tag = 2131296731;
 			
 			// aapt resource value: 0x7F0901DD
-			public const int visible_removing_fragment_view_tag = 2131296733;
+			public const int withinBounds = 2131296733;
 			
-			// aapt resource value: 0x7F0901DF
-			public const int withinBounds = 2131296735;
+			// aapt resource value: 0x7F0901DC
+			public const int withText = 2131296732;
 			
 			// aapt resource value: 0x7F0901DE
-			public const int withText = 2131296734;
+			public const int wrap = 2131296734;
+			
+			// aapt resource value: 0x7F0901DF
+			public const int wrap_content = 2131296735;
 			
 			// aapt resource value: 0x7F0901E0
-			public const int wrap = 2131296736;
-			
-			// aapt resource value: 0x7F0901E1
-			public const int wrap_content = 2131296737;
-			
-			// aapt resource value: 0x7F0901E2
-			public const int zero_corner_chip = 2131296738;
+			public const int zero_corner_chip = 2131296736;
 			
 			static Id()
 			{

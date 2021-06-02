@@ -19,33 +19,6 @@
             android:theme="@style/ThemeOverlay.MaterialComponents.Light"
             app:title="New Shoot"/>
 
-       <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/trackingtype"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="10dp"
-            app:boxStrokeColor="@color/colorAccent"
-            app:hintTextColor="@color/colorAccent"
-            app:endIconTint="#aaa"
-            app:endIconDrawable="@drawable/baseline_arrow_drop_down"
-            app:endIconMode="custom">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/trackingtypeEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Mode"
-                android:focusable="false"
-                android:longClickable="false"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"/>
-
         <TextView
             android:text="Details"
             android:layout_width="wrap_content"

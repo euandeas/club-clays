@@ -1,12 +1,10 @@
-﻿using Android.Content;
-using Android.OS;
+﻿using Android.OS;
 using Android.Views;
 using Android.Widget;
 using System;
 using Fragment = AndroidX.Fragment.App.Fragment;
 using FragmentTransaction = AndroidX.Fragment.App.FragmentTransaction;
 using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
-using DatePickerDialog = Android.App.DatePickerDialog;
 using AndroidX.AppCompat.App;
 using AndroidX.Lifecycle;
 using SQLite;
@@ -15,7 +13,6 @@ using ClubClays.DatabaseModels;
 using System.Collections.Generic;
 using AndroidX.Fragment.App;
 using Google.Android.Material.TextField;
-using Google.Android.Material.Dialog;
 using Google.Android.Material.FloatingActionButton;
 using Google.Android.Material.DatePicker;
 
@@ -24,9 +21,6 @@ namespace ClubClays.Fragments
     public class GeneralDataFragment : Fragment, IMaterialPickerOnPositiveButtonClickListener, IFragmentResultListener
     {
         private TextView datePickerView;
-        private AlertDialog trackingTypeDialog;
-        private TextView trackingTypePickerView;
-        private string userOverallAction;
         private string discipline;
         private TextInputEditText locationInput;
         private MaterialDatePicker picker;
@@ -54,11 +48,6 @@ namespace ClubClays.Fragments
             ActionBar supportBar = ((AppCompatActivity)Activity).SupportActionBar;
             supportBar.SetDisplayHomeAsUpEnabled(true);
             supportBar.SetDisplayShowHomeEnabled(true);
-
-            trackingTypeDialog = TrackingTypeDialogBuilder();
-            trackingTypeDialog.Show();
-            trackingTypePickerView = view.FindViewById<TextInputEditText>(Resource.Id.trackingtypeEditText);
-            trackingTypePickerView.Click += TrackingTypePickerView_Click;
 
             AutoCompleteTextView spinner = view.FindViewById<AutoCompleteTextView>(Resource.Id.disciplineDropdown);
             spinner.ItemClick += new EventHandler<AdapterView.ItemClickEventArgs>(spinner_ItemSelected);
@@ -116,23 +105,13 @@ namespace ClubClays.Fragments
 
             FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
 
-            if (userOverallAction == "New Shoot")
-            {
-                ShootScoreManagement activeShootModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(ShootScoreManagement))) as ShootScoreManagement;
-                activeShootModel.Initialise(standShooterModel.selectedShooters, standShooterModel.standFormats, date, locationInput.Text, discipline);
+            ShootScoreManagement activeShootModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(ShootScoreManagement))) as ShootScoreManagement;
+            activeShootModel.Initialise(standShooterModel.selectedShooters, standShooterModel.standFormats, date, locationInput.Text, discipline);
                 
-                fragmentTx.Replace(Resource.Id.container, new ScoreTakingFragment());
-                fragmentTx.Commit();
-                standShooterModel.Dispose();
-            }
-            else if (userOverallAction == "Add Shoot")
-            {
-                AddShoot activeShootModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(AddShoot))) as AddShoot;
-
-                //fragmentTx.Replace(Resource.Id.container, );
-                //fragmentTx.Commit();
-                standShooterModel.Dispose();
-            }
+            fragmentTx.Replace(Resource.Id.container, new ScoreTakingFragment());
+            fragmentTx.Commit();
+            standShooterModel.Dispose();
+                      
         }
 
         private void ShootersSelection_Click(object sender, EventArgs e)
@@ -148,40 +127,6 @@ namespace ClubClays.Fragments
         private void spinner_ItemSelected(object sender, AdapterView.ItemClickEventArgs e)
         {
             discipline = (sender as AutoCompleteTextView).Text;
-        }
-
-        private void TrackingTypePickerView_Click(object sender, EventArgs e)
-        {
-            trackingTypeDialog.Show();
-        }
-
-        private AlertDialog TrackingTypeDialogBuilder()
-        {
-            MaterialAlertDialogBuilder dialogBuilder = new MaterialAlertDialogBuilder(Activity);
-            dialogBuilder.SetTitle("Mode");
-            dialogBuilder.SetSingleChoiceItems(Resource.Array.tracking_types, -1, new EventHandler<DialogClickEventArgs>(DialogOnClickListerner));
-            dialogBuilder.SetCancelable(false);
-            return dialogBuilder.Create();
-        }
-
-        private void DialogOnClickListerner(object sender, DialogClickEventArgs e)
-        {
-            switch (e.Which)
-            {
-                case 0:
-                    userOverallAction = "New Shoot";
-                    datePickerView.Enabled = false;
-                    date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-                    datePickerView.Text = $"{date:MMMM} {date:dd}, {date:yyyy}";
-                    break;
-                case 1:
-                    userOverallAction = "Add Shoot";
-                    standFormatting.Visibility = ViewStates.Visible;
-                    datePickerView.Enabled = true;
-                    break;
-            }
-            trackingTypePickerView.Text = userOverallAction;
-            (sender as AlertDialog).Dismiss();
         }
 
         private void DatePickerView_Click(object sender, EventArgs e)
