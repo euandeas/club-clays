@@ -302,25 +302,9 @@ namespace ClubClays
                 Shooters.Add(new Shooter(shooter.Id, shooter.Name, shooter.Class));
             }
 
-            int standNum = 1;
             foreach (Stand stand in stands)
             {
-                StandsByNum.Add(standNum, stand);
-                numOfClays += stand.NumClays;
-
-                for(int x = 0; x <= Shooters.Count()-1; x++)
-                {
-                    Shooters[x].StandScoresByStandNum.Add(standNum, new Shooter.StandScore(0,0));
-                    foreach (string format in stand.shotFormat)
-                    {
-                        if (format == "Pair")
-                        {
-                            Shooters[x].StandScoresByStandNum[standNum].shots.Add(new Tuple<string, int[]>(format, new int[] { 0, 0 }));
-                        }
-                    }
-                }
-
-                standNum++;
+                AddStand(stand);
             }
         }
 
@@ -328,34 +312,53 @@ namespace ClubClays
         {
             StandsByNum.Add(StandsByNum.Count + 1, stand);
             numOfClays += StandsByNum[StandsByNum.Count].NumClays;
+
+            for (int x = 0; x <= Shooters.Count() - 1; x++)
+            {
+                Shooters[x].StandScoresByStandNum.Add(StandsByNum.Count, new Shooter.StandScore(0, 0));
+                foreach (string format in stand.shotFormat)
+                {
+                    if (format == "Pair")
+                    {
+                        Shooters[x].StandScoresByStandNum[StandsByNum.Count].shots.Add(new Tuple<string, int[]>(format, new int[] { 0, 0 }));
+                    }
+                }
+            }
         }
 
-        public void AddScore(int shot1Val, int shot2Val)
+        public int UpdateScore(int position, int standNum, int shotsNum, int shotNum)
         {
-            //int hits = CalculateHits(shot1Val, shot2Val);
+            int updatedTo = 0;
+            int currentValue = Shooters[position].StandScoresByStandNum[standNum].shots[shotsNum].Item2[shotNum];
+            switch (currentValue)
+            {
+                case 0: //not take -> hit
+                    Shooters[position].StandScoresByStandNum[standNum].shots[shotsNum].Item2[shotNum] = updatedTo = 1;
+                    Shooters[position].StandScoresByStandNum[standNum].standTotal += 1;
+                    Shooters[position].overallTotal += 1;
+                    break;
+                case 1: //hit -> miss
+                    Shooters[position].StandScoresByStandNum[standNum].shots[shotsNum].Item2[shotNum] = updatedTo = 2;
+                    Shooters[position].StandScoresByStandNum[standNum].standTotal -= 1;
+                    Shooters[position].overallTotal -= 1;
+                    break;
+                case 2: //miss -> not taken
+                    Shooters[position].StandScoresByStandNum[standNum].shots[shotsNum].Item2[shotNum] = updatedTo = 0;
+                    break;
+            }
 
-            //Shooter shooter = ShootersByOriginalPos.ElementAt(currentShooterIndex).Value;
-            //if (!shooter.StandScoresByStandNum.ContainsKey(currentStand))
-            //{
-            //    shooter.StandScoresByStandNum.Add(currentStand, new Shooter.StandScore(0, 0, shooter.overallTotal));
-            //}
-
-            //shooter.StandScoresByStandNum[currentStand].ShotsByPairNum.Add(currentPair, new int[] { shot1Val, shot2Val });
-            //shooter.StandScoresByStandNum[currentStand].standTotal += hits;
-            //shooter.overallTotal += hits;
-            //shooter.StandScoresByStandNum[currentStand].runningTotalAtStand = shooter.overallTotal;
-
-            //currentPair += 1;
+            return updatedTo;
         }
 
-        private int CalculateHits(int val1, int val2)
+        public int ShooterStandTotal(int position, int standNum)
         {
-            int total = 0;
-            if (val1 == 1) { total++; }
-            if (val2 == 1) { total++; }
-            return total;
+            return Shooters[position].StandScoresByStandNum[standNum].standTotal;
         }
 
+        public List<string> StandShots(int standNum)
+        {
+            return StandsByNum[standNum].shotFormat;
+        }
     }
 
     //for adding previous shoots

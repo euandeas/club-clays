@@ -63,18 +63,45 @@ namespace ClubClays.Fragments
             scoreManagementModel.ShooterStandData(position, standNum, out string name, out int standTotal, out List<Tuple<string, int[]>> shots);
             myHolder.mShooterName.Text = name;
             myHolder.mShooterStandTotal.Text = $"{standTotal}";
-            foreach (Tuple<string, int[]> shot in shots)
-            {
-                if(shot.Item1 == "Pair")
-                {
-                    Button view1 = new Button(context);
-                    Button view2 = new Button(context);
-                    view1.Tag = "";
-                    view2.Tag = "";
 
-                    myHolder.mStandHits.AddView(view1);
-                    myHolder.mStandHits.AddView(view2);
+            for (int x = 0; x <= shots.Count - 1; x++)
+            {
+                if (shots[x].Item1 == "Pair")
+                {
+                    UpdateButton(shots[x].Item2[0], (Button)myHolder.mStandHits.FindViewWithTag($"{x}.1"));
+                    UpdateButton(shots[x].Item2[1], (Button)myHolder.mStandHits.FindViewWithTag($"{x}.2"));
                 }
+                if (shots[x].Item1 == "Single")
+                {
+                    UpdateButton(shots[x].Item2[0], (Button)myHolder.mStandHits.FindViewWithTag($"{x}"));
+                }
+            }
+        }
+
+        public void ButtonClicked(Button view, int position, int shotsNum, int shotNum, TextView total)
+        {
+            UpdateButton(scoreManagementModel.UpdateScore(position, standNum, shotsNum, shotNum), view);
+            total.Text = $"{scoreManagementModel.ShooterStandTotal(position, standNum)}";
+        }
+
+        public void UpdateButton(int updateTo, Button view)
+        {
+            switch (updateTo)
+            {
+                case 0:
+                    view.Text = "";
+                    view.SetBackgroundResource(Resource.Drawable.default_hit_miss_button);
+                    break;
+
+                case 1:
+                    view.Text = "X";
+                    view.SetBackgroundResource(Resource.Drawable.hit_hit_miss_button);
+                    break;
+
+                case 2:
+                    view.Text = "O";
+                    view.SetBackgroundResource(Resource.Drawable.miss_hit_miss_button);
+                    break;
             }
         }
 
@@ -86,6 +113,43 @@ namespace ClubClays.Fragments
             LinearLayout standHits = standCardView.FindViewById<LinearLayout>(Resource.Id.hitsLayout);
 
             MyView view = new MyView(standCardView) { mShooterName = shooterName, mShooterStandTotal = shooterStandTotal, mStandHits = standHits };
+
+            List<string> shotsFormat = scoreManagementModel.StandShots(standNum);
+            for (int x = 0; x <= shotsFormat.Count - 1; x++)
+            {
+                if (shotsFormat[x] == "Pair")
+                {
+                    Button view1 = new Button(context);
+                    Button view2 = new Button(context);
+                    view1.Tag = $"{x}.1";
+                    view2.Tag = $"{x}.2";
+
+                    view1.Click += (s, e) =>
+                    {
+                        ButtonClicked((Button)s, view.AdapterPosition, (int)char.GetNumericValue(((string)((Button)s).Tag)[0]), 0, view.mShooterStandTotal);
+                    };
+
+                    view2.Click += (s, e) =>
+                    {
+                        ButtonClicked((Button)s, view.AdapterPosition, (int)char.GetNumericValue(((string)((Button)s).Tag)[0]), 1, view.mShooterStandTotal);
+                    };
+
+                    standHits.AddView(view1);
+                    standHits.AddView(view2);
+                }
+                if (shotsFormat[x] == "Single")
+                {
+                    Button view1 = new Button(context);
+                    view1.Tag = $"{x}";
+
+                    view1.Click += (s,e) =>
+                    {
+                        ButtonClicked((Button)s, view.AdapterPosition, (int)char.GetNumericValue(((string)((Button)s).Tag)[0]), 0, view.mShooterStandTotal);
+                    };
+
+                    standHits.AddView(view1);
+                }
+            }
 
             return view;
         }

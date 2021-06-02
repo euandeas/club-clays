@@ -16,6 +16,7 @@ namespace ClubClays.Fragments
 {
     public class OverallScoreFragment : Fragment
     {
+        RecyclerView overallScoresRecyclerView;
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -28,14 +29,18 @@ namespace ClubClays.Fragments
             // Use this to return your custom view for this Fragment
             View view = inflater.Inflate(Resource.Layout.fragment_overall_score, container, false);
 
-            ShootScoreManagement scoreManagementModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(ShootScoreManagement))) as ShootScoreManagement;
-
             LinearLayoutManager LayoutManager = new LinearLayoutManager(Activity);
-            RecyclerView overallScoresRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.recyclerView);
+            overallScoresRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.recyclerView);
             overallScoresRecyclerView.SetLayoutManager(LayoutManager);
             overallScoresRecyclerView.SetAdapter(new OverallScoresRecyclerAdapter(Activity, Context));
 
             return view;
+        }
+
+        public override void OnResume()
+        {
+            base.OnResume();
+            overallScoresRecyclerView.GetAdapter().NotifyDataSetChanged();
         }
     }
 
@@ -64,12 +69,11 @@ namespace ClubClays.Fragments
             scoreManagementModel.ShooterOverallData(position, out string name, out int overallTotal, out List<int> totals);
             myHolder.mShooterName.Text = name;
             myHolder.mShooterOverallTotal.Text = $"{overallTotal}";
-            foreach (int total in totals)
+            for (int x = 0; x <= scoreManagementModel.NumStands-1; x++)
             {
-                TextView view = new TextView(context);
-                view.Text = $"{total}";
-                myHolder.mShooterStandTotals.AddView(view);
-            }       
+                TextView view = (TextView)myHolder.mShooterStandTotals.FindViewWithTag(x);
+                view.Text = $"{totals[x]}";
+            }     
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
@@ -80,6 +84,13 @@ namespace ClubClays.Fragments
             LinearLayout shooterStandTotals = overallCardView.FindViewById<LinearLayout>(Resource.Id.scoresLayout);
 
             MyView view = new MyView(overallCardView) { mShooterName = shooterName, mShooterOverallTotal = shooterOverallTotal, mShooterStandTotals = shooterStandTotals };
+
+            for (int x = 0; x <= scoreManagementModel.NumStands-1; x++)
+            {
+                TextView tview = new TextView(context);
+                tview.Tag = x;
+                shooterStandTotals.AddView(tview);
+            }
 
             return view;
         }
