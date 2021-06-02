@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="button_side">32dp</dimen>
+    <dimen name="button_top_bottom">5dp</dimen>
+    <dimen name="button_left_long">10dp</dimen>
+    <dimen name="button_left_short">5dp</dimen>
+</resources>

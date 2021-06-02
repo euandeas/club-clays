@@ -10,6 +10,7 @@ using AndroidX.ViewPager2.Widget;
 using Google.Android.Material.Tabs;
 using System;
 using System.Collections.Generic;
+using static Android.Views.ViewGroup;
 using Fragment = AndroidX.Fragment.App.Fragment;
 using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 
@@ -121,6 +122,17 @@ namespace ClubClays.Fragments
                 {
                     Button view1 = new Button(context);
                     Button view2 = new Button(context);
+
+                    view1.TextSize = 16;
+                    view2.TextSize = 16;
+
+                    int size = (int)context.Resources.GetDimension(Resource.Dimension.button_side);
+                    LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(size, size);
+                    LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(size, size);
+                    
+                    lp1.SetMargins((int)context.Resources.GetDimension(Resource.Dimension.button_left_long), (int)context.Resources.GetDimension(Resource.Dimension.button_top_bottom), 0, (int)context.Resources.GetDimension(Resource.Dimension.button_top_bottom));
+                    lp2.SetMargins((int)context.Resources.GetDimension(Resource.Dimension.button_left_short), (int)context.Resources.GetDimension(Resource.Dimension.button_top_bottom), 0, (int)context.Resources.GetDimension(Resource.Dimension.button_top_bottom));
+
                     view1.Tag = $"{x}.1";
                     view2.Tag = $"{x}.2";
 
@@ -134,12 +146,19 @@ namespace ClubClays.Fragments
                         ButtonClicked((Button)s, view.AdapterPosition, (int)char.GetNumericValue(((string)((Button)s).Tag)[0]), 1, view.mShooterStandTotal);
                     };
 
-                    standHits.AddView(view1);
-                    standHits.AddView(view2);
+                    standHits.AddView(view1, lp1);
+                    standHits.AddView(view2, lp2);
                 }
                 if (shotsFormat[x] == "Single")
                 {
                     Button view1 = new Button(context);
+
+                    view1.TextSize = 16;
+
+                    int size = (int)context.Resources.GetDimension(Resource.Dimension.button_side);
+                    LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(size, size);
+                    lp.SetMargins((int)context.Resources.GetDimension(Resource.Dimension.button_left_long), (int)context.Resources.GetDimension(Resource.Dimension.button_top_bottom), 0, (int)context.Resources.GetDimension(Resource.Dimension.button_top_bottom));
+
                     view1.Tag = $"{x}";
 
                     view1.Click += (s,e) =>
@@ -147,7 +166,7 @@ namespace ClubClays.Fragments
                         ButtonClicked((Button)s, view.AdapterPosition, (int)char.GetNumericValue(((string)((Button)s).Tag)[0]), 0, view.mShooterStandTotal);
                     };
 
-                    standHits.AddView(view1);
+                    standHits.AddView(view1, lp);
                 }
             }
 
