@@ -28,6 +28,15 @@ namespace ClubClays.DatabaseModels
         public string NumClays { get; set; }
     }
 
+    public class StandShots
+    {
+        [PrimaryKey, AutoIncrement]
+        public int Id { get; set; }
+        public int StandId { get; set; }
+        public int ShotNum { get; set; }
+        public string Type { get; set; }
+    }
+
     public class StandScores
     {
         [PrimaryKey, AutoIncrement]
@@ -42,7 +51,7 @@ namespace ClubClays.DatabaseModels
         [PrimaryKey]
         public int Id { get; set; }
         public int StandScoreId { get; set; }
-        public string Num { get; set; }
+        public int Num { get; set; }
         public int ShotCode { get; set; }
         /* 
           0 - Single, Not Taken
