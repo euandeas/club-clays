@@ -212,61 +212,63 @@ namespace ClubClays
                 }
             }
         }
-        //public Java.IO.File ShootToCSV()
-        //{
-        //    CalculateStats();
-        //    string csvPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), $"{discipline.Replace(" ","")}{date:yyyyMMdd}.csv");
-        //    StringBuilder sb = new StringBuilder();
+        public Java.IO.File ShootToCSV()
+        {
+            CalculateStats();
+            string csvPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), $"{discipline.Replace(" ", "")}{date:yyyyMMdd}.csv");
+            StringBuilder sb = new StringBuilder();
 
-        //    sb.AppendLine("OVERALL");
-        //    sb.Append("NAME,");
-        //    for (int x = 1; x <= StandsByNum.Count; x++)
-        //    {
-        //        sb.Append($"STAND {x},");
-        //    }
-        //    sb.Append($"TOTAL /{numOfClays},");
-        //    sb.AppendLine("%");
+            sb.AppendLine("OVERALL");
+            sb.Append("NAME,");
+            for (int x = 1; x <= StandsByNum.Count; x++)
+            {
+                sb.Append($"STAND {x},");
+            }
+            sb.Append($"TOTAL /{numOfClays},");
+            sb.AppendLine("%");
 
-        //    for (int x = 1; x <= ShootersByOriginalPos.Count(); x++)
-        //    {
-        //        List<string> shooterData = ShooterOverallData(x);
-        //        sb.Append(string.Join(',', shooterData));
-        //        sb.AppendLine($",{ShootersByOriginalPos[x].overallPercentage}");
-        //    }
-        //    File.WriteAllText(csvPath, sb.ToString());
-        //    sb.Clear();
+            for (int x = 0; x <= Shooters.Count-1; x++)
+            {
+                ShooterOverallData(x, out string name, out int overallTotal, out List<int> totals);
+                sb.Append($"{name},");              
+                sb.Append(string.Join(",", totals.Select(total => total.ToString()).ToArray()));
+                sb.AppendLine($",{Shooters[x].overallPercentage}");
+            }
+            File.WriteAllText(csvPath, sb.ToString());
+            sb.Clear();
 
-        //    for (int x = 1; x <= StandsByNum.Count; x++)
-        //    {
-        //        sb.AppendLine("");
-        //        sb.AppendLine($"STAND {x}");
-        //        sb.Append("NAME,");
-        //        for (int z = 1; z <= StandsByNum[x].numOfPairs; z++)
-        //        {
-        //            sb.Append($"PAIR {z},");
-        //        }
-        //        sb.Append($"TOTAL /{StandsByNum[x].numOfPairs*2},");
-        //        sb.AppendLine("%");
+            for (int x = 1; x <= StandsByNum.Count; x++)
+            {
+                sb.AppendLine("");
+                sb.AppendLine($"STAND {x}");
+                sb.Append("NAME,");
+                for (int z = 0; z <= StandsByNum[x].shotFormat.Count-1; z++)
+                {
+                    sb.Append($"{StandsByNum[x].shotFormat[z]},");
+                }
+                sb.Append($"TOTAL /{StandsByNum[x].numClays},");
+                sb.AppendLine("%");
 
-        //        for (int y = 1; y <= ShootersByOriginalPos.Count(); y++)
-        //        {
-        //            ShooterStandData(y, x, out string name, out string total, out SortedList<int, int[]> hits);
-        //            sb.Append($"{name},");
-        //            for (int z = 1; z <= hits.Count; z++)
-        //            {
-        //                sb.Append($"{TranslateHitMiss(hits[z][0])}{TranslateHitMiss(hits[z][1])},");
-        //            }
-        //            sb.Append($"{total}");
-        //            sb.AppendLine($",{ShootersByOriginalPos[y].StandScoresByStandNum[x].standPercentage}");
-        //        }
-        //        File.AppendAllText(csvPath, sb.ToString());
-        //        sb.Clear();
-        //    }
+                for (int y = 0; y <= Shooters.Count-1; y++)
+                {
+                    ShooterStandData(y, x, out string name, out int total, out List<Tuple<string, int[]>> hits);
+                    sb.Append($"{name},");
+                    for (int z = 0; z <= hits.Count-1; z++)
+                    {
+                        if (hits[z].Item1 == "Pair") { sb.Append($"{TranslateHitMiss(hits[z].Item2[0])}{TranslateHitMiss(hits[z].Item2[1])},"); }
+                        else if (hits[z].Item1 == "Single") { sb.Append($"{TranslateHitMiss(hits[z].Item2[0])},"); }
+                    }
+                    sb.Append($"{total}");
+                    sb.AppendLine($",{Shooters[y].StandScoresByStandNum[x].standPercentage}");
+                }
+                File.AppendAllText(csvPath, sb.ToString());
+                sb.Clear();
+            }
 
-        //    var file = new Java.IO.File(csvPath);
+            var file = new Java.IO.File(csvPath);
 
-        //    return file;
-        //}
+            return file;
+        }
         public string TranslateHitMiss(int value)
         {
             switch (value)
