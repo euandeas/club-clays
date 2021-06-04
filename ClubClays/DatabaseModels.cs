@@ -48,7 +48,7 @@ namespace ClubClays.DatabaseModels
 
     public class Shots
     {
-        [PrimaryKey]
+        [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public int StandScoreId { get; set; }
         public int Num { get; set; }

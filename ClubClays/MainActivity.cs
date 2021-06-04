@@ -19,6 +19,7 @@ namespace ClubClays
             {
                 db.CreateTable<DatabaseModels.Shoots>();
                 db.CreateTable<DatabaseModels.Stands>();
+                db.CreateTable<DatabaseModels.StandShots>();
                 db.CreateTable<DatabaseModels.StandScores>();
                 db.CreateTable<DatabaseModels.Shots>();
                 db.CreateTable<DatabaseModels.OverallScores>();

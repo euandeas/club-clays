@@ -110,8 +110,7 @@ namespace ClubClays.Fragments
                 
             fragmentTx.Replace(Resource.Id.container, new ScoreTakingFragment());
             fragmentTx.Commit();
-            standShooterModel.Dispose();
-                      
+            standShooterModel.Dispose();          
         }
 
         private void ShootersSelection_Click(object sender, EventArgs e)

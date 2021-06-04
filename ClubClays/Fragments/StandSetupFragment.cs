@@ -133,7 +133,7 @@ namespace ClubClays.Fragments
             MyView myHolder = holder as MyView;
             myHolder.mStandNumber.Text = $"Stand {position + 1}";
             myHolder.mStandType.Text = stands[position].standType;
-            myHolder.mNumClays.Text = stands[position].NumClays.ToString();
+            myHolder.mNumClays.Text = stands[position].numClays.ToString();
         }
 
         // Create new views (invoked by layout manager)
