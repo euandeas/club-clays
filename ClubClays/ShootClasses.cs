@@ -111,13 +111,12 @@ namespace ClubClays
             public class StandScore
             {
                 public int standTotal;
-                public int standPercentage;
+                public int standPercentage = 0;
                 public List<Tuple<string, int[]>> shots;
 
-                public StandScore(int standTotal, int standPercentage)
+                public StandScore(int standTotal)
                 {
                     this.standTotal = standTotal;
-                    this.standPercentage = standPercentage;
                     shots = new List<Tuple<string, int[]>>();
                 }
             }
@@ -318,7 +317,7 @@ namespace ClubClays
 
             for (int x = 0; x <= Shooters.Count() - 1; x++)
             {
-                Shooters[x].StandScoresByStandNum.Add(StandsByNum.Count, new Shooter.StandScore(0, 0));
+                Shooters[x].StandScoresByStandNum.Add(StandsByNum.Count, new Shooter.StandScore(0));
                 foreach (string format in stand.shotFormat)
                 {
                     if (format == "Pair")
@@ -367,7 +366,6 @@ namespace ClubClays
     //for viewing shoot history
     class PreviousShoot : Shoot 
     {
-        protected Dictionary<int,int> shooterOriginalPosByID = new Dictionary<int, int>();
         
         public DateTime Date
         {
@@ -379,51 +377,103 @@ namespace ClubClays
             get { return discipline; }
         }
 
-        //public void InitialisePreviousShoot(int shootID)
-        //{
-        //    string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
-        //    using (var db = new SQLiteConnection(dbPath))
-        //    {
-        //        var shoot = db.Get<Shoots>(shootID);
-        //        date = shoot.Date;
-        //        location = shoot.Location;
-        //        discipline = shoot.EventType;
-        //        startingStand = shoot.StartingStand;
-        //        numOfClays = shoot.ClayAmount;
+        public void InitialisePreviousShoot(int shootID)
+        {
+            string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "ClubClaysData.db3");
+            using (var db = new SQLiteConnection(dbPath))
+            {
+                var shoot = db.Get<Shoots>(shootID);
+                title = shoot.Title;
+                date = shoot.Date;
+                location = shoot.Location;
+                discipline = shoot.EventType;
+                numOfClays = shoot.NumClays;
+                userNotes = shoot.Notes;
 
-        //        int counter = 1;
-        //        var overallScores = db.Table<OverallScores>().Where<OverallScores>(s => s.ShootId == shoot.Id).ToList();
-        //        foreach (OverallScores overallScore in overallScores)
-        //        {
-        //            var shooter = db.Get<Shooters>(overallScore.ShooterId);
-        //            shooterOriginalPosByID.Add(overallScore.ShooterId, counter);
-        //            ShootersByOriginalPos.Add(counter, new Shooter(shooter.Id, shooter.Name, shooter.Class));
-        //            ShootersByOriginalPos[counter].overallPercentage = overallScore.OverallPercentage;
-        //            ShootersByOriginalPos[counter].overallTotal = overallScore.OverallTotal;
-        //            counter++;
-        //        }
+                var overallScores = db.Table<OverallScores>().Where<OverallScores>(s => s.ShootId == shoot.Id).ToList();
+                foreach (OverallScores overallScore in overallScores)
+                {
+                    var shooter = db.Get<Shooters>(overallScore.ShooterId);
+                    Shooter shooterObject = new Shooter(shooter.Id, shooter.Name, shooter.Class);
+                    shooterObject.overallPercentage = overallScore.OverallPercentage;
+                    shooterObject.overallTotal = overallScore.OverallTotal;
+                    Shooters.Add(shooterObject);
+                }
 
-        //        var stands = db.Table<Stands>().Where<Stands>(s => s.ShootId == shoot.Id).OrderBy(s => s.StandNum).ToList();
-        //        foreach (Stands stand in stands)
-        //        {
-        //            var standFormats = db.Get<StandFormats>(stand.StandFormatId);
-        //            StandsByNum.Add(stand.StandNum, new Stand(standFormats.StandType, standFormats.StandFormat, standFormats.NumPairs));
+                var stands = db.Table<Stands>().Where<Stands>(s => s.ShootId == shoot.Id).OrderBy(s => s.StandNum).ToList();
+                foreach (Stands stand in stands)
+                {
+                    List<string> shotFormat = new List<string>();
 
-        //            var standScores = db.Table<StandScores>().Where<StandScores>(s => s.StandId == stand.Id).ToList();
-        //            foreach (StandScores standScore in standScores)
-        //            {
-        //                var shooterStandScore = new Shooter.StandScore(standScore.StandTotal, standScore.StandPercentageHit, standScore.RunningTotal);
+                    var standShots = db.Table<StandShots>().Where<StandShots>(s => s.StandId == stand.Id).OrderBy(s => s.ShotNum).ToList();
 
-        //                var shotPairs = db.Table<StandShotsLink>().Where<StandShotsLink>(s => s.StandScoresId == standScore.Id).ToList();
-        //                foreach (StandShotsLink shotPair in shotPairs)
-        //                {
-        //                    shooterStandScore.ShotsByPairNum.Add(shotPair.PairNum, new int[] { db.Get<Shots>(shotPair.shotsId).FirstShot, db.Get<Shots>(shotPair.shotsId).SecondShot });
-        //                }
+                    foreach (StandShots standShot in standShots)
+                    {
+                        shotFormat.Add(standShot.Type);
+                    }
 
-        //                ShootersByOriginalPos[shooterOriginalPosByID[standScore.ShooterId]].StandScoresByStandNum.Add(stand.StandNum, shooterStandScore);
-        //            }
-        //        }
-        //    }
-        //}
+                    Stand standObject = new Stand(stand.StandType, shotFormat);
+                    StandsByNum.Add(stand.StandNum, standObject);
+
+                    var standScores = db.Table<StandScores>().Where<StandScores>(s => s.StandId == stand.Id).ToList();
+                    foreach (StandScores standScore in standScores)
+                    {
+                        var shooterStandScore = new Shooter.StandScore(standScore.StandTotal);
+                      
+                        var shots = db.Table<Shots>().Where<Shots>(s => s.StandScoreId == standScore.Id).OrderBy(s => s.Num).ToList();
+                        foreach (Shots shot in shots)
+                        {
+
+                            switch (shot.ShotCode)
+                            {
+                                case 0:
+                                    AddShotScore(ref shooterStandScore.shots, "Single", new int[] { 0 });
+                                    break;
+                                case 1:
+                                    AddShotScore(ref shooterStandScore.shots, "Single", new int[] { 1 });
+                                    break;
+                                case 2:
+                                    AddShotScore(ref shooterStandScore.shots, "Single", new int[] { 2 });
+                                    break;
+                                case 3:
+                                    AddShotScore(ref shooterStandScore.shots, "Pair", new int[] { 0, 0 });
+                                    break;
+                                case 4:
+                                    AddShotScore(ref shooterStandScore.shots, "Pair", new int[] { 1, 1 });
+                                    break;
+                                case 5:
+                                    AddShotScore(ref shooterStandScore.shots, "Pair", new int[] { 2, 2 });
+                                    break;
+                                case 6:
+                                    AddShotScore(ref shooterStandScore.shots, "Pair", new int[] { 0, 1 });
+                                    break;
+                                case 7:
+                                    AddShotScore(ref shooterStandScore.shots, "Pair", new int[] { 0, 2 });
+                                    break;
+                                case 8:
+                                    AddShotScore(ref shooterStandScore.shots, "Pair", new int[] { 1, 0 });
+                                    break;
+                                case 9:
+                                    AddShotScore(ref shooterStandScore.shots, "Pair", new int[] { 2, 0 });
+                                    break;
+                                case 10:
+                                    AddShotScore(ref shooterStandScore.shots, "Pair", new int[] { 1, 1 });
+                                    break;
+                                case 11:
+                                    AddShotScore(ref shooterStandScore.shots, "Pair", new int[] { 2, 1 });
+                                    break;
+                            }
+                        }
+
+                        Shooters.Find(s => s.id == standScore.ShooterId).StandScoresByStandNum.Add(stand.StandNum, shooterStandScore);
+                    }
+                }
+            }
+        }
+
+        public void AddShotScore (ref List<Tuple<string, int[]>> shots, string type, int[] score)
+        {
+            shots.Add(new Tuple<string, int[]>(type, score));
+        }
     }
 }
