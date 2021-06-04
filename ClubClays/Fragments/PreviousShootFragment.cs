@@ -49,7 +49,7 @@ namespace ClubClays.Fragments
             shootId = Arguments.GetInt("ShootID");
 
             previousShootModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(PreviousShoot))) as PreviousShoot;
-            //previousShootModel.InitialisePreviousShoot(shootId);
+            previousShootModel.InitialisePreviousShoot(shootId);
 
             toolbar = view.FindViewById<Toolbar>(Resource.Id.toolbar);
             ((AppCompatActivity)Activity).SetSupportActionBar(toolbar);
@@ -91,7 +91,7 @@ namespace ClubClays.Fragments
         {
             if (item.ItemId == Resource.Id.share_csv)
             {
-                //file = previousShootModel.ShootToCSV();
+                file = previousShootModel.ShootToCSV();
                 var uri = FileProvider.GetUriForFile(Context, "com.euandeas.clubclays", file);
                 
                 Intent shareIntent = new Intent();
@@ -117,11 +117,13 @@ namespace ClubClays.Fragments
                         db.CreateCommand($"DELETE FROM Stands WHERE ShootId = {shootId};").ExecuteNonQuery();
                         foreach (var stand in standsToDelete)
                         {
+                            db.CreateCommand($"DELETE FROM StandShots WHERE StandId = {stand.Id};").ExecuteNonQuery();
+
                             var standsScoresToDelete = db.Table<StandScores>().Where(s => s.StandId == stand.Id).ToList();
                             db.CreateCommand($"DELETE FROM StandScores WHERE StandId = {stand.Id};").ExecuteNonQuery();
                             foreach (var standScore in standsScoresToDelete)
                             {
-                                db.CreateCommand($"DELETE FROM StandShotsLink WHERE StandScoresId = {standScore.Id};").ExecuteNonQuery();
+                                db.CreateCommand($"DELETE FROM Shots WHERE StandScoreId = {standScore.Id};").ExecuteNonQuery();
                             }
                         }
                     }
