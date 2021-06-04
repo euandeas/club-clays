@@ -66,7 +66,7 @@ namespace ClubClays.Fragments
             collapsingRelativeLayout = view.FindViewById<RelativeLayout>(Resource.Id.collapsingRelativeLayout);
 
             ViewPager2 viewPager = view.FindViewById<ViewPager2>(Resource.Id.view_pager);
-            viewPager.Adapter = new ScoreViewPagerAdapter(this, previousShootModel.NumStands);
+            viewPager.Adapter = new ScoreViewPagerAdapter(this, previousShootModel.NumStands, "Previous");
 
             TabLayout tabLayout = view.FindViewById<TabLayout>(Resource.Id.tab_layout);
             new TabLayoutMediator(tabLayout, viewPager, new TabConfigStrat()).Attach();

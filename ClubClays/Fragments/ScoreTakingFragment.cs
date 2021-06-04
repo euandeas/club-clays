@@ -1,13 +1,16 @@
 ﻿using Android.OS;
 using Android.Views;
+using Android.Widget;
 using AndroidX.AppCompat.App;
 using AndroidX.AppCompat.View.Menu;
 using AndroidX.Fragment.App;
 using AndroidX.Lifecycle;
 using AndroidX.ViewPager2.Widget;
+using Google.Android.Material.Dialog;
 using Google.Android.Material.FloatingActionButton;
 using Google.Android.Material.Tabs;
 using System;
+using System.Collections.Generic;
 using Fragment = AndroidX.Fragment.App.Fragment;
 using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 
@@ -17,6 +20,9 @@ namespace ClubClays.Fragments
     {
         ShootScoreManagement scoreManagementModel;
         FloatingActionButton fab;
+        ScoreViewPagerAdapter scoreViewPagerAdapter;
+        ViewPager2 viewPager;
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -36,8 +42,9 @@ namespace ClubClays.Fragments
 
             scoreManagementModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(ShootScoreManagement))) as ShootScoreManagement;
 
-            ViewPager2 viewPager = view.FindViewById<ViewPager2>(Resource.Id.view_pager);
-            viewPager.Adapter = new ScoreViewPagerAdapter(this, scoreManagementModel.NumStands);
+            viewPager = view.FindViewById<ViewPager2>(Resource.Id.view_pager);
+            scoreViewPagerAdapter = new ScoreViewPagerAdapter(this, scoreManagementModel.NumStands, "Adding");
+            viewPager.Adapter = scoreViewPagerAdapter;
 
             TabLayout tabLayout = view.FindViewById<TabLayout>(Resource.Id.tab_layout);
             new TabLayoutMediator(tabLayout, viewPager, new TabConfigStrat()).Attach();
@@ -52,7 +59,30 @@ namespace ClubClays.Fragments
 
         private void Fab_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(Activity);
+            builder.SetTitle("Add New Stand");
+
+            View view = LayoutInflater.From(Activity).Inflate(Resource.Layout.dialogfragment_addstand, null);
+
+            EditText standType = view.FindViewById<EditText>(Resource.Id.newStandType);
+            EditText numOfPairs = view.FindViewById<EditText>(Resource.Id.newNumOfPairs);
+
+            builder.SetView(view);
+            builder.SetPositiveButton("Add", (c, ev) =>
+            {
+                List<string> shotformat = new List<string>();
+                for (int x = 1; x <= int.Parse(numOfPairs.Text); x++)
+                {
+                    shotformat.Add("Pair");
+                }
+                scoreManagementModel.AddStand(new Stand(standType.Text, shotformat));
+                int num = scoreViewPagerAdapter.AddStand();
+                scoreViewPagerAdapter.NotifyDataSetChanged();
+                viewPager.SetCurrentItem(num, true);
+            });
+            builder.SetNegativeButton("Cancel", (c, ev) => { });
+
+            builder.Show();
         }
 
         private void TabLayout_TabSelected(object sender, TabLayout.TabSelectedEventArgs e)
@@ -84,10 +114,19 @@ namespace ClubClays.Fragments
         {
             if (item.ItemId == Resource.Id.finish_shoot)
             {
-                FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
-                fragmentTx.Replace(Resource.Id.container, new ShootEndFragment());
-                fragmentTx.AddToBackStack(null);
-                fragmentTx.Commit();
+                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(Activity);
+                builder.SetTitle("Finish shoot?");
+                builder.SetMessage("Are you sure that you would like to end this shoot?");
+                builder.SetPositiveButton("Yes", (c, ev) =>
+                {
+                    FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
+                    fragmentTx.Replace(Resource.Id.container, new ShootEndFragment());
+                    fragmentTx.AddToBackStack(null);
+                    fragmentTx.Commit();
+                });
+
+                builder.SetNegativeButton("No", (c, ev) => { });
+                builder.Show();
             }
 
             return base.OnOptionsItemSelected(item);

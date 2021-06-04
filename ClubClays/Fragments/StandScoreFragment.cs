@@ -33,7 +33,7 @@ namespace ClubClays.Fragments
             LinearLayoutManager LayoutManager = new LinearLayoutManager(Activity);
             RecyclerView StandScoresRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.recyclerView);
             StandScoresRecyclerView.SetLayoutManager(LayoutManager);
-            StandScoresRecyclerView.SetAdapter(new StandScoresRecyclerAdapter(Activity, Context, Arguments.GetInt("standNum")));
+            StandScoresRecyclerView.SetAdapter(new StandScoresRecyclerAdapter(Activity, Context, Arguments.GetInt("standNum"), Arguments.GetString("accessType")));
 
             return view;
         }
@@ -173,7 +173,7 @@ namespace ClubClays.Fragments
             return view;
         }
 
-        public StandScoresRecyclerAdapter(FragmentActivity activity, Context context, int standNum)
+        public StandScoresRecyclerAdapter(FragmentActivity activity, Context context, int standNum, string accessType)
         {
             scoreManagementModel = new ViewModelProvider(activity).Get(Java.Lang.Class.FromType(typeof(ShootScoreManagement))) as ShootScoreManagement;
             this.context = context;
