@@ -33,7 +33,7 @@ namespace ClubClays.Fragments
             LinearLayoutManager LayoutManager = new LinearLayoutManager(Activity);
             RecyclerView StandScoresRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.recyclerView);
             StandScoresRecyclerView.SetLayoutManager(LayoutManager);
-            StandScoresRecyclerView.SetAdapter(new StandScoresRecyclerAdapter(Activity, Context, Arguments.GetInt("standNum"), Arguments.GetString("accessType")));
+            StandScoresRecyclerView.SetAdapter(new StandScoresRecyclerAdapter(Activity, Context, Arguments.GetInt("standNum"), Arguments.GetBoolean("editable")));
 
             return view;
         }
@@ -41,9 +41,10 @@ namespace ClubClays.Fragments
 
     public class StandScoresRecyclerAdapter : RecyclerView.Adapter
     {
-        ShootScoreManagement scoreManagementModel;
+        Shoot scoreManagementModel;
         Context context;
         int standNum;
+        bool editable;
         public class MyView : RecyclerView.ViewHolder
         {
             public View mMainView { get; set; }
@@ -136,15 +137,18 @@ namespace ClubClays.Fragments
                     view1.Tag = $"{x}.1";
                     view2.Tag = $"{x}.2";
 
-                    view1.Click += (s, e) =>
+                    if (editable == true)
                     {
-                        ButtonClicked((Button)s, view.AdapterPosition, (int)char.GetNumericValue(((string)((Button)s).Tag)[0]), 0, view.mShooterStandTotal);
-                    };
+                        view1.Click += (s, e) =>
+                        {
+                            ButtonClicked((Button)s, view.AdapterPosition, (int)char.GetNumericValue(((string)((Button)s).Tag)[0]), 0, view.mShooterStandTotal);
+                        };
 
-                    view2.Click += (s, e) =>
-                    {
-                        ButtonClicked((Button)s, view.AdapterPosition, (int)char.GetNumericValue(((string)((Button)s).Tag)[0]), 1, view.mShooterStandTotal);
-                    };
+                        view2.Click += (s, e) =>
+                        {
+                            ButtonClicked((Button)s, view.AdapterPosition, (int)char.GetNumericValue(((string)((Button)s).Tag)[0]), 1, view.mShooterStandTotal);
+                        };
+                    }
 
                     standHits.AddView(view1, lp1);
                     standHits.AddView(view2, lp2);
@@ -161,10 +165,13 @@ namespace ClubClays.Fragments
 
                     view1.Tag = $"{x}";
 
-                    view1.Click += (s,e) =>
+                    if (editable == true)
                     {
-                        ButtonClicked((Button)s, view.AdapterPosition, (int)char.GetNumericValue(((string)((Button)s).Tag)[0]), 0, view.mShooterStandTotal);
-                    };
+                        view1.Click += (s, e) =>
+                        {
+                            ButtonClicked((Button)s, view.AdapterPosition, (int)char.GetNumericValue(((string)((Button)s).Tag)[0]), 0, view.mShooterStandTotal);
+                        };
+                    }
 
                     standHits.AddView(view1, lp);
                 }
@@ -173,11 +180,12 @@ namespace ClubClays.Fragments
             return view;
         }
 
-        public StandScoresRecyclerAdapter(FragmentActivity activity, Context context, int standNum, string accessType)
+        public StandScoresRecyclerAdapter(FragmentActivity activity, Context context, int standNum, bool editable)
         {
-            scoreManagementModel = new ViewModelProvider(activity).Get(Java.Lang.Class.FromType(typeof(ShootScoreManagement))) as ShootScoreManagement;
+            scoreManagementModel = new ViewModelProvider(activity).Get(Java.Lang.Class.FromType(typeof(Shoot))) as Shoot;
             this.context = context;
             this.standNum = standNum;
+            this.editable = editable;
         }
     }
 }

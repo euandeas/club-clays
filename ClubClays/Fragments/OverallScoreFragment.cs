@@ -33,7 +33,7 @@ namespace ClubClays.Fragments
             LinearLayoutManager LayoutManager = new LinearLayoutManager(Activity);
             overallScoresRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.recyclerView);
             overallScoresRecyclerView.SetLayoutManager(LayoutManager);
-            overallScoresRecyclerView.SetAdapter(new OverallScoresRecyclerAdapter(Activity, Context, Arguments.GetString("accessType")));
+            overallScoresRecyclerView.SetAdapter(new OverallScoresRecyclerAdapter(Activity, Context));
 
             return view;
         }
@@ -41,7 +41,7 @@ namespace ClubClays.Fragments
         public override void OnResume()
         {
             base.OnResume();
-            overallScoresRecyclerView.SetAdapter(new OverallScoresRecyclerAdapter(Activity, Context, Arguments.GetString("accessType")));
+            overallScoresRecyclerView.SetAdapter(new OverallScoresRecyclerAdapter(Activity, Context));
         }
     }
 
@@ -101,9 +101,9 @@ namespace ClubClays.Fragments
             return view;
         }
 
-        public OverallScoresRecyclerAdapter(FragmentActivity activity, Context context, string accessType)
+        public OverallScoresRecyclerAdapter(FragmentActivity activity, Context context)
         {
-            scoreManagementModel = new ViewModelProvider(activity).Get(Java.Lang.Class.FromType(typeof(ShootScoreManagement))) as ShootScoreManagement;
+            scoreManagementModel = new ViewModelProvider(activity).Get(Java.Lang.Class.FromType(typeof(Shoot))) as Shoot;
             this.context = context;
         }
     }

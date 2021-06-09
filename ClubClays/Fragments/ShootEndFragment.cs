@@ -12,7 +12,7 @@ namespace ClubClays.Fragments
 {
     public class ShootEndFragment : Fragment
     {
-        private ShootScoreManagement scoreManagementModel;
+        private Shoot scoreManagementModel;
         private TextInputEditText usernotes;
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -26,7 +26,7 @@ namespace ClubClays.Fragments
             // Use this to return your custom view for this Fragment
             View view = inflater.Inflate(Resource.Layout.fragment_shoot_end, container, false);
 
-            scoreManagementModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(ShootScoreManagement))) as ShootScoreManagement;
+            scoreManagementModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(Shoot))) as Shoot;
 
             usernotes = view.FindViewById<TextInputEditText>(Resource.Id.shootNotes);
             view.FindViewById<FloatingActionButton>(Resource.Id.saveButton).Click += Save_Click;

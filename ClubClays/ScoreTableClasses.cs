@@ -9,11 +9,11 @@ namespace ClubClays
     public class ScoreViewPagerAdapter : FragmentStateAdapter
     {
         int numOfStands;
-        string accessType;
-        public ScoreViewPagerAdapter(Fragment fa, int numOfStands, string accessType) : base(fa)
+        bool editable;
+        public ScoreViewPagerAdapter(Fragment fa, int numOfStands, bool editable) : base(fa)
         {
             this.numOfStands = numOfStands;
-            this.accessType = accessType;
+            this.editable = editable;
         }
         public override int ItemCount => numOfStands + 1;
 
@@ -26,7 +26,6 @@ namespace ClubClays
             {
                 fragment = new OverallScoreFragment();
                 args = new Bundle();
-                args.PutString("accessType", accessType);
                 fragment.Arguments = args;
             }
             else
@@ -34,7 +33,7 @@ namespace ClubClays
                 fragment = new StandScoreFragment();
                 args = new Bundle();
                 args.PutInt("standNum", p0);
-                args.PutString("accessType", accessType);
+                args.PutBoolean("editable", editable);
                 fragment.Arguments = args;
             }
             return fragment;

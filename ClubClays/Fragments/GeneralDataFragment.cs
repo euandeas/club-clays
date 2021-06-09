@@ -105,7 +105,7 @@ namespace ClubClays.Fragments
 
             FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
 
-            ShootScoreManagement activeShootModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(ShootScoreManagement))) as ShootScoreManagement;
+            Shoot activeShootModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(Shoot))) as Shoot;
             activeShootModel.Initialise(standShooterModel.selectedShooters, standShooterModel.standFormats, date, locationInput.Text, discipline);
                 
             fragmentTx.Replace(Resource.Id.container, new ScoreTakingFragment());

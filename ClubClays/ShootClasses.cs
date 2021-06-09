@@ -9,7 +9,7 @@ using SQLite;
 
 namespace ClubClays
 {
-    public class ShooterStandData : ViewModel 
+    public class ShooterStandData : ViewModel
     {
         public List<Shooters> selectedShooters;
         public List<Shooters> allShooters;
@@ -72,6 +72,23 @@ namespace ClubClays
             }
         }
 
+        public string UserNotes
+        {
+            set
+            {
+                userNotes = value;
+            }
+        }
+
+        public DateTime Date
+        {
+            get { return date; }
+        }
+
+        public string EventType
+        {
+            get { return discipline; }
+        }
 
         public void ShooterOverallData(int position, out string name, out int overallTotal, out List<int> totals)
         {
@@ -121,175 +138,11 @@ namespace ClubClays
                 }
             }
 
-            public Shooter(int id,string name, string shooterClass)
+            public Shooter(int id, string name, string shooterClass)
             {
                 this.id = id;
                 this.name = name;
                 this.shooterClass = shooterClass;
-            }
-        }
-
-        public void SaveShootData() 
-        {
-            CalculateStats();
-
-            string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "ClubClaysData.db3");
-            using (var db = new SQLiteConnection(dbPath))
-            {
-                Shoots newShoot = new Shoots() { Title = title, Date = date, Location = location, EventType = discipline, NumStands = StandsByNum.Count, NumClays = numOfClays, Notes = userNotes };
-                db.Insert(newShoot);
-
-                for (int x = 1; x <= StandsByNum.Count; x++)
-                {                                 
-                    Stands newStand = new Stands() { ShootId = newShoot.Id, StandNum = x, StandType = StandsByNum[x].standType };
-                    db.Insert(newStand);
-
-                    for (int a = 0; a <= StandsByNum[x].shotFormat.Count-1; a++)
-                    {
-                        StandShots newStandShot = new StandShots() { ShotNum = a + 1, StandId = newStand.Id, Type = StandsByNum[x].shotFormat[a] };
-                    }
-                    
-                    for (int y = 0; y <= Shooters.Count-1; y++)
-                    {
-                        StandScores newStandScore = new StandScores() { StandId = newStand.Id, ShooterId = Shooters[y].id, StandTotal = Shooters[y].StandScoresByStandNum[x].standTotal};
-                        db.Insert(newStandScore);
-
-                        for (int z = 0; z <= Shooters[y].StandScoresByStandNum[x].shots.Count-1; z++)
-                        {
-                            int id = 0;
-
-                            switch (Shooters[y].StandScoresByStandNum[x].shots[z].Item1)
-                            {
-                                case "Pair":
-                                    if ((Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 0) && (Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 0)) { id = 3; }
-                                    else if ((Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 1) && (Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 1)) { id = 4; }
-                                    else if ((Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 2) && (Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 2)) { id = 5; }
-                                    else if ((Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 0) && (Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 1)) { id = 6; }
-                                    else if ((Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 0) && (Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 2)) { id = 7; }
-                                    else if ((Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 1) && (Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 0)) { id = 8; }
-                                    else if ((Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 2) && (Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 0)) { id = 9; }
-                                    else if ((Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 1) && (Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 2)) { id = 10; }
-                                    else if ((Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 2) && (Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 1)) { id = 11; }
-                                    break;
-                                case "Single":
-                                    switch (Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0])
-                                    {
-                                        case 0:
-                                            id = 0;
-                                            break;
-                                        case 1:
-                                            id = 1;
-                                            break;
-                                        case 2:
-                                            id = 2;
-                                            break;
-                                    }
-                                    break;
-                            }
-
-                            db.Insert(new Shots() { StandScoreId = newStandScore.Id, Num = z + 1, ShotCode = id});
-                        }
-                    }
-                }
-
-                for (int w = 0; w <= Shooters.Count-1; w++)
-                {
-                    OverallScores newOverallScore = new OverallScores() { ShootId = newShoot.Id, ShooterId = Shooters[w].id, OverallTotal = Shooters[w].overallTotal, OverallPercentage = Shooters[w].overallPercentage };
-                    db.Insert(newOverallScore);
-                }
-            }
-        }
-        public void SaveFormat() { }
-        public void CalculateStats() 
-        {
-            for (int y = 0; y <= Shooters.Count-1; y++)
-            {
-                Shooters[y].overallPercentage = (int)Math.Round((double)Shooters[y].overallTotal / numOfClays * 100);
-                for (int x = 1; x <= StandsByNum.Count; x++)
-                {
-                    Shooters[y].StandScoresByStandNum[x].standPercentage = (int)Math.Round((double)Shooters[y].StandScoresByStandNum[x].standTotal / (StandsByNum[x].numClays*2) * 100);
-                }
-            }
-        }
-        public Java.IO.File ShootToCSV()
-        {
-            CalculateStats();
-            string csvPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), $"{discipline.Replace(" ", "")}{date:yyyyMMdd}.csv");
-            StringBuilder sb = new StringBuilder();
-
-            sb.AppendLine("OVERALL");
-            sb.Append("NAME,");
-            for (int x = 1; x <= StandsByNum.Count; x++)
-            {
-                sb.Append($"STAND {x},");
-            }
-            sb.Append($"TOTAL /{numOfClays},");
-            sb.AppendLine("%");
-
-            for (int x = 0; x <= Shooters.Count-1; x++)
-            {
-                ShooterOverallData(x, out string name, out int overallTotal, out List<int> totals);
-                sb.Append($"{name},");              
-                sb.Append(string.Join(",", totals.Select(total => total.ToString()).ToArray()));
-                sb.AppendLine($",{Shooters[x].overallPercentage}");
-            }
-            File.WriteAllText(csvPath, sb.ToString());
-            sb.Clear();
-
-            for (int x = 1; x <= StandsByNum.Count; x++)
-            {
-                sb.AppendLine("");
-                sb.AppendLine($"STAND {x}");
-                sb.Append("NAME,");
-                for (int z = 0; z <= StandsByNum[x].shotFormat.Count-1; z++)
-                {
-                    sb.Append($"{StandsByNum[x].shotFormat[z]},");
-                }
-                sb.Append($"TOTAL /{StandsByNum[x].numClays},");
-                sb.AppendLine("%");
-
-                for (int y = 0; y <= Shooters.Count-1; y++)
-                {
-                    ShooterStandData(y, x, out string name, out int total, out List<Tuple<string, int[]>> hits);
-                    sb.Append($"{name},");
-                    for (int z = 0; z <= hits.Count-1; z++)
-                    {
-                        if (hits[z].Item1 == "Pair") { sb.Append($"{TranslateHitMiss(hits[z].Item2[0])}{TranslateHitMiss(hits[z].Item2[1])},"); }
-                        else if (hits[z].Item1 == "Single") { sb.Append($"{TranslateHitMiss(hits[z].Item2[0])},"); }
-                    }
-                    sb.Append($"{total}");
-                    sb.AppendLine($",{Shooters[y].StandScoresByStandNum[x].standPercentage}");
-                }
-                File.AppendAllText(csvPath, sb.ToString());
-                sb.Clear();
-            }
-
-            var file = new Java.IO.File(csvPath);
-
-            return file;
-        }
-        public string TranslateHitMiss(int value)
-        {
-            switch (value)
-            {
-                default:
-                    return " ";
-
-                case 1:
-                    return "X";
-
-                case 2:
-                    return "O";
-
-            }
-        }
-    }
-
-    class ShootScoreManagement : Shoot
-    {
-        public string UserNotes{ set 
-            {
-                userNotes = value;
             }
         }
 
@@ -361,21 +214,6 @@ namespace ClubClays
         {
             return StandsByNum[standNum].shotFormat;
         }
-    }
-
-    //for viewing shoot history
-    class PreviousShoot : Shoot 
-    {
-        
-        public DateTime Date
-        {
-            get { return date; }   
-        }
-
-        public string EventType
-        {
-            get { return discipline; }
-        }
 
         public void InitialisePreviousShoot(int shootID)
         {
@@ -419,7 +257,7 @@ namespace ClubClays
                     foreach (StandScores standScore in standScores)
                     {
                         var shooterStandScore = new Shooter.StandScore(standScore.StandTotal);
-                      
+
                         var shots = db.Table<Shots>().Where<Shots>(s => s.StandScoreId == standScore.Id).OrderBy(s => s.Num).ToList();
                         foreach (Shots shot in shots)
                         {
@@ -457,7 +295,7 @@ namespace ClubClays
                                     AddShotScore(ref shooterStandScore.shots, "Pair", new int[] { 2, 0 });
                                     break;
                                 case 10:
-                                    AddShotScore(ref shooterStandScore.shots, "Pair", new int[] { 1, 1 });
+                                    AddShotScore(ref shooterStandScore.shots, "Pair", new int[] { 1, 2 });
                                     break;
                                 case 11:
                                     AddShotScore(ref shooterStandScore.shots, "Pair", new int[] { 2, 1 });
@@ -471,9 +309,166 @@ namespace ClubClays
             }
         }
 
-        public void AddShotScore (ref List<Tuple<string, int[]>> shots, string type, int[] score)
+        public void AddShotScore(ref List<Tuple<string, int[]>> shots, string type, int[] score)
         {
             shots.Add(new Tuple<string, int[]>(type, score));
+        }
+
+
+        public void SaveShootData()
+        {
+            CalculateStats();
+
+            string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "ClubClaysData.db3");
+            using (var db = new SQLiteConnection(dbPath))
+            {
+                Shoots newShoot = new Shoots() { Title = title, Date = date, Location = location, EventType = discipline, NumStands = StandsByNum.Count, NumClays = numOfClays, Notes = userNotes };
+                db.Insert(newShoot);
+
+                for (int x = 1; x <= StandsByNum.Count; x++)
+                {
+                    Stands newStand = new Stands() { ShootId = newShoot.Id, StandNum = x, StandType = StandsByNum[x].standType };
+                    db.Insert(newStand);
+
+                    for (int a = 0; a <= StandsByNum[x].shotFormat.Count - 1; a++)
+                    {
+                        StandShots newStandShot = new StandShots() { ShotNum = a + 1, StandId = newStand.Id, Type = StandsByNum[x].shotFormat[a] };
+                        db.Insert(newStandShot);
+                    }
+
+                    for (int y = 0; y <= Shooters.Count - 1; y++)
+                    {
+                        StandScores newStandScore = new StandScores() { StandId = newStand.Id, ShooterId = Shooters[y].id, StandTotal = Shooters[y].StandScoresByStandNum[x].standTotal };
+                        db.Insert(newStandScore);
+
+                        for (int z = 0; z <= Shooters[y].StandScoresByStandNum[x].shots.Count - 1; z++)
+                        {
+                            int id = 0;
+
+                            switch (Shooters[y].StandScoresByStandNum[x].shots[z].Item1)
+                            {
+                                case "Pair":
+                                    if ((Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 0) && (Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 0)) { id = 3; }
+                                    else if ((Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 1) && (Shooters[y].StandScoresByStandNum[x].shots[z].Item2[1] == 1)) { id = 4; }
+                                    else if ((Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 2) && (Shooters[y].StandScoresByStandNum[x].shots[z].Item2[1] == 2)) { id = 5; }
+                                    else if ((Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 0) && (Shooters[y].StandScoresByStandNum[x].shots[z].Item2[1] == 1)) { id = 6; }
+                                    else if ((Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 0) && (Shooters[y].StandScoresByStandNum[x].shots[z].Item2[1] == 2)) { id = 7; }
+                                    else if ((Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 1) && (Shooters[y].StandScoresByStandNum[x].shots[z].Item2[1] == 0)) { id = 8; }
+                                    else if ((Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 2) && (Shooters[y].StandScoresByStandNum[x].shots[z].Item2[1] == 0)) { id = 9; }
+                                    else if ((Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 1) && (Shooters[y].StandScoresByStandNum[x].shots[z].Item2[1] == 2)) { id = 10; }
+                                    else if ((Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 2) && (Shooters[y].StandScoresByStandNum[x].shots[z].Item2[1] == 1)) { id = 11; }
+                                    break;
+                                case "Single":
+                                    switch (Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0])
+                                    {
+                                        case 0:
+                                            id = 0;
+                                            break;
+                                        case 1:
+                                            id = 1;
+                                            break;
+                                        case 2:
+                                            id = 2;
+                                            break;
+                                    }
+                                    break;
+                            }
+
+                            db.Insert(new Shots() { StandScoreId = newStandScore.Id, Num = z + 1, ShotCode = id });
+                        }
+                    }
+                }
+
+                for (int w = 0; w <= Shooters.Count - 1; w++)
+                {
+                    OverallScores newOverallScore = new OverallScores() { ShootId = newShoot.Id, ShooterId = Shooters[w].id, OverallTotal = Shooters[w].overallTotal, OverallPercentage = Shooters[w].overallPercentage };
+                    db.Insert(newOverallScore);
+                }
+            }
+        }
+        public void SaveFormat() { }
+        public void CalculateStats()
+        {
+            for (int y = 0; y <= Shooters.Count - 1; y++)
+            {
+                Shooters[y].overallPercentage = (int)Math.Round((double)Shooters[y].overallTotal / numOfClays * 100);
+                for (int x = 1; x <= StandsByNum.Count; x++)
+                {
+                    Shooters[y].StandScoresByStandNum[x].standPercentage = (int)Math.Round((double)Shooters[y].StandScoresByStandNum[x].standTotal / (StandsByNum[x].numClays * 2) * 100);
+                }
+            }
+        }
+        public Java.IO.File ShootToCSV()
+        {
+            CalculateStats();
+            string csvPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), $"{discipline.Replace(" ", "")}{date:yyyyMMdd}.csv");
+            StringBuilder sb = new StringBuilder();
+
+            sb.AppendLine("OVERALL");
+            sb.Append("NAME,");
+            for (int x = 1; x <= StandsByNum.Count; x++)
+            {
+                sb.Append($"STAND {x},");
+            }
+            sb.Append($"TOTAL /{numOfClays},");
+            sb.AppendLine("%");
+
+            for (int x = 0; x <= Shooters.Count - 1; x++)
+            {
+                ShooterOverallData(x, out string name, out int overallTotal, out List<int> totals);
+                sb.Append($"{name},");
+                sb.Append(string.Join(",", totals.Select(total => total.ToString()).ToArray()));
+                sb.AppendLine($",{Shooters[x].overallPercentage}");
+            }
+            File.WriteAllText(csvPath, sb.ToString());
+            sb.Clear();
+
+            for (int x = 1; x <= StandsByNum.Count; x++)
+            {
+                sb.AppendLine("");
+                sb.AppendLine($"STAND {x}");
+                sb.Append("NAME,");
+                for (int z = 0; z <= StandsByNum[x].shotFormat.Count - 1; z++)
+                {
+                    sb.Append($"{StandsByNum[x].shotFormat[z]},");
+                }
+                sb.Append($"TOTAL /{StandsByNum[x].numClays},");
+                sb.AppendLine("%");
+
+                for (int y = 0; y <= Shooters.Count - 1; y++)
+                {
+                    ShooterStandData(y, x, out string name, out int total, out List<Tuple<string, int[]>> hits);
+                    sb.Append($"{name},");
+                    for (int z = 0; z <= hits.Count - 1; z++)
+                    {
+                        if (hits[z].Item1 == "Pair") { sb.Append($"{TranslateHitMiss(hits[z].Item2[0])}{TranslateHitMiss(hits[z].Item2[1])},"); }
+                        else if (hits[z].Item1 == "Single") { sb.Append($"{TranslateHitMiss(hits[z].Item2[0])},"); }
+                    }
+                    sb.Append($"{total}");
+                    sb.AppendLine($",{Shooters[y].StandScoresByStandNum[x].standPercentage}");
+                }
+                File.AppendAllText(csvPath, sb.ToString());
+                sb.Clear();
+            }
+
+            var file = new Java.IO.File(csvPath);
+
+            return file;
+        }
+        public string TranslateHitMiss(int value)
+        {
+            switch (value)
+            {
+                default:
+                    return " ";
+
+                case 1:
+                    return "X";
+
+                case 2:
+                    return "O";
+
+            }
         }
     }
 }

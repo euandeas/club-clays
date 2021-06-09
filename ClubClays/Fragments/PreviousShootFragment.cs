@@ -24,7 +24,7 @@ namespace ClubClays.Fragments
     public class PreviousShootFragment : Fragment, IActivityResultCallback
     {
         private ActivityResultLauncher launcher;
-        private PreviousShoot previousShootModel;
+        private Shoot previousShootModel;
         int shootId;
         Java.IO.File file;
         Toolbar toolbar;
@@ -48,7 +48,7 @@ namespace ClubClays.Fragments
 
             shootId = Arguments.GetInt("ShootID");
 
-            previousShootModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(PreviousShoot))) as PreviousShoot;
+            previousShootModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(Shoot))) as Shoot;
             previousShootModel.InitialisePreviousShoot(shootId);
 
             toolbar = view.FindViewById<Toolbar>(Resource.Id.toolbar);
@@ -66,7 +66,7 @@ namespace ClubClays.Fragments
             collapsingRelativeLayout = view.FindViewById<RelativeLayout>(Resource.Id.collapsingRelativeLayout);
 
             ViewPager2 viewPager = view.FindViewById<ViewPager2>(Resource.Id.view_pager);
-            viewPager.Adapter = new ScoreViewPagerAdapter(this, previousShootModel.NumStands, "Previous");
+            viewPager.Adapter = new ScoreViewPagerAdapter(this, previousShootModel.NumStands, false);
 
             TabLayout tabLayout = view.FindViewById<TabLayout>(Resource.Id.tab_layout);
             new TabLayoutMediator(tabLayout, viewPager, new TabConfigStrat()).Attach();

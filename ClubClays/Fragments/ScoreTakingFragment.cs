@@ -18,7 +18,7 @@ namespace ClubClays.Fragments
 {
     public class ScoreTakingFragment : Fragment
     {
-        ShootScoreManagement scoreManagementModel;
+        Shoot scoreManagementModel;
         FloatingActionButton fab;
         ScoreViewPagerAdapter scoreViewPagerAdapter;
         ViewPager2 viewPager;
@@ -40,10 +40,10 @@ namespace ClubClays.Fragments
             ActionBar supportBar = ((AppCompatActivity)Activity).SupportActionBar;
             HasOptionsMenu = true;
 
-            scoreManagementModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(ShootScoreManagement))) as ShootScoreManagement;
+            scoreManagementModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(Shoot))) as Shoot;
 
             viewPager = view.FindViewById<ViewPager2>(Resource.Id.view_pager);
-            scoreViewPagerAdapter = new ScoreViewPagerAdapter(this, scoreManagementModel.NumStands, "Adding");
+            scoreViewPagerAdapter = new ScoreViewPagerAdapter(this, scoreManagementModel.NumStands, true);
             viewPager.Adapter = scoreViewPagerAdapter;
 
             TabLayout tabLayout = view.FindViewById<TabLayout>(Resource.Id.tab_layout);
