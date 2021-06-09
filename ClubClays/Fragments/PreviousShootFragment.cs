@@ -31,6 +31,9 @@ namespace ClubClays.Fragments
         View titleTextView;
         AppBarLayout appBarLayout;
         RelativeLayout collapsingRelativeLayout;
+        ViewPager2 viewPager;
+        TabLayout tabLayout;
+        IMenu menu;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -65,10 +68,10 @@ namespace ClubClays.Fragments
 
             collapsingRelativeLayout = view.FindViewById<RelativeLayout>(Resource.Id.collapsingRelativeLayout);
 
-            ViewPager2 viewPager = view.FindViewById<ViewPager2>(Resource.Id.view_pager);
+            viewPager = view.FindViewById<ViewPager2>(Resource.Id.view_pager);
             viewPager.Adapter = new ScoreViewPagerAdapter(this, previousShootModel.NumStands, false);
 
-            TabLayout tabLayout = view.FindViewById<TabLayout>(Resource.Id.tab_layout);
+            tabLayout = view.FindViewById<TabLayout>(Resource.Id.tab_layout);
             new TabLayoutMediator(tabLayout, viewPager, new TabConfigStrat()).Attach();
 
             return view;
@@ -76,6 +79,7 @@ namespace ClubClays.Fragments
 
         public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
         {
+            this.menu = menu;
             inflater.Inflate(Resource.Menu.previous_shoot_toolbar_menu, menu);
 
             if (menu is MenuBuilder)
@@ -99,6 +103,24 @@ namespace ClubClays.Fragments
                 shareIntent.PutExtra(Intent.ExtraStream, uri);
                 shareIntent.SetType("text/csv");
                 launcher.Launch(Intent.CreateChooser(shareIntent, "Share Shoot as CSV"));
+            }
+            else if(item.ItemId == Resource.Id.edit_shoot)
+            {
+                viewPager.Adapter = new ScoreViewPagerAdapter(this, previousShootModel.NumStands, true);
+                viewPager.SetCurrentItem(tabLayout.SelectedTabPosition, false);
+                menu.FindItem(Resource.Id.save_shoot).SetVisible(true);
+                menu.FindItem(Resource.Id.share_csv).SetVisible(false);
+                menu.FindItem(Resource.Id.edit_shoot).SetVisible(false);
+                menu.FindItem(Resource.Id.delete_shoot).SetVisible(false);
+            }
+            else if (item.ItemId == Resource.Id.save_shoot)
+            {
+                menu.FindItem(Resource.Id.save_shoot).SetVisible(false);
+                menu.FindItem(Resource.Id.share_csv).SetVisible(true);
+                menu.FindItem(Resource.Id.edit_shoot).SetVisible(true);
+                menu.FindItem(Resource.Id.delete_shoot).SetVisible(true);
+                viewPager.Adapter = new ScoreViewPagerAdapter(this, previousShootModel.NumStands, false);
+                viewPager.SetCurrentItem(tabLayout.SelectedTabPosition, false);
             }
             else if(item.ItemId == Resource.Id.delete_shoot)
             {
