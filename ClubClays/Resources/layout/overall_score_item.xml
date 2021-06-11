@@ -20,7 +20,6 @@
 					android:id="@+id/shooterName"
 					android:paddingLeft="10dp"
 					android:paddingRight="10dp"
-					android:paddingBottom="5dp"
 					android:textSize="15sp"
 					android:paddingTop="5dp"/>
 				<TextView
@@ -38,7 +37,8 @@
 				android:id="@+id/scoresLayout"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
-				android:orientation="horizontal">
+				android:orientation="horizontal"
+				android:paddingLeft="5dp">
 			</LinearLayout>
 		</LinearLayout>
 </androidx.cardview.widget.CardView>

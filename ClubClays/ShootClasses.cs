@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -394,7 +395,7 @@ namespace ClubClays
                 Shooters[y].overallPercentage = (int)Math.Round((double)Shooters[y].overallTotal / numOfClays * 100);
                 for (int x = 1; x <= StandsByNum.Count; x++)
                 {
-                    Shooters[y].StandScoresByStandNum[x].standPercentage = (int)Math.Round((double)Shooters[y].StandScoresByStandNum[x].standTotal / (StandsByNum[x].numClays * 2) * 100);
+                    Shooters[y].StandScoresByStandNum[x].standPercentage = (int)Math.Round((double)Shooters[y].StandScoresByStandNum[x].standTotal / (StandsByNum[x].numClays) * 100);
                 }
             }
         }
@@ -418,7 +419,8 @@ namespace ClubClays
                 ShooterOverallData(x, out string name, out int overallTotal, out List<int> totals);
                 sb.Append($"{name},");
                 sb.Append(string.Join(",", totals.Select(total => total.ToString()).ToArray()));
-                sb.AppendLine($",{Shooters[x].overallPercentage}");
+                sb.Append($",{overallTotal},");
+                sb.AppendLine($"{Shooters[x].overallPercentage}");
             }
             File.WriteAllText(csvPath, sb.ToString());
             sb.Clear();
