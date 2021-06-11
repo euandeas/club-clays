@@ -1,28 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto">
-
-	<item android:id="@+id/cancel_edit"
-		  app:showAsAction="ifRoom"
-		  android:title="Save Shoot"
-		  android:icon="@drawable/outline_close"
-		  android:visible="false"/>
-	
-	<item android:id="@+id/save_shoot"
-		  app:showAsAction="ifRoom"
-		  android:title="Save Shoot"
-		  android:icon="@drawable/outline_done"
-		  android:visible="false"/>
 	
 	<item android:id="@+id/share_csv"
 		  app:showAsAction="ifRoom"
 		  android:title="Share as CSV"
 		  android:icon="@drawable/outline_share"/>
-
-	<item android:id="@+id/edit_shoot"
-		  app:showAsAction="never"
-		  android:title="Edit Shoot"
-		  android:icon="@drawable/outline_edit"/>
 	
 	<item android:id="@+id/delete_shoot"
 		  app:showAsAction="never"

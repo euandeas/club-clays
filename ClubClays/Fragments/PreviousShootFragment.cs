@@ -104,64 +104,6 @@ namespace ClubClays.Fragments
                 shareIntent.SetType("text/csv");
                 launcher.Launch(Intent.CreateChooser(shareIntent, "Share Shoot as CSV"));
             }
-            else if (item.ItemId == Resource.Id.edit_shoot)
-            {
-                viewPager.Adapter = new ScoreViewPagerAdapter(this, previousShootModel.NumStands, true);
-                viewPager.SetCurrentItem(tabLayout.SelectedTabPosition, false);
-                menu.FindItem(Resource.Id.save_shoot).SetVisible(true);
-                menu.FindItem(Resource.Id.cancel_edit).SetVisible(true);
-                menu.FindItem(Resource.Id.share_csv).SetVisible(false);
-                menu.FindItem(Resource.Id.edit_shoot).SetVisible(false);
-                menu.FindItem(Resource.Id.delete_shoot).SetVisible(false);
-            }
-            else if (item.ItemId == Resource.Id.save_shoot)
-            {
-                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(Activity);
-                builder.SetTitle("Save changes?");
-                builder.SetMessage("This will permanently save the changes to the shoot.");
-                builder.SetPositiveButton("Yes", (c, ev) =>
-                {
-                    string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
-                    using (var db = new SQLiteConnection(dbPath))
-                    {
-                        menu.FindItem(Resource.Id.cancel_edit).SetVisible(false);
-                        menu.FindItem(Resource.Id.save_shoot).SetVisible(false);
-                        menu.FindItem(Resource.Id.share_csv).SetVisible(true);
-                        menu.FindItem(Resource.Id.edit_shoot).SetVisible(true);
-                        menu.FindItem(Resource.Id.delete_shoot).SetVisible(true);
-                        viewPager.Adapter = new ScoreViewPagerAdapter(this, previousShootModel.NumStands, false);
-                        viewPager.SetCurrentItem(tabLayout.SelectedTabPosition, false);
-                    }
-
-                });
-
-                builder.SetNegativeButton("No", (c, ev) => { });
-                builder.Show();
-            }
-            else if (item.ItemId == Resource.Id.cancel_edit) 
-            {
-                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(Activity);
-                builder.SetTitle("Cancel editing?");
-                builder.SetMessage("This will revert any changes and cancel editing.");
-                builder.SetPositiveButton("Yes", (c, ev) =>
-                {
-                    string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
-                    using (var db = new SQLiteConnection(dbPath))
-                    {
-                        menu.FindItem(Resource.Id.cancel_edit).SetVisible(false);
-                        menu.FindItem(Resource.Id.save_shoot).SetVisible(false);
-                        menu.FindItem(Resource.Id.share_csv).SetVisible(true);
-                        menu.FindItem(Resource.Id.edit_shoot).SetVisible(true);
-                        menu.FindItem(Resource.Id.delete_shoot).SetVisible(true);
-                        viewPager.Adapter = new ScoreViewPagerAdapter(this, previousShootModel.NumStands, false);
-                        viewPager.SetCurrentItem(tabLayout.SelectedTabPosition, false);
-                    }
-
-                });
-
-                builder.SetNegativeButton("No", (c, ev) => { });
-                builder.Show();
-            }
             else if (item.ItemId == Resource.Id.delete_shoot)
             {
                 MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(Activity);
