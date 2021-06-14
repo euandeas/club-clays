@@ -1,15 +1,10 @@
 ﻿using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Util;
 using Android.Views;
 using Android.Widget;
+using AndroidX.AppCompat.App;
 using AndroidX.RecyclerView.Widget;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Fragment = AndroidX.Fragment.App.Fragment;
 
 namespace ClubClays.Fragments
@@ -27,6 +22,12 @@ namespace ClubClays.Fragments
         {
             // Use this to return your custom view for this Fragment
             View view = inflater.Inflate(Resource.Layout.fragment_shoot_format_edit, container, false);
+
+            Toolbar toolbar = view.FindViewById<Toolbar>(Resource.Id.toolbar);
+            ((AppCompatActivity)Activity).SetSupportActionBar(toolbar);
+            ActionBar supportBar = ((AppCompatActivity)Activity).SupportActionBar;
+            supportBar.SetDisplayHomeAsUpEnabled(true);
+            supportBar.SetDisplayShowHomeEnabled(true);
 
             return view;
         }
