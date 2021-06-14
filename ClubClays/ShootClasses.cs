@@ -146,11 +146,12 @@ namespace ClubClays
             }
         }
 
-        public void Initialise(List<Shooters> shooters, List<Stand> stands, DateTime date, string location, string discipline)
+        public void Initialise(List<Shooters> shooters, List<Stand> stands, DateTime date, string location, string discipline, string title)
         {
             this.date = date;
             this.location = location;
             this.discipline = discipline;
+            this.title = title;
 
             foreach (Shooters shooter in shooters)
             {

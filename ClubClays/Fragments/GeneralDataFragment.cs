@@ -30,6 +30,7 @@ namespace ClubClays.Fragments
         private TextView standFormatting;
 
         private ShooterStandData standShooterModel;
+        private TextInputEditText titleInput;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -48,6 +49,8 @@ namespace ClubClays.Fragments
             ActionBar supportBar = ((AppCompatActivity)Activity).SupportActionBar;
             supportBar.SetDisplayHomeAsUpEnabled(true);
             supportBar.SetDisplayShowHomeEnabled(true);
+
+            titleInput = view.FindViewById<TextInputEditText>(Resource.Id.titleEditText);
 
             AutoCompleteTextView spinner = view.FindViewById<AutoCompleteTextView>(Resource.Id.disciplineDropdown);
             spinner.ItemClick += new EventHandler<AdapterView.ItemClickEventArgs>(spinner_ItemSelected);
@@ -106,7 +109,7 @@ namespace ClubClays.Fragments
             FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
 
             Shoot activeShootModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(Shoot))) as Shoot;
-            activeShootModel.Initialise(standShooterModel.selectedShooters, standShooterModel.standFormats, date, locationInput.Text, discipline);
+            activeShootModel.Initialise(standShooterModel.selectedShooters, standShooterModel.standFormats, date, locationInput.Text, discipline, titleInput.Text);
                 
             fragmentTx.Replace(Resource.Id.container, new ScoreTakingFragment());
             fragmentTx.Commit();
