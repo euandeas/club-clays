@@ -77,7 +77,9 @@
     <Compile Include="Fragments\ShootEndFragment.cs" />
     <Compile Include="Fragments\ShooterManagementFragment.cs" />
     <Compile Include="Fragments\ShootersFragment.cs" />
-    <Compile Include="Fragments\StandFormatsManagmentFragment.cs" />
+    <Compile Include="Fragments\ShootFormatEditFragment.cs" />
+    <Compile Include="Fragments\ShootFormatsFragment.cs" />
+    <Compile Include="Fragments\StandFormatFragment.cs" />
     <Compile Include="Fragments\StandScoreFragment.cs" />
     <Compile Include="Fragments\StandSetupFragment.cs" />
     <Compile Include="ItemMoveCallBack.cs">
@@ -314,6 +316,21 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\outline_close.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\fragment_shoot_formats.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\fragment_shoot_format_edit.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\fragment_stand_format.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
