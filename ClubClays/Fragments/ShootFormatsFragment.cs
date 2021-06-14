@@ -5,6 +5,7 @@ using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using AndroidX.RecyclerView.Widget;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,45 @@ namespace ClubClays.Fragments
             View view = inflater.Inflate(Resource.Layout.fragment_shoot_formats, container, false);
 
             return view;
+        }
+    }
+
+    public class ShootFormatsRecyclerAdapter : RecyclerView.Adapter
+    {
+        //private List<Shooters> shooters;
+
+        // Provide a reference to the views for each data item
+        public class MyView : RecyclerView.ViewHolder
+        {
+            public View mMainView { get; set; }
+            public MyView(View view) : base(view)
+            {
+                mMainView = view;
+            }
+        }
+
+        // Return the size of data set (invoked by the layout manager)
+        public override int ItemCount
+        {
+            get { return 0; }
+        }
+
+        // Replace the contents of a view (invoked by layout manager)
+        public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Create new views (invoked by layout manager)
+        public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
+        {
+            throw new NotImplementedException();
+        }
+
+        // Provide a suitable constructor (depends on the kind of dataset)
+        public ShootFormatsRecyclerAdapter()
+        {
+
         }
     }
 }
