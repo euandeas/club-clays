@@ -13,7 +13,7 @@ namespace ClubClays
     {
         public List<Shooters> selectedShooters;
         public List<Shooters> allShooters;
-        public List<Stand> standFormats;
+        public ShootFormats selectedFormat;
     }
 
     public class Stand

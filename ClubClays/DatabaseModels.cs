@@ -104,6 +104,7 @@ namespace ClubClays.DatabaseModels
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public int ShootFormatId { get; set; }
+        public int StandNum { get; set; }
         public string StandType { get; set; }
         public int NumClays { get; set; }
     }

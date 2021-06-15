@@ -22,10 +22,10 @@ namespace ClubClays.Fragments
 
         private void ManageFormats_PreferenceClick(object sender, Preference.PreferenceClickEventArgs e)
         {
-            FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
-            fragmentTx.Replace(Resource.Id.container, new StandFormatsManagmentFragment());
-            fragmentTx.AddToBackStack(null);
-            fragmentTx.Commit();
+            //FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
+            //fragmentTx.Replace(Resource.Id.container, new StandFormatsManagmentFragment());
+           // fragmentTx.AddToBackStack(null);
+           // fragmentTx.Commit();
         }
 
         private void ManageShooters_PreferenceClick(object sender, Preference.PreferenceClickEventArgs e)

@@ -1,7 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-</LinearLayout>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:cardview="http://schemas.android.com/apk/res-auto"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/shootFormatCard"
+		android:layout_marginBottom="1dp">
+		<LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+			android:orientation="vertical">
+			<TextView
+				android:text="Format Title"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:id="@+id/formatTitle"
+				android:paddingLeft="10dp"
+				android:paddingRight="10dp"
+				android:paddingBottom="5dp"
+				android:textStyle="italic"
+				android:textSize="20sp"/>
+			<TextView
+				android:text="5 Stands"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:id="@+id/numOfStands"
+				android:paddingLeft="10dp"
+				android:paddingRight="10dp"
+				android:paddingBottom="5dp"
+				android:textSize="10sp"/>
+		</LinearLayout>	
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:orientation="horizontal"
+			android:layout_gravity="right | center_vertical">
+			<ImageView
+				android:id="@+id/shootFormatSelected"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:src="@drawable/outline_done"
+				android:background="#0000"
+				android:padding="5dp"
+				android:contentDescription="" />
+			<ImageButton
+				android:id="@+id/shootFormatEditButton"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:src="@drawable/outline_edit"
+				android:background="#0000"
+				android:paddingLeft="5dp"
+				android:paddingRight="10dp"
+				android:paddingTop="5dp"
+				android:paddingBottom="5dp"
+				android:contentDescription="" />
+		</LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -75,12 +75,11 @@ namespace ClubClays.Fragments
             standShooterModel.allShooters = db.Table<Shooters>().ToList();
             db.Close();
             standShooterModel.selectedShooters = new List<Shooters>();
+            standShooterModel.selectedFormat = null;
 
             standFormatting = view.FindViewById<TextInputEditText>(Resource.Id.standsEditText);
             standFormatting.Text = "0 Stand(s) Setup";
-            standFormatting.Click += StandFormatting_Click; ;
-
-            standShooterModel.standFormats = new List<Stand>();
+            standFormatting.Click += StandFormatting_Click;
 
             FloatingActionButton fab = view.FindViewById<FloatingActionButton>(Resource.Id.nextButton);
             fab.Click += NextButton_Click;
@@ -91,7 +90,7 @@ namespace ClubClays.Fragments
         private void StandFormatting_Click(object sender, EventArgs e)
         {
             FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
-            StandSetupFragment standSetupFragment = new StandSetupFragment();
+            ShootFormatsFragment standSetupFragment = new ShootFormatsFragment();
             fragmentTx.Add(Resource.Id.container, standSetupFragment);
             fragmentTx.AddToBackStack(null);
             fragmentTx.Commit();
@@ -109,7 +108,7 @@ namespace ClubClays.Fragments
             FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
 
             Shoot activeShootModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(Shoot))) as Shoot;
-            activeShootModel.Initialise(standShooterModel.selectedShooters, standShooterModel.standFormats, date, locationInput.Text, discipline, titleInput.Text);
+            //activeShootModel.Initialise(standShooterModel.selectedShooters, standShooterModel.standFormats, date, locationInput.Text, discipline, titleInput.Text);
                 
             fragmentTx.Replace(Resource.Id.container, new ScoreTakingFragment());
             fragmentTx.Commit();
