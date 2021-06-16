@@ -82,7 +82,8 @@ namespace ClubClays
         public override int GetMovementFlags(RecyclerView p0, RecyclerView.ViewHolder p1)
         {
             int dragFlags = ItemTouchHelper.Up | ItemTouchHelper.Down;
-            return MakeMovementFlags(dragFlags, 0);
+            int swipeFlags = ItemTouchHelper.Left;
+            return MakeMovementFlags(dragFlags, swipeFlags);
         }
 
         public override bool OnMove(RecyclerView p0, RecyclerView.ViewHolder p1, RecyclerView.ViewHolder p2)

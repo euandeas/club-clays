@@ -77,6 +77,8 @@ namespace ClubClays.Fragments
             {
                 db.CreateCommand($"UPDATE ShootFormats SET FormatName = '{title.Text}', NumStands = {recyclerAdapter.ItemCount}, ClayAmount = {numClays} WHERE ID = {Arguments.GetInt("ShootFormatID")};").ExecuteNonQuery();
             }
+
+            Activity.SupportFragmentManager.PopBackStack();
         }
 
         private void Fab_Click(object sender, EventArgs e)
