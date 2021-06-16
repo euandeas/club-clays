@@ -5,6 +5,7 @@ using AndroidX.AppCompat.App;
 using AndroidX.Fragment.App;
 using AndroidX.RecyclerView.Widget;
 using Google.Android.Material.FloatingActionButton;
+using Google.Android.Material.TextField;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,9 @@ namespace ClubClays.Fragments
 {
     public class ShootFormatEditFragment : Fragment
     {
+        ShootFormatRecyclerAdapter recyclerAdapter;
+        private TextInputEditText title;
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -34,18 +38,25 @@ namespace ClubClays.Fragments
             supportBar.SetDisplayHomeAsUpEnabled(true);
             supportBar.SetDisplayShowHomeEnabled(true);
 
+            toolbar.FindViewById<TextView>(Resource.Id.saveButton).Click += Save_Click;
+
             List<DatabaseModels.StandFormats> standFormats;
+
+            title = view.FindViewById<TextInputEditText>(Resource.Id.shootFormatTitleEditText);
 
             string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
             using (var db = new SQLiteConnection(dbPath))
             {
-                standFormats = db.Table<DatabaseModels.StandFormats>().Where(s => s.ShootFormatId == Arguments.GetInt("ShootFormatID")).OrderByDescending(s => s.StandNum).ToList();
+                int id = Arguments.GetInt("ShootFormatID");
+                title.Text = db.Table<DatabaseModels.ShootFormats>().Where(s => s.Id == id).ToList()[0].FormatName;
+                standFormats = db.Table<DatabaseModels.StandFormats>().Where(s => s.ShootFormatId == id).OrderBy(s => s.StandNum).ToList();
             }
 
             LinearLayoutManager LayoutManager = new LinearLayoutManager(Activity);
             RecyclerView shootsRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.recyclerView);
             shootsRecyclerView.SetLayoutManager(LayoutManager);
-            shootsRecyclerView.SetAdapter(new ShootFormatRecyclerAdapter(standFormats, Activity));
+            recyclerAdapter = new ShootFormatRecyclerAdapter(standFormats, Activity);
+            shootsRecyclerView.SetAdapter(recyclerAdapter);
 
             FloatingActionButton fab = view.FindViewById<FloatingActionButton>(Resource.Id.addButton);
             fab.Click += Fab_Click;
@@ -53,17 +64,50 @@ namespace ClubClays.Fragments
             return view;
         }
 
+        private void Save_Click(object sender, EventArgs e)
+        {
+            int numClays = 0;
+            foreach (DatabaseModels.StandFormats stand in recyclerAdapter.standFormats)
+            {
+                numClays += stand.NumClays;
+            }
+            
+            string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
+            using (var db = new SQLiteConnection(dbPath))
+            {
+                db.CreateCommand($"UPDATE ShootFormats SET FormatName = '{title.Text}', NumStands = {recyclerAdapter.ItemCount}, ClayAmount = {numClays} WHERE ID = {Arguments.GetInt("ShootFormatID")};").ExecuteNonQuery();
+            }
+        }
+
         private void Fab_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            StandFormatFragment fragment = new StandFormatFragment();
+            Bundle args = new Bundle();
+
+            DatabaseModels.StandFormats standFormat;
+
+
+            string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
+            using (var db = new SQLiteConnection(dbPath))
+            {
+                standFormat = new DatabaseModels.StandFormats { ShootFormatId = Arguments.GetInt("ShootFormatID"), NumClays = 0, StandNum = recyclerAdapter.ItemCount + 1};
+                db.Insert(standFormat);
+            }
+
+            args.PutInt("StandFormatID", standFormat.Id);
+            fragment.Arguments = args;
+
+            FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
+            fragmentTx.Replace(Resource.Id.container, fragment);
+            fragmentTx.AddToBackStack(null);
+            fragmentTx.Commit();
         }
     }
 
     public class ShootFormatRecyclerAdapter : RecyclerView.Adapter
     {
-        List<DatabaseModels.StandFormats> standFormats;
+        public List<DatabaseModels.StandFormats> standFormats;
         private FragmentActivity activity;
-        private int shootFormatId;
 
         // Provide a reference to the views for each data item
         public class MyView : RecyclerView.ViewHolder
@@ -106,7 +150,7 @@ namespace ClubClays.Fragments
             {
                 StandFormatFragment fragment = new StandFormatFragment();
                 Bundle args = new Bundle();
-                args.PutInt("StandFormatID", standFormats[view.AdapterPosition - 1].Id);
+                args.PutInt("StandFormatID", standFormats[view.AdapterPosition].Id);
                 fragment.Arguments = args;
 
                 FragmentTransaction fragmentTx = activity.SupportFragmentManager.BeginTransaction();

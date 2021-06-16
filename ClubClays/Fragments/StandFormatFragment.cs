@@ -44,7 +44,8 @@ namespace ClubClays.Fragments
             string dbPath = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
             using (var db = new SQLiteConnection(dbPath))
             {
-                shotFormats = db.Table<StandShotsFormats>().Where(s => s.StandFormatId == Arguments.GetInt("StandFormatID")).OrderByDescending(s => s.ShotNum).ToList();
+                int id = Arguments.GetInt("StandFormatID");
+                shotFormats = db.Table<StandShotsFormats>().Where(s => s.StandFormatId == id).OrderByDescending(s => s.ShotNum).ToList();
             }
 
             LinearLayoutManager LayoutManager = new LinearLayoutManager(Activity);
@@ -67,7 +68,8 @@ namespace ClubClays.Fragments
             string dbPath = System.IO.Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
             using (var db = new SQLiteConnection(dbPath))
             {
-                db.Table<StandShotsFormats>().Where(s => s.StandFormatId == Arguments.GetInt("StandFormatID")).Delete();
+                int id = Arguments.GetInt("StandFormatID");
+                db.Table<StandShotsFormats>().Where(s => s.StandFormatId == id).Delete();
                 int numClays = 0;
                 foreach (StandShotsFormats shot in recyclerAdapter.ShotsFormat)
                 {
@@ -83,8 +85,9 @@ namespace ClubClays.Fragments
                         numClays += 1;
                     }
                 }
-
+               
                 db.CreateCommand($"UPDATE StandFormats SET NumClays = {numClays} WHERE ID = {Arguments.GetInt("StandFormatID")};").ExecuteNonQuery();
+
             }
 
             Activity.SupportFragmentManager.PopBackStack();
@@ -123,6 +126,7 @@ namespace ClubClays.Fragments
         public void AddItem(string type)
         {
             shotsFormats.Add(new StandShotsFormats { ShotNum = shotsFormats.Count + 1, Type = type, StandFormatId = standFormatId});
+            NotifyDataSetChanged();
         }
 
         // Provide a reference to the views for each data item
@@ -199,10 +203,15 @@ namespace ClubClays.Fragments
             list[indexB].ShotNum = indexB + 1;
         }
 
-        public void onSwiped(RecyclerView.ViewHolder myViewHolder, int pos)
+        public void onSwiped(RecyclerView.ViewHolder myViewHolder, int direction)
         {
-            shotsFormats.RemoveAt(pos);
-            NotifyItemRemoved(pos);
+            if (direction == ItemTouchHelper.Left)
+            {
+                int pos = myViewHolder.AdapterPosition;
+                shotsFormats.RemoveAt(pos);
+                NotifyItemRemoved(pos);
+            }
+
         }
 
         // Provide a suitable constructor (depends on the kind of dataset)

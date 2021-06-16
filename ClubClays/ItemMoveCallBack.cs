@@ -73,7 +73,7 @@ namespace ClubClays
             void onRowMoved(int fromPosition, int toPosition);
             void onRowSelected(RecyclerView.ViewHolder myViewHolder);
             void onRowClear(RecyclerView.ViewHolder myViewHolder);
-            void onSwiped(RecyclerView.ViewHolder myViewHolder, int pos);
+            void onSwiped(RecyclerView.ViewHolder myViewHolder, int direction);
         }
 
         public override bool IsLongPressDragEnabled => true;
@@ -90,7 +90,7 @@ namespace ClubClays
             mAdapter.onRowMoved(p1.AdapterPosition, p2.AdapterPosition);
             return true;
         }
-
+     
         public override void OnSwiped(RecyclerView.ViewHolder p0, int p1)
         {
             mAdapter.onSwiped(p0, p1);

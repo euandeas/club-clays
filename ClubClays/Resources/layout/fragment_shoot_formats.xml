@@ -35,6 +35,6 @@
         android:layout_height="wrap_content"
         app:fabSize="normal"
         android:layout_gravity="end|bottom"
-        android:src="@drawable/arrow_right"
+        android:src="@drawable/add"
         android:layout_margin="20dp" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

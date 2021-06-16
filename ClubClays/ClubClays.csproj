@@ -81,7 +81,6 @@
     <Compile Include="Fragments\ShootFormatsFragment.cs" />
     <Compile Include="Fragments\StandFormatFragment.cs" />
     <Compile Include="Fragments\StandScoreFragment.cs" />
-    <Compile Include="Fragments\StandSetupFragment.cs" />
     <Compile Include="ItemMoveCallBack.cs">
       <SubType>Code</SubType>
     </Compile>

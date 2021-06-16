@@ -5,6 +5,7 @@ using AndroidX.AppCompat.App;
 using AndroidX.Fragment.App;
 using AndroidX.Lifecycle;
 using AndroidX.RecyclerView.Widget;
+using Google.Android.Material.FloatingActionButton;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -49,7 +50,31 @@ namespace ClubClays.Fragments
             shootsRecyclerView.SetLayoutManager(LayoutManager);
             shootsRecyclerView.SetAdapter(new ShootFormatsRecyclerAdapter(shootFormats, Activity));
 
+            FloatingActionButton fab = view.FindViewById<FloatingActionButton>(Resource.Id.addButton);
+            fab.Click += Fab_Click;
+
             return view;
+        }
+
+        private void Fab_Click(object sender, EventArgs e)
+        {
+            DatabaseModels.ShootFormats shootFormat;
+            string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
+            using (var db = new SQLiteConnection(dbPath))
+            {
+                shootFormat = new DatabaseModels.ShootFormats { };
+                db.Insert(shootFormat);
+            }
+
+            ShootFormatEditFragment fragment = new ShootFormatEditFragment();
+            Bundle args = new Bundle();
+            args.PutInt("ShootFormatID", shootFormat.Id);
+            fragment.Arguments = args;
+
+            FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
+            fragmentTx.Replace(Resource.Id.container, fragment);
+            fragmentTx.AddToBackStack(null);
+            fragmentTx.Commit();
         }
     }
 
@@ -100,10 +125,10 @@ namespace ClubClays.Fragments
             }
             else
             {
-                myHolder.mShootFormatTitle.Text = $"{shootFormats[position].FormatName}";
-                myHolder.mNumStands.Text = $"{shootFormats[position].NumStands} Stand(s)";
+                myHolder.mShootFormatTitle.Text = $"{shootFormats[position-1].FormatName}";
+                myHolder.mNumStands.Text = $"{shootFormats[position-1].NumStands} Stand(s)";
 
-                if (standShooterModel.selectedFormat == shootFormats[position])
+                if (standShooterModel.selectedFormat == shootFormats[position-1])
                 {
                     myHolder.mSelecetedIcon.Visibility = ViewStates.Visible;
                 }
