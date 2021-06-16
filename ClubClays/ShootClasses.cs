@@ -32,6 +32,11 @@ namespace ClubClays
                 {
                     numClays += 2;
                 }
+
+                if (format == "Single")
+                {
+                    numClays += 1;
+                }
             }
         }
     }

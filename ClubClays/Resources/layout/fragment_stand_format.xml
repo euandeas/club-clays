@@ -18,7 +18,18 @@
             android:background="?attr/colorPrimary"   
             app:titleTextAppearance="@style/Toolbar.TitleText"
             android:theme="@style/ThemeOverlay.MaterialComponents.Light"
-            app:title="Edit Stand"/>
+            app:title="Edit Stand">
+            <TextView
+					android:text="Save"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:id="@+id/saveButton"
+					android:paddingLeft="10dp"
+					android:paddingRight="10dp"
+					android:paddingBottom="5dp"
+					android:textSize="15sp"
+					android:layout_gravity="right"/>
+        </androidx.appcompat.widget.Toolbar>
 
         <androidx.cardview.widget.CardView 
 			android:layout_width="match_parent"

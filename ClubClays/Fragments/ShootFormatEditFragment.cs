@@ -4,6 +4,7 @@ using Android.Widget;
 using AndroidX.AppCompat.App;
 using AndroidX.Fragment.App;
 using AndroidX.RecyclerView.Widget;
+using Google.Android.Material.FloatingActionButton;
 using SQLite;
 using System;
 using System.Collections.Generic;
@@ -46,7 +47,15 @@ namespace ClubClays.Fragments
             shootsRecyclerView.SetLayoutManager(LayoutManager);
             shootsRecyclerView.SetAdapter(new ShootFormatRecyclerAdapter(standFormats, Activity));
 
+            FloatingActionButton fab = view.FindViewById<FloatingActionButton>(Resource.Id.addButton);
+            fab.Click += Fab_Click;
+
             return view;
+        }
+
+        private void Fab_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 
