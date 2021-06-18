@@ -78,7 +78,7 @@ namespace ClubClays.Fragments
             standShooterModel.selectedFormat = null;
 
             standFormatting = view.FindViewById<TextInputEditText>(Resource.Id.standsEditText);
-            standFormatting.Text = "0 Stand(s) Setup";
+            standFormatting.Text = "Blank";
             standFormatting.Click += StandFormatting_Click;
 
             FloatingActionButton fab = view.FindViewById<FloatingActionButton>(Resource.Id.nextButton);
@@ -91,6 +91,9 @@ namespace ClubClays.Fragments
         {
             FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
             ShootFormatsFragment standSetupFragment = new ShootFormatsFragment();
+            Bundle args = new Bundle();
+            args.PutBoolean("selectable", true);
+            standSetupFragment.Arguments = args;
             fragmentTx.Add(Resource.Id.container, standSetupFragment);
             fragmentTx.AddToBackStack(null);
             fragmentTx.Commit();
@@ -108,7 +111,7 @@ namespace ClubClays.Fragments
             FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
 
             Shoot activeShootModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(Shoot))) as Shoot;
-            //activeShootModel.Initialise(standShooterModel.selectedShooters, standShooterModel.standFormats, date, locationInput.Text, discipline, titleInput.Text);
+            activeShootModel.Initialise(standShooterModel.selectedShooters, standShooterModel.selectedFormat, date, locationInput.Text, discipline, titleInput.Text);
                 
             fragmentTx.Replace(Resource.Id.container, new ScoreTakingFragment());
             fragmentTx.Commit();
@@ -160,7 +163,7 @@ namespace ClubClays.Fragments
             }
             else if (p0 == "2")
             {
-                standFormatting.Text = $"{p1.GetInt("standsCreated", 0)} Stand(s) Setup";
+                standFormatting.Text = $"{p1.GetString("titleText")}";
             }
         }
     }

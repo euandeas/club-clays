@@ -48,7 +48,7 @@ namespace ClubClays.Fragments
             LinearLayoutManager LayoutManager = new LinearLayoutManager(Activity);
             RecyclerView shootsRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.recyclerView);
             shootsRecyclerView.SetLayoutManager(LayoutManager);
-            shootsRecyclerView.SetAdapter(new ShootFormatsRecyclerAdapter(shootFormats, Activity));
+            shootsRecyclerView.SetAdapter(new ShootFormatsRecyclerAdapter(shootFormats, Activity, Arguments.GetBoolean("selectable")));
 
             FloatingActionButton fab = view.FindViewById<FloatingActionButton>(Resource.Id.addButton);
             fab.Click += Fab_Click;
@@ -82,6 +82,7 @@ namespace ClubClays.Fragments
     {
         private List<DatabaseModels.ShootFormats> shootFormats;
         private FragmentActivity activity;
+        private bool selectable;
         private ShooterStandData standShooterModel;
 
         // Provide a reference to the views for each data item
@@ -101,42 +102,67 @@ namespace ClubClays.Fragments
         // Return the size of data set (invoked by the layout manager)
         public override int ItemCount
         {
-            get { return shootFormats.Count + 1; }
+            get { 
+                if (selectable)
+                {
+                    return shootFormats.Count + 1;
+                }
+                else
+                {
+                    return shootFormats.Count;
+                }
+            }
         }
 
         // Replace the contents of a view (invoked by layout manager)
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
             MyView myHolder = holder as MyView;
-            if (position == 0)
+            if (selectable)
             {
-                myHolder.mShootFormatTitle.Text = "Blank";
-                myHolder.mNumStands.Text = $"Add stands on the go";
-                myHolder.mEditButton.Visibility = ViewStates.Gone;
-
-                if (standShooterModel.selectedFormat == null)
+                if (position == 0)
                 {
-                    myHolder.mSelecetedIcon.Visibility = ViewStates.Visible;
+                    myHolder.mShootFormatTitle.Text = "Blank";
+                    myHolder.mNumStands.Text = $"Add stands on the go";
+                    myHolder.mEditButton.Visibility = ViewStates.Gone;
+
+                    if (standShooterModel.selectedFormat == null)
+                    {
+                        myHolder.mSelecetedIcon.Visibility = ViewStates.Visible;
+                    }
+                    else
+                    {
+                        myHolder.mSelecetedIcon.Visibility = ViewStates.Gone;
+                    }
                 }
                 else
                 {
-                    myHolder.mSelecetedIcon.Visibility = ViewStates.Gone;
-                }
+                    myHolder.mShootFormatTitle.Text = $"{shootFormats[position-1].FormatName}";
+                    myHolder.mNumStands.Text = $"{shootFormats[position-1].NumStands} Stand(s)";
+
+                    if (standShooterModel.selectedFormat != null)
+                    {
+                        if (standShooterModel.selectedFormat.Id == shootFormats[position - 1].Id)
+                        {
+                            myHolder.mSelecetedIcon.Visibility = ViewStates.Visible;
+                        }
+                        else
+                        {
+                            myHolder.mSelecetedIcon.Visibility = ViewStates.Gone;
+                        }
+                    }
+                    else
+                    {
+                        myHolder.mSelecetedIcon.Visibility = ViewStates.Gone;
+                    }
+                } 
             }
             else
             {
-                myHolder.mShootFormatTitle.Text = $"{shootFormats[position-1].FormatName}";
-                myHolder.mNumStands.Text = $"{shootFormats[position-1].NumStands} Stand(s)";
-
-                if (standShooterModel.selectedFormat == shootFormats[position-1])
-                {
-                    myHolder.mSelecetedIcon.Visibility = ViewStates.Visible;
-                }
-                else
-                {
-                    myHolder.mSelecetedIcon.Visibility = ViewStates.Gone;
-                }
-            }          
+                myHolder.mShootFormatTitle.Text = $"{shootFormats[position].FormatName}";
+                myHolder.mNumStands.Text = $"{shootFormats[position].NumStands} Stand(s)";
+                myHolder.mSelecetedIcon.Visibility = ViewStates.Gone;
+            }           
         }
 
         // Create new views (invoked by layout manager)
@@ -152,26 +178,41 @@ namespace ClubClays.Fragments
 
             shootCardView.Click += delegate
             {
-                if (view.AdapterPosition == 0)
+                if (selectable)
                 {
-                    standShooterModel.selectedFormat = null;
+                    Bundle result = new Bundle();
+                    if (view.AdapterPosition == 0)
+                    {
+                        standShooterModel.selectedFormat = null;
+                        result.PutString("titleText", "Blank");
+                        result.PutString("bottomText", "Add stands on the go");
+                    }
+                    else
+                    {
+                        standShooterModel.selectedFormat = shootFormats[view.AdapterPosition - 1];
+                        result.PutString("titleText", shootFormats[view.AdapterPosition - 1].FormatName);
+                        result.PutString("bottomText", $"{shootFormats[view.AdapterPosition - 1].NumStands} Stand(s)");
+                    }
+
+                    activity.SupportFragmentManager.SetFragmentResult("2", result);
+                    activity.SupportFragmentManager.PopBackStack();
                 }
-                else
-                {
-                    standShooterModel.selectedFormat = shootFormats[view.AdapterPosition - 1];
-                }
-                
-                activity.SupportFragmentManager.SetFragmentResult("2", null);
-                activity.SupportFragmentManager.PopBackStack();
             };
 
             editButton.Click += delegate
             {
                 ShootFormatEditFragment fragment = new ShootFormatEditFragment();
                 Bundle args = new Bundle();
-                args.PutInt("ShootFormatID", shootFormats[view.AdapterPosition - 1].Id);
-                fragment.Arguments = args;
+                if (selectable)
+                {
+                    args.PutInt("ShootFormatID", shootFormats[view.AdapterPosition - 1].Id);
+                }
+                else
+                {
+                    args.PutInt("ShootFormatID", shootFormats[view.AdapterPosition].Id);
+                }
 
+                fragment.Arguments = args;
                 FragmentTransaction fragmentTx = activity.SupportFragmentManager.BeginTransaction();
                 fragmentTx.Replace(Resource.Id.container, fragment);
                 fragmentTx.AddToBackStack(null);
@@ -183,11 +224,16 @@ namespace ClubClays.Fragments
 
 
         // Provide a suitable constructor (depends on the kind of dataset)
-        public ShootFormatsRecyclerAdapter(List<DatabaseModels.ShootFormats> shootFormats, FragmentActivity activity)
+        public ShootFormatsRecyclerAdapter(List<DatabaseModels.ShootFormats> shootFormats, FragmentActivity activity, bool selectable)
         {
             this.shootFormats = shootFormats;
             this.activity = activity;
-            standShooterModel = new ViewModelProvider(activity).Get(Java.Lang.Class.FromType(typeof(ShooterStandData))) as ShooterStandData;
+            this.selectable = selectable;
+
+            if (selectable)
+            {
+                standShooterModel = new ViewModelProvider(activity).Get(Java.Lang.Class.FromType(typeof(ShooterStandData))) as ShooterStandData;
+            }
         }
     }
 }

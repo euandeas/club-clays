@@ -51,7 +51,7 @@ namespace ClubClays.Fragments
             tabLayout.TabSelected += TabLayout_TabSelected;
 
             fab = view.FindViewById<FloatingActionButton>(Resource.Id.addButton);
-            fab.Visibility = ViewStates.Gone;
+            FABVisibility(tabLayout.SelectedTabPosition);
             fab.Click += Fab_Click;
 
             return view;
@@ -87,7 +87,12 @@ namespace ClubClays.Fragments
 
         private void TabLayout_TabSelected(object sender, TabLayout.TabSelectedEventArgs e)
         {
-            if (e.Tab.Position == scoreManagementModel.NumStands)
+            FABVisibility(e.Tab.Position);
+        }
+
+        private void FABVisibility(int pos)
+        {
+            if (pos == scoreManagementModel.NumStands)
             {
                 fab.Visibility = ViewStates.Visible;
             }

@@ -22,10 +22,14 @@ namespace ClubClays.Fragments
 
         private void ManageFormats_PreferenceClick(object sender, Preference.PreferenceClickEventArgs e)
         {
-            //FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
-            //fragmentTx.Replace(Resource.Id.container, new StandFormatsManagmentFragment());
-           // fragmentTx.AddToBackStack(null);
-           // fragmentTx.Commit();
+            FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
+            ShootFormatsFragment standSetupFragment = new ShootFormatsFragment();
+            Bundle args = new Bundle();
+            args.PutBoolean("selectable", false);
+            standSetupFragment.Arguments = args;
+            fragmentTx.Add(Resource.Id.container, standSetupFragment);
+            fragmentTx.AddToBackStack(null);
+            fragmentTx.Commit();
         }
 
         private void ManageShooters_PreferenceClick(object sender, Preference.PreferenceClickEventArgs e)
@@ -39,7 +43,6 @@ namespace ClubClays.Fragments
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             // Use this to return your custom view for this Fragment
-            // return inflater.Inflate(Resource.Layout.YourFragment, container, false);
 
             View root = base.OnCreateView(inflater, container, savedInstanceState);
 

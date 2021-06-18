@@ -151,7 +151,7 @@ namespace ClubClays
             }
         }
 
-        public void Initialise(List<Shooters> shooters, List<Stand> stands, DateTime date, string location, string discipline, string title)
+        public void Initialise(List<Shooters> shooters, ShootFormats shootFormat, DateTime date, string location, string discipline, string title)
         {
             this.date = date;
             this.location = location;
@@ -163,9 +163,23 @@ namespace ClubClays
                 Shooters.Add(new Shooter(shooter.Id, shooter.Name, shooter.Class));
             }
 
-            foreach (Stand stand in stands)
+            if (shootFormat != null)
             {
-                AddStand(stand);
+                string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "ClubClaysData.db3");
+                using (var db = new SQLiteConnection(dbPath))
+                {
+                    var standFormats = db.Table<StandFormats>().Where(s => s.ShootFormatId == shootFormat.Id).OrderBy(s => s.StandNum).ToList();
+                    foreach (StandFormats stand in standFormats)
+                    {
+                        List<string> shotsLayout = new List<string>();
+                        var shotsFormats = db.Table<StandShotsFormats>().Where(s => s.StandFormatId == stand.Id).OrderBy(s => s.ShotNum).ToList();
+                        foreach (StandShotsFormats shot in shotsFormats)
+                        {
+                            shotsLayout.Add(shot.Type);
+                        }
+                        AddStand(new Stand(stand.StandType, shotsLayout));
+                    }
+                }
             }
         }
 
@@ -182,6 +196,10 @@ namespace ClubClays
                     if (format == "Pair")
                     {
                         Shooters[x].StandScoresByStandNum[StandsByNum.Count].shots.Add(new Tuple<string, int[]>(format, new int[] { 0, 0 }));
+                    }
+                    if (format == "Single")
+                    {
+                        Shooters[x].StandScoresByStandNum[StandsByNum.Count].shots.Add(new Tuple<string, int[]>(format, new int[] { 0 }));
                     }
                 }
             }
