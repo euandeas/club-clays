@@ -79,6 +79,7 @@
     <Compile Include="Fragments\ShootersFragment.cs" />
     <Compile Include="Fragments\ShootFormatEditFragment.cs" />
     <Compile Include="Fragments\ShootFormatsFragment.cs" />
+    <Compile Include="Fragments\AddStandFormatFragment.cs" />
     <Compile Include="Fragments\StandFormatFragment.cs" />
     <Compile Include="Fragments\StandScoreFragment.cs" />
     <Compile Include="ItemMoveCallBack.cs">

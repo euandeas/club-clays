@@ -59,30 +59,10 @@ namespace ClubClays.Fragments
 
         private void Fab_Click(object sender, EventArgs e)
         {
-            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(Activity);
-            builder.SetTitle("Add New Stand");
-
-            View view = LayoutInflater.From(Activity).Inflate(Resource.Layout.dialogfragment_addstand, null);
-
-            EditText standType = view.FindViewById<EditText>(Resource.Id.newStandType);
-            EditText numOfPairs = view.FindViewById<EditText>(Resource.Id.newNumOfPairs);
-
-            builder.SetView(view);
-            builder.SetPositiveButton("Add", (c, ev) =>
-            {
-                List<string> shotformat = new List<string>();
-                for (int x = 1; x <= int.Parse(numOfPairs.Text); x++)
-                {
-                    shotformat.Add("Pair");
-                }
-                scoreManagementModel.AddStand(new Stand(standType.Text, shotformat));
-                int num = scoreViewPagerAdapter.AddStand();
-                scoreViewPagerAdapter.NotifyDataSetChanged();
-                viewPager.SetCurrentItem(num, true);
-            });
-            builder.SetNegativeButton("Cancel", (c, ev) => { });
-
-            builder.Show();
+            FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
+            fragmentTx.Replace(Resource.Id.container, new AddStandFormatFragment());
+            fragmentTx.AddToBackStack(null);
+            fragmentTx.Commit();
         }
 
         private void TabLayout_TabSelected(object sender, TabLayout.TabSelectedEventArgs e)
