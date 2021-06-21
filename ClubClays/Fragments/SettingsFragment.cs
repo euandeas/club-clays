@@ -8,16 +8,41 @@ using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 namespace ClubClays.Fragments
 {
     public class SettingsFragment : PreferenceFragmentCompat
-    {
+    {      
 
         public override void OnCreatePreferences(Bundle savedInstanceState, string rootKey)
         {
             SetPreferencesFromResource(Resource.Xml.preferences, rootKey);
             Preference manageShooters = FindPreference("manage_shooters");
             Preference manageFormats = FindPreference("manage_formats");
+            ListPreference theme = (ListPreference)FindPreference("theme_preference");
 
             manageShooters.PreferenceClick += ManageShooters_PreferenceClick;
             manageFormats.PreferenceClick += ManageFormats_PreferenceClick;
+            theme.PreferenceChange += Theme_PreferenceChange;
+        }
+
+        private void Theme_PreferenceChange(object sender, Preference.PreferenceChangeEventArgs e)
+        {
+            switch (e.NewValue.ToString())
+            {
+                case "light":
+                    ((AppCompatActivity)Activity).Delegate.SetLocalNightMode(AppCompatDelegate.ModeNightNo);
+                    break;
+                case "dark":
+                    ((AppCompatActivity)Activity).Delegate.SetLocalNightMode(AppCompatDelegate.ModeNightYes);
+                    break;
+                case "sysdefault":
+                    if (Build.VERSION.SdkInt >= BuildVersionCodes.Q)
+                    {
+                        ((AppCompatActivity)Activity).Delegate.SetLocalNightMode(AppCompatDelegate.ModeNightFollowSystem);
+                    }
+                    else
+                    {
+                        ((AppCompatActivity)Activity).Delegate.SetLocalNightMode(AppCompatDelegate.ModeNightAutoBattery);
+                    }
+                    break;
+            }
         }
 
         private void ManageFormats_PreferenceClick(object sender, Preference.PreferenceClickEventArgs e)
@@ -53,5 +78,6 @@ namespace ClubClays.Fragments
 
             return root;
         }
+
     }
 }

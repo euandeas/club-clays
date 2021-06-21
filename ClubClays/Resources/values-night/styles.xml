@@ -6,7 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
 		<item name="colorSecondary">@color/colorAccent</item>
 		<item name="colorSurface">#ffffff</item>
-		<item name="android:colorBackground">#f2f2f2</item>
+		<item name="android:colorBackground">#000000</item>
 		
 		<!-- Colors On -->
 		<item name="colorOnPrimary">#ff000000</item>
@@ -15,7 +15,7 @@
 		<item name="colorOnBackground">#ff000000</item>
 		<item name="android:textColor">#ff000000</item>
 		<item name="android:colorControlActivated">@color/colorAccent</item>
-
+		
 		<!-- Status Bar Style -->
 		<item name="android:windowLightStatusBar">true</item>
         <item name="android:statusBarColor">@color/colorPrimary</item>

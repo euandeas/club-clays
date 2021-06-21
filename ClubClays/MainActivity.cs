@@ -6,6 +6,8 @@ using FragmentTransaction = AndroidX.Fragment.App.FragmentTransaction;
 using ClubClays.Fragments;
 using SQLite;
 using System.IO;
+using AndroidX.Preference;
+using Android.Content;
 
 namespace ClubClays
 {
@@ -14,19 +16,44 @@ namespace ClubClays
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
-            using(var db = new SQLiteConnection(dbPath))
+            if (savedInstanceState == null)
             {
-                db.CreateTable<DatabaseModels.Shoots>();
-                db.CreateTable<DatabaseModels.Stands>();
-                db.CreateTable<DatabaseModels.StandShots>();
-                db.CreateTable<DatabaseModels.StandScores>();
-                db.CreateTable<DatabaseModels.Shots>();
-                db.CreateTable<DatabaseModels.OverallScores>();
-                db.CreateTable<DatabaseModels.Shooters>();
-                db.CreateTable<DatabaseModels.ShootFormats>();
-                db.CreateTable<DatabaseModels.StandFormats>();
-                db.CreateTable<DatabaseModels.StandShotsFormats>();
+                ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(Application.Context);
+                switch (prefs.GetString("theme", "light"))
+                {
+                    case "light":
+                        base.Delegate.SetLocalNightMode(AppCompatDelegate.ModeNightNo);
+                        break;
+                    case "dark":
+                        base.Delegate.SetLocalNightMode(AppCompatDelegate.ModeNightYes);
+                        break;
+                    case "sysdefault":
+                        if (Build.VERSION.SdkInt >= BuildVersionCodes.Q)
+                        {
+                            base.Delegate.SetLocalNightMode(AppCompatDelegate.ModeNightFollowSystem);
+                        }
+                        else
+                        {
+                            base.Delegate.SetLocalNightMode(AppCompatDelegate.ModeNightAutoBattery);
+                        }
+                        break;
+                }
+
+
+                string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
+                using (var db = new SQLiteConnection(dbPath))
+                {
+                    db.CreateTable<DatabaseModels.Shoots>();
+                    db.CreateTable<DatabaseModels.Stands>();
+                    db.CreateTable<DatabaseModels.StandShots>();
+                    db.CreateTable<DatabaseModels.StandScores>();
+                    db.CreateTable<DatabaseModels.Shots>();
+                    db.CreateTable<DatabaseModels.OverallScores>();
+                    db.CreateTable<DatabaseModels.Shooters>();
+                    db.CreateTable<DatabaseModels.ShootFormats>();
+                    db.CreateTable<DatabaseModels.StandFormats>();
+                    db.CreateTable<DatabaseModels.StandShotsFormats>();
+                }
             }
 
             SetTheme(Resource.Style.AppTheme);
