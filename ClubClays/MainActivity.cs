@@ -19,7 +19,7 @@ namespace ClubClays
             if (savedInstanceState == null)
             {
                 ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(Application.Context);
-                switch (prefs.GetString("theme", "light"))
+                switch (prefs.GetString("theme_preference", "light"))
                 {
                     case "light":
                         base.Delegate.SetLocalNightMode(AppCompatDelegate.ModeNightNo);
