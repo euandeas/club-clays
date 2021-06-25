@@ -161,7 +161,7 @@ namespace ClubClays.Fragments
         {
             MyView myHolder = holder as MyView;
             myHolder.mShootTitle.Text = $"{allShoots[position].EventType} on {allShoots[position].Date.ToShortDateString()}";
-            myHolder.mShootInfo.Text = $"{allShoots[position].NumStands} Stand(s), {allShoots[position].ClayAmount} Clays";
+            myHolder.mShootInfo.Text = $"{allShoots[position].NumStands} Stand(s), {allShoots[position].NumClays} Clays";
             myHolder.mShootLocation.Text = $"{allShoots[position].Location}";
         }
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:cardview="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -13,14 +14,30 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            app:title="Finish Shoot"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"   
             app:titleTextAppearance="@style/Toolbar.TitleText"
-			android:theme="@style/ToolBarColorControl"/>
+			android:theme="@style/ToolBarColorControl"
+            app:title="Shoot Format">
+            <TextView
+				android:text="Save"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:id="@+id/saveButton"
+				android:paddingLeft="10dp"
+				android:paddingRight="10dp"
+				android:paddingBottom="5dp"
+				android:textSize="15sp"
+				android:layout_gravity="right"/>
+        </androidx.appcompat.widget.Toolbar>
 
-        <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/notes"
+        <androidx.cardview.widget.CardView 
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:id="@+id/shootersCard"
+			android:layout_marginBottom="1dp">					
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/shootformatTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
@@ -30,25 +47,32 @@
                 app:boxStrokeColor="@color/colorAccent"
                 app:hintTextColor="@color/colorAccent"
                 app:counterEnabled="true"
-                app:counterMaxLength="256">
+                app:counterMaxLength="64">
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/shootNotes"
+                    android:id="@+id/shootFormatTitleEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Notes"
-                    android:maxLength="256"
-                    android:maxLines="16"
-                    android:inputType="textMultiLine"/>
-        </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
+                    android:hint="Shoot Format Title"
+                    android:maxLength="64"
+                    android:maxLines="1"
+                    android:inputType="text"/>
+            </com.google.android.material.textfield.TextInputLayout>
+		</androidx.cardview.widget.CardView>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        </androidx.recyclerview.widget.RecyclerView>
+
+    </LinearLayout>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/saveButton"
+        android:id="@+id/addButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:fabSize="normal"
         android:layout_gravity="end|bottom"
-        android:src="@drawable/outline_done"
+        android:src="@drawable/add"
         android:layout_margin="20dp" />
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

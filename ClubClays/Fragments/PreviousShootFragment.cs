@@ -24,13 +24,16 @@ namespace ClubClays.Fragments
     public class PreviousShootFragment : Fragment, IActivityResultCallback
     {
         private ActivityResultLauncher launcher;
-        private PreviousShoot previousShootModel;
+        private Shoot previousShootModel;
         int shootId;
         Java.IO.File file;
         Toolbar toolbar;
         View titleTextView;
         AppBarLayout appBarLayout;
         RelativeLayout collapsingRelativeLayout;
+        ViewPager2 viewPager;
+        TabLayout tabLayout;
+        IMenu menu;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -48,7 +51,7 @@ namespace ClubClays.Fragments
 
             shootId = Arguments.GetInt("ShootID");
 
-            previousShootModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(PreviousShoot))) as PreviousShoot;
+            previousShootModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(Shoot))) as Shoot;
             previousShootModel.InitialisePreviousShoot(shootId);
 
             toolbar = view.FindViewById<Toolbar>(Resource.Id.toolbar);
@@ -65,10 +68,10 @@ namespace ClubClays.Fragments
 
             collapsingRelativeLayout = view.FindViewById<RelativeLayout>(Resource.Id.collapsingRelativeLayout);
 
-            ViewPager2 viewPager = view.FindViewById<ViewPager2>(Resource.Id.view_pager);
-            viewPager.Adapter = new ScoreViewPagerAdapter(this, previousShootModel.NumStands, "previousShoot");
+            viewPager = view.FindViewById<ViewPager2>(Resource.Id.view_pager);
+            viewPager.Adapter = new ScoreViewPagerAdapter(this, previousShootModel.NumStands, false);
 
-            TabLayout tabLayout = view.FindViewById<TabLayout>(Resource.Id.tab_layout);
+            tabLayout = view.FindViewById<TabLayout>(Resource.Id.tab_layout);
             new TabLayoutMediator(tabLayout, viewPager, new TabConfigStrat()).Attach();
 
             return view;
@@ -76,6 +79,7 @@ namespace ClubClays.Fragments
 
         public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
         {
+            this.menu = menu;
             inflater.Inflate(Resource.Menu.previous_shoot_toolbar_menu, menu);
 
             if (menu is MenuBuilder)
@@ -93,14 +97,14 @@ namespace ClubClays.Fragments
             {
                 file = previousShootModel.ShootToCSV();
                 var uri = FileProvider.GetUriForFile(Context, "com.euandeas.clubclays", file);
-                
+
                 Intent shareIntent = new Intent();
                 shareIntent.SetAction(Intent.ActionSend);
                 shareIntent.PutExtra(Intent.ExtraStream, uri);
                 shareIntent.SetType("text/csv");
                 launcher.Launch(Intent.CreateChooser(shareIntent, "Share Shoot as CSV"));
             }
-            else if(item.ItemId == Resource.Id.delete_shoot)
+            else if (item.ItemId == Resource.Id.delete_shoot)
             {
                 MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(Activity);
                 builder.SetTitle("Delete shoot?");
@@ -117,11 +121,13 @@ namespace ClubClays.Fragments
                         db.CreateCommand($"DELETE FROM Stands WHERE ShootId = {shootId};").ExecuteNonQuery();
                         foreach (var stand in standsToDelete)
                         {
+                            db.CreateCommand($"DELETE FROM StandShots WHERE StandId = {stand.Id};").ExecuteNonQuery();
+
                             var standsScoresToDelete = db.Table<StandScores>().Where(s => s.StandId == stand.Id).ToList();
                             db.CreateCommand($"DELETE FROM StandScores WHERE StandId = {stand.Id};").ExecuteNonQuery();
                             foreach (var standScore in standsScoresToDelete)
                             {
-                                db.CreateCommand($"DELETE FROM StandShotsLink WHERE StandScoresId = {standScore.Id};").ExecuteNonQuery();
+                                db.CreateCommand($"DELETE FROM Shots WHERE StandScoreId = {standScore.Id};").ExecuteNonQuery();
                             }
                         }
                     }

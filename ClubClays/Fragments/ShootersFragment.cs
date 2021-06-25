@@ -52,8 +52,8 @@ namespace ClubClays.Fragments
             allRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.allRecyclerView);
             allRecyclerView.SetLayoutManager(allLayoutManager);
 
-            RecyclerView.Adapter standsAdapter = new ShootersRecyclerAdapter(ref selectedShootersModel, ref allRecyclerView, "selected");
-            ItemTouchHelper.Callback callback = new ItemMoveCallback((ItemMoveCallback.ItemTouchHelperContract)standsAdapter);
+            ShootersRecyclerAdapter standsAdapter = new ShootersRecyclerAdapter(ref selectedShootersModel, ref allRecyclerView, "selected");
+            ItemTouchHelper.Callback callback = new ItemMoveCallback(standsAdapter);
             ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
 
             selectedRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.selectedRecyclerView);

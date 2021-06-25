@@ -16,45 +16,30 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"   
             app:titleTextAppearance="@style/Toolbar.TitleText"
-            android:theme="@style/ThemeOverlay.MaterialComponents.Light"
+            android:theme="@style/ToolBarColorControl"
             app:title="New Shoot"/>
 
-       <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/trackingtype"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:paddingBottom="10dp"
+            android:paddingBottom="5dp"
             app:boxStrokeColor="@color/colorAccent"
             app:hintTextColor="@color/colorAccent"
-            app:endIconTint="#aaa"
-            app:endIconDrawable="@drawable/baseline_arrow_drop_down"
-            app:endIconMode="custom">
+            app:counterEnabled="true"
+            app:counterMaxLength="64">
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/trackingtypeEditText"
+                android:id="@+id/titleEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Mode"
-                android:focusable="false"
-                android:longClickable="false"/>
+                android:hint="Title"
+                android:maxLength="64"
+                android:maxLines="1"
+                android:inputType="text"/>
         </com.google.android.material.textfield.TextInputLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"/>
-
-        <TextView
-            android:text="Details"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/detailsLabel"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/discipline"
@@ -86,7 +71,7 @@
             app:boxStrokeColor="@color/colorAccent"
             app:hintTextColor="@color/colorAccent"
             app:endIconTint="#aaa"
-            app:endIconDrawable="@drawable/baseline_arrow_drop_down"
+            app:endIconDrawable="@drawable/arrow_drop_down"
             app:endIconMode="custom">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/dateEditText"
@@ -140,12 +125,6 @@
                 android:longClickable="false"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Switch
-            android:id="@+id/formatSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"/>
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/stands"
             android:layout_width="match_parent"
@@ -168,49 +147,6 @@
                 android:longClickable="false"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Switch
-            android:id="@+id/startingStandSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"/>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/customStartStand"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="10dp"
-            app:boxStrokeColor="@color/colorAccent"
-            app:hintTextColor="@color/colorAccent">
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/startStandEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Starting Stand"/>
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"/>
-
-        <TextView
-            android:text="Options"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/optionsLabel"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="5dp"
-            android:paddingTop="5dp"/>
-
-         <CheckBox 
-            android:id="@+id/rotateShootersCheckBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Rotate Shooters"/>
     </LinearLayout>
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/nextButton"

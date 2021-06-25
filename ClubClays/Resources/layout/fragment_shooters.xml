@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    android:background="#F2F2F2"
+    android:background="@color/colorPrimary"
     android:clickable="true">
 
     <LinearLayout
@@ -18,7 +18,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"   
             app:titleTextAppearance="@style/Toolbar.TitleText"
-            android:theme="@style/ThemeOverlay.MaterialComponents.Light"
+			android:theme="@style/ToolBarColorControl"
             app:title="Shooters"/>
 
         <TextView

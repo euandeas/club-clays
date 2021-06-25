@@ -10,33 +10,14 @@
             android:layout_height="wrap_content"
 			android:orientation="vertical">
 			<TextView
-				android:text="Stand 1"
+				android:text="Shot Type"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:id="@+id/standNumber"
-				android:paddingLeft="10dp"
-				android:paddingRight="10dp"
-				android:paddingBottom="5dp"
-				android:textSize="10sp"
-				android:paddingTop="5dp"/>
-			<TextView
-				android:text="Stand Type"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:id="@+id/standType"
+				android:id="@+id/shotType"
 				android:paddingLeft="10dp"
 				android:paddingRight="10dp"
 				android:paddingBottom="5dp"
 				android:textStyle="italic"
 				android:textSize="20sp"/>
-			<TextView
-				android:text="5 Clays"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:id="@+id/numOfClays"
-				android:paddingLeft="10dp"
-				android:paddingRight="10dp"
-				android:paddingBottom="5dp"
-				android:textSize="10sp"/>
 		</LinearLayout>	
 </androidx.cardview.widget.CardView>

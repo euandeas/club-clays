@@ -6,6 +6,8 @@ using FragmentTransaction = AndroidX.Fragment.App.FragmentTransaction;
 using ClubClays.Fragments;
 using SQLite;
 using System.IO;
+using AndroidX.Preference;
+using Android.Content;
 
 namespace ClubClays
 {
@@ -14,29 +16,44 @@ namespace ClubClays
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
-            using(var db = new SQLiteConnection(dbPath))
+            if (savedInstanceState == null)
             {
-                db.CreateTable<DatabaseModels.Shoots>();
-                db.CreateTable<DatabaseModels.Stands>();
-                db.CreateTable<DatabaseModels.StandScores>();
-                db.CreateTable<DatabaseModels.Shots>();
-                db.CreateTable<DatabaseModels.OverallScores>();
-                db.CreateTable<DatabaseModels.Shooters>();
-                db.CreateTable<DatabaseModels.ShootFormats>();
-                db.CreateTable<DatabaseModels.StandFormats>();
-                db.CreateTable<DatabaseModels.SavedFormatsLink>();
-                db.CreateTable<DatabaseModels.StandShotsLink>();
+                ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(Application.Context);
+                switch (prefs.GetString("theme_preference", "light"))
+                {
+                    case "light":
+                        base.Delegate.SetLocalNightMode(AppCompatDelegate.ModeNightNo);
+                        break;
+                    case "dark":
+                        base.Delegate.SetLocalNightMode(AppCompatDelegate.ModeNightYes);
+                        break;
+                    case "sysdefault":
+                        if (Build.VERSION.SdkInt >= BuildVersionCodes.Q)
+                        {
+                            base.Delegate.SetLocalNightMode(AppCompatDelegate.ModeNightFollowSystem);
+                        }
+                        else
+                        {
+                            base.Delegate.SetLocalNightMode(AppCompatDelegate.ModeNightAutoBattery);
+                        }
+                        break;
+                }
 
-                db.CreateCommand("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (0, 0, 0);").ExecuteNonQuery();
-                db.CreateCommand("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (1, 1, 1);").ExecuteNonQuery();
-                db.CreateCommand("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (2, 2, 2);").ExecuteNonQuery();
-                db.CreateCommand("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (3, 0, 1);").ExecuteNonQuery();
-                db.CreateCommand("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (4, 0, 2);").ExecuteNonQuery();
-                db.CreateCommand("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (5, 1, 0);").ExecuteNonQuery();
-                db.CreateCommand("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (6, 2, 0);").ExecuteNonQuery();
-                db.CreateCommand("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (7, 1, 2);").ExecuteNonQuery();
-                db.CreateCommand("INSERT OR IGNORE INTO Shots(Id, FirstShot, SecondShot) VALUES (8, 2, 1);").ExecuteNonQuery();
+
+                string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
+                using (var db = new SQLiteConnection(dbPath))
+                {
+                    db.CreateTable<DatabaseModels.Shoots>();
+                    db.CreateTable<DatabaseModels.Stands>();
+                    db.CreateTable<DatabaseModels.StandShots>();
+                    db.CreateTable<DatabaseModels.StandScores>();
+                    db.CreateTable<DatabaseModels.Shots>();
+                    db.CreateTable<DatabaseModels.OverallScores>();
+                    db.CreateTable<DatabaseModels.Shooters>();
+                    db.CreateTable<DatabaseModels.ShootFormats>();
+                    db.CreateTable<DatabaseModels.StandFormats>();
+                    db.CreateTable<DatabaseModels.StandShotsFormats>();
+                }
             }
 
             SetTheme(Resource.Style.AppTheme);

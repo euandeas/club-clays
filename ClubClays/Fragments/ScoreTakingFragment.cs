@@ -2,10 +2,15 @@
 using Android.Views;
 using Android.Widget;
 using AndroidX.AppCompat.App;
+using AndroidX.AppCompat.View.Menu;
 using AndroidX.Fragment.App;
 using AndroidX.Lifecycle;
+using AndroidX.ViewPager2.Widget;
 using Google.Android.Material.Dialog;
 using Google.Android.Material.FloatingActionButton;
+using Google.Android.Material.Tabs;
+using System;
+using System.Collections.Generic;
 using Fragment = AndroidX.Fragment.App.Fragment;
 using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 
@@ -13,11 +18,10 @@ namespace ClubClays.Fragments
 {
     public class ScoreTakingFragment : Fragment
     {
-        private ShootScoreManagement scoreManagementModel;
-        private string trackingType;
-
-        int shot1Val = 0;
-        int shot2Val = 0;
+        Shoot scoreManagementModel;
+        FloatingActionButton fab;
+        ScoreViewPagerAdapter scoreViewPagerAdapter;
+        ViewPager2 viewPager;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -29,124 +33,88 @@ namespace ClubClays.Fragments
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             // Use this to return your custom view for this Fragment
-            View view = inflater.Inflate(Resource.Layout.fragment_score_taking, container, false);
+            View view =  inflater.Inflate(Resource.Layout.fragment_score_taking, container, false);
 
             Toolbar toolbar = view.FindViewById<Toolbar>(Resource.Id.toolbar);
             ((AppCompatActivity)Activity).SetSupportActionBar(toolbar);
             ActionBar supportBar = ((AppCompatActivity)Activity).SupportActionBar;
- 
-            scoreManagementModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(ShootScoreManagement))) as ShootScoreManagement;
-            trackingType = scoreManagementModel.TrackingType;
+            HasOptionsMenu = true;
 
-            TextView shooterNameLabel = view.FindViewById<TextView>(Resource.Id.shooterNameText);
-            TextView standNumLabel = view.FindViewById<TextView>(Resource.Id.standNumberText);
-            TextView pairNumLabel = view.FindViewById<TextView>(Resource.Id.pairNumberText);
-            TextView currentStandScoreLabel = view.FindViewById<TextView>(Resource.Id.currentScoreText);
+            scoreManagementModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(Shoot))) as Shoot;
 
-            shooterNameLabel.Text = scoreManagementModel.CurrentShooterName;
-            standNumLabel.Text = $"Stand: {scoreManagementModel.CurrentStand}";
-            pairNumLabel.Text = $"Pair: {scoreManagementModel.CurrentPair}";
-            currentStandScoreLabel.Text = $"Current Score: {scoreManagementModel.CurrentStandScore}";
+            viewPager = view.FindViewById<ViewPager2>(Resource.Id.view_pager);
+            scoreViewPagerAdapter = new ScoreViewPagerAdapter(this, scoreManagementModel.NumStands, true);
+            viewPager.Adapter = scoreViewPagerAdapter;
 
-            Button shot1Button = view.FindViewById<Button>(Resource.Id.button1);
-            Button shot2Button = view.FindViewById<Button>(Resource.Id.button2);
+            TabLayout tabLayout = view.FindViewById<TabLayout>(Resource.Id.tab_layout);
+            new TabLayoutMediator(tabLayout, viewPager, new TabConfigStrat()).Attach();
+            tabLayout.TabSelected += TabLayout_TabSelected;
 
-            shot1Button.Click += Shot1Button_Click;
-            shot2Button.Click += Shot2Button_Click;
-
-            FloatingActionButton fab = view.FindViewById<FloatingActionButton>(Resource.Id.nextButton);
-            fab.Click += NextButton_Click;
+            fab = view.FindViewById<FloatingActionButton>(Resource.Id.addButton);
+            FABVisibility(tabLayout.SelectedTabPosition);
+            fab.Click += Fab_Click;
 
             return view;
         }
 
-        private void NextButton_Click(object sender, System.EventArgs e)
+        private void Fab_Click(object sender, EventArgs e)
         {
-            if (scoreManagementModel.LastPair)
+            FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
+            fragmentTx.Replace(Resource.Id.container, new AddStandFormatFragment());
+            fragmentTx.AddToBackStack(null);
+            fragmentTx.Commit();
+        }
+
+        private void TabLayout_TabSelected(object sender, TabLayout.TabSelectedEventArgs e)
+        {
+            FABVisibility(e.Tab.Position);
+        }
+
+        private void FABVisibility(int pos)
+        {
+            if (pos == scoreManagementModel.NumStands)
             {
-                scoreManagementModel.AddScore(shot1Val, shot2Val);
-                ShowFinalScore();
+                fab.Visibility = ViewStates.Visible;
             }
             else
             {
-                scoreManagementModel.AddScore(shot1Val, shot2Val);
-                FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
-                fragmentTx.Replace(Resource.Id.container, new ScoreTakingFragment());
-                fragmentTx.Commit();
+                fab.Visibility = ViewStates.Gone;
             }
         }
 
-        private void ShowFinalScore()
+        public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
         {
-            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(Activity);
-            builder.SetTitle($"Stand Score For {scoreManagementModel.CurrentShooterName}");
-            builder.SetCancelable(false);
+            inflater.Inflate(Resource.Menu.score_taking_toolbar_menu, menu);
 
-            View view = LayoutInflater.From(Activity).Inflate(Resource.Layout.dialogfragment_finalstandscore, null);
-
-            view.FindViewById<TextView>(Resource.Id.scoreLabel).Text = scoreManagementModel.CurrentStandScore;
-
-            builder.SetView(view);
-            builder.SetPositiveButton("Next", (c, ev) => 
+            if (menu is MenuBuilder)
             {
-                FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
+                MenuBuilder m = (MenuBuilder)menu;
+                m.SetOptionalIconsVisible(true);
+            }
 
-                if (scoreManagementModel.LastShooter)
-                {                  
-                    fragmentTx.Replace(Resource.Id.container, new ShootScoreFragment());
-                    fragmentTx.Commit();
-                }
-                else
+            base.OnCreateOptionsMenu(menu, inflater);
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            if (item.ItemId == Resource.Id.finish_shoot)
+            {
+                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(Activity);
+                builder.SetTitle("Finish shoot?");
+                builder.SetMessage("Are you sure that you would like to end this shoot?");
+                builder.SetPositiveButton("Yes", (c, ev) =>
                 {
-                    scoreManagementModel.NextShooter();
-                    
-                    fragmentTx.Replace(Resource.Id.container, new ScoreTakingFragment());
+                    FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
+                    fragmentTx.Replace(Resource.Id.container, new ShootEndFragment());
+                    fragmentTx.AddToBackStack(null);
                     fragmentTx.Commit();
-                }
-            });
+                });
 
-            builder.Show();
-        }
-
-        private void Shot1Button_Click(object sender, System.EventArgs e)
-        {
-            ShotButton_Click(sender as Button, ref shot1Val);
-        }
-
-        private void Shot2Button_Click(object sender, System.EventArgs e)
-        {
-            ShotButton_Click(sender as Button, ref shot2Val);
-        }
-
-        private void ShotButton_Click(Button sender, ref int shotCounter)
-        {
-            if(shotCounter == 2)
-            {
-                shotCounter = 0;
-            }
-            else
-            {
-                shotCounter++;
+                builder.SetNegativeButton("No", (c, ev) => { });
+                builder.Show();
             }
 
-            switch (shotCounter)
-            {
-                case 0:
-                    sender.Text = "";
-                    sender.SetBackgroundResource(Resource.Drawable.default_hit_miss_button);
-                    break;
-
-                case 1:
-                    sender.Text = "Hit";
-                    sender.SetBackgroundResource(Resource.Drawable.hit_hit_miss_button);
-                    break;
-
-                case 2:
-                    sender.Text = "Miss";
-                    sender.SetBackgroundResource(Resource.Drawable.miss_hit_miss_button);
-                    break;
-                      
-            }
+            return base.OnOptionsItemSelected(item);
         }
     }
 }

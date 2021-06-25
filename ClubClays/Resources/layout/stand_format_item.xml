@@ -13,30 +13,37 @@
 				android:text="Stand 1"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:id="@+id/standNumber"
-				android:paddingLeft="10dp"
-				android:paddingRight="10dp"
-				android:paddingBottom="5dp"
-				android:textSize="10sp"
-				android:paddingTop="5dp"/>
-			<TextView
-				android:text="Stand Type"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:id="@+id/standType"
+				android:id="@+id/standNum"
 				android:paddingLeft="10dp"
 				android:paddingRight="10dp"
 				android:paddingBottom="5dp"
 				android:textStyle="italic"
 				android:textSize="20sp"/>
 			<TextView
-				android:text="5 Clays"
+				android:text="10 Shots"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:id="@+id/numOfClays"
+				android:id="@+id/numOfShots"
 				android:paddingLeft="10dp"
 				android:paddingRight="10dp"
 				android:paddingBottom="5dp"
 				android:textSize="10sp"/>
 		</LinearLayout>	
+		<LinearLayout
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:orientation="horizontal"
+			android:layout_gravity="right | center_vertical">
+			<ImageButton
+				android:id="@+id/standFormatEditButton"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:src="@drawable/outline_edit"
+				android:background="#0000"
+				android:paddingLeft="5dp"
+				android:paddingRight="10dp"
+				android:paddingTop="5dp"
+				android:paddingBottom="5dp"
+				android:contentDescription="" />
+		</LinearLayout>
 </androidx.cardview.widget.CardView>
