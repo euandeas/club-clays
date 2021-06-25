@@ -16,7 +16,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"   
             app:titleTextAppearance="@style/Toolbar.TitleText"
-            android:theme="@style/ThemeOverlay.MaterialComponents.Light"
+            android:theme="@style/ToolBarColorControl"
             app:title="New Shoot"/>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -71,7 +71,7 @@
             app:boxStrokeColor="@color/colorAccent"
             app:hintTextColor="@color/colorAccent"
             app:endIconTint="#aaa"
-            app:endIconDrawable="@drawable/baseline_arrow_drop_down"
+            app:endIconDrawable="@drawable/arrow_drop_down"
             app:endIconMode="custom">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/dateEditText"

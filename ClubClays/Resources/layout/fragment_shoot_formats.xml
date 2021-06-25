@@ -18,7 +18,7 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"   
             app:titleTextAppearance="@style/Toolbar.TitleText"
-            android:theme="@style/ThemeOverlay.MaterialComponents.Light"
+			android:theme="@style/ToolBarColorControl"
             app:title="Shoot Formats"/>
 
         <androidx.recyclerview.widget.RecyclerView

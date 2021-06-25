@@ -98,6 +98,10 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\add.xml" />
+    <AndroidResource Include="Resources\drawable\arrow_drop_down.xml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+    </AndroidResource>
     <AndroidResource Include="Resources\drawable\arrow_right.xml" />
     <AndroidResource Include="Resources\drawable\hit_hit_miss_button.xml">
       <SubType>Designer</SubType>
@@ -261,9 +265,6 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\outline_share.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\drawable\baseline_arrow_drop_down.xml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\outline_done.xml" />
