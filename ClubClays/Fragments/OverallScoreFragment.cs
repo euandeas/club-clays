@@ -2,16 +2,12 @@
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using AndroidX.AppCompat.App;
 using AndroidX.Fragment.App;
 using AndroidX.Lifecycle;
 using AndroidX.RecyclerView.Widget;
-using AndroidX.ViewPager2.Widget;
-using Google.Android.Material.Tabs;
 using System.Collections.Generic;
 using static Android.Views.ViewGroup;
 using Fragment = AndroidX.Fragment.App.Fragment;
-using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 
 namespace ClubClays.Fragments
 {

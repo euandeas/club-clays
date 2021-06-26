@@ -2,13 +2,10 @@
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using AndroidX.Activity;
 using AndroidX.AppCompat.App;
 using AndroidX.Lifecycle;
 using AndroidX.RecyclerView.Widget;
-using ClubClays.DatabaseModels;
 using Google.Android.Material.FloatingActionButton;
-using SQLite;
 using System;
 using System.Collections.Generic;
 using Fragment = AndroidX.Fragment.App.Fragment;

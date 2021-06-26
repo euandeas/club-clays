@@ -1,6 +1,5 @@
 ﻿using Android.OS;
 using Android.Views;
-using Android.Widget;
 using AndroidX.AppCompat.App;
 using AndroidX.AppCompat.View.Menu;
 using AndroidX.Fragment.App;
@@ -10,7 +9,6 @@ using Google.Android.Material.Dialog;
 using Google.Android.Material.FloatingActionButton;
 using Google.Android.Material.Tabs;
 using System;
-using System.Collections.Generic;
 using Fragment = AndroidX.Fragment.App.Fragment;
 using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 

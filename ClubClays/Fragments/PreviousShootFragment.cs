@@ -33,7 +33,6 @@ namespace ClubClays.Fragments
         RelativeLayout collapsingRelativeLayout;
         ViewPager2 viewPager;
         TabLayout tabLayout;
-        IMenu menu;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -79,7 +78,6 @@ namespace ClubClays.Fragments
 
         public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
         {
-            this.menu = menu;
             inflater.Inflate(Resource.Menu.previous_shoot_toolbar_menu, menu);
 
             if (menu is MenuBuilder)

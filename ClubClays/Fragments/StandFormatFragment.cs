@@ -2,7 +2,6 @@
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using AndroidX.Activity;
 using AndroidX.AppCompat.App;
 using AndroidX.RecyclerView.Widget;
 using ClubClays.DatabaseModels;
