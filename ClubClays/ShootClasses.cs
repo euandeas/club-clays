@@ -18,13 +18,11 @@ namespace ClubClays
 
     public class Stand
     {
-        public string standType;
         public List<string> shotFormat;
         public int numClays;
 
-        public Stand(string standType, List<string> shotFormat)
+        public Stand(List<string> shotFormat)
         {
-            this.standType = standType;
             this.shotFormat = shotFormat;
             foreach (string format in shotFormat)
             {
@@ -177,7 +175,7 @@ namespace ClubClays
                         {
                             shotsLayout.Add(shot.Type);
                         }
-                        AddStand(new Stand(stand.StandType, shotsLayout));
+                        AddStand(new Stand(shotsLayout));
                     }
                 }
             }
@@ -274,7 +272,7 @@ namespace ClubClays
                         shotFormat.Add(standShot.Type);
                     }
 
-                    Stand standObject = new Stand(stand.StandType, shotFormat);
+                    Stand standObject = new Stand(shotFormat);
                     StandsByNum.Add(stand.StandNum, standObject);
 
                     var standScores = db.Table<StandScores>().Where<StandScores>(s => s.StandId == stand.Id).ToList();
@@ -351,7 +349,7 @@ namespace ClubClays
 
                 for (int x = 1; x <= StandsByNum.Count; x++)
                 {
-                    Stands newStand = new Stands() { ShootId = newShoot.Id, StandNum = x, StandType = StandsByNum[x].standType };
+                    Stands newStand = new Stands() { ShootId = newShoot.Id, StandNum = x };
                     db.Insert(newStand);
 
                     for (int a = 0; a <= StandsByNum[x].shotFormat.Count - 1; a++)

@@ -58,7 +58,7 @@ namespace ClubClays.Fragments
         private void Save_Click(object sender, EventArgs e)
         {
             var scoreManagementModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(Shoot))) as Shoot;    
-            scoreManagementModel.AddStand(new Stand("", recyclerAdapter.ShotsLayout));
+            scoreManagementModel.AddStand(new Stand(recyclerAdapter.ShotsLayout));
             Activity.SupportFragmentManager.PopBackStack();
         } 
     
