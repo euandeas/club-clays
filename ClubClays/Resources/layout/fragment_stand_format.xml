@@ -47,7 +47,8 @@
 					android:paddingLeft="10dp"
 					android:paddingRight="10dp"
 					android:textSize="15sp"
-					android:paddingTop="5dp"/>
+					android:paddingTop="5dp"
+                    android:paddingBottom="5dp"/>
 				<TextView
 					android:text="Num Shots"
 					android:layout_width="match_parent"
@@ -55,6 +56,7 @@
 					android:id="@+id/numShots"
 					android:paddingLeft="10dp"
 					android:paddingRight="10dp"
+                    android:paddingTop="5dp"
 					android:paddingBottom="5dp"
 					android:textSize="15sp"
 					android:gravity="right"/>

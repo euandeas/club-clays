@@ -19,6 +19,8 @@ namespace ClubClays.Fragments
     public class AddStandFormatFragment : Fragment
     {
         private AddStandFormatRecyclerAdapter recyclerAdapter;
+        private TextView standNum;
+        private TextView numShots;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -40,10 +42,18 @@ namespace ClubClays.Fragments
 
             toolbar.FindViewById<TextView>(Resource.Id.saveButton).Click += Save_Click;
 
+            var scoreManagementModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(Shoot))) as Shoot;
+
+            standNum = view.FindViewById<TextView>(Resource.Id.standNum);
+            numShots = view.FindViewById<TextView>(Resource.Id.numShots);
+
+            standNum.Text = $"Stand {scoreManagementModel.NumStands + 1}";
+            numShots.Text = "0";
+
             LinearLayoutManager LayoutManager = new LinearLayoutManager(Activity);
             RecyclerView shootsRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.recyclerView);
             shootsRecyclerView.SetLayoutManager(LayoutManager);
-            recyclerAdapter = new AddStandFormatRecyclerAdapter(new List<string>());
+            recyclerAdapter = new AddStandFormatRecyclerAdapter(new List<string>(), ref numShots);
             ItemTouchHelper.Callback callback = new ItemMoveSwipeCallback(recyclerAdapter);
             ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
             touchHelper.AttachToRecyclerView(shootsRecyclerView);
@@ -87,7 +97,9 @@ namespace ClubClays.Fragments
 
     public class AddStandFormatRecyclerAdapter : RecyclerView.Adapter, ItemMoveSwipeCallback.ItemTouchHelperContract
     {
+        private TextView shotsTextView;
         private List<string> shotsLayout;
+        int numShots;
 
         public List<string> ShotsLayout
         {
@@ -100,7 +112,27 @@ namespace ClubClays.Fragments
         public void AddItem(string type)
         {
             shotsLayout.Add(type);
+            NumberOfShots();
             NotifyDataSetChanged();
+        }
+
+        public void NumberOfShots() 
+        {
+            numShots = 0;
+            foreach (string format in shotsLayout)
+            {
+                if (format == "Pair")
+                {
+                    numShots += 2;
+                }
+
+                if (format == "Single")
+                {
+                    numShots += 1;
+                }
+            }
+
+            shotsTextView.Text = $"{numShots}";
         }
 
         // Provide a reference to the views for each data item
@@ -180,14 +212,16 @@ namespace ClubClays.Fragments
             {
                 int pos = myViewHolder.AdapterPosition;
                 shotsLayout.RemoveAt(pos);
+                NumberOfShots();
                 NotifyItemRemoved(pos);
             }
 
         }
 
         // Provide a suitable constructor (depends on the kind of dataset)
-        public AddStandFormatRecyclerAdapter(List<string> shotsLayout)
+        public AddStandFormatRecyclerAdapter(List<string> shotsLayout, ref TextView shotsTextView)
         {
+            this.shotsTextView = shotsTextView;
             this.shotsLayout = shotsLayout;
         }
     }

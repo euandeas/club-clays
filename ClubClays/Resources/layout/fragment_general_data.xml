@@ -142,7 +142,7 @@
                 android:id="@+id/standsEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Stands"
+                android:hint="Shoot Format"
                 android:focusable="false"
                 android:longClickable="false"/>
         </com.google.android.material.textfield.TextInputLayout>
