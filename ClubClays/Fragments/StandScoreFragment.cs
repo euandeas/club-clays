@@ -136,12 +136,12 @@ namespace ClubClays.Fragments
                     {
                         view1.Click += (s, e) =>
                         {
-                            ButtonClicked((Button)s, view.AdapterPosition, (int)char.GetNumericValue(((string)((Button)s).Tag)[0]), 0, view.mShooterStandTotal);
+                            ButtonClicked((Button)s, view.AbsoluteAdapterPosition, (int)char.GetNumericValue(((string)((Button)s).Tag)[0]), 0, view.mShooterStandTotal);
                         };
 
                         view2.Click += (s, e) =>
                         {
-                            ButtonClicked((Button)s, view.AdapterPosition, (int)char.GetNumericValue(((string)((Button)s).Tag)[0]), 1, view.mShooterStandTotal);
+                            ButtonClicked((Button)s, view.AbsoluteAdapterPosition, (int)char.GetNumericValue(((string)((Button)s).Tag)[0]), 1, view.mShooterStandTotal);
                         };
                     }
 
@@ -164,7 +164,7 @@ namespace ClubClays.Fragments
                     {
                         view1.Click += (s, e) =>
                         {
-                            ButtonClicked((Button)s, view.AdapterPosition, (int)char.GetNumericValue(((string)((Button)s).Tag)[0]), 0, view.mShooterStandTotal);
+                            ButtonClicked((Button)s, view.AbsoluteAdapterPosition, (int)char.GetNumericValue(((string)((Button)s).Tag)[0]), 0, view.mShooterStandTotal);
                         };
                     }
 

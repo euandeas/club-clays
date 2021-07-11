@@ -134,8 +134,8 @@ namespace ClubClays.Fragments
                 TextInputEditText shooterName = layoutview.FindViewById<TextInputEditText>(Resource.Id.newShootersName);
                 TextInputEditText shooterClass = layoutview.FindViewById<TextInputEditText>(Resource.Id.newShooterClass);
 
-                shooterName.Text = shooters[view.AdapterPosition].Name;
-                shooterClass.Text = shooters[view.AdapterPosition].Class;
+                shooterName.Text = shooters[view.AbsoluteAdapterPosition].Name;
+                shooterClass.Text = shooters[view.AbsoluteAdapterPosition].Class;
 
                 builder.SetView(layoutview);
                 builder.SetPositiveButton("Save", (c, ev) =>
@@ -143,11 +143,11 @@ namespace ClubClays.Fragments
                     string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
                     using (var db = new SQLiteConnection(dbPath))
                     {
-                        db.CreateCommand($"UPDATE Shooters SET Name = '{shooterName.Text}', Class = '{shooterClass.Text}' WHERE Id = {shooters[view.AdapterPosition].Id};").ExecuteNonQuery(); 
+                        db.CreateCommand($"UPDATE Shooters SET Name = '{shooterName.Text}', Class = '{shooterClass.Text}' WHERE Id = {shooters[view.AbsoluteAdapterPosition].Id};").ExecuteNonQuery(); 
                     }
 
-                    shooters[view.AdapterPosition].Name = shooterName.Text;
-                    shooters[view.AdapterPosition].Class = shooterClass.Text;
+                    shooters[view.AbsoluteAdapterPosition].Name = shooterName.Text;
+                    shooters[view.AbsoluteAdapterPosition].Class = shooterClass.Text;
                     NotifyDataSetChanged();
                 });
                 builder.SetNegativeButton("Cancel", (c, ev) => { });
@@ -165,7 +165,7 @@ namespace ClubClays.Fragments
                     string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
                     using (var db = new SQLiteConnection(dbPath))
                     {
-                        int shooterId = shooters[view.AdapterPosition].Id;
+                        int shooterId = shooters[view.AbsoluteAdapterPosition].Id;
                         db.Delete<Shooters>(shooterId);
                         var potentialShootsToDelete = db.Table<OverallScores>().Where(s => s.ShooterId == shooterId).ToList();
                         db.CreateCommand($"DELETE FROM OverallScores WHERE ShooterId = {shooterId};").ExecuteNonQuery();
@@ -185,7 +185,7 @@ namespace ClubClays.Fragments
                             }
                         }
                     }
-                    shooters.Remove(shooters[view.AdapterPosition]);
+                    shooters.Remove(shooters[view.AbsoluteAdapterPosition]);
                     NotifyDataSetChanged();
                 });
 

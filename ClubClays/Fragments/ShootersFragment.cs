@@ -163,15 +163,15 @@ namespace ClubClays.Fragments
             {
                 if (type == "all")
                 {
-                    shootersModel.selectedShooters.Add(shootersModel.allShooters[view.AdapterPosition]);
-                    shootersModel.allShooters.RemoveAt(view.AdapterPosition);
+                    shootersModel.selectedShooters.Add(shootersModel.allShooters[view.AbsoluteAdapterPosition]);
+                    shootersModel.allShooters.RemoveAt(view.AbsoluteAdapterPosition);
                     NotifyDataSetChanged();
                     otherRecyclerView.GetAdapter().NotifyDataSetChanged();
                 }
                 else if (type == "selected")
                 {
-                    shootersModel.allShooters.Add(shootersModel.selectedShooters[view.AdapterPosition]);
-                    shootersModel.selectedShooters.RemoveAt(view.AdapterPosition);
+                    shootersModel.allShooters.Add(shootersModel.selectedShooters[view.AbsoluteAdapterPosition]);
+                    shootersModel.selectedShooters.RemoveAt(view.AbsoluteAdapterPosition);
                     NotifyDataSetChanged();
                     otherRecyclerView.GetAdapter().NotifyDataSetChanged();
                 }

@@ -29,7 +29,7 @@ namespace ClubClays
 
         public override bool OnMove(RecyclerView p0, RecyclerView.ViewHolder p1, RecyclerView.ViewHolder p2)
         {
-            mAdapter.onRowMoved(p1.AdapterPosition, p2.AdapterPosition);
+            mAdapter.onRowMoved(p1.AbsoluteAdapterPosition, p2.AbsoluteAdapterPosition);
             return true;
         }
 
@@ -88,7 +88,7 @@ namespace ClubClays
 
         public override bool OnMove(RecyclerView p0, RecyclerView.ViewHolder p1, RecyclerView.ViewHolder p2)
         {
-            mAdapter.onRowMoved(p1.AdapterPosition, p2.AdapterPosition);
+            mAdapter.onRowMoved(p1.AbsoluteAdapterPosition, p2.AbsoluteAdapterPosition);
             return true;
         }
      

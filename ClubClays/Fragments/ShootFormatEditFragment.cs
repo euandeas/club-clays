@@ -152,7 +152,7 @@ namespace ClubClays.Fragments
             {
                 StandFormatFragment fragment = new StandFormatFragment();
                 Bundle args = new Bundle();
-                args.PutInt("StandFormatID", standFormats[view.AdapterPosition].Id);
+                args.PutInt("StandFormatID", standFormats[view.AbsoluteAdapterPosition].Id);
                 fragment.Arguments = args;
 
                 FragmentTransaction fragmentTx = activity.SupportFragmentManager.BeginTransaction();

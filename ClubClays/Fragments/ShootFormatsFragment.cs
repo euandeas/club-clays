@@ -181,7 +181,7 @@ namespace ClubClays.Fragments
                 if (selectable)
                 {
                     Bundle result = new Bundle();
-                    if (view.AdapterPosition == 0)
+                    if (view.AbsoluteAdapterPosition == 0)
                     {
                         standShooterModel.selectedFormat = null;
                         result.PutString("titleText", "Blank");
@@ -189,9 +189,9 @@ namespace ClubClays.Fragments
                     }
                     else
                     {
-                        standShooterModel.selectedFormat = shootFormats[view.AdapterPosition - 1];
-                        result.PutString("titleText", shootFormats[view.AdapterPosition - 1].FormatName);
-                        result.PutString("bottomText", $"{shootFormats[view.AdapterPosition - 1].NumStands} Stand(s)");
+                        standShooterModel.selectedFormat = shootFormats[view.AbsoluteAdapterPosition - 1];
+                        result.PutString("titleText", shootFormats[view.AbsoluteAdapterPosition - 1].FormatName);
+                        result.PutString("bottomText", $"{shootFormats[view.AbsoluteAdapterPosition - 1].NumStands} Stand(s)");
                     }
 
                     activity.SupportFragmentManager.SetFragmentResult("2", result);
@@ -205,11 +205,11 @@ namespace ClubClays.Fragments
                 Bundle args = new Bundle();
                 if (selectable)
                 {
-                    args.PutInt("ShootFormatID", shootFormats[view.AdapterPosition - 1].Id);
+                    args.PutInt("ShootFormatID", shootFormats[view.AbsoluteAdapterPosition - 1].Id);
                 }
                 else
                 {
-                    args.PutInt("ShootFormatID", shootFormats[view.AdapterPosition].Id);
+                    args.PutInt("ShootFormatID", shootFormats[view.AbsoluteAdapterPosition].Id);
                 }
 
                 fragment.Arguments = args;

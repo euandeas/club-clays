@@ -178,7 +178,7 @@ namespace ClubClays.Fragments
             {
                 Fragment fragment = new PreviousShootFragment();
                 Bundle args = new Bundle();
-                args.PutInt("ShootID", allShoots[view.AdapterPosition].Id);
+                args.PutInt("ShootID", allShoots[view.AbsoluteAdapterPosition].Id);
                 fragment.Arguments = args;
 
                 FragmentTransaction fragmentTx = activity.SupportFragmentManager.BeginTransaction();

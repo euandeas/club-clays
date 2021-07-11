@@ -238,7 +238,7 @@ namespace ClubClays.Fragments
         {
             if (direction == ItemTouchHelper.Left)
             {
-                int pos = myViewHolder.AdapterPosition;
+                int pos = myViewHolder.AbsoluteAdapterPosition;
                 shotsFormats.RemoveAt(pos);
                 NumberOfShots();
                 NotifyItemRemoved(pos);
