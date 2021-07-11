@@ -26,17 +26,7 @@
 		<item name="materialCalendarTheme">@style/MaterialCalendarStyle</item>
 		<item name="tabStyle">@style/TabStyle</item>
 		<item name="alertDialogTheme">@style/AlertDialogStyle</item>
-    </style>
-
-	<style name="SplashTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-		<item name="android:windowLightStatusBar">false</item>
-		<item name="android:statusBarColor">#000000</item>
-        <item name="android:windowBackground">@drawable/background_splash</item>
-    </style>
-		
-	<style name="Toolbar.TitleText" parent="TextAppearance.MaterialComponents.Subtitle1">
-        <item name="android:textSize">20sp</item>
-    </style>
+    </style>		
 
 	<style name="ToolBarColorControl" parent="ThemeOverlay.MaterialComponents">
 		<item name="colorControlNormal">#ffffff</item>
@@ -46,19 +36,6 @@
 		<item name="tabSelectedTextColor">@color/colorAccent</item>
 		<item name="tabBackground">@color/colorPrimary</item>
 	</style>
-	
-	<style name="MaterialAlertDialogStyle" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
-		 <item name="materialAlertDialogTitleTextStyle">@style/AlertTitle</item>
-		 <item name="android:checkedTextViewStyle">@style/AlertCheckedBody</item>
-		 <item name="materialAlertDialogBodyTextStyle">@style/AlertBody</item>
-		 <item name="buttonBarPositiveButtonStyle">@style/Widget.App.Button</item>
-		 <item name="buttonBarNegativeButtonStyle">@style/Widget.App.Button</item>
-		 <item name="buttonBarNeutralButtonStyle">@style/Widget.App.Button</item>
-	</style>
-	
-	<style name="AlertTitle" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
-        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Headline6</item>
-    </style>
 	
 	<style name="AlertCheckedBody" parent="Widget.MaterialComponents.CheckedTextView">
         <item name="android:textColor">#ffffff</item>
@@ -79,10 +56,6 @@
 		<item name="buttonBarPositiveButtonStyle">@style/Widget.App.Button</item>
 		<item name="buttonBarNegativeButtonStyle">@style/Widget.App.Button</item>
 		<item name="textInputStyle">@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense</item>
-	</style>
-	
-    <style name="PrefsTheme" parent="PreferenceThemeOverlay">
-        <item name="android:layout">@layout/fragment_settings</item>
 	</style>
 
 	<style name="AlertDialogStyle" parent="Theme.AppCompat.Dialog.Alert">
