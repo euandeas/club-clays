@@ -21,12 +21,14 @@ namespace ClubClays.Fragments
         FloatingActionButton fab;
         ScoreViewPagerAdapter scoreViewPagerAdapter;
         ViewPager2 viewPager;
+        BackPress backPress;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
             // Create your fragment here
+
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -53,7 +55,11 @@ namespace ClubClays.Fragments
             FABVisibility(tabLayout.SelectedTabPosition);
             fab.Click += Fab_Click;
 
-            Activity.OnBackPressedDispatcher.AddCallback(new BackPress(this));
+            if (Activity.SupportFragmentManager.BackStackEntryCount != 0)
+            {
+                backPress = new BackPress(this);
+                Activity.OnBackPressedDispatcher.AddCallback(backPress);
+            }
 
             return view;
         }
@@ -105,6 +111,7 @@ namespace ClubClays.Fragments
                 builder.SetMessage("Are you sure that you would like to end this shoot?");
                 builder.SetPositiveButton("Yes", (c, ev) =>
                 {
+                    backPress.Remove();
                     FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
                     fragmentTx.Replace(Resource.Id.container, new ShootEndFragment());
                     fragmentTx.AddToBackStack(null);
@@ -133,6 +140,7 @@ namespace ClubClays.Fragments
                 builder.SetMessage("Are you sure that you would like to exit this shoot without saving?");
                 builder.SetPositiveButton("Yes", (c, ev) =>
                 {
+                    Remove();
                     context.Activity.SupportFragmentManager.PopBackStack(null, FragmentManager.PopBackStackInclusive);
                     FragmentTransaction fragmentTx = context.Activity.SupportFragmentManager.BeginTransaction();
                     fragmentTx.Replace(Resource.Id.container, new MainFragment());
@@ -141,7 +149,6 @@ namespace ClubClays.Fragments
 
                 builder.SetNegativeButton("No", (c, ev) => { });
                 builder.Show();
-                Remove();
             }
         }
     }

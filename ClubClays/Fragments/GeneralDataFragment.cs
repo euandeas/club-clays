@@ -58,6 +58,10 @@ namespace ClubClays.Fragments
             adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             spinner.Adapter = adapter;
 
+            string defaultItem = spinner.Adapter.GetItem(0).ToString();
+            spinner.SetText(defaultItem, false);
+            discipline = defaultItem;
+
             date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
             datePickerView = view.FindViewById<TextInputEditText>(Resource.Id.dateEditText);
             datePickerView.Text = $"{date:MMMM} {date:dd}, {date:yyyy}";

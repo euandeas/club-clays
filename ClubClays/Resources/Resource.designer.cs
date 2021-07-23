@@ -153,6 +153,7 @@ namespace ClubClays
 			global::Xamarin.Essentials.Resource.Id.text2 = global::ClubClays.Resource.Id.text2;
 			global::Xamarin.Essentials.Resource.Id.time = global::ClubClays.Resource.Id.time;
 			global::Xamarin.Essentials.Resource.Id.title = global::ClubClays.Resource.Id.title;
+			global::Xamarin.Essentials.Resource.Id.view_tree_lifecycle_owner = global::ClubClays.Resource.Id.view_tree_lifecycle_owner;
 			global::Xamarin.Essentials.Resource.Integer.status_bar_notification_info_maxnum = global::ClubClays.Resource.Integer.status_bar_notification_info_maxnum;
 			global::Xamarin.Essentials.Resource.Layout.browser_actions_context_menu_page = global::ClubClays.Resource.Layout.browser_actions_context_menu_page;
 			global::Xamarin.Essentials.Resource.Layout.browser_actions_context_menu_row = global::ClubClays.Resource.Layout.browser_actions_context_menu_row;

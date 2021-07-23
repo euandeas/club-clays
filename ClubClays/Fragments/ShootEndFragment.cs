@@ -1,5 +1,7 @@
 ﻿using Android.OS;
 using Android.Views;
+using AndroidX.AppCompat.App;
+using AndroidX.AppCompat.Widget;
 using AndroidX.Fragment.App;
 using AndroidX.Lifecycle;
 using Google.Android.Material.FloatingActionButton;
@@ -24,6 +26,12 @@ namespace ClubClays.Fragments
         {
             // Use this to return your custom view for this Fragment
             View view = inflater.Inflate(Resource.Layout.fragment_shoot_end, container, false);
+
+            Toolbar toolbar = view.FindViewById<Toolbar>(Resource.Id.toolbar);
+            ((AppCompatActivity)Activity).SetSupportActionBar(toolbar);
+            ActionBar supportBar = ((AppCompatActivity)Activity).SupportActionBar;
+            supportBar.SetDisplayHomeAsUpEnabled(true);
+            supportBar.SetDisplayShowHomeEnabled(true);
 
             scoreManagementModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(Shoot))) as Shoot;
 

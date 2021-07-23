@@ -38,6 +38,7 @@ namespace ClubClays.Fragments
             View view = inflater.Inflate(Resource.Layout.fragment_main, container, false);
 
             Activity.ViewModelStore.Clear();
+            Activity.SupportFragmentManager.PopBackStack(null, FragmentManager.PopBackStackInclusive);
 
             currentDate = DateTime.Now.ToLongDateString().Replace(", ", " ");
             string timeOfDay = DateTime.Now.ToString("tt").ToLower();
