@@ -65,38 +65,38 @@ namespace ClubClays.Fragments
             {
                 if (shots[x].Item1 == "Pair")
                 {
-                    UpdateButton(shots[x].Item2[0], (Button)myHolder.mStandHits.FindViewWithTag($"{x}.1"));
-                    UpdateButton(shots[x].Item2[1], (Button)myHolder.mStandHits.FindViewWithTag($"{x}.2"));
+                    UpdateButton(shots[x].Item2[0], (ImageButton)myHolder.mStandHits.FindViewWithTag($"{x}.1"));
+                    UpdateButton(shots[x].Item2[1], (ImageButton)myHolder.mStandHits.FindViewWithTag($"{x}.2"));
                 }
                 if (shots[x].Item1 == "Single")
                 {
-                    UpdateButton(shots[x].Item2[0], (Button)myHolder.mStandHits.FindViewWithTag($"{x}"));
+                    UpdateButton(shots[x].Item2[0], (ImageButton)myHolder.mStandHits.FindViewWithTag($"{x}"));
                 }
             }
         }
 
-        public void ButtonClicked(Button view, int position, int shotsNum, int shotNum, TextView total)
+        public void ButtonClicked(ImageButton view, int position, int shotsNum, int shotNum, TextView total)
         {
             UpdateButton(scoreManagementModel.UpdateScore(position, standNum, shotsNum, shotNum), view);
             total.Text = $"{scoreManagementModel.ShooterStandTotal(position, standNum)}";
         }
 
-        public void UpdateButton(int updateTo, Button view)
+        public void UpdateButton(int updateTo, ImageButton view)
         {
             switch (updateTo)
             {
                 case 0:
-                    view.Text = "";
+                    view.SetImageResource(0);
                     view.SetBackgroundResource(Resource.Drawable.default_hit_miss_button);
                     break;
 
                 case 1:
-                    view.Text = "X";
+                    view.SetImageResource(Resource.Drawable.outline_cross);
                     view.SetBackgroundResource(Resource.Drawable.hit_hit_miss_button);
                     break;
 
                 case 2:
-                    view.Text = "O";
+                    view.SetImageResource(Resource.Drawable.outline_circle);
                     view.SetBackgroundResource(Resource.Drawable.miss_hit_miss_button);
                     break;
             }
@@ -116,11 +116,8 @@ namespace ClubClays.Fragments
             {
                 if (shotsFormat[x] == "Pair")
                 {
-                    Button view1 = new Button(context);
-                    Button view2 = new Button(context);
-
-                    view1.TextSize = 16;
-                    view2.TextSize = 16;
+                    ImageButton view1 = new ImageButton(context);
+                    ImageButton view2 = new ImageButton(context);
 
                     int size = (int)context.Resources.GetDimension(Resource.Dimension.button_side);
                     LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(size, size);
@@ -136,12 +133,12 @@ namespace ClubClays.Fragments
                     {
                         view1.Click += (s, e) =>
                         {
-                            ButtonClicked((Button)s, view.AbsoluteAdapterPosition, (int)char.GetNumericValue(((string)((Button)s).Tag)[0]), 0, view.mShooterStandTotal);
+                            ButtonClicked((ImageButton)s, view.AbsoluteAdapterPosition, (int)char.GetNumericValue(((string)((ImageButton)s).Tag)[0]), 0, view.mShooterStandTotal);
                         };
 
                         view2.Click += (s, e) =>
                         {
-                            ButtonClicked((Button)s, view.AbsoluteAdapterPosition, (int)char.GetNumericValue(((string)((Button)s).Tag)[0]), 1, view.mShooterStandTotal);
+                            ButtonClicked((ImageButton)s, view.AbsoluteAdapterPosition, (int)char.GetNumericValue(((string)((ImageButton)s).Tag)[0]), 1, view.mShooterStandTotal);
                         };
                     }
 
@@ -150,9 +147,7 @@ namespace ClubClays.Fragments
                 }
                 if (shotsFormat[x] == "Single")
                 {
-                    Button view1 = new Button(context);
-
-                    view1.TextSize = 16;
+                    ImageButton view1 = new ImageButton(context);
 
                     int size = (int)context.Resources.GetDimension(Resource.Dimension.button_side);
                     LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(size, size);
@@ -164,7 +159,7 @@ namespace ClubClays.Fragments
                     {
                         view1.Click += (s, e) =>
                         {
-                            ButtonClicked((Button)s, view.AbsoluteAdapterPosition, (int)char.GetNumericValue(((string)((Button)s).Tag)[0]), 0, view.mShooterStandTotal);
+                            ButtonClicked((ImageButton)s, view.AbsoluteAdapterPosition, (int)char.GetNumericValue(((string)((Button)s).Tag)[0]), 0, view.mShooterStandTotal);
                         };
                     }
 
