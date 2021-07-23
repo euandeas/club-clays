@@ -58,17 +58,10 @@ namespace ClubClays.Fragments
 
         private void Fab_Click(object sender, EventArgs e)
         {
-            DatabaseModels.ShootFormats shootFormat;
-            string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
-            using (var db = new SQLiteConnection(dbPath))
-            {
-                shootFormat = new DatabaseModels.ShootFormats { };
-                db.Insert(shootFormat);
-            }
-
             ShootFormatEditFragment fragment = new ShootFormatEditFragment();
             Bundle args = new Bundle();
-            args.PutInt("ShootFormatID", shootFormat.Id);
+            args.PutBoolean("NewShoot", true);
+            args.PutBoolean("Selectable", Arguments.GetBoolean("selectable"));
             fragment.Arguments = args;
 
             FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();

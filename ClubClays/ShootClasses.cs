@@ -11,13 +11,20 @@ namespace ClubClays
 {
     public class ShooterStandData : ViewModel
     {
-        public List<Shooters> selectedShooters;
-        public List<Shooters> allShooters;
-        public ShootFormats selectedFormat;
+        public List<Shooters> selectedShooters = new List<Shooters>();
+        public List<Shooters> allShooters = new List<Shooters>();
+        public ShootFormats selectedFormat = null;
+    }
+
+    public class ShootFormat : ViewModel
+    {
+        public List<Stand> originalStands;
+        public List<Stand> stands;
     }
 
     public class Stand
     {
+        public int id;
         public List<string> shotFormat;
         public int numClays;
 
@@ -408,7 +415,6 @@ namespace ClubClays
                 }
             }
         }
-        public void SaveFormat() { }
         public void CalculateStats()
         {
             for (int y = 0; y <= Shooters.Count - 1; y++)

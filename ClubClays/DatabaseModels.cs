@@ -93,9 +93,8 @@ namespace ClubClays.DatabaseModels
         [PrimaryKey, AutoIncrement]
         public int Id { get; set; }
         public string FormatName { get; set; }
-        public string EventType { get; set; }
-        public string NumStands { get; set; }
-        public string ClayAmount { get; set; }
+        public int NumStands { get; set; }
+        public int ClayAmount { get; set; }
     }
 
     public class StandFormats

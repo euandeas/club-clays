@@ -1,5 +1,6 @@
 ﻿using Android.OS;
 using Android.Views;
+using AndroidX.Activity;
 using AndroidX.AppCompat.App;
 using AndroidX.AppCompat.View.Menu;
 using AndroidX.Fragment.App;
@@ -51,6 +52,8 @@ namespace ClubClays.Fragments
             fab = view.FindViewById<FloatingActionButton>(Resource.Id.addButton);
             FABVisibility(tabLayout.SelectedTabPosition);
             fab.Click += Fab_Click;
+
+            Activity.OnBackPressedDispatcher.AddCallback(new BackPress(this));
 
             return view;
         }
@@ -113,6 +116,33 @@ namespace ClubClays.Fragments
             }
 
             return base.OnOptionsItemSelected(item);
+        }
+
+        public class BackPress : OnBackPressedCallback
+        {
+            ScoreTakingFragment context;
+
+            public BackPress(ScoreTakingFragment cont) : base(true)
+            {
+                context = cont;
+            }
+            public override void HandleOnBackPressed()
+            {
+                MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context.Activity);
+                builder.SetTitle("Exit Shoot?");
+                builder.SetMessage("Are you sure that you would like to exit this shoot without saving?");
+                builder.SetPositiveButton("Yes", (c, ev) =>
+                {
+                    context.Activity.SupportFragmentManager.PopBackStack(null, FragmentManager.PopBackStackInclusive);
+                    FragmentTransaction fragmentTx = context.Activity.SupportFragmentManager.BeginTransaction();
+                    fragmentTx.Replace(Resource.Id.container, new MainFragment());
+                    fragmentTx.Commit();
+                });
+
+                builder.SetNegativeButton("No", (c, ev) => { });
+                builder.Show();
+                Remove();
+            }
         }
     }
 }

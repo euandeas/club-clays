@@ -26,6 +26,7 @@
 		<item name="materialCalendarTheme">@style/MaterialCalendarStyle</item>
 		<item name="tabStyle">@style/TabStyle</item>
 		<item name="alertDialogTheme">@style/AlertDialogStyle</item>
+		<item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
     </style>		
 
 	<style name="ToolBarColorControl" parent="ThemeOverlay.MaterialComponents">

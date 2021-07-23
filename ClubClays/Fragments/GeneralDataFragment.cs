@@ -74,8 +74,6 @@ namespace ClubClays.Fragments
             standShooterModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(ShooterStandData))) as ShooterStandData;
             standShooterModel.allShooters = db.Table<Shooters>().ToList();
             db.Close();
-            standShooterModel.selectedShooters = new List<Shooters>();
-            standShooterModel.selectedFormat = null;
 
             standFormatting = view.FindViewById<TextInputEditText>(Resource.Id.standsEditText);
             standFormatting.Text = "Blank";
