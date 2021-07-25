@@ -14,7 +14,6 @@ using System.IO;
 using SQLite;
 using System.Collections.Generic;
 using AndroidX.Fragment.App;
-using AndroidX.CoordinatorLayout.Widget;
 
 namespace ClubClays.Fragments
 {
