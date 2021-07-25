@@ -56,11 +56,21 @@ namespace ClubClays.Fragments
             toolbar = view.FindViewById<Toolbar>(Resource.Id.toolbar);
             ((AppCompatActivity)Activity).SetSupportActionBar(toolbar);
             ActionBar supportBar = ((AppCompatActivity)Activity).SupportActionBar;
-            supportBar.Title = $"{previousShootModel.EventType} on {previousShootModel.Date.ToShortDateString()}";
+            if (previousShootModel.Title == "")
+            {
+                supportBar.Title = "Previous Shoot";
+            }
+            else
+            {
+                supportBar.Title = $"{previousShootModel.Title}";
+            }
             titleTextView = ToolbarTitle();
             supportBar.SetDisplayHomeAsUpEnabled(true);
             supportBar.SetDisplayShowHomeEnabled(true);
             HasOptionsMenu = true;
+
+            view.FindViewById<TextView>(Resource.Id.mainTitleText).Text = supportBar.Title;
+            view.FindViewById<TextView>(Resource.Id.dateText).Text = previousShootModel.Date.ToLongDateString().Replace(", ", " ");
 
             appBarLayout = view.FindViewById<AppBarLayout>(Resource.Id.appBar);
             appBarLayout.OffsetChanged += AppBarLayout_OffsetChanged;

@@ -100,6 +100,11 @@ namespace ClubClays
             get { return discipline; }
         }
 
+        public string Title
+        {
+            get { return title; }
+        }
+
         public void ShooterOverallData(int position, out string name, out int overallTotal, out List<int> totals)
         {
             totals = new List<int>();
