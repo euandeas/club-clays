@@ -8,35 +8,35 @@
 	<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-		android:orientation="vertical">
+		android:orientation="vertical"
+		android:padding="5dp">
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:id="@+id/shootDate"
+			android:paddingLeft="5dp"
+			android:textSize="14sp"
+			android:textColor="@color/colorAccent"/>
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:id="@+id/shootTitle"
-			android:paddingLeft="10dp"
-			android:paddingRight="10dp"
-			android:paddingTop="5dp"
-			android:textStyle="italic"
-			android:textSize="18sp"/>
+			android:paddingLeft="5dp"
+			android:textStyle="bold"
+			android:textSize="22sp"/>
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:id="@+id/shootInfo"
-			android:paddingLeft="10dp"
-			android:paddingRight="10dp"
-			android:paddingTop="4dp"
-			android:textStyle="italic"
-			android:textSize="14sp"/>
+			android:id="@+id/shootDiscipline"
+			android:paddingLeft="5dp"
+			android:textSize="16sp"/>
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:id="@+id/shootLocation"
-			android:paddingLeft="10dp"
-			android:paddingRight="10dp"
-			android:paddingTop="4dp"
-			android:paddingBottom="5dp"
-			android:textStyle="italic"
-			android:textSize="12sp"/>
+			android:paddingLeft="5dp"
+			android:textSize="14sp"
+			android:textColor="@android:color/darker_gray"/>
 	</LinearLayout>
 </androidx.cardview.widget.CardView>
 

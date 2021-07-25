@@ -148,8 +148,9 @@ namespace ClubClays.Fragments
         public class MyView : RecyclerView.ViewHolder
         {
             public View mMainView { get; set; }
+            public TextView mShootDate { get; set; }
             public TextView mShootTitle { get; set; }
-            public TextView mShootInfo { get; set; }
+            public TextView mShootDiscipline { get; set; }
             public TextView mShootLocation { get; set; }
             public MyView(View view) : base(view)
             {
@@ -161,19 +162,37 @@ namespace ClubClays.Fragments
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
             MyView myHolder = holder as MyView;
-            myHolder.mShootTitle.Text = $"{allShoots[position].EventType} on {allShoots[position].Date.ToShortDateString()}";
-            myHolder.mShootInfo.Text = $"{allShoots[position].NumStands} Stand(s), {allShoots[position].NumClays} Clays";
-            myHolder.mShootLocation.Text = $"{allShoots[position].Location}";
+            myHolder.mShootDate.Text = $"{allShoots[position].Date.ToLongDateString().Replace(", ", " ")}";
+            myHolder.mShootDiscipline.Text = $"{allShoots[position].EventType}";
+
+            if (allShoots[position].Title == "")
+            {
+                myHolder.mShootTitle.Visibility = ViewStates.Gone;
+            }
+            else
+            {
+                myHolder.mShootTitle.Text = $"{allShoots[position].Title}";
+            }
+
+            if (allShoots[position].Location == "")
+            {
+                myHolder.mShootLocation.Visibility = ViewStates.Gone;
+            }
+            else
+            {
+                myHolder.mShootLocation.Text = $"{allShoots[position].Location}";
+            }
         }
 
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
             View shootCardView = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.shoot_item, parent, false);
+            TextView shootDate = shootCardView.FindViewById<TextView>(Resource.Id.shootDate);
             TextView shootTitle = shootCardView.FindViewById<TextView>(Resource.Id.shootTitle);
-            TextView shootInfo = shootCardView.FindViewById<TextView>(Resource.Id.shootInfo);
+            TextView shootDiscipline = shootCardView.FindViewById<TextView>(Resource.Id.shootDiscipline);
             TextView shootLocation = shootCardView.FindViewById<TextView>(Resource.Id.shootLocation);
 
-            MyView view = new MyView(shootCardView) { mShootTitle = shootTitle, mShootInfo = shootInfo, mShootLocation = shootLocation };
+            MyView view = new MyView(shootCardView) { mShootDate = shootDate ,mShootTitle = shootTitle, mShootDiscipline = shootDiscipline, mShootLocation = shootLocation };
 
             shootCardView.Click += delegate
             {
