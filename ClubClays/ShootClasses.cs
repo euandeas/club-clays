@@ -66,13 +66,6 @@ namespace ClubClays
             }
         }
 
-        public int NumClays
-        {
-            get
-            {
-                return numOfClays;
-            }
-        }
 
         public int NumberOfShooters
         {
@@ -95,10 +88,6 @@ namespace ClubClays
             get { return date; }
         }
 
-        public string EventType
-        {
-            get { return discipline; }
-        }
 
         public string Title
         {

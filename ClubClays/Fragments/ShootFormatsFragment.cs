@@ -226,6 +226,20 @@ namespace ClubClays.Fragments
             if (selectable)
             {
                 standShooterModel = new ViewModelProvider(activity).Get(Java.Lang.Class.FromType(typeof(ShooterStandData))) as ShooterStandData;
+
+                Bundle result = new Bundle();
+                if (standShooterModel.selectedFormat == null)
+                {
+                    result.PutString("titleText", "Blank");
+                    result.PutString("bottomText", "Add stands on the go");
+                }
+                else
+                {
+                    result.PutString("titleText", standShooterModel.selectedFormat.FormatName);
+                    result.PutString("bottomText", $"{standShooterModel.selectedFormat.NumStands} Stand(s)");
+                }
+
+                activity.SupportFragmentManager.SetFragmentResult("2", result);
             }
         }
     }
