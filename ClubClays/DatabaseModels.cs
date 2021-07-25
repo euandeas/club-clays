@@ -24,7 +24,6 @@ namespace ClubClays.DatabaseModels
         public int Id { get; set; }
         public int ShootId { get; set; }
         public int StandNum { get; set; }
-        public string NumClays { get; set; }
     }
 
     public class StandShots

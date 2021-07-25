@@ -110,6 +110,16 @@ namespace ClubClays.Fragments
                 return;
             }
 
+            if (string.IsNullOrWhiteSpace(titleInput.Text))
+            {
+                titleInput.Text = "";
+            }
+            
+            if (string.IsNullOrWhiteSpace(locationInput.Text))
+            {
+                locationInput.Text = "";
+            }
+
             FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
 
             Shoot activeShootModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(Shoot))) as Shoot;

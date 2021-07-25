@@ -159,7 +159,7 @@ namespace ClubClays.Fragments
                     {
                         view1.Click += (s, e) =>
                         {
-                            ButtonClicked((ImageButton)s, view.AbsoluteAdapterPosition, (int)char.GetNumericValue(((string)((Button)s).Tag)[0]), 0, view.mShooterStandTotal);
+                            ButtonClicked((ImageButton)s, view.AbsoluteAdapterPosition, (int)char.GetNumericValue(((string)((ImageButton)s).Tag)[0]), 0, view.mShooterStandTotal);
                         };
                     }
 
