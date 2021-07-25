@@ -75,6 +75,10 @@ namespace ClubClays.Fragments
             appBarLayout = view.FindViewById<AppBarLayout>(Resource.Id.appBar);
             appBarLayout.OffsetChanged += AppBarLayout_OffsetChanged;
 
+            var collapsingToolbar = view.FindViewById<CollapsingToolbarLayout>(Resource.Id.collapsingToolbar);
+            AppBarLayout.LayoutParams lp = (AppBarLayout.LayoutParams)collapsingToolbar.LayoutParameters;
+            lp.Height = (Resources.DisplayMetrics.HeightPixels / 8) * 3;
+
             collapsingRelativeLayout = view.FindViewById<RelativeLayout>(Resource.Id.collapsingRelativeLayout);
 
             viewPager = view.FindViewById<ViewPager2>(Resource.Id.view_pager);

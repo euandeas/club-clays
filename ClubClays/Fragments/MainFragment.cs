@@ -14,6 +14,7 @@ using System.IO;
 using SQLite;
 using System.Collections.Generic;
 using AndroidX.Fragment.App;
+using AndroidX.CoordinatorLayout.Widget;
 
 namespace ClubClays.Fragments
 {
@@ -62,6 +63,10 @@ namespace ClubClays.Fragments
 
             appBarLayout = view.FindViewById<AppBarLayout>(Resource.Id.appBar);
             appBarLayout.OffsetChanged += AppBarLayout_OffsetChanged;
+
+            var collapsingToolbar = view.FindViewById<CollapsingToolbarLayout>(Resource.Id.collapsingToolbar);
+            AppBarLayout.LayoutParams lp = (AppBarLayout.LayoutParams)collapsingToolbar.LayoutParameters;
+            lp.Height = (Resources.DisplayMetrics.HeightPixels / 8)*3;
 
             collapsingRelativeLayout = view.FindViewById<RelativeLayout>(Resource.Id.collapsingRelativeLayout);
 

@@ -53,7 +53,7 @@ namespace ClubClays.Fragments
             titleInput = view.FindViewById<TextInputEditText>(Resource.Id.titleEditText);
 
             AutoCompleteTextView spinner = view.FindViewById<AutoCompleteTextView>(Resource.Id.disciplineDropdown);
-            spinner.ItemClick += new EventHandler<AdapterView.ItemClickEventArgs>(spinner_ItemSelected);
+            spinner.ItemClick += new EventHandler<AdapterView.ItemClickEventArgs>(Spinner_ItemSelected);
             var adapter = ArrayAdapter.CreateFromResource(view.Context, Resource.Array.disciplines, Android.Resource.Layout.SimpleSpinnerItem);
             adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             spinner.Adapter = adapter;
@@ -140,7 +140,7 @@ namespace ClubClays.Fragments
             Activity.SupportFragmentManager.SetFragmentResultListener("1", this, this);
         }
 
-        private void spinner_ItemSelected(object sender, AdapterView.ItemClickEventArgs e)
+        private void Spinner_ItemSelected(object sender, AdapterView.ItemClickEventArgs e)
         {
             discipline = (sender as AutoCompleteTextView).Text;
         }
