@@ -16,8 +16,6 @@
 				android:id="@+id/formatTitle"
 				android:paddingLeft="10dp"
 				android:paddingRight="10dp"
-				android:paddingBottom="5dp"
-				android:textStyle="italic"
 				android:textSize="20sp"/>
 			<TextView
 				android:text="5 Stands"
