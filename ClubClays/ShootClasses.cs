@@ -54,6 +54,7 @@ namespace ClubClays
         protected string discipline;
         protected int numOfClays = 0;
         protected string userNotes;
+        protected int shootID;
 
         protected List<Shooter> Shooters = new List<Shooter>();
         protected SortedList<int, Stand> StandsByNum = new SortedList<int, Stand>();
@@ -92,6 +93,11 @@ namespace ClubClays
         public string Title
         {
             get { return title; }
+        }
+
+        public int ShootID
+        {
+            get { return shootID; }
         }
 
         public void ShooterOverallData(int position, out string name, out int overallTotal, out List<int> totals)
@@ -244,6 +250,7 @@ namespace ClubClays
             using (var db = new SQLiteConnection(dbPath))
             {
                 var shoot = db.Get<Shoots>(shootID);
+                this.shootID = shootID; 
                 title = shoot.Title;
                 date = shoot.Date;
                 location = shoot.Location;

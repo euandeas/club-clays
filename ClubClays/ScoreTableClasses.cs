@@ -38,12 +38,6 @@ namespace ClubClays
             }
             return fragment;
         }
-
-        public int AddStand()
-        {
-            numOfStands += 1;
-            return numOfStands;
-        }
     }
 
     public class TabConfigStrat : Java.Lang.Object, TabLayoutMediator.ITabConfigurationStrategy

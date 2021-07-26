@@ -49,9 +49,12 @@ namespace ClubClays.Fragments
             launcher = RegisterForActivityResult(new ActivityResultContracts.StartActivityForResult(), this);
 
             shootId = Arguments.GetInt("ShootID");
-
             previousShootModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(Shoot))) as Shoot;
-            previousShootModel.InitialisePreviousShoot(shootId);
+            
+            if (previousShootModel.ShootID == 0)
+            {
+                previousShootModel.InitialisePreviousShoot(shootId);
+            }
 
             toolbar = view.FindViewById<Toolbar>(Resource.Id.toolbar);
             ((AppCompatActivity)Activity).SetSupportActionBar(toolbar);
@@ -108,7 +111,7 @@ namespace ClubClays.Fragments
             if (item.ItemId == Resource.Id.share_csv)
             {
                 file = previousShootModel.ShootToCSV();
-                var uri = FileProvider.GetUriForFile(Context, "com.euandeas.clubclays", file);
+                var uri = FileProvider.GetUriForFile(Context, "com.euandeas.ClubClays", file);
 
                 Intent shareIntent = new Intent();
                 shareIntent.SetAction(Intent.ActionSend);

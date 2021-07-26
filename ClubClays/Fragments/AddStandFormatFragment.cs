@@ -3,6 +3,7 @@ using Android.OS;
 using Android.Views;
 using Android.Widget;
 using AndroidX.AppCompat.App;
+using AndroidX.AppCompat.View.Menu;
 using AndroidX.Lifecycle;
 using AndroidX.RecyclerView.Widget;
 using Google.Android.Material.FloatingActionButton;
@@ -36,8 +37,7 @@ namespace ClubClays.Fragments
             ActionBar supportBar = ((AppCompatActivity)Activity).SupportActionBar;
             supportBar.SetDisplayHomeAsUpEnabled(true);
             supportBar.SetDisplayShowHomeEnabled(true);
-
-            toolbar.FindViewById<TextView>(Resource.Id.saveButton).Click += Save_Click;
+            HasOptionsMenu = true;
 
             var scoreManagementModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(Shoot))) as Shoot;
 
@@ -62,12 +62,35 @@ namespace ClubClays.Fragments
             return view;
         }
 
-        private void Save_Click(object sender, EventArgs e)
+        public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)
         {
-            var scoreManagementModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(Shoot))) as Shoot;    
-            scoreManagementModel.AddStand(new Stand(recyclerAdapter.ShotsLayout));
-            Activity.SupportFragmentManager.PopBackStack();
-        } 
+            inflater.Inflate(Resource.Menu.stand_formats_toolbar_menu, menu);
+
+            if (menu is MenuBuilder)
+            {
+                MenuBuilder m = (MenuBuilder)menu;
+                m.SetOptionalIconsVisible(true);
+            }
+
+            base.OnCreateOptionsMenu(menu, inflater);
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            if (item.ItemId == Resource.Id.save_format)
+            {
+                var scoreManagementModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(Shoot))) as Shoot;
+                scoreManagementModel.AddStand(new Stand(recyclerAdapter.ShotsLayout));
+
+                Bundle result = new Bundle();
+                result.PutBoolean("StandAdded", true);
+                Activity.SupportFragmentManager.SetFragmentResult("1", result);
+
+                Activity.SupportFragmentManager.PopBackStack();
+            }
+
+            return base.OnOptionsItemSelected(item);
+        }
     
         private void Fab_Click(object sender, EventArgs e)
         {

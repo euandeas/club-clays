@@ -15,7 +15,7 @@ using Toolbar = AndroidX.AppCompat.Widget.Toolbar;
 
 namespace ClubClays.Fragments
 {
-    public class ScoreTakingFragment : Fragment
+    public class ScoreTakingFragment : Fragment, IFragmentResultListener
     {
         Shoot scoreManagementModel;
         FloatingActionButton fab;
@@ -66,10 +66,12 @@ namespace ClubClays.Fragments
 
         private void Fab_Click(object sender, EventArgs e)
         {
+            backPress.Remove();
             FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
             fragmentTx.Replace(Resource.Id.container, new AddStandFormatFragment());
             fragmentTx.AddToBackStack(null);
             fragmentTx.Commit();
+            Activity.SupportFragmentManager.SetFragmentResultListener("1", this, this);
         }
 
         private void TabLayout_TabSelected(object sender, TabLayout.TabSelectedEventArgs e)
@@ -123,6 +125,17 @@ namespace ClubClays.Fragments
             }
 
             return base.OnOptionsItemSelected(item);
+        }
+
+        public void OnFragmentResult(string p0, Bundle p1)
+        {
+            if (p0 == "1")
+            {
+                if(p1.GetBoolean("StandAdded", false))
+                {
+                    viewPager.SetCurrentItem(scoreViewPagerAdapter.ItemCount, false);
+                }
+            }
         }
 
         public class BackPress : OnBackPressedCallback
