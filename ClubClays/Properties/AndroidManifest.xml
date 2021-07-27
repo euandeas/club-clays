@@ -5,6 +5,10 @@
 		<provider android:name="androidx.core.content.FileProvider" android:authorities="com.euandeas.ClubClays" android:exported="false" android:grantUriPermissions="true">
 			<meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths" />
 		</provider>
+		<!-- Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713 -->
+		<meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713"/>
 	</application>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 </manifest>

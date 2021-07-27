@@ -14,6 +14,7 @@ using System.IO;
 using SQLite;
 using System.Collections.Generic;
 using AndroidX.Fragment.App;
+using Android.Gms.Ads;
 
 namespace ClubClays.Fragments
 {
@@ -50,6 +51,10 @@ namespace ClubClays.Fragments
             {
                 mainTitle = "Good Afternoon!";
             }
+
+            AdView adView = view.FindViewById<AdView>(Resource.Id.adView);
+            AdRequest adRequest = new AdRequest.Builder().Build();
+            adView.LoadAd(adRequest);
 
             toolbar = view.FindViewById<Toolbar>(Resource.Id.toolbar);
             toolbar.Title = mainTitle;

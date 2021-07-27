@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
-		android:theme="@style/ToolBarColorControl"
+        android:theme="@style/ToolBarColorControl"
         app:elevation="0dp">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -30,9 +32,9 @@
                     android:id="@+id/mainTitleText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true" 
+                    android:layout_centerInParent="true"
                     android:textSize="30sp"/>
-                
+
                 <TextView
                     android:id="@+id/dateText"
                     android:layout_width="wrap_content"
@@ -41,7 +43,7 @@
                     android:layout_centerHorizontal="true"
                     android:textColor="@android:color/darker_gray"
                     android:textSize="16sp"/>
-            
+
             </RelativeLayout>
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -50,11 +52,11 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:layout_collapseMode="pin"
-            android:background="?attr/colorPrimary"   
+            android:background="?attr/colorPrimary"
             app:titleTextAppearance="@style/Toolbar.TitleText"
             app:menu="@menu/main_toolbar_menu"
-			android:theme="@style/ToolBarColorControl">
-                    
+            android:theme="@style/ToolBarColorControl">
+
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -66,13 +68,28 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
     </androidx.recyclerview.widget.RecyclerView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:fabSize="normal"
-        android:layout_gravity="end|bottom"
-        android:src="@drawable/add"
-        android:layout_margin="20dp" />
+        android:orientation="vertical"
+        android:layout_gravity="bottom">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fabSize="normal"
+            android:layout_gravity="end|bottom"
+            android:src="@drawable/add"
+            android:layout_margin="20dp" />
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"                  
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
+            android:layout_gravity="bottom | center"/>
+    </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

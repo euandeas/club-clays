@@ -8,6 +8,7 @@ using SQLite;
 using System.IO;
 using AndroidX.Preference;
 using Android.Content;
+using Android.Gms.Ads;
 
 namespace ClubClays
 {
@@ -55,6 +56,8 @@ namespace ClubClays
                     db.CreateTable<DatabaseModels.StandShotsFormats>();
                 }
             }
+
+            MobileAds.Initialize(this);
 
             SetTheme(Resource.Style.AppTheme);
             base.OnCreate(savedInstanceState);
