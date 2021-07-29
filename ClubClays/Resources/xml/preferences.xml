@@ -35,16 +35,6 @@
       app:key="about_category"
       app:title="About">
 
-      <Preference
-        app:key="getting_started"
-        app:title="Getting Started"
-        app:summary="Add Explanation Here"/>
-
-      <Preference
-        app:key="about"
-        app:title="About The Developer"
-        app:summary="Add Explanation Here"/>
-
 	  <Preference
         app:key="version"
         app:title="App Version"

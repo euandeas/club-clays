@@ -1,9 +1,12 @@
-﻿using Android.Graphics;
+﻿using Android.Content.Res;
+using Android.Graphics;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
 using AndroidX.AppCompat.App;
 using AndroidX.AppCompat.View.Menu;
+using AndroidX.CardView.Widget;
+using AndroidX.Core.Content;
 using AndroidX.Lifecycle;
 using AndroidX.RecyclerView.Widget;
 using Google.Android.Material.FloatingActionButton;
@@ -112,7 +115,7 @@ namespace ClubClays.Fragments
         }
     
         private void Fab_Click(object sender, EventArgs e)
-        {
+        {        
             PopupMenu popup = new PopupMenu(Context, (sender as View));
             popup.MenuItemClick += Popup_MenuItemClick;
             MenuInflater inflater = popup.MenuInflater;
@@ -125,10 +128,24 @@ namespace ClubClays.Fragments
             switch (e.Item.ItemId)
             {
                 case Resource.Id.single:
-                    recyclerAdapter.AddItem("Single");
+                    if (numShots.Text == "10")
+                    {
+                        //Toast.MakeText(Activity, $"No more then 10 shots supported per stand", ToastLength.Short).Show();
+                    }
+                    else
+                    {
+                        recyclerAdapter.AddItem("Single");
+                    }
                     break;
                 case Resource.Id.pair:
-                    recyclerAdapter.AddItem("Pair");
+                    if (numShots.Text == "10" || numShots.Text == "9" )
+                    {
+                        //Toast.MakeText(Activity, $"No more then 10 shots supported per stand", ToastLength.Short).Show();
+                    }
+                    else
+                    {
+                        recyclerAdapter.AddItem("Pair");
+                    }
                     break;
             };
         }
@@ -139,6 +156,7 @@ namespace ClubClays.Fragments
         private List<string> shotsFormats;
         private TextView shotsTextView;
         private int numShots;
+        private Color defColor;
 
         public List<string> ShotsFormat { get { return shotsFormats; } }
 
@@ -173,6 +191,7 @@ namespace ClubClays.Fragments
         {
             public View mMainView { get; set; }
             public TextView mShotType { get; set; }
+            public CardView mShootCard { get; set; }
             public MyView(View view) : base(view)
             {
                 mMainView = view;
@@ -196,9 +215,12 @@ namespace ClubClays.Fragments
         public override RecyclerView.ViewHolder OnCreateViewHolder(ViewGroup parent, int viewType)
         {
             View shootCardView = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.shot_format_item, parent, false);
+            CardView shootCard = shootCardView.FindViewById<CardView>(Resource.Id.shootersCard);
             TextView shotType = shootCardView.FindViewById<TextView>(Resource.Id.shotType);
 
-            MyView view = new MyView(shootCardView) { mShotType = shotType};
+            defColor = new Color(((CardView)shootCardView).CardBackgroundColor.DefaultColor);
+            
+            MyView view = new MyView(shootCardView) { mShotType = shotType, mShootCard = shootCard };
 
             return view;
         }
@@ -224,12 +246,12 @@ namespace ClubClays.Fragments
 
         public void onRowSelected(RecyclerView.ViewHolder myViewHolder)
         {
-            myViewHolder.ItemView.SetBackgroundColor(Color.Gray);
+            ((MyView)myViewHolder).mShootCard.SetCardBackgroundColor(Color.Gray);
         }
 
         public void onRowClear(RecyclerView.ViewHolder myViewHolder)
         {
-            myViewHolder.ItemView.SetBackgroundColor(Color.White);
+            ((MyView)myViewHolder).mShootCard.SetCardBackgroundColor(defColor);
         }
 
         public static void Swap(List<string> list, int indexA, int indexB)

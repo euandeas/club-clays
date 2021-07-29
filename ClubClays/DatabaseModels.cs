@@ -14,7 +14,7 @@ namespace ClubClays.DatabaseModels
         public string EventType { get; set; }
         public int NumStands { get; set; }
         public int NumClays { get; set; }
-        [MaxLength(255)]
+        [MaxLength(250)]
         public string Notes { get; set; }
     }
 

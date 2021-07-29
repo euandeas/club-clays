@@ -38,13 +38,13 @@
                 app:boxStrokeColor="@color/colorAccent"
                 app:hintTextColor="@color/colorAccent"
                 app:counterEnabled="true"
-                app:counterMaxLength="64">
+                app:counterMaxLength="50">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/shootFormatTitleEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Shoot Format Title"
-                    android:maxLength="64"
+                    android:maxLength="50"
                     android:maxLines="1"
                     android:inputType="text"/>
             </com.google.android.material.textfield.TextInputLayout>

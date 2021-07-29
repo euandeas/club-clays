@@ -30,13 +30,13 @@
                 app:boxStrokeColor="@color/colorAccent"
                 app:hintTextColor="@color/colorAccent"
                 app:counterEnabled="true"
-                app:counterMaxLength="256">
+                app:counterMaxLength="250">
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/shootNotes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Notes"
-                    android:maxLength="256"
+                    android:maxLength="250"
                     android:maxLines="16"
                     android:inputType="textMultiLine"/>
         </com.google.android.material.textfield.TextInputLayout>

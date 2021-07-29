@@ -173,7 +173,7 @@ namespace ClubClays.Fragments
                         db.CreateCommand($"DELETE FROM StandScores WHERE ShooterId = {shooterId};").ExecuteNonQuery();
                         foreach (var standScore in standScores) 
                         {
-                            db.CreateCommand($"DELETE FROM StandShotsLink WHERE StandScoresId = {standScore.Id};").ExecuteNonQuery();
+                            db.CreateCommand($"DELETE FROM Shots WHERE StandScoreId = {standScore.Id};").ExecuteNonQuery();
                         }
 
                         foreach (var potentialShoot in potentialShootsToDelete)
