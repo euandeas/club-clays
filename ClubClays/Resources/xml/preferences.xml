@@ -45,6 +45,11 @@
         app:title="About The Developer"
         app:summary="Add Explanation Here"/>
 
+	  <Preference
+        app:key="version"
+        app:title="App Version"
+        app:summary="@string/app_version"/>
+
   </PreferenceCategory>
 
 </PreferenceScreen>
