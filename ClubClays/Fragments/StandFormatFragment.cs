@@ -1,12 +1,10 @@
-﻿using Android.Content.Res;
-using Android.Graphics;
+﻿using Android.Graphics;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
 using AndroidX.AppCompat.App;
 using AndroidX.AppCompat.View.Menu;
 using AndroidX.CardView.Widget;
-using AndroidX.Core.Content;
 using AndroidX.Lifecycle;
 using AndroidX.RecyclerView.Widget;
 using Google.Android.Material.FloatingActionButton;
@@ -130,7 +128,7 @@ namespace ClubClays.Fragments
                 case Resource.Id.single:
                     if (numShots.Text == "10")
                     {
-                        //Toast.MakeText(Activity, $"No more then 10 shots supported per stand", ToastLength.Short).Show();
+                        Toast.MakeText(Activity, $"No more then 10 shots supported per stand", ToastLength.Short).Show();
                     }
                     else
                     {
@@ -140,7 +138,7 @@ namespace ClubClays.Fragments
                 case Resource.Id.pair:
                     if (numShots.Text == "10" || numShots.Text == "9" )
                     {
-                        //Toast.MakeText(Activity, $"No more then 10 shots supported per stand", ToastLength.Short).Show();
+                        Toast.MakeText(Activity, $"No more then 10 shots supported per stand", ToastLength.Short).Show();
                     }
                     else
                     {
