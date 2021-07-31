@@ -262,9 +262,11 @@ namespace ClubClays
                 foreach (OverallScores overallScore in overallScores)
                 {
                     var shooter = db.Get<Shooters>(overallScore.ShooterId);
-                    Shooter shooterObject = new Shooter(shooter.Id, shooter.Name, shooter.Class);
-                    shooterObject.overallPercentage = overallScore.OverallPercentage;
-                    shooterObject.overallTotal = overallScore.OverallTotal;
+                    Shooter shooterObject = new Shooter(shooter.Id, shooter.Name, shooter.Class)
+                    {
+                        overallPercentage = overallScore.OverallPercentage,
+                        overallTotal = overallScore.OverallTotal
+                    };
                     Shooters.Add(shooterObject);
                 }
 
@@ -487,18 +489,12 @@ namespace ClubClays
         }
         public string TranslateHitMiss(int value)
         {
-            switch (value)
+            return value switch
             {
-                default:
-                    return " ";
-
-                case 1:
-                    return "X";
-
-                case 2:
-                    return "O";
-
-            }
+                1 => "X",
+                2 => "O",
+                _ => " ",
+            };
         }
     }
 }

@@ -53,8 +53,10 @@ namespace ClubClays.Fragments
                             shotFormat.Add(shot.Type);
                         }
 
-                        var standObj = new Stand(shotFormat);
-                        standObj.id = stand.Id;
+                        var standObj = new Stand(shotFormat)
+                        {
+                            id = stand.Id
+                        };
                         shootFormat.stands.Add(standObj);
                     }
                 }

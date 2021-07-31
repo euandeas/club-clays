@@ -84,8 +84,10 @@ namespace ClubClays.Fragments
 
             for (int x = 0; x <= scoreManagementModel.NumStands-1; x++)
             {
-                TextView tview = new TextView(context);
-                tview.TextSize = 16;
+                TextView tview = new TextView(context)
+                {
+                    TextSize = 16
+                };
 
                 LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.WrapContent, LayoutParams.WrapContent);
                 lp.SetMargins((int)context.Resources.GetDimension(Resource.Dimension.totals_left_long), (int)context.Resources.GetDimension(Resource.Dimension.button_top_bottom), 0, (int)context.Resources.GetDimension(Resource.Dimension.button_top_bottom));
