@@ -96,7 +96,7 @@ namespace ClubClays.Fragments
             Bundle args = new Bundle();
             args.PutBoolean("selectable", true);
             standSetupFragment.Arguments = args;
-            fragmentTx.Add(Resource.Id.container, standSetupFragment);
+            fragmentTx.Replace(Resource.Id.container, standSetupFragment);
             fragmentTx.AddToBackStack(null);
             fragmentTx.Commit();
             Activity.SupportFragmentManager.SetFragmentResultListener("2", this, this);

@@ -36,7 +36,7 @@
 					android:id="@+id/standNum"
 					android:paddingLeft="10dp"
 					android:paddingRight="10dp"
-					android:textSize="15sp"
+					android:textSize="16sp"
 					android:paddingTop="5dp"
                     android:paddingBottom="5dp"/>
 				<TextView
@@ -48,7 +48,7 @@
 					android:paddingRight="10dp"
                     android:paddingTop="5dp"
 					android:paddingBottom="5dp"
-					android:textSize="15sp"
+					android:textSize="16sp"
 					android:gravity="right"/>
             </LinearLayout>
 		</androidx.cardview.widget.CardView>
