@@ -158,11 +158,11 @@ namespace ClubClays.Fragments
         // Provide a reference to the views for each data item
         public class MyView : RecyclerView.ViewHolder
         {
-            public View mMainView { get; set; }
-            public TextView mShotType { get; set; }
+            public View MainView { get; set; }
+            public TextView ShotType { get; set; }
             public MyView(View view) : base(view)
             {
-                mMainView = view;
+                MainView = view;
             }
         }
 
@@ -176,7 +176,7 @@ namespace ClubClays.Fragments
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
             MyView myHolder = holder as MyView;
-            myHolder.mShotType.Text = shotsLayout[position];
+            myHolder.ShotType.Text = shotsLayout[position];
         }
 
         // Create new views (invoked by layout manager)
@@ -185,12 +185,12 @@ namespace ClubClays.Fragments
             View shootCardView = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.shot_format_item, parent, false);
             TextView shotType = shootCardView.FindViewById<TextView>(Resource.Id.shotType);
 
-            MyView view = new MyView(shootCardView) { mShotType = shotType };
+            MyView view = new MyView(shootCardView) { ShotType = shotType };
 
             return view;
         }
 
-        public void onRowMoved(int fromPosition, int toPosition)
+        public void OnRowMoved(int fromPosition, int toPosition)
         {
             if (fromPosition < toPosition)
             {
@@ -209,12 +209,12 @@ namespace ClubClays.Fragments
             NotifyItemMoved(fromPosition, toPosition);
         }
 
-        public void onRowSelected(RecyclerView.ViewHolder myViewHolder)
+        public void OnRowSelected(RecyclerView.ViewHolder myViewHolder)
         {
             myViewHolder.ItemView.SetBackgroundColor(Color.Gray);
         }
 
-        public void onRowClear(RecyclerView.ViewHolder myViewHolder)
+        public void OnRowClear(RecyclerView.ViewHolder myViewHolder)
         {
             myViewHolder.ItemView.SetBackgroundColor(Color.White);
         }
@@ -226,7 +226,7 @@ namespace ClubClays.Fragments
             list[indexB] = tmp;
         }
 
-        public void onSwiped(RecyclerView.ViewHolder myViewHolder, int direction)
+        public void OnSwiped(RecyclerView.ViewHolder myViewHolder, int direction)
         {
             if (direction == ItemTouchHelper.Left)
             {

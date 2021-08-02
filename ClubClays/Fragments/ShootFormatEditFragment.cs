@@ -216,13 +216,13 @@ namespace ClubClays.Fragments
         // Provide a reference to the views for each data item
         public class MyView : RecyclerView.ViewHolder
         {
-            public View mMainView { get; set; }
-            public TextView mStandNum { get; set; }
-            public TextView mNumOfShots { get; set; }
-            public ImageButton mEditButton { get; set; }
+            public View MainView { get; set; }
+            public TextView StandNum { get; set; }
+            public TextView NumOfShots { get; set; }
+            public ImageButton EditButton { get; set; }
             public MyView(View view) : base(view)
             {
-                mMainView = view;
+                MainView = view;
             }
         }
 
@@ -236,8 +236,8 @@ namespace ClubClays.Fragments
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
             MyView myHolder = holder as MyView;
-            myHolder.mStandNum.Text = $"Stand {position+1}";
-            myHolder.mNumOfShots.Text = $"{standFormats[position].numClays} Shot(s)";
+            myHolder.StandNum.Text = $"Stand {position+1}";
+            myHolder.NumOfShots.Text = $"{standFormats[position].numClays} Shot(s)";
         }
 
         // Create new views (invoked by layout manager)
@@ -248,7 +248,7 @@ namespace ClubClays.Fragments
             TextView numStands = shootCardView.FindViewById<TextView>(Resource.Id.numOfShots);
             ImageButton editButton = shootCardView.FindViewById<ImageButton>(Resource.Id.standFormatEditButton);
 
-            MyView view = new MyView(shootCardView) { mStandNum = shootFormatTitle, mNumOfShots = numStands, mEditButton = editButton };
+            MyView view = new MyView(shootCardView) { StandNum = shootFormatTitle, NumOfShots = numStands, EditButton = editButton };
 
             editButton.Click += delegate
             {

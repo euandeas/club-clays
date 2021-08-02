@@ -93,12 +93,12 @@ namespace ClubClays.Fragments
         // Provide a reference to the views for each data item
         public class MyView : RecyclerView.ViewHolder
         {
-            public View mMainView { get; set; }
-            public TextView mShooterName { get; set; }
-            public TextView mShooterClass { get; set; }
+            public View MainView { get; set; }
+            public TextView ShooterName { get; set; }
+            public TextView ShooterClass { get; set; }
             public MyView(View view) : base(view)
             {
-                mMainView = view;
+                MainView = view;
             }
         }
 
@@ -109,8 +109,8 @@ namespace ClubClays.Fragments
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
             MyView myHolder = holder as MyView;
-            myHolder.mShooterName.Text = shooters[position].Name;
-            myHolder.mShooterClass.Text = shooters[position].Class;
+            myHolder.ShooterName.Text = shooters[position].Name;
+            myHolder.ShooterClass.Text = shooters[position].Class;
         }
 
         // Create new views (invoked by layout manager)
@@ -122,7 +122,7 @@ namespace ClubClays.Fragments
             ImageButton editButton = shooterCardView.FindViewById<ImageButton>(Resource.Id.shooterEditButton);
             ImageButton deleteButton = shooterCardView.FindViewById<ImageButton>(Resource.Id.shooterDeleteButton);
 
-            MyView view = new MyView(shooterCardView) { mShooterName = shootersName, mShooterClass = shootersClass };
+            MyView view = new MyView(shooterCardView) { ShooterName = shootersName, ShooterClass = shootersClass };
 
             editButton.Click += delegate
             {

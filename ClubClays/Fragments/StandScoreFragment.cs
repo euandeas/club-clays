@@ -42,13 +42,13 @@ namespace ClubClays.Fragments
         bool editable;
         public class MyView : RecyclerView.ViewHolder
         {
-            public View mMainView { get; set; }
-            public TextView mShooterName { get; set; }
-            public TextView mShooterStandTotal { get; set; }
-            public LinearLayout mStandHits { get; set; }
+            public View MainView { get; set; }
+            public TextView ShooterName { get; set; }
+            public TextView ShooterStandTotal { get; set; }
+            public LinearLayout StandHits { get; set; }
             public MyView(View view) : base(view)
             {
-                mMainView = view;
+                MainView = view;
             }
         }
         public override int ItemCount => scoreManagementModel.NumberOfShooters;
@@ -58,19 +58,19 @@ namespace ClubClays.Fragments
             MyView myHolder = holder as MyView;
 
             scoreManagementModel.ShooterStandData(position, standNum, out string name, out int standTotal, out List<Tuple<string, int[]>> shots);
-            myHolder.mShooterName.Text = name;
-            myHolder.mShooterStandTotal.Text = $"{standTotal}";
+            myHolder.ShooterName.Text = name;
+            myHolder.ShooterStandTotal.Text = $"{standTotal}";
 
             for (int x = 0; x <= shots.Count - 1; x++)
             {
                 if (shots[x].Item1 == "Pair")
                 {
-                    UpdateButton(shots[x].Item2[0], (ImageButton)myHolder.mStandHits.FindViewWithTag($"{x}.1"));
-                    UpdateButton(shots[x].Item2[1], (ImageButton)myHolder.mStandHits.FindViewWithTag($"{x}.2"));
+                    UpdateButton(shots[x].Item2[0], (ImageButton)myHolder.StandHits.FindViewWithTag($"{x}.1"));
+                    UpdateButton(shots[x].Item2[1], (ImageButton)myHolder.StandHits.FindViewWithTag($"{x}.2"));
                 }
                 if (shots[x].Item1 == "Single")
                 {
-                    UpdateButton(shots[x].Item2[0], (ImageButton)myHolder.mStandHits.FindViewWithTag($"{x}"));
+                    UpdateButton(shots[x].Item2[0], (ImageButton)myHolder.StandHits.FindViewWithTag($"{x}"));
                 }
             }
         }
@@ -109,7 +109,7 @@ namespace ClubClays.Fragments
             TextView shooterStandTotal = standCardView.FindViewById<TextView>(Resource.Id.overallTotal);
             LinearLayout standHits = standCardView.FindViewById<LinearLayout>(Resource.Id.hitsLayout);
 
-            MyView view = new MyView(standCardView) { mShooterName = shooterName, mShooterStandTotal = shooterStandTotal, mStandHits = standHits };
+            MyView view = new MyView(standCardView) { ShooterName = shooterName, ShooterStandTotal = shooterStandTotal, StandHits = standHits };
 
             List<string> shotsFormat = scoreManagementModel.StandShots(standNum);
             for (int x = 0; x <= shotsFormat.Count - 1; x++)
@@ -133,12 +133,12 @@ namespace ClubClays.Fragments
                     {
                         view1.Click += (s, e) =>
                         {
-                            ButtonClicked((ImageButton)s, view.AbsoluteAdapterPosition, (int)char.GetNumericValue(((string)((ImageButton)s).Tag)[0]), 0, view.mShooterStandTotal);
+                            ButtonClicked((ImageButton)s, view.AbsoluteAdapterPosition, (int)char.GetNumericValue(((string)((ImageButton)s).Tag)[0]), 0, view.ShooterStandTotal);
                         };
 
                         view2.Click += (s, e) =>
                         {
-                            ButtonClicked((ImageButton)s, view.AbsoluteAdapterPosition, (int)char.GetNumericValue(((string)((ImageButton)s).Tag)[0]), 1, view.mShooterStandTotal);
+                            ButtonClicked((ImageButton)s, view.AbsoluteAdapterPosition, (int)char.GetNumericValue(((string)((ImageButton)s).Tag)[0]), 1, view.ShooterStandTotal);
                         };
                     }
 
@@ -159,7 +159,7 @@ namespace ClubClays.Fragments
                     {
                         view1.Click += (s, e) =>
                         {
-                            ButtonClicked((ImageButton)s, view.AbsoluteAdapterPosition, (int)char.GetNumericValue(((string)((ImageButton)s).Tag)[0]), 0, view.mShooterStandTotal);
+                            ButtonClicked((ImageButton)s, view.AbsoluteAdapterPosition, (int)char.GetNumericValue(((string)((ImageButton)s).Tag)[0]), 0, view.ShooterStandTotal);
                         };
                     }
 

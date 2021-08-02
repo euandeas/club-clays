@@ -13,9 +13,9 @@ namespace ClubClays
 
         public interface ItemTouchHelperContract
         {
-            void onRowMoved(int fromPosition, int toPosition);
-            void onRowSelected(RecyclerView.ViewHolder myViewHolder);
-            void onRowClear(RecyclerView.ViewHolder myViewHolder);
+            void OnRowMoved(int fromPosition, int toPosition);
+            void OnRowSelected(RecyclerView.ViewHolder myViewHolder);
+            void OnRowClear(RecyclerView.ViewHolder myViewHolder);
         }
 
         public override bool IsLongPressDragEnabled => true;
@@ -29,7 +29,7 @@ namespace ClubClays
 
         public override bool OnMove(RecyclerView p0, RecyclerView.ViewHolder p1, RecyclerView.ViewHolder p2)
         {
-            mAdapter.onRowMoved(p1.AbsoluteAdapterPosition, p2.AbsoluteAdapterPosition);
+            mAdapter.OnRowMoved(p1.AbsoluteAdapterPosition, p2.AbsoluteAdapterPosition);
             return true;
         }
 
@@ -41,7 +41,7 @@ namespace ClubClays
             {
                 if (viewHolder.GetType() != typeof(RecyclerView.ViewHolder))
                 {
-                    mAdapter.onRowSelected(viewHolder);
+                    mAdapter.OnRowSelected(viewHolder);
                 }
             }
             base.OnSelectedChanged(viewHolder, actionState);
@@ -54,7 +54,7 @@ namespace ClubClays
             if (viewHolder.GetType() != typeof(RecyclerView.ViewHolder))
             {
                 RecyclerView.ViewHolder myViewHolder = viewHolder;
-                mAdapter.onRowClear(myViewHolder);
+                mAdapter.OnRowClear(myViewHolder);
             }
         }
     }
@@ -70,10 +70,10 @@ namespace ClubClays
 
         public interface ItemTouchHelperContract
         {
-            void onRowMoved(int fromPosition, int toPosition);
-            void onRowSelected(RecyclerView.ViewHolder myViewHolder);
-            void onRowClear(RecyclerView.ViewHolder myViewHolder);
-            void onSwiped(RecyclerView.ViewHolder myViewHolder, int direction);
+            void OnRowMoved(int fromPosition, int toPosition);
+            void OnRowSelected(RecyclerView.ViewHolder myViewHolder);
+            void OnRowClear(RecyclerView.ViewHolder myViewHolder);
+            void OnSwiped(RecyclerView.ViewHolder myViewHolder, int direction);
         }
 
         public override bool IsLongPressDragEnabled => true;
@@ -88,13 +88,13 @@ namespace ClubClays
 
         public override bool OnMove(RecyclerView p0, RecyclerView.ViewHolder p1, RecyclerView.ViewHolder p2)
         {
-            mAdapter.onRowMoved(p1.AbsoluteAdapterPosition, p2.AbsoluteAdapterPosition);
+            mAdapter.OnRowMoved(p1.AbsoluteAdapterPosition, p2.AbsoluteAdapterPosition);
             return true;
         }
      
         public override void OnSwiped(RecyclerView.ViewHolder p0, int p1)
         {
-            mAdapter.onSwiped(p0, p1);
+            mAdapter.OnSwiped(p0, p1);
         }
 
         public override void OnSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState)
@@ -103,7 +103,7 @@ namespace ClubClays
             {
                 if (viewHolder.GetType() != typeof(RecyclerView.ViewHolder))
                 {
-                    mAdapter.onRowSelected(viewHolder);
+                    mAdapter.OnRowSelected(viewHolder);
                 }
             }
             base.OnSelectedChanged(viewHolder, actionState);
@@ -116,7 +116,7 @@ namespace ClubClays
             if (viewHolder.GetType() != typeof(RecyclerView.ViewHolder))
             {
                 RecyclerView.ViewHolder myViewHolder = viewHolder;
-                mAdapter.onRowClear(myViewHolder);
+                mAdapter.OnRowClear(myViewHolder);
             }
         }
     }

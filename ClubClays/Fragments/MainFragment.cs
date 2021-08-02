@@ -156,14 +156,14 @@ namespace ClubClays.Fragments
 
         public class MyView : RecyclerView.ViewHolder
         {
-            public View mMainView { get; set; }
-            public TextView mShootDate { get; set; }
-            public TextView mShootTitle { get; set; }
-            public TextView mShootDiscipline { get; set; }
-            public TextView mShootLocation { get; set; }
+            public View MainView { get; set; }
+            public TextView ShootDate { get; set; }
+            public TextView ShootTitle { get; set; }
+            public TextView ShootDiscipline { get; set; }
+            public TextView ShootLocation { get; set; }
             public MyView(View view) : base(view)
             {
-                mMainView = view;
+                MainView = view;
             }
         }
         public override int ItemCount => allShoots.Count;
@@ -171,25 +171,25 @@ namespace ClubClays.Fragments
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
             MyView myHolder = holder as MyView;
-            myHolder.mShootDate.Text = $"{allShoots[position].Date.ToLongDateString().Replace(", ", " ")}";
-            myHolder.mShootDiscipline.Text = $"{allShoots[position].EventType}";
+            myHolder.ShootDate.Text = $"{allShoots[position].Date.ToLongDateString().Replace(", ", " ")}";
+            myHolder.ShootDiscipline.Text = $"{allShoots[position].EventType}";
 
             if (allShoots[position].Title == "")
             {
-                myHolder.mShootTitle.Visibility = ViewStates.Gone;
+                myHolder.ShootTitle.Visibility = ViewStates.Gone;
             }
             else
             {
-                myHolder.mShootTitle.Text = $"{allShoots[position].Title}";
+                myHolder.ShootTitle.Text = $"{allShoots[position].Title}";
             }
 
             if (allShoots[position].Location == "")
             {
-                myHolder.mShootLocation.Visibility = ViewStates.Gone;
+                myHolder.ShootLocation.Visibility = ViewStates.Gone;
             }
             else
             {
-                myHolder.mShootLocation.Text = $"{allShoots[position].Location}";
+                myHolder.ShootLocation.Text = $"{allShoots[position].Location}";
             }
         }
 
@@ -201,7 +201,7 @@ namespace ClubClays.Fragments
             TextView shootDiscipline = shootCardView.FindViewById<TextView>(Resource.Id.shootDiscipline);
             TextView shootLocation = shootCardView.FindViewById<TextView>(Resource.Id.shootLocation);
 
-            MyView view = new MyView(shootCardView) { mShootDate = shootDate ,mShootTitle = shootTitle, mShootDiscipline = shootDiscipline, mShootLocation = shootLocation };
+            MyView view = new MyView(shootCardView) { ShootDate = shootDate, ShootTitle = shootTitle, ShootDiscipline = shootDiscipline, ShootLocation = shootLocation };
 
             shootCardView.Click += delegate
             {

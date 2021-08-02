@@ -81,14 +81,14 @@ namespace ClubClays.Fragments
         // Provide a reference to the views for each data item
         public class MyView : RecyclerView.ViewHolder
         {
-            public View mMainView { get; set; }
-            public TextView mShootFormatTitle { get; set; }
-            public TextView mNumStands { get; set; }
-            public ImageView mSelecetedIcon { get; set; }
-            public ImageButton mEditButton { get; set; }
+            public View MainView { get; set; }
+            public TextView ShootFormatTitle { get; set; }
+            public TextView NumStands { get; set; }
+            public ImageView SelecetedIcon { get; set; }
+            public ImageButton EditButton { get; set; }
             public MyView(View view) : base(view)
             {
-                mMainView = view;
+                MainView = view;
             }
         }
 
@@ -115,46 +115,46 @@ namespace ClubClays.Fragments
             {
                 if (position == 0)
                 {
-                    myHolder.mShootFormatTitle.Text = "Blank";
-                    myHolder.mNumStands.Text = $"Add stands on the go";
-                    myHolder.mEditButton.Visibility = ViewStates.Gone;
+                    myHolder.ShootFormatTitle.Text = "Blank";
+                    myHolder.NumStands.Text = $"Add stands on the go";
+                    myHolder.EditButton.Visibility = ViewStates.Gone;
 
                     if (standShooterModel.selectedFormat == null)
                     {
-                        myHolder.mSelecetedIcon.Visibility = ViewStates.Visible;
+                        myHolder.SelecetedIcon.Visibility = ViewStates.Visible;
                     }
                     else
                     {
-                        myHolder.mSelecetedIcon.Visibility = ViewStates.Gone;
+                        myHolder.SelecetedIcon.Visibility = ViewStates.Gone;
                     }
                 }
                 else
                 {
-                    myHolder.mShootFormatTitle.Text = $"{shootFormats[position-1].FormatName}";
-                    myHolder.mNumStands.Text = $"{shootFormats[position-1].NumStands} Stand(s)";
+                    myHolder.ShootFormatTitle.Text = $"{shootFormats[position-1].FormatName}";
+                    myHolder.NumStands.Text = $"{shootFormats[position-1].NumStands} Stand(s)";
 
                     if (standShooterModel.selectedFormat != null)
                     {
                         if (standShooterModel.selectedFormat.Id == shootFormats[position - 1].Id)
                         {
-                            myHolder.mSelecetedIcon.Visibility = ViewStates.Visible;
+                            myHolder.SelecetedIcon.Visibility = ViewStates.Visible;
                         }
                         else
                         {
-                            myHolder.mSelecetedIcon.Visibility = ViewStates.Gone;
+                            myHolder.SelecetedIcon.Visibility = ViewStates.Gone;
                         }
                     }
                     else
                     {
-                        myHolder.mSelecetedIcon.Visibility = ViewStates.Gone;
+                        myHolder.SelecetedIcon.Visibility = ViewStates.Gone;
                     }
                 } 
             }
             else
             {
-                myHolder.mShootFormatTitle.Text = $"{shootFormats[position].FormatName}";
-                myHolder.mNumStands.Text = $"{shootFormats[position].NumStands} Stand(s)";
-                myHolder.mSelecetedIcon.Visibility = ViewStates.Gone;
+                myHolder.ShootFormatTitle.Text = $"{shootFormats[position].FormatName}";
+                myHolder.NumStands.Text = $"{shootFormats[position].NumStands} Stand(s)";
+                myHolder.SelecetedIcon.Visibility = ViewStates.Gone;
             }           
         }
 
@@ -167,7 +167,7 @@ namespace ClubClays.Fragments
             ImageView selectedIcon = shootCardView.FindViewById<ImageView>(Resource.Id.shootFormatSelected);
             ImageButton editButton = shootCardView.FindViewById<ImageButton>(Resource.Id.shootFormatEditButton);
 
-            MyView view = new MyView(shootCardView) { mShootFormatTitle = shootFormatTitle, mNumStands = numStands, mSelecetedIcon = selectedIcon, mEditButton = editButton };
+            MyView view = new MyView(shootCardView) { ShootFormatTitle = shootFormatTitle, NumStands = numStands, SelecetedIcon = selectedIcon, EditButton = editButton };
 
             shootCardView.Click += delegate
             {

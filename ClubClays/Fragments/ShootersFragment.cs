@@ -133,11 +133,11 @@ namespace ClubClays.Fragments
         // Provide a reference to the views for each data item
         public class MyView : RecyclerView.ViewHolder
         {
-            public View mMainView { get; set; }
-            public TextView mShooterName { get; set; }
+            public View MainView { get; set; }
+            public TextView ShooterName { get; set; }
             public MyView(View view) : base(view)
             {
-                mMainView = view;
+                MainView = view;
             }
         }
 
@@ -148,7 +148,7 @@ namespace ClubClays.Fragments
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
             MyView myHolder = holder as MyView;
-            myHolder.mShooterName.Text = shooters[position].Name;
+            myHolder.ShooterName.Text = shooters[position].Name;
         }
 
         // Create new views (invoked by layout manager)
@@ -157,7 +157,7 @@ namespace ClubClays.Fragments
             View shooterCardView = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.shooters_item, parent, false);
             TextView shootersName = shooterCardView.FindViewById<TextView>(Resource.Id.shootersName);
 
-            MyView view = new MyView(shooterCardView) { mShooterName = shootersName };
+            MyView view = new MyView(shooterCardView) { ShooterName = shootersName };
 
             shooterCardView.Click += delegate
             {
@@ -180,7 +180,7 @@ namespace ClubClays.Fragments
             return view;
         }
 
-        public void onRowMoved(int fromPosition, int toPosition)
+        public void OnRowMoved(int fromPosition, int toPosition)
         {
             if (fromPosition < toPosition)
             {
@@ -199,12 +199,12 @@ namespace ClubClays.Fragments
             NotifyItemMoved(fromPosition, toPosition);
         }
 
-        public void onRowSelected(RecyclerView.ViewHolder myViewHolder)
+        public void OnRowSelected(RecyclerView.ViewHolder myViewHolder)
         {
             myViewHolder.ItemView.SetBackgroundColor(Color.Gray);
         }
 
-        public void onRowClear(RecyclerView.ViewHolder myViewHolder)
+        public void OnRowClear(RecyclerView.ViewHolder myViewHolder)
         {
             myViewHolder.ItemView.SetBackgroundColor(Color.White);
         }
