@@ -38,7 +38,6 @@ namespace ClubClays.Fragments
 
             Toolbar toolbar = view.FindViewById<Toolbar>(Resource.Id.toolbar);
             ((AppCompatActivity)Activity).SetSupportActionBar(toolbar);
-            ActionBar supportBar = ((AppCompatActivity)Activity).SupportActionBar;
             HasOptionsMenu = true;
 
             scoreManagementModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(Shoot))) as Shoot;
@@ -81,14 +80,7 @@ namespace ClubClays.Fragments
 
         private void FABVisibility(int pos)
         {
-            if (pos == scoreManagementModel.NumStands)
-            {
-                fab.Visibility = ViewStates.Visible;
-            }
-            else
-            {
-                fab.Visibility = ViewStates.Gone;
-            }
+            fab.Visibility = (pos == scoreManagementModel.NumStands) ? ViewStates.Visible : ViewStates.Gone;
         }
 
         public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)

@@ -33,14 +33,7 @@ namespace ClubClays.Fragments
                     ((AppCompatActivity)Activity).Delegate.SetLocalNightMode(AppCompatDelegate.ModeNightYes);
                     break;
                 case "sysdefault":
-                    if (Build.VERSION.SdkInt >= BuildVersionCodes.Q)
-                    {
-                        ((AppCompatActivity)Activity).Delegate.SetLocalNightMode(AppCompatDelegate.ModeNightFollowSystem);
-                    }
-                    else
-                    {
-                        ((AppCompatActivity)Activity).Delegate.SetLocalNightMode(AppCompatDelegate.ModeNightAutoBattery);
-                    }
+                    ((AppCompatActivity)Activity).Delegate.SetLocalNightMode((Build.VERSION.SdkInt >= BuildVersionCodes.Q) ? AppCompatDelegate.ModeNightFollowSystem : AppCompatDelegate.ModeNightAutoBattery);
                     break;
             }
         }

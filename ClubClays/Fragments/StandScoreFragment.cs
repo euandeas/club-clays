@@ -25,10 +25,10 @@ namespace ClubClays.Fragments
             // Use this to return your custom view for this Fragment
             View view = inflater.Inflate(Resource.Layout.fragment_stand_score, container, false);
 
-            LinearLayoutManager LayoutManager = new LinearLayoutManager(Activity);
-            RecyclerView StandScoresRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.recyclerView);
-            StandScoresRecyclerView.SetLayoutManager(LayoutManager);
-            StandScoresRecyclerView.SetAdapter(new StandScoresRecyclerAdapter(Activity, Context, Arguments.GetInt("standNum"), Arguments.GetBoolean("editable")));
+            LinearLayoutManager layoutManager = new LinearLayoutManager(Activity);
+            RecyclerView standScoresRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.recyclerView);
+            standScoresRecyclerView.SetLayoutManager(layoutManager);
+            standScoresRecyclerView.SetAdapter(new StandScoresRecyclerAdapter(Activity, Context, Arguments.GetInt("standNum"), Arguments.GetBoolean("editable")));
 
             return view;
         }
@@ -129,7 +129,7 @@ namespace ClubClays.Fragments
                     view1.Tag = $"{x}.1";
                     view2.Tag = $"{x}.2";
 
-                    if (editable == true)
+                    if (editable)
                     {
                         view1.Click += (s, e) =>
                         {
@@ -155,7 +155,7 @@ namespace ClubClays.Fragments
 
                     view1.Tag = $"{x}";
 
-                    if (editable == true)
+                    if (editable)
                     {
                         view1.Click += (s, e) =>
                         {

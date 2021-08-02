@@ -85,9 +85,9 @@ namespace ClubClays.Fragments
                 shoots = db.Table<DatabaseModels.Shoots>().OrderByDescending(s => s.Date).ToList();
             }
 
-            LinearLayoutManager LayoutManager = new LinearLayoutManager(Activity);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(Activity);
             RecyclerView shootsRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.recyclerView);
-            shootsRecyclerView.SetLayoutManager(LayoutManager);
+            shootsRecyclerView.SetLayoutManager(layoutManager);
             shootsRecyclerView.SetAdapter(new PreviousShootsRecyclerAdapter(shoots, Activity));
 
             return view;

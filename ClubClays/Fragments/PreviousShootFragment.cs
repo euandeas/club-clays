@@ -59,14 +59,8 @@ namespace ClubClays.Fragments
             toolbar = view.FindViewById<Toolbar>(Resource.Id.toolbar);
             ((AppCompatActivity)Activity).SetSupportActionBar(toolbar);
             ActionBar supportBar = ((AppCompatActivity)Activity).SupportActionBar;
-            if (previousShootModel.Title == "")
-            {
-                supportBar.Title = "Previous Shoot";
-            }
-            else
-            {
-                supportBar.Title = $"{previousShootModel.Title}";
-            }
+            supportBar.Title = (previousShootModel.Title == "") ? "Previous Shoot" : $"{previousShootModel.Title}";
+
             titleTextView = ToolbarTitle();
             supportBar.SetDisplayHomeAsUpEnabled(true);
             supportBar.SetDisplayShowHomeEnabled(true);

@@ -26,9 +26,9 @@ namespace ClubClays.Fragments
             // Use this to return your custom view for this Fragment
             View view = inflater.Inflate(Resource.Layout.fragment_overall_score, container, false);
 
-            LinearLayoutManager LayoutManager = new LinearLayoutManager(Activity);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(Activity);
             overallScoresRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.recyclerView);
-            overallScoresRecyclerView.SetLayoutManager(LayoutManager);
+            overallScoresRecyclerView.SetLayoutManager(layoutManager);
             overallScoresRecyclerView.SetAdapter(new OverallScoresRecyclerAdapter(Activity, Context));
 
             return view;
@@ -48,13 +48,13 @@ namespace ClubClays.Fragments
 
         public class MyView : RecyclerView.ViewHolder
         {
-            public View mMainView { get; set; }
-            public TextView mShooterName { get; set; }
-            public TextView mShooterOverallTotal { get; set; }
-            public LinearLayout mShooterStandTotals { get; set; }
+            public View MainView { get; set; }
+            public TextView ShooterName { get; set; }
+            public TextView ShooterOverallTotal { get; set; }
+            public LinearLayout ShooterStandTotals { get; set; }
             public MyView(View view) : base(view)
             {
-                mMainView = view;
+                MainView = view;
             }
         }
         public override int ItemCount => scoreManagementModel.NumberOfShooters;
@@ -64,11 +64,11 @@ namespace ClubClays.Fragments
             MyView myHolder = holder as MyView;
 
             scoreManagementModel.ShooterOverallData(position, out string name, out int overallTotal, out List<int> totals);
-            myHolder.mShooterName.Text = name;
-            myHolder.mShooterOverallTotal.Text = $"{overallTotal}";
+            myHolder.ShooterName.Text = name;
+            myHolder.ShooterOverallTotal.Text = $"{overallTotal}";
             for (int x = 0; x <= scoreManagementModel.NumStands-1; x++)
             {
-                TextView view = (TextView)myHolder.mShooterStandTotals.FindViewWithTag(x);
+                TextView view = (TextView)myHolder.ShooterStandTotals.FindViewWithTag(x);
                 view.Text = $"{totals[x]}";
             }     
         }
@@ -80,7 +80,7 @@ namespace ClubClays.Fragments
             TextView shooterOverallTotal = overallCardView.FindViewById<TextView>(Resource.Id.overallTotal);
             LinearLayout shooterStandTotals = overallCardView.FindViewById<LinearLayout>(Resource.Id.scoresLayout);
 
-            MyView view = new MyView(overallCardView) { mShooterName = shooterName, mShooterOverallTotal = shooterOverallTotal, mShooterStandTotals = shooterStandTotals };
+            MyView view = new MyView(overallCardView) { ShooterName = shooterName, ShooterOverallTotal = shooterOverallTotal, ShooterStandTotals = shooterStandTotals };
 
             for (int x = 0; x <= scoreManagementModel.NumStands-1; x++)
             {

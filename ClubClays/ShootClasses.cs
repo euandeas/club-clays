@@ -52,53 +52,27 @@ namespace ClubClays
         protected DateTime date;
         protected string location;
         protected string discipline;
-        protected int numOfClays = 0;
+        protected int numOfClays;
         protected string userNotes;
         protected int shootID;
 
         protected List<Shooter> Shooters = new List<Shooter>();
         protected SortedList<int, Stand> StandsByNum = new SortedList<int, Stand>();
 
-        public int NumStands
-        {
-            get
-            {
-                return StandsByNum.Count();
-            }
-        }
+        public int NumStands => StandsByNum.Count;
 
-
-        public int NumberOfShooters
-        {
-            get
-            {
-                return Shooters.Count();
-            }
-        }
+        public int NumberOfShooters => Shooters.Count;
 
         public string UserNotes
         {
-            set
-            {
-                userNotes = value;
-            }
+            set => userNotes = value;
         }
 
-        public DateTime Date
-        {
-            get { return date; }
-        }
+        public DateTime Date => date;
 
+        public string Title => title;
 
-        public string Title
-        {
-            get { return title; }
-        }
-
-        public int ShootID
-        {
-            get { return shootID; }
-        }
+        public int ShootID => shootID;
 
         public void ShooterOverallData(int position, out string name, out int overallTotal, out List<int> totals)
         {
@@ -106,16 +80,9 @@ namespace ClubClays
             name = Shooters[position].name;
             overallTotal = Shooters[position].overallTotal;
 
-            for (int x = 1; x <= StandsByNum.Count(); x++)
+            for (int x = 1; x <= StandsByNum.Count; x++)
             {
-                if (Shooters[position].StandScoresByStandNum.Count() >= x)
-                {
-                    totals.Add(Shooters[position].StandScoresByStandNum[x].standTotal);
-                }
-                else
-                {
-                    totals.Add(0);
-                }
+                totals.Add((Shooters[position].StandScoresByStandNum.Count >= x) ? Shooters[position].StandScoresByStandNum[x].standTotal : 0);
             }
         }
 
@@ -138,7 +105,7 @@ namespace ClubClays
             public class StandScore
             {
                 public int standTotal;
-                public int standPercentage = 0;
+                public int standPercentage;
                 public List<Tuple<string, int[]>> shots;
 
                 public StandScore(int standTotal)
@@ -193,7 +160,7 @@ namespace ClubClays
             StandsByNum.Add(StandsByNum.Count + 1, stand);
             numOfClays += StandsByNum[StandsByNum.Count].numClays;
 
-            for (int x = 0; x <= Shooters.Count() - 1; x++)
+            for (int x = 0; x <= Shooters.Count - 1; x++)
             {
                 Shooters[x].StandScoresByStandNum.Add(StandsByNum.Count, new Shooter.StandScore(0));
                 foreach (string format in stand.shotFormat)
@@ -432,7 +399,7 @@ namespace ClubClays
         public Java.IO.File ShootToCSV()
         {
             CalculateStats();
-            string csvPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), $"{discipline.Replace(" ", "")}{date:yyyyMMdd}.csv");
+            string csvPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), $"{discipline.Replace(" ", "")}{date:yyyyMMdd}.csv");
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine("OVERALL");

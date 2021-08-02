@@ -116,17 +116,9 @@ namespace ClubClays.Fragments
                 if (position == 0)
                 {
                     myHolder.ShootFormatTitle.Text = "Blank";
-                    myHolder.NumStands.Text = $"Add stands on the go";
+                    myHolder.NumStands.Text = "Add stands on the go";
                     myHolder.EditButton.Visibility = ViewStates.Gone;
-
-                    if (standShooterModel.selectedFormat == null)
-                    {
-                        myHolder.SelecetedIcon.Visibility = ViewStates.Visible;
-                    }
-                    else
-                    {
-                        myHolder.SelecetedIcon.Visibility = ViewStates.Gone;
-                    }
+                    myHolder.SelecetedIcon.Visibility = (standShooterModel.selectedFormat == null) ? ViewStates.Visible : ViewStates.Gone;
                 }
                 else
                 {
@@ -135,14 +127,7 @@ namespace ClubClays.Fragments
 
                     if (standShooterModel.selectedFormat != null)
                     {
-                        if (standShooterModel.selectedFormat.Id == shootFormats[position - 1].Id)
-                        {
-                            myHolder.SelecetedIcon.Visibility = ViewStates.Visible;
-                        }
-                        else
-                        {
-                            myHolder.SelecetedIcon.Visibility = ViewStates.Gone;
-                        }
+                        myHolder.SelecetedIcon.Visibility = (standShooterModel.selectedFormat.Id == shootFormats[position - 1].Id) ? ViewStates.Visible : ViewStates.Gone;
                     }
                     else
                     {
@@ -196,14 +181,7 @@ namespace ClubClays.Fragments
             {
                 ShootFormatEditFragment fragment = new ShootFormatEditFragment();
                 Bundle args = new Bundle();
-                if (selectable)
-                {
-                    args.PutInt("ShootFormatID", shootFormats[view.AbsoluteAdapterPosition - 1].Id);
-                }
-                else
-                {
-                    args.PutInt("ShootFormatID", shootFormats[view.AbsoluteAdapterPosition].Id);
-                }
+                args.PutInt("ShootFormatID", selectable ? shootFormats[view.AbsoluteAdapterPosition - 1].Id : shootFormats[view.AbsoluteAdapterPosition].Id);
 
                 fragment.Arguments = args;
                 FragmentTransaction fragmentTx = activity.SupportFragmentManager.BeginTransaction();

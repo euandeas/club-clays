@@ -44,14 +44,7 @@ namespace ClubClays
     {
         public void OnConfigureTab(TabLayout.Tab p0, int p1)
         {
-            if (p1 == 0)
-            {
-                p0.SetText("Overall");
-            }
-            else
-            {
-                p0.SetText($"Stand {p1}");
-            }
+            p0.SetText(p1 == 0 ? "Overall" : $"Stand {p1}");
         }
     }
 }

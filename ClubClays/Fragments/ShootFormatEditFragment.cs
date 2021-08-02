@@ -1,7 +1,6 @@
 ﻿using Android.OS;
 using Android.Views;
 using Android.Widget;
-using AndroidX.Activity;
 using AndroidX.AppCompat.App;
 using AndroidX.AppCompat.View.Menu;
 using AndroidX.Fragment.App;
@@ -81,9 +80,9 @@ namespace ClubClays.Fragments
 
             title.Text = titleText;       
 
-            LinearLayoutManager LayoutManager = new LinearLayoutManager(Activity);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(Activity);
             RecyclerView shootsRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.recyclerView);
-            shootsRecyclerView.SetLayoutManager(LayoutManager);
+            shootsRecyclerView.SetLayoutManager(layoutManager);
             recyclerAdapter = new ShootFormatRecyclerAdapter(ref shootFormat.stands, Activity);
             shootsRecyclerView.SetAdapter(recyclerAdapter);
 
@@ -227,10 +226,7 @@ namespace ClubClays.Fragments
         }
 
         // Return the size of data set (invoked by the layout manager)
-        public override int ItemCount
-        {
-            get { return standFormats.Count; }
-        }
+        public override int ItemCount => standFormats.Count;
 
         // Replace the contents of a view (invoked by layout manager)
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)

@@ -29,14 +29,7 @@ namespace ClubClays
                         base.Delegate.SetLocalNightMode(AppCompatDelegate.ModeNightYes);
                         break;
                     case "sysdefault":
-                        if (Build.VERSION.SdkInt >= BuildVersionCodes.Q)
-                        {
-                            base.Delegate.SetLocalNightMode(AppCompatDelegate.ModeNightFollowSystem);
-                        }
-                        else
-                        {
-                            base.Delegate.SetLocalNightMode(AppCompatDelegate.ModeNightAutoBattery);
-                        }
+                        base.Delegate.SetLocalNightMode((Build.VERSION.SdkInt >= BuildVersionCodes.Q) ? AppCompatDelegate.ModeNightFollowSystem : AppCompatDelegate.ModeNightAutoBattery);
                         break;
                 }
 

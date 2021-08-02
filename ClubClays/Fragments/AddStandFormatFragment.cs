@@ -47,9 +47,9 @@ namespace ClubClays.Fragments
             standNum.Text = $"Stand {scoreManagementModel.NumStands + 1}";
             numShots.Text = "0";
 
-            LinearLayoutManager LayoutManager = new LinearLayoutManager(Activity);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(Activity);
             RecyclerView shootsRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.recyclerView);
-            shootsRecyclerView.SetLayoutManager(LayoutManager);
+            shootsRecyclerView.SetLayoutManager(layoutManager);
             recyclerAdapter = new AddStandFormatRecyclerAdapter(new List<string>(), ref numShots);
             ItemTouchHelper.Callback callback = new ItemMoveSwipeCallback(recyclerAdapter);
             ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
@@ -121,13 +121,7 @@ namespace ClubClays.Fragments
         private List<string> shotsLayout;
         int numShots;
 
-        public List<string> ShotsLayout
-        {
-            get
-            {
-                return shotsLayout;
-            }
-        }
+        public List<string> ShotsLayout => shotsLayout;
 
         public void AddItem(string type)
         {
@@ -167,10 +161,7 @@ namespace ClubClays.Fragments
         }
 
         // Return the size of data set (invoked by the layout manager)
-        public override int ItemCount
-        {
-            get { return shotsLayout.Count; }
-        }
+        public override int ItemCount => shotsLayout.Count;
 
         // Replace the contents of a view (invoked by layout manager)
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)

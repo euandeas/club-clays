@@ -50,7 +50,7 @@ namespace ClubClays.Fragments
             if (Arguments.GetBoolean("NewStand", false))
             {
                 standNum.Text = $"Stand {Arguments.GetInt("StandNum")}";
-                numShots.Text = $"0";
+                numShots.Text = "0";
             }
             else
             {
@@ -61,9 +61,9 @@ namespace ClubClays.Fragments
                 shotFormats = stand.shotFormat;
             }
 
-            LinearLayoutManager LayoutManager = new LinearLayoutManager(Activity);
+            LinearLayoutManager layoutManager = new LinearLayoutManager(Activity);
             RecyclerView shootsRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.recyclerView);
-            shootsRecyclerView.SetLayoutManager(LayoutManager);
+            shootsRecyclerView.SetLayoutManager(layoutManager);
             recyclerAdapter = new StandFormatRecyclerAdapter(shotFormats, ref numShots);
             ItemTouchHelper.Callback callback = new ItemMoveSwipeCallback(recyclerAdapter);
             ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
@@ -128,7 +128,7 @@ namespace ClubClays.Fragments
                 case Resource.Id.single:
                     if (numShots.Text == "10")
                     {
-                        Toast.MakeText(Activity, $"No more then 10 shots supported per stand", ToastLength.Short).Show();
+                        Toast.MakeText(Activity, "No more then 10 shots supported per stand", ToastLength.Short).Show();
                     }
                     else
                     {
@@ -138,7 +138,7 @@ namespace ClubClays.Fragments
                 case Resource.Id.pair:
                     if (numShots.Text == "10" || numShots.Text == "9" )
                     {
-                        Toast.MakeText(Activity, $"No more then 10 shots supported per stand", ToastLength.Short).Show();
+                        Toast.MakeText(Activity, "No more then 10 shots supported per stand", ToastLength.Short).Show();
                     }
                     else
                     {
@@ -156,7 +156,7 @@ namespace ClubClays.Fragments
         private int numShots;
         private Color defColor;
 
-        public List<string> ShotsFormat { get { return shotsFormats; } }
+        public List<string> ShotsFormat => shotsFormats;
 
         public void AddItem(string type)
         {
@@ -197,10 +197,7 @@ namespace ClubClays.Fragments
         }
 
         // Return the size of data set (invoked by the layout manager)
-        public override int ItemCount
-        {
-            get { return shotsFormats.Count; }
-        }
+        public override int ItemCount => shotsFormats.Count;
 
         // Replace the contents of a view (invoked by layout manager)
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)

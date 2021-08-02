@@ -10,7 +10,6 @@ using AndroidX.Lifecycle;
 using SQLite;
 using System.IO;
 using ClubClays.DatabaseModels;
-using System.Collections.Generic;
 using AndroidX.Fragment.App;
 using Google.Android.Material.TextField;
 using Google.Android.Material.FloatingActionButton;
@@ -53,7 +52,7 @@ namespace ClubClays.Fragments
             titleInput = view.FindViewById<TextInputEditText>(Resource.Id.titleEditText);
 
             AutoCompleteTextView spinner = view.FindViewById<AutoCompleteTextView>(Resource.Id.disciplineDropdown);
-            spinner.ItemClick += new EventHandler<AdapterView.ItemClickEventArgs>(Spinner_ItemSelected);
+            spinner.ItemClick += Spinner_ItemSelected;
             var adapter = ArrayAdapter.CreateFromResource(view.Context, Resource.Array.disciplines, Android.Resource.Layout.SimpleSpinnerItem);
             adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             spinner.Adapter = adapter;
@@ -106,7 +105,7 @@ namespace ClubClays.Fragments
         {
             if (standShooterModel.selectedShooters.Count == 0)
             {
-                Toast.MakeText(Activity, $"No shooters selected!", ToastLength.Short).Show();
+                Toast.MakeText(Activity, "No shooters selected!", ToastLength.Short).Show();
                 return;
             }
 
