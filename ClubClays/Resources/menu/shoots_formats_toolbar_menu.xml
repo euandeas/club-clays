@@ -9,7 +9,7 @@
 	
 	<item android:id="@+id/delete_format"
 		  app:showAsAction="never"
-		  android:title="Delete Shoot"
+		  android:title="Delete Format"
 		  android:icon="@drawable/outline_delete"/>
 
 </menu>

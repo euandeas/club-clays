@@ -68,20 +68,37 @@ namespace ClubClays.Fragments
             EditText shooterName = view.FindViewById<EditText>(Resource.Id.newShootersName);
             EditText shooterClass = view.FindViewById<EditText>(Resource.Id.newShooterClass);
 
+            int affected;
             builder.SetView(view);
-            builder.SetPositiveButton("Add", (c, ev) =>
-            {
-                string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
-                using SQLiteConnection db = new SQLiteConnection(dbPath);
-                db.CreateCommand($"INSERT OR IGNORE INTO Shooters(Name, Class) VALUES ('{shooterName.Text}', '{shooterClass.Text}');").ExecuteNonQuery();
-                var shooter = db.Table<Shooters>().Where(s => s.Name == shooterName.Text).ToList();
-                db.Close();
-
-                shooters.Add(shooter[0]);
-            });
+            builder.SetPositiveButton("Add", (EventHandler<DialogClickEventArgs>)null);
             builder.SetNegativeButton("Cancel", (c, ev) => { });
 
-            builder.Show();
+            var dialog = builder.Create();
+            dialog.Show();
+
+            dialog.GetButton((int)DialogButtonType.Positive).Click += (sender, args) =>
+            {
+                if (shooterName.Text == "" || string.IsNullOrWhiteSpace(shooterName.Text))
+                {
+                    Toast.MakeText(Activity, "Shooter name is empty!", ToastLength.Short).Show();
+                }
+                else
+                {
+                    string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
+                    using SQLiteConnection db = new SQLiteConnection(dbPath);
+                    affected = db.CreateCommand($"INSERT OR IGNORE INTO Shooters(Name, Class) VALUES ('{shooterName.Text}', '{shooterClass.Text}');").ExecuteNonQuery();
+
+                    if (affected != 0)
+                    {
+                        shooters.Add(db.Table<Shooters>().Where(s => s.Name == shooterName.Text).First());
+                        dialog.Dismiss();
+                    }
+                    else
+                    {
+                        Toast.MakeText(Activity, "Shooter already exists!", ToastLength.Short).Show();
+                    }
+                }
+            };
         }
     }
 
@@ -137,22 +154,41 @@ namespace ClubClays.Fragments
                 shooterName.Text = shooters[view.AbsoluteAdapterPosition].Name;
                 shooterClass.Text = shooters[view.AbsoluteAdapterPosition].Class;
 
+                int affected;
                 builder.SetView(layoutview);
-                builder.SetPositiveButton("Save", (c, ev) =>
-                {
-                    string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
-                    using (var db = new SQLiteConnection(dbPath))
-                    {
-                        db.CreateCommand($"UPDATE Shooters SET Name = '{shooterName.Text}', Class = '{shooterClass.Text}' WHERE Id = {shooters[view.AbsoluteAdapterPosition].Id};").ExecuteNonQuery(); 
-                    }
-
-                    shooters[view.AbsoluteAdapterPosition].Name = shooterName.Text;
-                    shooters[view.AbsoluteAdapterPosition].Class = shooterClass.Text;
-                    NotifyDataSetChanged();
-                });
+                builder.SetPositiveButton("Save", (EventHandler<DialogClickEventArgs>)null);
                 builder.SetNegativeButton("Cancel", (c, ev) => { });
 
-                builder.Show();
+                var dialog = builder.Create();
+                dialog.Show();
+
+                dialog.GetButton((int)DialogButtonType.Positive).Click += (sender, args) =>
+                {
+                    if (shooterName.Text == "" || string.IsNullOrWhiteSpace(shooterName.Text))
+                    {
+                        Toast.MakeText(cont, "Shooter name is empty!", ToastLength.Short).Show();
+                    }
+                    else
+                    {
+                        string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
+                        using (var db = new SQLiteConnection(dbPath))
+                        {
+                            affected = db.CreateCommand($"UPDATE OR IGNORE Shooters SET Name = '{shooterName.Text}', Class = '{shooterClass.Text}' WHERE Id = {shooters[view.AbsoluteAdapterPosition].Id};").ExecuteNonQuery();
+                        }
+
+                        if (affected != 0)
+                        {
+                            shooters[view.AbsoluteAdapterPosition].Name = shooterName.Text;
+                            shooters[view.AbsoluteAdapterPosition].Class = shooterClass.Text;
+                            NotifyDataSetChanged();
+                            dialog.Dismiss();
+                        }
+                        else
+                        {
+                            Toast.MakeText(cont, "Shooter already exists!", ToastLength.Short).Show();
+                        }
+                    }
+                };
             };
             
             deleteButton.Click += delegate

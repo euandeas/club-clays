@@ -14,6 +14,8 @@ using SQLite;
 using System.IO;
 using Color = Android.Graphics.Color;
 using Google.Android.Material.Dialog;
+using Android.Content;
+using System;
 
 namespace ClubClays.Fragments
 {
@@ -81,22 +83,38 @@ namespace ClubClays.Fragments
             EditText shooterName = view.FindViewById<EditText>(Resource.Id.newShootersName);
             EditText shooterClass = view.FindViewById<EditText>(Resource.Id.newShooterClass);
 
+            int affected;
             builder.SetView(view);
-            builder.SetPositiveButton("Add", (c, ev) => 
-            {
-                string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
-                using SQLiteConnection db = new SQLiteConnection(dbPath);
-                db.CreateCommand($"INSERT OR IGNORE INTO Shooters(Name, Class) VALUES ('{shooterName.Text}', '{shooterClass.Text}');").ExecuteNonQuery();
-                var shooter = db.Table<Shooters>().Where(s => s.Name == shooterName.Text).ToList();
-                db.Close();
-
-                selectedShootersModel.selectedShooters.Add(shooter[0]);
-                selectedRecyclerView.GetAdapter().NotifyDataSetChanged();
-
-            });
+            builder.SetPositiveButton("Add", (EventHandler<DialogClickEventArgs>)null);
             builder.SetNegativeButton("Cancel", (c, ev) => { });
 
-            builder.Show();
+            var dialog = builder.Create();
+            dialog.Show();
+
+            dialog.GetButton((int)DialogButtonType.Positive).Click += (sender, args) => 
+            {
+                if (shooterName.Text == "" || string.IsNullOrWhiteSpace(shooterName.Text))
+                {
+                    Toast.MakeText(Activity, "Shooter name is empty!", ToastLength.Short).Show();
+                }
+                else
+                {
+                    string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
+                    using SQLiteConnection db = new SQLiteConnection(dbPath);
+                    affected = db.CreateCommand($"INSERT OR IGNORE INTO Shooters(Name, Class) VALUES ('{shooterName.Text}', '{shooterClass.Text}');").ExecuteNonQuery();
+
+                    if (affected != 0)
+                    {
+                        selectedShootersModel.selectedShooters.Add(db.Table<Shooters>().Where(s => s.Name == shooterName.Text).First());
+                        selectedRecyclerView.GetAdapter().NotifyDataSetChanged();
+                        dialog.Dismiss();
+                    }
+                    else
+                    {
+                        Toast.MakeText(Activity, "Shooter already exists!", ToastLength.Short).Show();
+                    }
+                }
+            };
         }
 
         public class BackPress : OnBackPressedCallback

@@ -101,7 +101,7 @@ namespace ClubClays.Fragments
                 {
                     shootFormat.stands[Arguments.GetInt("StandNum") - 1].shotFormat = recyclerAdapter.ShotsFormat;
                 }
-                else if (recyclerAdapter.ItemCount == 0)
+                else if (!Arguments.GetBoolean("NewStand", false) && recyclerAdapter.ItemCount == 0)
                 {
                     shootFormat.stands.RemoveAt(Arguments.GetInt("StandNum") - 1);
                 }
