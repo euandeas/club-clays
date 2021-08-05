@@ -16,6 +16,7 @@
 				android:id="@+id/formatTitle"
 				android:paddingLeft="10dp"
 				android:paddingRight="10dp"
+				android:paddingTop="5dp"
 				android:textSize="20sp"/>
 			<TextView
 				android:text="5 Stands"
@@ -31,25 +32,29 @@
 			android:layout_width="wrap_content"
 			android:layout_height="match_parent"
 			android:orientation="horizontal"
-			android:layout_gravity="right | center_vertical">
+			android:layout_gravity="right">
 			<ImageView
 				android:id="@+id/shootFormatSelected"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:src="@drawable/outline_done"
 				android:background="#0000"
-				android:padding="5dp"
-				android:contentDescription="" />
+				android:paddingTop="5dp"
+				android:paddingLeft="5dp"
+				android:paddingBottom="5dp"
+				android:paddingRight="10dp"
+				android:contentDescription="" 
+				android:layout_gravity="center_vertical"/>
 			<ImageButton
 				android:id="@+id/shootFormatEditButton"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:src="@drawable/outline_edit"
 				android:background="#0000"
-				android:paddingLeft="5dp"
 				android:paddingRight="10dp"
 				android:paddingTop="5dp"
 				android:paddingBottom="5dp"
-				android:contentDescription="" />
+				android:contentDescription="" 
+				android:layout_gravity="center_vertical"/>
 		</LinearLayout>
 </androidx.cardview.widget.CardView>

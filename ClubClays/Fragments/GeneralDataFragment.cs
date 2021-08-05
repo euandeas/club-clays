@@ -36,6 +36,10 @@ namespace ClubClays.Fragments
             base.OnCreate(savedInstanceState);
 
             // Create your fragment here
+            string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
+            SQLiteConnection db = new SQLiteConnection(dbPath);
+            standShooterModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(ShooterStandData))) as ShooterStandData;
+            standShooterModel.allShooters = db.Table<Shooters>().ToList();
         }
 
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -71,12 +75,6 @@ namespace ClubClays.Fragments
             shootersSelection = view.FindViewById<TextInputEditText>(Resource.Id.shootersEditText);
             shootersSelection.Text = "0 Shooter(s) Selected";
             shootersSelection.Click += ShootersSelection_Click;
-
-            string dbPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "ClubClaysData.db3");
-            SQLiteConnection db = new SQLiteConnection(dbPath);
-            standShooterModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(ShooterStandData))) as ShooterStandData;
-            standShooterModel.allShooters = db.Table<Shooters>().ToList();
-            db.Close();
 
             standFormatting = view.FindViewById<TextInputEditText>(Resource.Id.standsEditText);
             standFormatting.Text = "Blank";
@@ -133,7 +131,7 @@ namespace ClubClays.Fragments
         { 
             FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
             ShootersFragment shootersFragment = new ShootersFragment();
-            fragmentTx.Add(Resource.Id.container, shootersFragment);
+            fragmentTx.Replace(Resource.Id.container, shootersFragment);
             fragmentTx.AddToBackStack(null);
             fragmentTx.Commit();
             Activity.SupportFragmentManager.SetFragmentResultListener("1", this, this);
