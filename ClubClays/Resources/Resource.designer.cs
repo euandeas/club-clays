@@ -6017,7 +6017,7 @@ namespace ClubClays
 			public const int addButton = 2131296325;
 			
 			// aapt resource value: 0x7F090043
-			public const int adView = 2131296323;
+			public const int ad_view_container = 2131296323;
 			
 			// aapt resource value: 0x7F090046
 			public const int alertTitle = 2131296326;

@@ -15,6 +15,7 @@ using SQLite;
 using System.Collections.Generic;
 using AndroidX.Fragment.App;
 using Android.Gms.Ads;
+using Android.Util;
 
 namespace ClubClays.Fragments
 {
@@ -26,6 +27,8 @@ namespace ClubClays.Fragments
         RelativeLayout collapsingRelativeLayout;
         string currentDate;
         string mainTitle = "Welcome Back!";
+        private FrameLayout adContainerView;
+        private AdView adView;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -52,9 +55,13 @@ namespace ClubClays.Fragments
                 mainTitle = "Good Afternoon!";
             }
 
-            AdView adView = view.FindViewById<AdView>(Resource.Id.adView);
-            AdRequest adRequest = new AdRequest.Builder().Build();
-            adView.LoadAd(adRequest);
+            adContainerView = view.FindViewById<FrameLayout>(Resource.Id.ad_view_container);
+            adView = new AdView(Context)
+            {
+                AdUnitId = "ca-app-pub-6671601320564750/7391680640"
+            };
+            adContainerView.AddView(adView);
+            LoadBanner();
 
             toolbar = view.FindViewById<Toolbar>(Resource.Id.toolbar);
             toolbar.Title = mainTitle;
@@ -91,6 +98,15 @@ namespace ClubClays.Fragments
             shootsRecyclerView.SetAdapter(new PreviousShootsRecyclerAdapter(shoots, Activity));
 
             return view;
+        }
+
+        private void LoadBanner()
+        {
+            AdRequest adRequest = new AdRequest.Builder().Build();
+            var metrics = Resources.DisplayMetrics;
+            int adWidth = (int)(metrics.WidthPixels / metrics.Density);
+            adView.AdSize = AdSize.GetCurrentOrientationAnchoredAdaptiveBannerAdSize(Context, adWidth);
+            adView.LoadAd(adRequest);
         }
 
         private void Fab_Click(object sender, EventArgs e)
