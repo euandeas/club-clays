@@ -4,6 +4,8 @@ namespace ClubClays
 {
     static class Disciplines
     {
+        //ALL CURRENTLY ONLY REPRESENT 1 ROUND OF EACH DISCIPLINE
+        
         static private List<Stand> FiveStandOfFiveSingles()
         {
             return new List<Stand>()
@@ -91,18 +93,31 @@ namespace ClubClays
         // Skeet
         public static class Skeet
         {
-            static public List<Stand> AmericanSkeet()
+            static public List<Stand> AmericanSkeet() //The first miss is repeated immediately and is called an option. If no targets are missed during the round, the last or 25th target is shot at the last station.
             {
                 return new List<Stand>()
                 {
-                    new Stand(new List<string>() {})
+                    new Stand(new List<string>() { "Single", "Single", "Pair" }), // 1
+                    new Stand(new List<string>() { "Single", "Single", "Pair" }), // 2
+                    new Stand(new List<string>() { "Single", "Single" }), // 3
+                    new Stand(new List<string>() { "Single", "Single" }), // 4
+                    new Stand(new List<string>() { "Single", "Single" }), //5
+                    new Stand(new List<string>() { "Single", "Single", "Pair" }), //6
+                    new Stand(new List<string>() { "Single", "Single", "Pair" }),  //7
+                    new Stand(new List<string>() { "Single", "Single", }),  //8
                 };
             }
-            static public List<Stand> EnglishSkeet()
+            static public List<Stand> EnglishSkeet() // The first target that the shooter misses is immediately reshot. If a shooter hits the first 24 targets without missing, they get the option on stand 7 to shoot either the low or high target again for the 25th shot. 
             {
                 return new List<Stand>()
                 {
-                    new Stand(new List<string>() {})
+                    new Stand(new List<string>() { "Single", "Single", "Pair" }), // 1
+                    new Stand(new List<string>() { "Single", "Single", "Pair" }), // 2
+                    new Stand(new List<string>() { "Single", "Single" }), // 3
+                    new Stand(new List<string>() { "Single", "Single", "Pair" }), // 4
+                    new Stand(new List<string>() { "Single", "Single" }), //5
+                    new Stand(new List<string>() { "Single", "Single", "Pair" }), //6
+                    new Stand(new List<string>() { "Single", "Single", "Pair", "Single" }) //7
                 };
             }
             static public List<Stand> OlympicSkeet() // This is for 1 round (usually 5) ? station 4 occurs twice
@@ -120,7 +135,7 @@ namespace ClubClays
                     new Stand(new List<string>() { "Single", "Single" }) // 8
                 };
             }
-            static public List<Stand> OlympicSkeetFinal()//?
+            static public List<Stand> OlympicSkeetFinal()// Repeats eliminating after 20, 30, 40, 50, 60 clays
             {
                 return new List<Stand>()
                 {
@@ -136,11 +151,17 @@ namespace ClubClays
                     new Stand(new List<string>() {})
                 };
             }
-            static public List<Stand> SkeetDoubles()
+            static public List<Stand> SkeetDoubles() //In the first round, shooters move from stand one to stand seven then inreverse back to stand two In thesecond round they shoot one to seven,then seven back to one.
             {
                 return new List<Stand>()
                 {
-                    new Stand(new List<string>() {})
+                    new Stand(new List<string>() { "Pair" }), //1
+                    new Stand(new List<string>() { "Pair" }), //2
+                    new Stand(new List<string>() { "Pair" }), //3
+                    new Stand(new List<string>() { "Pair" }), //4
+                    new Stand(new List<string>() { "Pair" }), //5
+                    new Stand(new List<string>() { "Pair" }), //6
+                    new Stand(new List<string>() { "Pair" }) //7
                 };
             }
             static public List<Stand> SkeetShootOff() // Repeats till someone misses
@@ -149,7 +170,7 @@ namespace ClubClays
                 {
                     new Stand(new List<string>() { "Pair", "Pair" }), //3
                     new Stand(new List<string>() { "Pair", "Pair" }), //4
-                    new Stand(new List<string>() { "Pair", "Pair" }), //5
+                    new Stand(new List<string>() { "Pair", "Pair" }) //5
                 };
             }
             static public List<Stand> WobbleSkeet()
