@@ -104,7 +104,7 @@ namespace ClubClays
                     new Stand(new List<string>() { "Single", "Single" }), //5
                     new Stand(new List<string>() { "Single", "Single", "Pair" }), //6
                     new Stand(new List<string>() { "Single", "Single", "Pair" }),  //7
-                    new Stand(new List<string>() { "Single", "Single", }),  //8
+                    new Stand(new List<string>() { "Single", "Single", })  //8
                 };
             }
             static public List<Stand> EnglishSkeet() // The first target that the shooter misses is immediately reshot. If a shooter hits the first 24 targets without missing, they get the option on stand 7 to shoot either the low or high target again for the 25th shot. 
@@ -177,7 +177,14 @@ namespace ClubClays
             {
                 return new List<Stand>()
                 {
-                    new Stand(new List<string>() {})
+                    new Stand(new List<string>() { "Pair", "Pair" }), // 1
+                    new Stand(new List<string>() { "Pair", "Pair" }), // 2
+                    new Stand(new List<string>() { "Pair"  }), // 3
+                    new Stand(new List<string>() { "Pair"  }), // 4
+                    new Stand(new List<string>() { "Pair"  }), //5
+                    new Stand(new List<string>() { "Pair", "Pair" }), //6
+                    new Stand(new List<string>() { "Pair", "Pair" }),  //7
+                    new Stand(new List<string>() { "Single", "Pair"  })  //8
                 };
             }
         }
