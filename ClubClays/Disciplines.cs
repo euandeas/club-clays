@@ -5,16 +5,46 @@ namespace ClubClays
     static class Disciplines
     {
         //ALL CURRENTLY ONLY REPRESENT 1 ROUND OF EACH DISCIPLINE
-        
+
+        //static public class Discipline
+        //{
+        //    static string name = "";
+        //    static int scorePerHit = 1;
+        //
+        //    static bool differentiateFirstAndSecondShot = false;
+        //    static bool differentiateFirstAndSecondShotScore = false;
+        //    static int scorePerSecondHit = 1;
+        //
+        //   static public List<Stand> RoundLayout()
+        //    {
+        //        return null;
+        //    }
+        //}
+
+        static public class Discipline
+        {
+            static public string name = "";
+            static public int scorePerHit = 1;
+
+            static public bool differentiateFirstAndSecondShot = false;
+            static public bool differentiateFirstAndSecondShotScore = false;
+            static public int scorePerSecondHit = 1;
+
+            static public List<Stand> RoundLayout()
+            {
+                return null;
+            }
+        }
+
         static private List<Stand> FiveStandOfFiveSingles()
         {
             return new List<Stand>()
             {
-                new Stand(new List<string>() { "Single", "Single", "Single", "Single", "Single" }),
-                new Stand(new List<string>() { "Single", "Single", "Single", "Single", "Single" }),
-                new Stand(new List<string>() { "Single", "Single", "Single", "Single", "Single" }),
-                new Stand(new List<string>() { "Single", "Single", "Single", "Single", "Single" }),
-                new Stand(new List<string>() { "Single", "Single", "Single", "Single", "Single" })
+                new Stand(1, new List<string>() { "Single", "Single", "Single", "Single", "Single" }),
+                new Stand(2, new List<string>() { "Single", "Single", "Single", "Single", "Single" }),
+                new Stand(3, new List<string>() { "Single", "Single", "Single", "Single", "Single" }),
+                new Stand(4, new List<string>() { "Single", "Single", "Single", "Single", "Single" }),
+                new Stand(5, new List<string>() { "Single", "Single", "Single", "Single", "Single" })
             };
         }
 
@@ -22,224 +52,512 @@ namespace ClubClays
         {
             return new List<Stand>()
             { 
-                new Stand(new List<string>() { "Pair", "Pair", "Pair", "Pair", "Pair" }),
-                new Stand(new List<string>() { "Pair", "Pair", "Pair", "Pair", "Pair" }),
-                new Stand(new List<string>() { "Pair", "Pair", "Pair", "Pair", "Pair" }),
-                new Stand(new List<string>() { "Pair", "Pair", "Pair", "Pair", "Pair" }),
-                new Stand(new List<string>() { "Pair", "Pair", "Pair", "Pair", "Pair" })
+                new Stand(1, new List<string>() { "Pair", "Pair", "Pair", "Pair", "Pair" }),
+                new Stand(2, new List<string>() { "Pair", "Pair", "Pair", "Pair", "Pair" }),
+                new Stand(3, new List<string>() { "Pair", "Pair", "Pair", "Pair", "Pair" }),
+                new Stand(4, new List<string>() { "Pair", "Pair", "Pair", "Pair", "Pair" }),
+                new Stand(5, new List<string>() { "Pair", "Pair", "Pair", "Pair", "Pair" })
             };
         }
-
-        //static public List<Stand> Discipline()
-        //{
-        //    return new List<Stand>() 
-        //    { 
-        //        new Stand(new List<string>() {})
-        //    };
-        //}
 
         // Trap
         public static class Trap
         {
-            static public List<Stand> AmericanTrap() //Singles
+            static public class AmericanTrap
             {
-                return FiveStandOfFiveSingles();
+                static public string name = "American Trap";
+                static public int scorePerHit = 1;
+
+                static public bool differentiateFirstAndSecondShot = false;
+                static public bool differentiateFirstAndSecondShotScore = false;
+                static public int scorePerSecondHit = 1;
+
+                static public List<Stand> RoundLayout()
+                {
+                    return FiveStandOfFiveSingles();
+                }
             }
-            static public List<Stand> AmericanTrapDoubles()
+            static public class AmericanTrapDoubles
             {
-                return FiveStandOfFivePairs();
+                static public string name = "American Trap Doubles";
+                static public int scorePerHit = 1;
+
+                static public bool differentiateFirstAndSecondShot = false;
+                static public bool differentiateFirstAndSecondShotScore = false;
+                static public int scorePerSecondHit = 1;
+
+                static public List<Stand> RoundLayout()
+                {
+                    return FiveStandOfFivePairs();
+                }
             }
-            static public List<Stand> DoubleRise()
+            static public class DoubleRise
             {
-                return FiveStandOfFivePairs();
+                static public string name = "Double Rise";
+                static public int scorePerHit = 1;
+
+                static public bool differentiateFirstAndSecondShot = false;
+                static public bool differentiateFirstAndSecondShotScore = false;
+                static public int scorePerSecondHit = 1;
+
+                static public List<Stand> RoundLayout()
+                {
+                    return FiveStandOfFivePairs();
+                }
             }
-            static public List<Stand> DTL() //Down The Line - !Different Scoring System!
+            static public class DTL
             {
-                return FiveStandOfFiveSingles();
+                static public string name = "Down The Line";
+                static public int scorePerHit = 3;
+
+                static public bool differentiateFirstAndSecondShot = true;
+                static public bool differentiateFirstAndSecondShotScore = true;
+                static public int scorePerSecondHit = 2;
+
+                static public List<Stand> RoundLayout()
+                {
+                    return FiveStandOfFiveSingles();
+                }
             }
-            static public List<Stand> OlympicDoubleTrap()
+            static public class OlympicDoubleTrap
             {
-                return FiveStandOfFivePairs();
+                static public string name = "Olympic Double Trap";
+                static public int scorePerHit = 1;
+
+                static public bool differentiateFirstAndSecondShot = false;
+                static public bool differentiateFirstAndSecondShotScore = false;
+                static public int scorePerSecondHit = 1;
+
+                static public List<Stand> RoundLayout()
+                {
+                    return FiveStandOfFivePairs();
+                }
             }
-            static public List<Stand> OlympicTrap()
+            static public class OlympicTrap
             {
-                return FiveStandOfFiveSingles();
+                static public string name = "Olympic Trap";
+                static public int scorePerHit = 1;
+
+                static public bool differentiateFirstAndSecondShot = false;
+                static public bool differentiateFirstAndSecondShotScore = false;
+                static public int scorePerSecondHit = 1;
+
+                static public List<Stand> RoundLayout()
+                {
+                    return FiveStandOfFiveSingles();
+                }
             }
-            static public List<Stand> SingleBarrel()
+            static public class SingleBarrel
             {
-                return FiveStandOfFiveSingles();
+                static public string name = "Single Barrel";
+                static public int scorePerHit = 1;
+
+                static public bool differentiateFirstAndSecondShot = false;
+                static public bool differentiateFirstAndSecondShotScore = false;
+                static public int scorePerSecondHit = 1;
+
+                static public List<Stand> RoundLayout()
+                {
+                    return FiveStandOfFiveSingles();
+                }
             }
-            static public List<Stand> AutomaticBallTrap()
+            static public class AutomaticBallTrap
             {
-                return FiveStandOfFiveSingles();
+                static public string name = "Automatic Ball Trap";
+                static public int scorePerHit = 1;
+
+                static public bool differentiateFirstAndSecondShot = false;
+                static public bool differentiateFirstAndSecondShotScore = false;
+                static public int scorePerSecondHit = 1;
+
+                static public List<Stand> RoundLayout()
+                {
+                    return FiveStandOfFiveSingles();
+                }
             }
-            static public List<Stand> Helice() //Unsure of standard number of "stands"
+            static public class Helice
             {
-                return FiveStandOfFiveSingles();
+                //Unsure of standard number of "stands"
+                static public string name = "Helice";
+                static public int scorePerHit = 1;
+
+                static public bool differentiateFirstAndSecondShot = false;
+                static public bool differentiateFirstAndSecondShotScore = false;
+                static public int scorePerSecondHit = 1;
+
+                static public List<Stand> RoundLayout()
+                {
+                    return FiveStandOfFiveSingles();
+                }
             }
-            static public List<Stand> UniversalTrench()  //Unsure of usual number of singles per stand and standard number of "stands"
+            static public class UniversalTrench
             {
-                return null;
+                //25 single targets with two shots allowed at each one. Scoring is based on a single point being awarded for each hit, regardless of whether it was the first or second shot.
+                static public string name = "Universal Trench";
+                static public int scorePerHit = 1;
+
+                static public bool differentiateFirstAndSecondShot = true;
+                static public bool differentiateFirstAndSecondShotScore = false;
+                static public int scorePerSecondHit = 1;
+
+                static public List<Stand> RoundLayout()
+                {
+                    return FiveStandOfFiveSingles();
+                }
             }
-            static public List<Stand> WobbleTrap() //Unsure of standard number of "stands"
+            static public class WobbleTrap
             {
-                return FiveStandOfFiveSingles();
+                //Unsure of standard number of "stands"
+                static public string name = "Wobble Trap";
+                static public int scorePerHit = 1;
+
+                static public bool differentiateFirstAndSecondShot = false;
+                static public bool differentiateFirstAndSecondShotScore = false;
+                static public int scorePerSecondHit = 1;
+
+                static public List<Stand> RoundLayout()
+                {
+                    return FiveStandOfFiveSingles();
+                }
             }
-            static public List<Stand> NordicTrap()
+            static public class NordicTrap
             {
-                return FiveStandOfFiveSingles();
+                static public string name = "Nordic Trap";
+                static public int scorePerHit = 1;
+
+                static public bool differentiateFirstAndSecondShot = false;
+                static public bool differentiateFirstAndSecondShotScore = false;
+                static public int scorePerSecondHit = 1;
+
+                static public List<Stand> RoundLayout()
+                {
+                    return FiveStandOfFiveSingles();
+                }
             }
         }
         // Skeet
         public static class Skeet
         {
-            static public List<Stand> AmericanSkeet() //The first miss is repeated immediately and is called an option. If no targets are missed during the round, the last or 25th target is shot at the last station.
+            static public class AmericanSkeet
             {
-                return new List<Stand>()
+                //The first miss is repeated immediately and is called an option. If no targets are missed during the round, the last or 25th target is shot at the last station.
+                static public string name = "American Skeet";
+                static public int scorePerHit = 1;
+
+                static public bool differentiateFirstAndSecondShot = false;
+                static public bool differentiateFirstAndSecondShotScore = false;
+                static public int scorePerSecondHit = 1;
+
+                static public List<Stand> RoundLayout()
                 {
-                    new Stand(new List<string>() { "Single", "Single", "Pair" }), // 1
-                    new Stand(new List<string>() { "Single", "Single", "Pair" }), // 2
-                    new Stand(new List<string>() { "Single", "Single" }), // 3
-                    new Stand(new List<string>() { "Single", "Single" }), // 4
-                    new Stand(new List<string>() { "Single", "Single" }), //5
-                    new Stand(new List<string>() { "Single", "Single", "Pair" }), //6
-                    new Stand(new List<string>() { "Single", "Single", "Pair" }),  //7
-                    new Stand(new List<string>() { "Single", "Single", })  //8
-                };
+                    return new List<Stand>()
+                    {
+                        new Stand(1, new List<string>() { "Single", "Single", "Pair" }), // 1
+                        new Stand(2, new List<string>() { "Single", "Single", "Pair" }), // 2
+                        new Stand(3, new List<string>() { "Single", "Single" }), // 3
+                        new Stand(4, new List<string>() { "Single", "Single" }), // 4
+                        new Stand(5, new List<string>() { "Single", "Single" }), //5
+                        new Stand(6, new List<string>() { "Single", "Single", "Pair" }), //6
+                        new Stand(7, new List<string>() { "Single", "Single", "Pair" }),  //7
+                        new Stand(8, new List<string>() { "Single", "Single", })  //8
+                    };
+                }
             }
-            static public List<Stand> EnglishSkeet() // The first target that the shooter misses is immediately reshot. If a shooter hits the first 24 targets without missing, they get the option on stand 7 to shoot either the low or high target again for the 25th shot. 
+            static public class EnglishSkeet
             {
-                return new List<Stand>()
+                // The first target that the shooter misses is immediately reshot. If a shooter hits the first 24 targets without missing, they get the option on stand 7 to shoot either the low or high target again for the 25th shot.
+                static public string name = "English Skeet";
+                static public int scorePerHit = 1;
+
+                static public bool differentiateFirstAndSecondShot = false;
+                static public bool differentiateFirstAndSecondShotScore = false;
+                static public int scorePerSecondHit = 1;
+
+                static public List<Stand> RoundLayout()
                 {
-                    new Stand(new List<string>() { "Single", "Single", "Pair" }), // 1
-                    new Stand(new List<string>() { "Single", "Single", "Pair" }), // 2
-                    new Stand(new List<string>() { "Single", "Single" }), // 3
-                    new Stand(new List<string>() { "Single", "Single", "Pair" }), // 4
-                    new Stand(new List<string>() { "Single", "Single" }), //5
-                    new Stand(new List<string>() { "Single", "Single", "Pair" }), //6
-                    new Stand(new List<string>() { "Single", "Single", "Pair", "Single" }) //7
-                };
+                    return new List<Stand>()
+                    {
+                        new Stand(1, new List<string>() { "Single", "Single", "Pair" }), // 1
+                        new Stand(2, new List<string>() { "Single", "Single", "Pair" }), // 2
+                        new Stand(3, new List<string>() { "Single", "Single" }), // 3
+                        new Stand(4, new List<string>() { "Single", "Single", "Pair" }), // 4
+                        new Stand(5, new List<string>() { "Single", "Single" }), //5
+                        new Stand(6, new List<string>() { "Single", "Single", "Pair" }), //6
+                        new Stand(7, new List<string>() { "Single", "Single", "Pair", "Single" }) //7
+                    };
+                }
             }
-            static public List<Stand> OlympicSkeet() // This is for 1 round (usually 5) ? station 4 occurs twice
+            static public class OlympicSkeet
             {
-                return new List<Stand>()
+                // This is for 1 round (usually 5) ? station 4 occurs twice
+                static public string name = "Olympic Skeet";
+                static public int scorePerHit = 1;
+
+                static public bool differentiateFirstAndSecondShot = false;
+                static public bool differentiateFirstAndSecondShotScore = false;
+                static public int scorePerSecondHit = 1;
+
+                static public List<Stand> RoundLayout()
                 {
-                    new Stand(new List<string>() { "Single", "Pair" }), // 1
-                    new Stand(new List<string>() { "Single", "Pair" }), // 2
-                    new Stand(new List<string>() { "Single", "Pair" }), // 3
-                    new Stand(new List<string>() { "Single", "Single" }), // 4
-                    new Stand(new List<string>() { "Single", "Pair" }), //5
-                    new Stand(new List<string>() { "Single", "Pair" }), //6
-                    new Stand(new List<string>() { "Pair" }), //7
-                    new Stand(new List<string>() { "Pair", "Pair" }), //4
-                    new Stand(new List<string>() { "Single", "Single" }) // 8
-                };
+                    return new List<Stand>()
+                    {
+                        new Stand(1, new List<string>() { "Single", "Pair" }), // 1
+                        new Stand(2, new List<string>() { "Single", "Pair" }), // 2
+                        new Stand(3, new List<string>() { "Single", "Pair" }), // 3
+                        new Stand(4, new List<string>() { "Single", "Single" }), // 4
+                        new Stand(5, new List<string>() { "Single", "Pair" }), //5
+                        new Stand(6, new List<string>() { "Single", "Pair" }), //6
+                        new Stand(7, new List<string>() { "Pair" }), //7
+                        new Stand(4, new List<string>() { "Pair", "Pair" }), //4
+                        new Stand(8, new List<string>() { "Single", "Single" }) // 8
+                    };
+                }
             }
-            static public List<Stand> OlympicSkeetFinal()// Repeats eliminating after 20, 30, 40, 50, 60 clays
+            static public class OlympicSkeetFinal
             {
-                return new List<Stand>()
+                // Repeats eliminating after 20, 30, 40, 50, 60 clays
+                static public string name = "Olympic Skeet Final";
+                static public int scorePerHit = 1;
+
+                static public bool differentiateFirstAndSecondShot = false;
+                static public bool differentiateFirstAndSecondShotScore = false;
+                static public int scorePerSecondHit = 1;
+
+                static public List<Stand> RoundLayout()
                 {
-                    new Stand(new List<string>() { "Pair", "Pair" }),
-                    new Stand(new List<string>() { "Pair" }),
-                    new Stand(new List<string>() { "Pair", "Pair" })
-                };
+                    return new List<Stand>()
+                    {
+                        new Stand(3, new List<string>() { "Pair", "Pair" }),
+                        new Stand(4, new List<string>() { "Pair" }),
+                        new Stand(5, new List<string>() { "Pair", "Pair" })
+                    };
+                }
             }
-            static public List<Stand> OlympicSkeetPre2012() //?
+            static public class OlympicSkeetPre2012
             {
-                return new List<Stand>()
+                // from hotclays
+                static public string name = "Olympic Skeet (Pre 2012)";
+                static public int scorePerHit = 1;
+
+                static public bool differentiateFirstAndSecondShot = false;
+                static public bool differentiateFirstAndSecondShotScore = false;
+                static public int scorePerSecondHit = 1;
+
+                static public List<Stand> RoundLayout()
                 {
-                    new Stand(new List<string>() {})
-                };
+                    return new List<Stand>()
+                    {
+                        new Stand(1, new List<string>() { "Single", "Pair" }), // 1
+                        new Stand(2, new List<string>() { "Single", "Pair" }), // 2
+                        new Stand(3, new List<string>() { "Single", "Pair" }), // 3
+                        new Stand(4, new List<string>() { "Single", "Pair", "Pair" }), // 4
+                        new Stand(5, new List<string>() { "Single", "Pair" }), //5
+                        new Stand(6, new List<string>() { "Single", "Pair" }), //6
+                        new Stand(7, new List<string>() { "Pair" }), //7
+                        new Stand(8, new List<string>() { "Single" }) // 8
+                    };
+                }
             }
-            static public List<Stand> SkeetDoubles() //In the first round, shooters move from stand one to stand seven then inreverse back to stand two In thesecond round they shoot one to seven,then seven back to one.
+            static public class SkeetDoubles
             {
-                return new List<Stand>()
+                //In the first round, shooters move from stand one to stand seven then inreverse back to stand two. In the second round they shoot one to seven, then seven back to one.
+                static public string name = "Skeet Doubles";
+                static public int scorePerHit = 1;
+
+                static public bool differentiateFirstAndSecondShot = false;
+                static public bool differentiateFirstAndSecondShotScore = false;
+                static public int scorePerSecondHit = 1;
+
+                static public List<Stand> RoundLayout(int layout)
                 {
-                    new Stand(new List<string>() { "Pair" }), //1
-                    new Stand(new List<string>() { "Pair" }), //2
-                    new Stand(new List<string>() { "Pair" }), //3
-                    new Stand(new List<string>() { "Pair" }), //4
-                    new Stand(new List<string>() { "Pair" }), //5
-                    new Stand(new List<string>() { "Pair" }), //6
-                    new Stand(new List<string>() { "Pair" }) //7
-                };
+                    switch (layout)
+                    {
+                        default:
+                            return new List<Stand>()
+                            {
+                                new Stand(1, new List<string>() { "Pair" }), //1
+                                new Stand(2, new List<string>() { "Pair" }), //2
+                                new Stand(3, new List<string>() { "Pair" }), //3
+                                new Stand(4, new List<string>() { "Pair" }), //4
+                                new Stand(5, new List<string>() { "Pair" }), //5
+                                new Stand(6, new List<string>() { "Pair" }), //6
+                                new Stand(7, new List<string>() { "Pair" }), //7
+                                new Stand(6, new List<string>() { "Pair" }), //6
+                                new Stand(5, new List<string>() { "Pair" }), //5
+                                new Stand(4, new List<string>() { "Pair" }), //4
+                                new Stand(3, new List<string>() { "Pair" }), //3
+                                new Stand(2, new List<string>() { "Pair" }) //2
+                            };
+                        case 2:
+                            return new List<Stand>()
+                            {
+                                new Stand(1, new List<string>() { "Pair" }), //1
+                                new Stand(2, new List<string>() { "Pair" }), //2
+                                new Stand(3, new List<string>() { "Pair" }), //3
+                                new Stand(4, new List<string>() { "Pair" }), //4
+                                new Stand(5, new List<string>() { "Pair" }), //5
+                                new Stand(6, new List<string>() { "Pair" }), //6
+                                new Stand(7, new List<string>() { "Pair" }), //7
+                                new Stand(6, new List<string>() { "Pair" }), //6
+                                new Stand(5, new List<string>() { "Pair" }), //5
+                                new Stand(4, new List<string>() { "Pair" }), //4
+                                new Stand(3, new List<string>() { "Pair" }), //3
+                                new Stand(2, new List<string>() { "Pair" }), //2
+                                new Stand(1, new List<string>() { "Pair" }) //1
+                            };
+                    }
+                }
             }
-            static public List<Stand> SkeetShootOff() // Repeats till someone misses
+            static public class SkeetShootOff
             {
-                return new List<Stand>()
+                // Repeats till someone misses
+                static public string name = "Skeet Shoot Off";
+                static public int scorePerHit = 1;
+
+                static public bool differentiateFirstAndSecondShot = false;
+                static public bool differentiateFirstAndSecondShotScore = false;
+                static public int scorePerSecondHit = 1;
+
+                static public List<Stand> RoundLayout()
                 {
-                    new Stand(new List<string>() { "Pair", "Pair" }), //3
-                    new Stand(new List<string>() { "Pair", "Pair" }), //4
-                    new Stand(new List<string>() { "Pair", "Pair" }) //5
-                };
+                    return new List<Stand>()
+                    {
+                        new Stand(3, new List<string>() { "Pair", "Pair" }), //3
+                        new Stand(4, new List<string>() { "Pair", "Pair" }), //4
+                        new Stand(5, new List<string>() { "Pair", "Pair" }) //5
+                    };
+                }
             }
-            static public List<Stand> WobbleSkeet()
+            static public class WobbleSkeet
             {
-                return new List<Stand>()
+                static public string name = "Wobble Skeet";
+                static public int scorePerHit = 1;
+
+                static public bool differentiateFirstAndSecondShot = false;
+                static public bool differentiateFirstAndSecondShotScore = false;
+                static public int scorePerSecondHit = 1;
+
+                static public List<Stand> RoundLayout()
                 {
-                    new Stand(new List<string>() { "Pair", "Pair" }), // 1
-                    new Stand(new List<string>() { "Pair", "Pair" }), // 2
-                    new Stand(new List<string>() { "Pair"  }), // 3
-                    new Stand(new List<string>() { "Pair"  }), // 4
-                    new Stand(new List<string>() { "Pair"  }), //5
-                    new Stand(new List<string>() { "Pair", "Pair" }), //6
-                    new Stand(new List<string>() { "Pair", "Pair" }),  //7
-                    new Stand(new List<string>() { "Single", "Pair"  })  //8
-                };
+                    return new List<Stand>()
+                    {
+                        new Stand(1, new List<string>() { "Pair", "Pair" }), // 1
+                        new Stand(2, new List<string>() { "Pair", "Pair" }), // 2
+                        new Stand(3, new List<string>() { "Pair"  }), // 3
+                        new Stand(4, new List<string>() { "Pair"  }), // 4
+                        new Stand(5, new List<string>() { "Pair"  }), //5
+                        new Stand(6, new List<string>() { "Pair", "Pair" }), //6
+                        new Stand(7, new List<string>() { "Pair", "Pair" }),  //7
+                        new Stand(8, new List<string>() { "Single", "Pair"  })  //8
+                    };
+                }
             }
         }
         // Sporting Clays
         public static class Sporting
         {
-            static public List<Stand> CompakSporting() //custom layouts
+            static public class CompakSporting
             {
-                return null;
-            }
-            static public List<Stand> EnglishSporting() //custom layouts
-            {
-                return null;
-            }
-            static public List<Stand> FITASCSporting() //custom layouts
-            {
-                return null;
-            }
-            static public List<Stand> FiveStand()
-            {
-                return new List<Stand>()
+                //custom layouts
+                static public string name = "Compak Sporting";
+                static public int scorePerHit = 1;
+
+                static public bool differentiateFirstAndSecondShot = false;
+                static public bool differentiateFirstAndSecondShotScore = false;
+                static public int scorePerSecondHit = 1;
+
+                static public List<Stand> RoundLayout()
                 {
-                    new Stand(new List<string>() { "Single", "Pair", "Pair" }),
-                    new Stand(new List<string>() { "Single", "Pair", "Pair" }),
-                    new Stand(new List<string>() { "Single", "Pair", "Pair" }),
-                    new Stand(new List<string>() { "Single", "Pair", "Pair" }),
-                    new Stand(new List<string>() { "Single", "Pair", "Pair" })
-                };
+                    return null;
+                }
             }
-            static public List<Stand> Sportrap()
+            static public class EnglishSporting
             {
-                return new List<Stand>()
+                //custom layouts
+                static public string name = "English Sporting";
+                static public int scorePerHit = 1;
+
+                static public bool differentiateFirstAndSecondShot = false;
+                static public bool differentiateFirstAndSecondShotScore = false;
+                static public int scorePerSecondHit = 1;
+
+                static public List<Stand> RoundLayout()
                 {
-                    new Stand(new List<string>() { "Single", "Pair", "Pair" }),
-                    new Stand(new List<string>() { "Single", "Pair", "Pair" }),
-                    new Stand(new List<string>() { "Single", "Pair", "Pair" }),
-                    new Stand(new List<string>() { "Single", "Pair", "Pair" }),
-                    new Stand(new List<string>() { "Single", "Pair", "Pair" })
-                };
+                    return null;
+                }
             }
-            static public List<Stand> SuperSporting() //custom layouts
+            static public class FITASCSporting
             {
-                return null;
+                //custom layouts
+                static public string name = "FITASC Sporting";
+                static public int scorePerHit = 1;
+
+                static public bool differentiateFirstAndSecondShot = false;
+                static public bool differentiateFirstAndSecondShotScore = false;
+                static public int scorePerSecondHit = 1;
+
+                static public List<Stand> RoundLayout()
+                {
+                    return null;
+                }
+            }
+            static public class FiveStand
+            {
+                static public string name = "Five Stand";
+                static public int scorePerHit = 1;
+
+                static public bool differentiateFirstAndSecondShot = false;
+                static public bool differentiateFirstAndSecondShotScore = false;
+                static public int scorePerSecondHit = 1;
+
+                static public List<Stand> RoundLayout()
+                {
+                    return new List<Stand>()
+                    {
+                        new Stand(1, new List<string>() { "Single", "Pair", "Pair" }),
+                        new Stand(2, new List<string>() { "Single", "Pair", "Pair" }),
+                        new Stand(3, new List<string>() { "Single", "Pair", "Pair" }),
+                        new Stand(4, new List<string>() { "Single", "Pair", "Pair" }),
+                        new Stand(5, new List<string>() { "Single", "Pair", "Pair" })
+                    };
+                }
+            }
+            static public class Sportrap
+            {
+                static public string name = "Sportrap";
+                static public int scorePerHit = 1;
+
+                static public bool differentiateFirstAndSecondShot = false;
+                static public bool differentiateFirstAndSecondShotScore = false;
+                static public int scorePerSecondHit = 1;
+
+                static public List<Stand> RoundLayout()
+                {
+                    return new List<Stand>()
+                    {
+                        new Stand(1, new List<string>() { "Single", "Pair", "Pair" }),
+                        new Stand(2, new List<string>() { "Single", "Pair", "Pair" }),
+                        new Stand(3, new List<string>() { "Single", "Pair", "Pair" }),
+                        new Stand(4, new List<string>() { "Single", "Pair", "Pair" }),
+                        new Stand(5, new List<string>() { "Single", "Pair", "Pair" })
+                    };
+                }
+            }
+            static public class SuperSporting
+            {
+                //custom layouts
+                static public string name = "Super Sporting";
+                static public int scorePerHit = 1;
+
+                static public bool differentiateFirstAndSecondShot = false;
+                static public bool differentiateFirstAndSecondShotScore = false;
+                static public int scorePerSecondHit = 1;
+
+                static public List<Stand> RoundLayout()
+                {
+                    return null;
+                }
             }
         }
-        // Other
-        //public static class Other
-        //{
-            //static public List<Stand> AllRound()
-            //{
-                //return new List<Stand>()
-                //{
-                    //new Stand(new List<string>() {})
-                //};
-            //}
-        //}
     }
 }
