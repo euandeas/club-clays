@@ -120,11 +120,9 @@ namespace ClubClays.Fragments
             FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
 
             Shoot activeShootModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(Shoot))) as Shoot;
-            activeShootModel.Initialise(standShooterModel.selectedShooters, standShooterModel.selectedFormat, date, locationInput.Text, discipline, titleInput.Text);
-                
+            activeShootModel.Initialise(standShooterModel.selectedShooters, standShooterModel.selectedFormat, date, locationInput.Text, discipline, titleInput.Text);    
             fragmentTx.Replace(Resource.Id.container, new ScoreTakingFragment());
-            fragmentTx.Commit();
-            standShooterModel.Dispose();          
+            fragmentTx.Commit();       
         }
 
         private void ShootersSelection_Click(object sender, EventArgs e)

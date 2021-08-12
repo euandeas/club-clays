@@ -5,6 +5,7 @@ using Android.Widget;
 using AndroidX.Fragment.App;
 using AndroidX.Lifecycle;
 using AndroidX.RecyclerView.Widget;
+using Com.Google.Android.Flexbox;
 using System;
 using System.Collections.Generic;
 using Fragment = AndroidX.Fragment.App.Fragment;
@@ -45,7 +46,7 @@ namespace ClubClays.Fragments
             public View MainView { get; set; }
             public TextView ShooterName { get; set; }
             public TextView ShooterStandTotal { get; set; }
-            public LinearLayout StandHits { get; set; }
+            public FlexboxLayout StandHits { get; set; }
             public MyView(View view) : base(view)
             {
                 MainView = view;
@@ -107,7 +108,7 @@ namespace ClubClays.Fragments
             View standCardView = LayoutInflater.From(parent.Context).Inflate(Resource.Layout.stand_score_item, parent, false);
             TextView shooterName = standCardView.FindViewById<TextView>(Resource.Id.shooterName);
             TextView shooterStandTotal = standCardView.FindViewById<TextView>(Resource.Id.overallTotal);
-            LinearLayout standHits = standCardView.FindViewById<LinearLayout>(Resource.Id.hitsLayout);
+            FlexboxLayout standHits = standCardView.FindViewById<FlexboxLayout>(Resource.Id.flexboxlayout);
 
             MyView view = new MyView(standCardView) { ShooterName = shooterName, ShooterStandTotal = shooterStandTotal, StandHits = standHits };
 
@@ -119,12 +120,17 @@ namespace ClubClays.Fragments
                     ImageButton view1 = new ImageButton(context);
                     ImageButton view2 = new ImageButton(context);
 
+                    LinearLayout LL = new LinearLayout(context);
+                    LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WrapContent, LinearLayout.LayoutParams.WrapContent);
+                    LL.Orientation = Orientation.Horizontal;
+                    llp.SetMargins(0,0, (int)context.Resources.GetDimension(Resource.Dimension.button_left_long), 0);
+
                     int size = (int)context.Resources.GetDimension(Resource.Dimension.button_side);
                     LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(size, size);
                     LinearLayout.LayoutParams lp2 = new LinearLayout.LayoutParams(size, size);
                     
-                    lp1.SetMargins((int)context.Resources.GetDimension(Resource.Dimension.button_left_long), (int)context.Resources.GetDimension(Resource.Dimension.button_top_bottom), 0, (int)context.Resources.GetDimension(Resource.Dimension.button_top_bottom));
-                    lp2.SetMargins((int)context.Resources.GetDimension(Resource.Dimension.button_left_short), (int)context.Resources.GetDimension(Resource.Dimension.button_top_bottom), 0, (int)context.Resources.GetDimension(Resource.Dimension.button_top_bottom));
+                    lp1.SetMargins(0, (int)context.Resources.GetDimension(Resource.Dimension.button_top_bottom), 0, 0);
+                    lp2.SetMargins((int)context.Resources.GetDimension(Resource.Dimension.button_left_short), (int)context.Resources.GetDimension(Resource.Dimension.button_top_bottom), 0, 0);
 
                     view1.Tag = $"{x}.1";
                     view2.Tag = $"{x}.2";
@@ -142,8 +148,10 @@ namespace ClubClays.Fragments
                         };
                     }
 
-                    standHits.AddView(view1, lp1);
-                    standHits.AddView(view2, lp2);
+                    LL.AddView(view1, lp1);
+                    LL.AddView(view2, lp2);
+
+                    standHits.AddView(LL, llp);
                 }
                 if (shotsFormat[x] == "Single")
                 {
@@ -151,7 +159,7 @@ namespace ClubClays.Fragments
 
                     int size = (int)context.Resources.GetDimension(Resource.Dimension.button_side);
                     LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(size, size);
-                    lp.SetMargins((int)context.Resources.GetDimension(Resource.Dimension.button_left_long), (int)context.Resources.GetDimension(Resource.Dimension.button_top_bottom), 0, (int)context.Resources.GetDimension(Resource.Dimension.button_top_bottom));
+                    lp.SetMargins(0, (int)context.Resources.GetDimension(Resource.Dimension.button_top_bottom), (int)context.Resources.GetDimension(Resource.Dimension.button_left_long), 0);
 
                     view1.Tag = $"{x}";
 
