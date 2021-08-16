@@ -182,6 +182,7 @@ namespace ClubClays.Fragments
                 ShootFormatEditFragment fragment = new ShootFormatEditFragment();
                 Bundle args = new Bundle();
                 args.PutInt("ShootFormatID", selectable ? shootFormats[view.AbsoluteAdapterPosition - 1].Id : shootFormats[view.AbsoluteAdapterPosition].Id);
+                args.PutBoolean("Selectable", selectable);
 
                 fragment.Arguments = args;
                 FragmentTransaction fragmentTx = activity.SupportFragmentManager.BeginTransaction();

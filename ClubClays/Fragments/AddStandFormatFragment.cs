@@ -79,14 +79,21 @@ namespace ClubClays.Fragments
         {
             if (item.ItemId == Resource.Id.save_format)
             {
-                var scoreManagementModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(Shoot))) as Shoot;
-                scoreManagementModel.AddStand(new Stand(recyclerAdapter.ShotsLayout));
+                if (recyclerAdapter.ItemCount != 0)
+                {
+                    var scoreManagementModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(Shoot))) as Shoot;
+                    scoreManagementModel.AddStand(new Stand(recyclerAdapter.ShotsLayout));
 
-                Bundle result = new Bundle();
-                result.PutBoolean("StandAdded", true);
-                Activity.SupportFragmentManager.SetFragmentResult("1", result);
+                    Bundle result = new Bundle();
+                    result.PutBoolean("StandAdded", true);
+                    Activity.SupportFragmentManager.SetFragmentResult("1", result);
 
-                Activity.SupportFragmentManager.PopBackStack();
+                    Activity.SupportFragmentManager.PopBackStack();
+                }
+                else
+                {
+                    Toast.MakeText(Activity, "No shots added!", ToastLength.Short).Show();
+                }
             }
 
             return base.OnOptionsItemSelected(item);
