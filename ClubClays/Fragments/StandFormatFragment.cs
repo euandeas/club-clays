@@ -126,24 +126,10 @@ namespace ClubClays.Fragments
             switch (e.Item.ItemId)
             {
                 case Resource.Id.single:
-                    if (numShots.Text == "10")
-                    {
-                        Toast.MakeText(Activity, "No more then 10 shots supported per stand", ToastLength.Short).Show();
-                    }
-                    else
-                    {
                         recyclerAdapter.AddItem("Single");
-                    }
                     break;
                 case Resource.Id.pair:
-                    if (numShots.Text == "10" || numShots.Text == "9" )
-                    {
-                        Toast.MakeText(Activity, "No more then 10 shots supported per stand", ToastLength.Short).Show();
-                    }
-                    else
-                    {
                         recyclerAdapter.AddItem("Pair");
-                    }
                     break;
             };
         }

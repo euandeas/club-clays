@@ -68,7 +68,7 @@ namespace ClubClays.Fragments
             FloatingActionButton fab = view.FindViewById<FloatingActionButton>(Resource.Id.fab);
             fab.Click += Fab_Click;
 
-            Activity.OnBackPressedDispatcher.AddCallback(new BackPress(this));
+            Activity.OnBackPressedDispatcher.AddCallback(this, new BackPress(this));
 
             return view;
         }
@@ -128,7 +128,6 @@ namespace ClubClays.Fragments
             public override void HandleOnBackPressed()
             {
                 context.SendResult();
-                Remove();
                 context.Activity.SupportFragmentManager.PopBackStack();
             }
         }
