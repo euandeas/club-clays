@@ -80,7 +80,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DatabaseModels.cs" />
-    <Compile Include="Fragments\GeneralDataFragment.cs" />
+    <Compile Include="Disciplines.cs" />
+    <Compile Include="Fragments\ShootCreationFragment.cs" />
+    <Compile Include="Fragments\RoundCreationFragment.cs" />
     <Compile Include="Fragments\MainFragment.cs" />
     <Compile Include="Fragments\OverallScoreFragment.cs" />
     <Compile Include="Fragments\PreviousShootFragment.cs" />
@@ -126,7 +128,7 @@
     <AndroidResource Include="Resources\layout\activity_main.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\fragment_general_data.xml">
+    <AndroidResource Include="Resources\layout\fragment_round_creation.xml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
     </AndroidResource>
@@ -374,6 +376,12 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\outline_cross.xml">
+      <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\fragment_shoot_creation.xml">
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
       <SubType>Designer</SubType>
     </AndroidResource>

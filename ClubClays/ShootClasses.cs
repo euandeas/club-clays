@@ -25,11 +25,13 @@ namespace ClubClays
     public class Stand
     {
         public int id;
+        public int standNum;
         public List<string> shotFormat;
         public int numClays;
 
-        public Stand(List<string> shotFormat)
+        public Stand(int standNum, List<string> shotFormat)
         {
+            this.standNum = standNum;
             this.shotFormat = shotFormat;
             foreach (string format in shotFormat)
             {
@@ -141,6 +143,7 @@ namespace ClubClays
                 using (var db = new SQLiteConnection(dbPath))
                 {
                     var standFormats = db.Table<StandFormats>().Where(s => s.ShootFormatId == shootFormat.Id).OrderBy(s => s.StandNum).ToList();
+                    int x = 1;
                     foreach (StandFormats stand in standFormats)
                     {
                         List<string> shotsLayout = new List<string>();
@@ -149,7 +152,7 @@ namespace ClubClays
                         {
                             shotsLayout.Add(shot.Type);
                         }
-                        AddStand(new Stand(shotsLayout));
+                        AddStand(new Stand(x++, shotsLayout));
                     }
                 }
             }
@@ -238,6 +241,7 @@ namespace ClubClays
                 }
 
                 var stands = db.Table<Stands>().Where<Stands>(s => s.ShootId == shoot.Id).OrderBy(s => s.StandNum).ToList();
+                int x = 1;
                 foreach (Stands stand in stands)
                 {
                     List<string> shotFormat = new List<string>();
@@ -249,7 +253,7 @@ namespace ClubClays
                         shotFormat.Add(standShot.Type);
                     }
 
-                    Stand standObject = new Stand(shotFormat);
+                    Stand standObject = new Stand(x++, shotFormat);
                     StandsByNum.Add(stand.StandNum, standObject);
 
                     var standScores = db.Table<StandScores>().Where<StandScores>(s => s.StandId == stand.Id).ToList();

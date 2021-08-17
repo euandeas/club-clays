@@ -17,7 +17,7 @@ using Google.Android.Material.DatePicker;
 
 namespace ClubClays.Fragments
 {
-    public class RoundCreationFragment : Fragment, IMaterialPickerOnPositiveButtonClickListener, IFragmentResultListener
+    public class GeneralDataFragment : Fragment, IMaterialPickerOnPositiveButtonClickListener, IFragmentResultListener
     {
         private TextView datePickerView;
         private string discipline;
@@ -45,7 +45,7 @@ namespace ClubClays.Fragments
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             // Use this to return your custom view for this Fragment
-            View view = inflater.Inflate(Resource.Layout.fragment_round_creation, container, false);
+            View view = inflater.Inflate(Resource.Layout.fragment_general_data, container, false);
 
             Toolbar toolbar = view.FindViewById<Toolbar>(Resource.Id.toolbar);
             ((AppCompatActivity)Activity).SetSupportActionBar(toolbar);
@@ -120,9 +120,11 @@ namespace ClubClays.Fragments
             FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
 
             Shoot activeShootModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(Shoot))) as Shoot;
-            activeShootModel.Initialise(standShooterModel.selectedShooters, standShooterModel.selectedFormat, date, locationInput.Text, discipline, titleInput.Text);    
+            activeShootModel.Initialise(standShooterModel.selectedShooters, standShooterModel.selectedFormat, date, locationInput.Text, discipline, titleInput.Text);
+                
             fragmentTx.Replace(Resource.Id.container, new ScoreTakingFragment());
-            fragmentTx.Commit();       
+            fragmentTx.Commit();
+            standShooterModel.Dispose();          
         }
 
         private void ShootersSelection_Click(object sender, EventArgs e)
@@ -175,4 +177,3 @@ namespace ClubClays.Fragments
         }
     }
 }
-
