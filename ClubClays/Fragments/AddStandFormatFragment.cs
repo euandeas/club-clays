@@ -50,7 +50,7 @@ namespace ClubClays.Fragments
             LinearLayoutManager layoutManager = new LinearLayoutManager(Activity);
             RecyclerView shootsRecyclerView = view.FindViewById<RecyclerView>(Resource.Id.recyclerView);
             shootsRecyclerView.SetLayoutManager(layoutManager);
-            recyclerAdapter = new AddStandFormatRecyclerAdapter(new List<string>(), ref numShots);
+            recyclerAdapter = new AddStandFormatRecyclerAdapter(new List<Tuple<string, string[]>>(), ref numShots);
             ItemTouchHelper.Callback callback = new ItemMoveSwipeCallback(recyclerAdapter);
             ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
             touchHelper.AttachToRecyclerView(shootsRecyclerView);
@@ -82,7 +82,7 @@ namespace ClubClays.Fragments
                 if (recyclerAdapter.ItemCount != 0)
                 {
                     var scoreManagementModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(Shoot))) as Shoot;
-                    scoreManagementModel.AddStand(new Stand(recyclerAdapter.ShotsLayout));
+                    scoreManagementModel.AddStand(new Stand(scoreManagementModel.NumStands+1, recyclerAdapter.ShotsLayout));
 
                     Bundle result = new Bundle();
                     result.PutBoolean("StandAdded", true);
@@ -125,14 +125,14 @@ namespace ClubClays.Fragments
     public class AddStandFormatRecyclerAdapter : RecyclerView.Adapter, ItemMoveSwipeCallback.ItemTouchHelperContract
     {
         private TextView shotsTextView;
-        private List<string> shotsLayout;
+        private List<Tuple<string, string[]>> shotsLayout;
         int numShots;
 
-        public List<string> ShotsLayout => shotsLayout;
+        public List<Tuple<string, string[]>> ShotsLayout => shotsLayout;
 
         public void AddItem(string type)
         {
-            shotsLayout.Add(type);
+            shotsLayout.Add(new Tuple<string, string[]>(type, null));
             NumberOfShots();
             NotifyDataSetChanged();
         }
@@ -140,14 +140,14 @@ namespace ClubClays.Fragments
         public void NumberOfShots() 
         {
             numShots = 0;
-            foreach (string format in shotsLayout)
+            foreach (Tuple<string, string[]> format in shotsLayout)
             {
-                if (format == "Pair")
+                if (format.Item1 == "Pair")
                 {
                     numShots += 2;
                 }
 
-                if (format == "Single")
+                if (format.Item1 == "Single")
                 {
                     numShots += 1;
                 }
@@ -174,7 +174,7 @@ namespace ClubClays.Fragments
         public override void OnBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
             MyView myHolder = holder as MyView;
-            myHolder.ShotType.Text = shotsLayout[position];
+            myHolder.ShotType.Text = shotsLayout[position].Item1;
         }
 
         // Create new views (invoked by layout manager)
@@ -237,7 +237,7 @@ namespace ClubClays.Fragments
         }
 
         // Provide a suitable constructor (depends on the kind of dataset)
-        public AddStandFormatRecyclerAdapter(List<string> shotsLayout, ref TextView shotsTextView)
+        public AddStandFormatRecyclerAdapter(List<Tuple<string, string[]>> shotsLayout, ref TextView shotsTextView)
         {
             this.shotsTextView = shotsTextView;
             this.shotsLayout = shotsLayout;

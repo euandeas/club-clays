@@ -43,16 +43,17 @@ namespace ClubClays.Fragments
                     titleText = db.Table<ShootFormats>().Where(s => s.Id == shootFormatID).ToList()[0].FormatName;
                     var standFormats = db.Table<StandFormats>().Where(s => s.ShootFormatId == shootFormatID).OrderBy(s => s.StandNum).ToList();
 
+                    int x = 1;
                     foreach (StandFormats stand in standFormats)
                     {
-                        List<string> shotFormat = new List<string>();
+                        List<Tuple<string, string[]>> shotFormat = new List<Tuple<string, string[]>>();
                         var standShots = db.Table<StandShotsFormats>().Where(s => s.StandFormatId == stand.Id).OrderBy(s => s.ShotNum).ToList();
                         foreach (StandShotsFormats shot in standShots)
                         {
-                            shotFormat.Add(shot.Type);
+                            shotFormat.Add(new Tuple<string, string[]>(shot.Type, null));
                         }
 
-                        var standObj = new Stand(shotFormat)
+                        var standObj = new Stand(x++, shotFormat)
                         {
                             id = stand.Id
                         };
@@ -166,9 +167,9 @@ namespace ClubClays.Fragments
                             StandFormats standFormat = new StandFormats() { ShootFormatId = shootFormatID, NumClays = stand.numClays, StandNum = standNum++ };
                             db.Insert(standFormat);
                             int shotNum = 1;
-                            foreach (string shot in stand.shotFormat)
+                            foreach (Tuple<string, string[]> shot in stand.shotFormat)
                             {
-                                StandShotsFormats standShotFormat = new StandShotsFormats() { StandFormatId = standFormat.Id, ShotNum = shotNum++, Type = shot };
+                                StandShotsFormats standShotFormat = new StandShotsFormats() { StandFormatId = standFormat.Id, ShotNum = shotNum++, Type = shot.Item1 };
                                 db.Insert(standShotFormat);
                             }
                         }

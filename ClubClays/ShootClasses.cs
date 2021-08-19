@@ -26,21 +26,22 @@ namespace ClubClays
     {
         public int id;
         public int standNum;
-        public List<string> shotFormat;
+        // List<Tuple<type, details>>
+        public List<Tuple<string, string[]>> shotFormat;
         public int numClays;
 
-        public Stand(int standNum, List<string> shotFormat)
+        public Stand(int standNum, List<Tuple<string, string[]>> shotFormat)
         {
             this.standNum = standNum;
             this.shotFormat = shotFormat;
-            foreach (string format in shotFormat)
+            foreach (Tuple<string, string[]> format in shotFormat)
             {
-                if (format == "Pair")
+                if (format.Item1 == "Pair")
                 {
                     numClays += 2;
                 }
 
-                if (format == "Single")
+                if (format.Item1 == "Single")
                 {
                     numClays += 1;
                 }
@@ -88,7 +89,12 @@ namespace ClubClays
             }
         }
 
-        public void ShooterStandData(int position, int standNum, out string name, out int standTotal, out List<Tuple<string, int[]>> totals)
+        public List<Tuple<string, string[]>> StandFormat(int standNum)
+        {
+            return StandsByNum[standNum].shotFormat;
+        }
+
+        public void ShooterStandData(int position, int standNum, out string name, out int standTotal, out List<Tuple<int[], string[]>> totals)
         {
             totals = Shooters[position].StandScoresByStandNum[standNum].shots;
             name = Shooters[position].name;
@@ -108,12 +114,13 @@ namespace ClubClays
             {
                 public int standTotal;
                 public int standPercentage;
-                public List<Tuple<string, int[]>> shots;
+                // List<Tuple<hit miss, details>>
+                public List<Tuple<int[], string[]>> shots;
 
                 public StandScore(int standTotal)
                 {
                     this.standTotal = standTotal;
-                    shots = new List<Tuple<string, int[]>>();
+                    shots = new List<Tuple<int[], string[]>>();
                 }
             }
 
@@ -146,11 +153,11 @@ namespace ClubClays
                     int x = 1;
                     foreach (StandFormats stand in standFormats)
                     {
-                        List<string> shotsLayout = new List<string>();
+                        List<Tuple<string, string[]>> shotsLayout = new List<Tuple<string, string[]>>();
                         var shotsFormats = db.Table<StandShotsFormats>().Where(s => s.StandFormatId == stand.Id).OrderBy(s => s.ShotNum).ToList();
                         foreach (StandShotsFormats shot in shotsFormats)
                         {
-                            shotsLayout.Add(shot.Type);
+                            shotsLayout.Add(new Tuple<string, string[]>(shot.Type, null));
                         }
                         AddStand(new Stand(x++, shotsLayout));
                     }
@@ -166,15 +173,15 @@ namespace ClubClays
             for (int x = 0; x <= Shooters.Count - 1; x++)
             {
                 Shooters[x].StandScoresByStandNum.Add(StandsByNum.Count, new Shooter.StandScore(0));
-                foreach (string format in stand.shotFormat)
+                foreach (Tuple<string, string[]> format in stand.shotFormat)
                 {
-                    if (format == "Pair")
+                    if (format.Item1 == "Pair")
                     {
-                        Shooters[x].StandScoresByStandNum[StandsByNum.Count].shots.Add(new Tuple<string, int[]>(format, new int[] { 0, 0 }));
+                        Shooters[x].StandScoresByStandNum[StandsByNum.Count].shots.Add(new Tuple<int[], string[]>(new int[] { 0, 0 }, null));
                     }
-                    if (format == "Single")
+                    if (format.Item1 == "Single")
                     {
-                        Shooters[x].StandScoresByStandNum[StandsByNum.Count].shots.Add(new Tuple<string, int[]>(format, new int[] { 0 }));
+                        Shooters[x].StandScoresByStandNum[StandsByNum.Count].shots.Add(new Tuple<int[], string[]>(new int[] { 0 }, null));
                     }
                 }
             }
@@ -183,21 +190,21 @@ namespace ClubClays
         public int UpdateScore(int position, int standNum, int shotsNum, int shotNum)
         {
             int updatedTo = 0;
-            int currentValue = Shooters[position].StandScoresByStandNum[standNum].shots[shotsNum].Item2[shotNum];
+            int currentValue = Shooters[position].StandScoresByStandNum[standNum].shots[shotsNum].Item1[shotNum];
             switch (currentValue)
             {
                 case 0: //not take -> hit
-                    Shooters[position].StandScoresByStandNum[standNum].shots[shotsNum].Item2[shotNum] = updatedTo = 1;
+                    Shooters[position].StandScoresByStandNum[standNum].shots[shotsNum].Item1[shotNum] = updatedTo = 1;
                     Shooters[position].StandScoresByStandNum[standNum].standTotal += 1;
                     Shooters[position].overallTotal += 1;
                     break;
                 case 1: //hit -> miss
-                    Shooters[position].StandScoresByStandNum[standNum].shots[shotsNum].Item2[shotNum] = updatedTo = 2;
+                    Shooters[position].StandScoresByStandNum[standNum].shots[shotsNum].Item1[shotNum] = updatedTo = 2;
                     Shooters[position].StandScoresByStandNum[standNum].standTotal -= 1;
                     Shooters[position].overallTotal -= 1;
                     break;
                 case 2: //miss -> not taken
-                    Shooters[position].StandScoresByStandNum[standNum].shots[shotsNum].Item2[shotNum] = updatedTo = 0;
+                    Shooters[position].StandScoresByStandNum[standNum].shots[shotsNum].Item1[shotNum] = updatedTo = 0;
                     break;
             }
 
@@ -209,7 +216,7 @@ namespace ClubClays
             return Shooters[position].StandScoresByStandNum[standNum].standTotal;
         }
 
-        public List<string> StandShots(int standNum)
+        public List<Tuple<string, string[]>> StandShots(int standNum)
         {
             return StandsByNum[standNum].shotFormat;
         }
@@ -244,13 +251,13 @@ namespace ClubClays
                 int x = 1;
                 foreach (Stands stand in stands)
                 {
-                    List<string> shotFormat = new List<string>();
+                    List<Tuple<string, string[]>> shotFormat = new List<Tuple<string, string[]>>();
 
                     var standShots = db.Table<StandShots>().Where<StandShots>(s => s.StandId == stand.Id).OrderBy(s => s.ShotNum).ToList();
 
                     foreach (StandShots standShot in standShots)
                     {
-                        shotFormat.Add(standShot.Type);
+                        shotFormat.Add(new Tuple<string, string[]>(standShot.Type, null));
                     }
 
                     Stand standObject = new Stand(x++, shotFormat);
@@ -268,40 +275,40 @@ namespace ClubClays
                             switch (shot.ShotCode)
                             {
                                 case 0:
-                                    AddShotScore(ref shooterStandScore.shots, "Single", new int[] { 0 });
+                                    AddShotScore(ref shooterStandScore.shots, new int[] { 0 });
                                     break;
                                 case 1:
-                                    AddShotScore(ref shooterStandScore.shots, "Single", new int[] { 1 });
+                                    AddShotScore(ref shooterStandScore.shots, new int[] { 1 });
                                     break;
                                 case 2:
-                                    AddShotScore(ref shooterStandScore.shots, "Single", new int[] { 2 });
+                                    AddShotScore(ref shooterStandScore.shots, new int[] { 2 });
                                     break;
                                 case 3:
-                                    AddShotScore(ref shooterStandScore.shots, "Pair", new int[] { 0, 0 });
+                                    AddShotScore(ref shooterStandScore.shots, new int[] { 0, 0 });
                                     break;
                                 case 4:
-                                    AddShotScore(ref shooterStandScore.shots, "Pair", new int[] { 1, 1 });
+                                    AddShotScore(ref shooterStandScore.shots, new int[] { 1, 1 });
                                     break;
                                 case 5:
-                                    AddShotScore(ref shooterStandScore.shots, "Pair", new int[] { 2, 2 });
+                                    AddShotScore(ref shooterStandScore.shots, new int[] { 2, 2 });
                                     break;
                                 case 6:
-                                    AddShotScore(ref shooterStandScore.shots, "Pair", new int[] { 0, 1 });
+                                    AddShotScore(ref shooterStandScore.shots, new int[] { 0, 1 });
                                     break;
                                 case 7:
-                                    AddShotScore(ref shooterStandScore.shots, "Pair", new int[] { 0, 2 });
+                                    AddShotScore(ref shooterStandScore.shots, new int[] { 0, 2 });
                                     break;
                                 case 8:
-                                    AddShotScore(ref shooterStandScore.shots, "Pair", new int[] { 1, 0 });
+                                    AddShotScore(ref shooterStandScore.shots, new int[] { 1, 0 });
                                     break;
                                 case 9:
-                                    AddShotScore(ref shooterStandScore.shots, "Pair", new int[] { 2, 0 });
+                                    AddShotScore(ref shooterStandScore.shots, new int[] { 2, 0 });
                                     break;
                                 case 10:
-                                    AddShotScore(ref shooterStandScore.shots, "Pair", new int[] { 1, 2 });
+                                    AddShotScore(ref shooterStandScore.shots, new int[] { 1, 2 });
                                     break;
                                 case 11:
-                                    AddShotScore(ref shooterStandScore.shots, "Pair", new int[] { 2, 1 });
+                                    AddShotScore(ref shooterStandScore.shots, new int[] { 2, 1 });
                                     break;
                             }
                         }
@@ -312,9 +319,9 @@ namespace ClubClays
             }
         }
 
-        public void AddShotScore(ref List<Tuple<string, int[]>> shots, string type, int[] score)
+        public void AddShotScore(ref List<Tuple<int[], string[]>> shots, int[] score)
         {
-            shots.Add(new Tuple<string, int[]>(type, score));
+            shots.Add(new Tuple<int[], string[]>(score, null));
         }
 
 
@@ -335,7 +342,7 @@ namespace ClubClays
 
                     for (int a = 0; a <= StandsByNum[x].shotFormat.Count - 1; a++)
                     {
-                        StandShots newStandShot = new StandShots() { ShotNum = a + 1, StandId = newStand.Id, Type = StandsByNum[x].shotFormat[a] };
+                        StandShots newStandShot = new StandShots() { ShotNum = a + 1, StandId = newStand.Id, Type = StandsByNum[x].shotFormat[a].Item1 };
                         db.Insert(newStandShot);
                     }
 
@@ -348,21 +355,21 @@ namespace ClubClays
                         {
                             int id = 0;
 
-                            switch (Shooters[y].StandScoresByStandNum[x].shots[z].Item1)
+                            switch (StandsByNum[x].shotFormat[z].Item1)
                             {
                                 case "Pair":
-                                    if ((Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 0) && (Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 0)) { id = 3; }
-                                    else if ((Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 1) && (Shooters[y].StandScoresByStandNum[x].shots[z].Item2[1] == 1)) { id = 4; }
-                                    else if ((Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 2) && (Shooters[y].StandScoresByStandNum[x].shots[z].Item2[1] == 2)) { id = 5; }
-                                    else if ((Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 0) && (Shooters[y].StandScoresByStandNum[x].shots[z].Item2[1] == 1)) { id = 6; }
-                                    else if ((Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 0) && (Shooters[y].StandScoresByStandNum[x].shots[z].Item2[1] == 2)) { id = 7; }
-                                    else if ((Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 1) && (Shooters[y].StandScoresByStandNum[x].shots[z].Item2[1] == 0)) { id = 8; }
-                                    else if ((Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 2) && (Shooters[y].StandScoresByStandNum[x].shots[z].Item2[1] == 0)) { id = 9; }
-                                    else if ((Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 1) && (Shooters[y].StandScoresByStandNum[x].shots[z].Item2[1] == 2)) { id = 10; }
-                                    else if ((Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0] == 2) && (Shooters[y].StandScoresByStandNum[x].shots[z].Item2[1] == 1)) { id = 11; }
+                                    if ((Shooters[y].StandScoresByStandNum[x].shots[z].Item1[0] == 0) && (Shooters[y].StandScoresByStandNum[x].shots[z].Item1[0] == 0)) { id = 3; }
+                                    else if ((Shooters[y].StandScoresByStandNum[x].shots[z].Item1[0] == 1) && (Shooters[y].StandScoresByStandNum[x].shots[z].Item1[1] == 1)) { id = 4; }
+                                    else if ((Shooters[y].StandScoresByStandNum[x].shots[z].Item1[0] == 2) && (Shooters[y].StandScoresByStandNum[x].shots[z].Item1[1] == 2)) { id = 5; }
+                                    else if ((Shooters[y].StandScoresByStandNum[x].shots[z].Item1[0] == 0) && (Shooters[y].StandScoresByStandNum[x].shots[z].Item1[1] == 1)) { id = 6; }
+                                    else if ((Shooters[y].StandScoresByStandNum[x].shots[z].Item1[0] == 0) && (Shooters[y].StandScoresByStandNum[x].shots[z].Item1[1] == 2)) { id = 7; }
+                                    else if ((Shooters[y].StandScoresByStandNum[x].shots[z].Item1[0] == 1) && (Shooters[y].StandScoresByStandNum[x].shots[z].Item1[1] == 0)) { id = 8; }
+                                    else if ((Shooters[y].StandScoresByStandNum[x].shots[z].Item1[0] == 2) && (Shooters[y].StandScoresByStandNum[x].shots[z].Item1[1] == 0)) { id = 9; }
+                                    else if ((Shooters[y].StandScoresByStandNum[x].shots[z].Item1[0] == 1) && (Shooters[y].StandScoresByStandNum[x].shots[z].Item1[1] == 2)) { id = 10; }
+                                    else if ((Shooters[y].StandScoresByStandNum[x].shots[z].Item1[0] == 2) && (Shooters[y].StandScoresByStandNum[x].shots[z].Item1[1] == 1)) { id = 11; }
                                     break;
                                 case "Single":
-                                    switch (Shooters[y].StandScoresByStandNum[x].shots[z].Item2[0])
+                                    switch (Shooters[y].StandScoresByStandNum[x].shots[z].Item1[0])
                                     {
                                         case 0:
                                             id = 0;
@@ -440,12 +447,12 @@ namespace ClubClays
 
                 for (int y = 0; y <= Shooters.Count - 1; y++)
                 {
-                    ShooterStandData(y, x, out string name, out int total, out List<Tuple<string, int[]>> hits);
+                    ShooterStandData(y, x, out string name, out int total, out List<Tuple<int[], string[]>> hits);
                     sb.Append($"{name},");
                     for (int z = 0; z <= hits.Count - 1; z++)
                     {
-                        if (hits[z].Item1 == "Pair") { sb.Append($"{TranslateHitMiss(hits[z].Item2[0])}{TranslateHitMiss(hits[z].Item2[1])},"); }
-                        else if (hits[z].Item1 == "Single") { sb.Append($"{TranslateHitMiss(hits[z].Item2[0])},"); }
+                        if (StandsByNum[x].shotFormat[z].Item1 == "Pair") { sb.Append($"{TranslateHitMiss(hits[z].Item1[0])}{TranslateHitMiss(hits[z].Item1[1])},"); }
+                        else if (StandsByNum[x].shotFormat[z].Item1 == "Single") { sb.Append($"{TranslateHitMiss(hits[z].Item1[0])},"); }
                     }
                     sb.Append($"{total}");
                     sb.AppendLine($",{Shooters[y].StandScoresByStandNum[x].standPercentage}");

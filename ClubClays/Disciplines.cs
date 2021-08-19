@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ClubClays
 {
@@ -40,11 +41,11 @@ namespace ClubClays
         {
             return new List<Stand>()
             {
-                new Stand(1, new List<string>() { "Single", "Single", "Single", "Single", "Single" }),
-                new Stand(2, new List<string>() { "Single", "Single", "Single", "Single", "Single" }),
-                new Stand(3, new List<string>() { "Single", "Single", "Single", "Single", "Single" }),
-                new Stand(4, new List<string>() { "Single", "Single", "Single", "Single", "Single" }),
-                new Stand(5, new List<string>() { "Single", "Single", "Single", "Single", "Single" })
+                new Stand(1, new List<Tuple<string,string[]>>() { "Single", "Single", "Single", "Single", "Single" }),
+                new Stand(2, new List<Tuple<string,string[]>>() { "Single", "Single", "Single", "Single", "Single" }),
+                new Stand(3, new List<Tuple<string,string[]>>() { "Single", "Single", "Single", "Single", "Single" }),
+                new Stand(4, new List<Tuple<string,string[]>>() { "Single", "Single", "Single", "Single", "Single" }),
+                new Stand(5, new List<Tuple<string,string[]>>() { "Single", "Single", "Single", "Single", "Single" })
             };
         }
 
@@ -52,11 +53,11 @@ namespace ClubClays
         {
             return new List<Stand>()
             { 
-                new Stand(1, new List<string>() { "Pair", "Pair", "Pair", "Pair", "Pair" }),
-                new Stand(2, new List<string>() { "Pair", "Pair", "Pair", "Pair", "Pair" }),
-                new Stand(3, new List<string>() { "Pair", "Pair", "Pair", "Pair", "Pair" }),
-                new Stand(4, new List<string>() { "Pair", "Pair", "Pair", "Pair", "Pair" }),
-                new Stand(5, new List<string>() { "Pair", "Pair", "Pair", "Pair", "Pair" })
+                new Stand(1, new List<Tuple<string,string[]>>() { "Pair", "Pair", "Pair", "Pair", "Pair" }),
+                new Stand(2, new List<Tuple<string,string[]>>() { "Pair", "Pair", "Pair", "Pair", "Pair" }),
+                new Stand(3, new List<Tuple<string,string[]>>() { "Pair", "Pair", "Pair", "Pair", "Pair" }),
+                new Stand(4, new List<Tuple<string,string[]>>() { "Pair", "Pair", "Pair", "Pair", "Pair" }),
+                new Stand(5, new List<Tuple<string,string[]>>() { "Pair", "Pair", "Pair", "Pair", "Pair" })
             };
         }
 
@@ -252,14 +253,14 @@ namespace ClubClays
                 {
                     return new List<Stand>()
                     {
-                        new Stand(1, new List<string>() { "Single", "Single", "Pair" }), // 1
-                        new Stand(2, new List<string>() { "Single", "Single", "Pair" }), // 2
-                        new Stand(3, new List<string>() { "Single", "Single" }), // 3
-                        new Stand(4, new List<string>() { "Single", "Single" }), // 4
-                        new Stand(5, new List<string>() { "Single", "Single" }), //5
-                        new Stand(6, new List<string>() { "Single", "Single", "Pair" }), //6
-                        new Stand(7, new List<string>() { "Single", "Single", "Pair" }),  //7
-                        new Stand(8, new List<string>() { "Single", "Single", })  //8
+                        new Stand(1, new List<Tuple<string,string[]>>() { "Single", "Single", "Pair" }), // 1
+                        new Stand(2, new List<Tuple<string,string[]>>() { "Single", "Single", "Pair" }), // 2
+                        new Stand(3, new List<Tuple<string,string[]>>() { "Single", "Single" }), // 3
+                        new Stand(4, new List<Tuple<string,string[]>>() { "Single", "Single" }), // 4
+                        new Stand(5, new List<Tuple<string,string[]>>() { "Single", "Single" }), //5
+                        new Stand(6, new List<Tuple<string,string[]>>() { "Single", "Single", "Pair" }), //6
+                        new Stand(7, new List<Tuple<string,string[]>>() { "Single", "Single", "Pair" }),  //7
+                        new Stand(8, new List<Tuple<string,string[]>>() { "Single", "Single", })  //8
                     };
                 }
             }
@@ -277,13 +278,13 @@ namespace ClubClays
                 {
                     return new List<Stand>()
                     {
-                        new Stand(1, new List<string>() { "Single", "Single", "Pair" }), // 1
-                        new Stand(2, new List<string>() { "Single", "Single", "Pair" }), // 2
-                        new Stand(3, new List<string>() { "Single", "Single" }), // 3
-                        new Stand(4, new List<string>() { "Single", "Single", "Pair" }), // 4
-                        new Stand(5, new List<string>() { "Single", "Single" }), //5
-                        new Stand(6, new List<string>() { "Single", "Single", "Pair" }), //6
-                        new Stand(7, new List<string>() { "Single", "Single", "Pair", "Single" }) //7
+                        new Stand(1, new List<Tuple<string,string[]>>() { "Single", "Single", "Pair" }), // 1
+                        new Stand(2, new List<Tuple<string,string[]>>() { "Single", "Single", "Pair" }), // 2
+                        new Stand(3, new List<Tuple<string,string[]>>() { "Single", "Single" }), // 3
+                        new Stand(4, new List<Tuple<string,string[]>>() { "Single", "Single", "Pair" }), // 4
+                        new Stand(5, new List<Tuple<string,string[]>>() { "Single", "Single" }), //5
+                        new Stand(6, new List<Tuple<string,string[]>>() { "Single", "Single", "Pair" }), //6
+                        new Stand(7, new List<Tuple<string,string[]>>() { "Single", "Single", "Pair", "Single" }) //7
                     };
                 }
             }
@@ -301,15 +302,15 @@ namespace ClubClays
                 {
                     return new List<Stand>()
                     {
-                        new Stand(1, new List<string>() { "Single", "Pair" }), // 1
-                        new Stand(2, new List<string>() { "Single", "Pair" }), // 2
-                        new Stand(3, new List<string>() { "Single", "Pair" }), // 3
-                        new Stand(4, new List<string>() { "Single", "Single" }), // 4
-                        new Stand(5, new List<string>() { "Single", "Pair" }), //5
-                        new Stand(6, new List<string>() { "Single", "Pair" }), //6
-                        new Stand(7, new List<string>() { "Pair" }), //7
-                        new Stand(4, new List<string>() { "Pair", "Pair" }), //4
-                        new Stand(8, new List<string>() { "Single", "Single" }) // 8
+                        new Stand(1, new List<Tuple<string,string[]>>() { "Single", "Pair" }), // 1
+                        new Stand(2, new List<Tuple<string,string[]>>() { "Single", "Pair" }), // 2
+                        new Stand(3, new List<Tuple<string,string[]>>() { "Single", "Pair" }), // 3
+                        new Stand(4, new List<Tuple<string,string[]>>() { "Single", "Single" }), // 4
+                        new Stand(5, new List<Tuple<string,string[]>>() { "Single", "Pair" }), //5
+                        new Stand(6, new List<Tuple<string,string[]>>() { "Single", "Pair" }), //6
+                        new Stand(7, new List<Tuple<string,string[]>>() { "Pair" }), //7
+                        new Stand(4, new List<Tuple<string,string[]>>() { "Pair", "Pair" }), //4
+                        new Stand(8, new List<Tuple<string,string[]>>() { "Single", "Single" }) // 8
                     };
                 }
             }
@@ -327,9 +328,9 @@ namespace ClubClays
                 {
                     return new List<Stand>()
                     {
-                        new Stand(3, new List<string>() { "Pair", "Pair" }),
-                        new Stand(4, new List<string>() { "Pair" }),
-                        new Stand(5, new List<string>() { "Pair", "Pair" })
+                        new Stand(3, new List<Tuple<string,string[]>>() { "Pair", "Pair" }),
+                        new Stand(4, new List<Tuple<string,string[]>>() { "Pair" }),
+                        new Stand(5, new List<Tuple<string,string[]>>() { "Pair", "Pair" })
                     };
                 }
             }
@@ -347,14 +348,14 @@ namespace ClubClays
                 {
                     return new List<Stand>()
                     {
-                        new Stand(1, new List<string>() { "Single", "Pair" }), // 1
-                        new Stand(2, new List<string>() { "Single", "Pair" }), // 2
-                        new Stand(3, new List<string>() { "Single", "Pair" }), // 3
-                        new Stand(4, new List<string>() { "Single", "Pair", "Pair" }), // 4
-                        new Stand(5, new List<string>() { "Single", "Pair" }), //5
-                        new Stand(6, new List<string>() { "Single", "Pair" }), //6
-                        new Stand(7, new List<string>() { "Pair" }), //7
-                        new Stand(8, new List<string>() { "Single" }) // 8
+                        new Stand(1, new List<Tuple<string,string[]>>() { "Single", "Pair" }), // 1
+                        new Stand(2, new List<Tuple<string,string[]>>() { "Single", "Pair" }), // 2
+                        new Stand(3, new List<Tuple<string,string[]>>() { "Single", "Pair" }), // 3
+                        new Stand(4, new List<Tuple<string,string[]>>() { "Single", "Pair", "Pair" }), // 4
+                        new Stand(5, new List<Tuple<string,string[]>>() { "Single", "Pair" }), //5
+                        new Stand(6, new List<Tuple<string,string[]>>() { "Single", "Pair" }), //6
+                        new Stand(7, new List<Tuple<string,string[]>>() { "Pair" }), //7
+                        new Stand(8, new List<Tuple<string,string[]>>() { "Single" }) // 8
                     };
                 }
             }
@@ -363,6 +364,7 @@ namespace ClubClays
                 //In the first round, shooters move from stand one to stand seven then inreverse back to stand two. In the second round they shoot one to seven, then seven back to one.
                 static public string name = "Skeet Doubles";
                 static public int scorePerHit = 1;
+                static public bool showDetails = true;
 
                 static public bool differentiateFirstAndSecondShot = false;
                 static public bool differentiateFirstAndSecondShotScore = false;
@@ -375,35 +377,35 @@ namespace ClubClays
                         default:
                             return new List<Stand>()
                             {
-                                new Stand(1, new List<string>() { "Pair" }), //1
-                                new Stand(2, new List<string>() { "Pair" }), //2
-                                new Stand(3, new List<string>() { "Pair" }), //3
-                                new Stand(4, new List<string>() { "Pair" }), //4
-                                new Stand(5, new List<string>() { "Pair" }), //5
-                                new Stand(6, new List<string>() { "Pair" }), //6
-                                new Stand(7, new List<string>() { "Pair" }), //7
-                                new Stand(6, new List<string>() { "Pair" }), //6
-                                new Stand(5, new List<string>() { "Pair" }), //5
-                                new Stand(4, new List<string>() { "Pair" }), //4
-                                new Stand(3, new List<string>() { "Pair" }), //3
-                                new Stand(2, new List<string>() { "Pair" }) //2
+                                new Stand(1, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", new string[] { "High", "Low" }) }), //1
+                                new Stand(2, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", new string[] { "High", "Low" }) }), //2
+                                new Stand(3, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", new string[] { "High", "Low" }) }), //3
+                                new Stand(4, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", new string[] { "High", "Low" }) }), //4
+                                new Stand(5, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", new string[] { "Low", "High" }) }), //5
+                                new Stand(6, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", new string[] { "Low", "High" }) }), //6
+                                new Stand(7, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", new string[] { "Low", "High" }) }), //7
+                                new Stand(6, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", new string[] { "Low", "High" }) }), //6
+                                new Stand(5, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", new string[] { "Low", "High" }) }), //5
+                                new Stand(4, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", new string[] { "Low", "High" }) }), //4
+                                new Stand(3, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", new string[] { "High", "Low" }) }), //3
+                                new Stand(2, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", new string[] { "High", "Low" }) }) //2
                             };
                         case 2:
                             return new List<Stand>()
                             {
-                                new Stand(1, new List<string>() { "Pair" }), //1
-                                new Stand(2, new List<string>() { "Pair" }), //2
-                                new Stand(3, new List<string>() { "Pair" }), //3
-                                new Stand(4, new List<string>() { "Pair" }), //4
-                                new Stand(5, new List<string>() { "Pair" }), //5
-                                new Stand(6, new List<string>() { "Pair" }), //6
-                                new Stand(7, new List<string>() { "Pair" }), //7
-                                new Stand(6, new List<string>() { "Pair" }), //6
-                                new Stand(5, new List<string>() { "Pair" }), //5
-                                new Stand(4, new List<string>() { "Pair" }), //4
-                                new Stand(3, new List<string>() { "Pair" }), //3
-                                new Stand(2, new List<string>() { "Pair" }), //2
-                                new Stand(1, new List<string>() { "Pair" }) //1
+                                new Stand(1, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", new string[] { "High", "Low" }) }), //1
+                                new Stand(2, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", new string[] { "High", "Low" }) }), //2
+                                new Stand(3, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", new string[] { "High", "Low" }) }), //3
+                                new Stand(4, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", new string[] { "High", "Low" }) }), //4
+                                new Stand(5, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", new string[] { "Low", "High" }) }), //5
+                                new Stand(6, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", new string[] { "Low", "High" }) }), //6
+                                new Stand(7, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", new string[] { "Low", "High" }) }), //7
+                                new Stand(6, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", new string[] { "Low", "High" }) }), //6
+                                new Stand(5, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", new string[] { "Low", "High" }) }), //5
+                                new Stand(4, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", new string[] { "Low", "High" }) }), //4
+                                new Stand(3, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", new string[] { "High", "Low" }) }), //3
+                                new Stand(2, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", new string[] { "High", "Low" }) }), //2
+                                new Stand(1, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", new string[] { "High", "Low" }) }) //1
                             };
                     }
                 }
@@ -413,18 +415,19 @@ namespace ClubClays
                 // Repeats till someone misses
                 static public string name = "Skeet Shoot Off";
                 static public int scorePerHit = 1;
+                static public bool showDetails = true;
 
                 static public bool differentiateFirstAndSecondShot = false;
                 static public bool differentiateFirstAndSecondShotScore = false;
                 static public int scorePerSecondHit = 1;
 
-                static public List<Stand> RoundLayout()
+                static public List<Stand> RoundLayout(int layout)
                 {
                     return new List<Stand>()
                     {
-                        new Stand(3, new List<string>() { "Pair", "Pair" }), //3
-                        new Stand(4, new List<string>() { "Pair", "Pair" }), //4
-                        new Stand(5, new List<string>() { "Pair", "Pair" }) //5
+                        new Stand(3, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", new string[] { "High", "Low" }), new Tuple<string, string[]>("Pair", new string[]{ "Low", "High" }) }), //3
+                        new Stand(4, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", new string[] { "High", "Low" }), new Tuple<string, string[]>("Pair", new string[] { "Low", "High" }) }), //4
+                        new Stand(5, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", new string[] { "High", "Low" }), new Tuple<string, string[]>("Pair", new string[] { "Low", "High" }) }) //5
                     };
                 }
             }
@@ -432,6 +435,7 @@ namespace ClubClays
             {
                 static public string name = "Wobble Skeet";
                 static public int scorePerHit = 1;
+                static public bool showDetails = true;
 
                 static public bool differentiateFirstAndSecondShot = false;
                 static public bool differentiateFirstAndSecondShotScore = false;
@@ -441,14 +445,14 @@ namespace ClubClays
                 {
                     return new List<Stand>()
                     {
-                        new Stand(1, new List<string>() { "Pair", "Pair" }), // 1
-                        new Stand(2, new List<string>() { "Pair", "Pair" }), // 2
-                        new Stand(3, new List<string>() { "Pair"  }), // 3
-                        new Stand(4, new List<string>() { "Pair"  }), // 4
-                        new Stand(5, new List<string>() { "Pair"  }), //5
-                        new Stand(6, new List<string>() { "Pair", "Pair" }), //6
-                        new Stand(7, new List<string>() { "Pair", "Pair" }),  //7
-                        new Stand(8, new List<string>() { "Single", "Pair"  })  //8
+                        new Stand(1, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", new string[] { "High", "Low" }), new Tuple<string, string[]>("Pair", new string[] { "High", "Low" }) }), // 1
+                        new Stand(2, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", new string[] { "High", "Low" }), new Tuple<string, string[]>("Pair", new string[] { "High", "Low" }) }), // 2
+                        new Stand(3, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", new string[] { "High", "Low" }) }), // 3
+                        new Stand(4, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", new string[] { "High", "Low" }) }), // 4
+                        new Stand(5, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", new string[] { "High", "Low" }) }), //5
+                        new Stand(6, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", new string[] { "High", "Low" }), new Tuple<string, string[]>("Pair", new string[] { "High", "Low" }) }), //6
+                        new Stand(7, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", new string[] { "High", "Low" }), new Tuple<string, string[]>("Pair", new string[] { "High", "Low" }) }),  //7
+                        new Stand(8, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Single", new string[] { "High" }), new Tuple<string, string[]>("Pair", new string[] { "Low", "High" })  })  //8
                     };
                 }
             }
@@ -461,6 +465,7 @@ namespace ClubClays
                 //custom layouts
                 static public string name = "Compak Sporting";
                 static public int scorePerHit = 1;
+                static public bool showDetails = false;
 
                 static public bool differentiateFirstAndSecondShot = false;
                 static public bool differentiateFirstAndSecondShotScore = false;
@@ -476,6 +481,7 @@ namespace ClubClays
                 //custom layouts
                 static public string name = "English Sporting";
                 static public int scorePerHit = 1;
+                static public bool showDetails = false;
 
                 static public bool differentiateFirstAndSecondShot = false;
                 static public bool differentiateFirstAndSecondShotScore = false;
@@ -491,6 +497,7 @@ namespace ClubClays
                 //custom layouts
                 static public string name = "FITASC Sporting";
                 static public int scorePerHit = 1;
+                static public bool showDetails = false;
 
                 static public bool differentiateFirstAndSecondShot = false;
                 static public bool differentiateFirstAndSecondShotScore = false;
@@ -514,11 +521,11 @@ namespace ClubClays
                 {
                     return new List<Stand>()
                     {
-                        new Stand(1, new List<string>() { "Single", "Pair", "Pair" }),
-                        new Stand(2, new List<string>() { "Single", "Pair", "Pair" }),
-                        new Stand(3, new List<string>() { "Single", "Pair", "Pair" }),
-                        new Stand(4, new List<string>() { "Single", "Pair", "Pair" }),
-                        new Stand(5, new List<string>() { "Single", "Pair", "Pair" })
+                        new Stand(1, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Single", null), new Tuple<string, string[]>("Pair", null), new Tuple<string, string[]>("Pair", null) }),
+                        new Stand(2, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Single", null), new Tuple<string, string[]>("Pair", null), new Tuple<string, string[]>("Pair", null) }),
+                        new Stand(3, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Single", null), new Tuple<string, string[]>("Pair", null), new Tuple<string, string[]>("Pair", null) }),
+                        new Stand(4, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Single", null), new Tuple<string, string[]>("Pair", null), new Tuple<string, string[]>("Pair", null) }),
+                        new Stand(5, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Single", null), new Tuple<string, string[]>("Pair", null), new Tuple<string, string[]>("Pair", null) })
                     };
                 }
             }
@@ -526,6 +533,7 @@ namespace ClubClays
             {
                 static public string name = "Sportrap";
                 static public int scorePerHit = 1;
+                static public bool showDetails = false;
 
                 static public bool differentiateFirstAndSecondShot = false;
                 static public bool differentiateFirstAndSecondShotScore = false;
@@ -535,11 +543,11 @@ namespace ClubClays
                 {
                     return new List<Stand>()
                     {
-                        new Stand(1, new List<string>() { "Single", "Pair", "Pair" }),
-                        new Stand(2, new List<string>() { "Single", "Pair", "Pair" }),
-                        new Stand(3, new List<string>() { "Single", "Pair", "Pair" }),
-                        new Stand(4, new List<string>() { "Single", "Pair", "Pair" }),
-                        new Stand(5, new List<string>() { "Single", "Pair", "Pair" })
+                        new Stand(1, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Single", null), new Tuple<string, string[]>("Pair", null), new Tuple<string, string[]>("Pair", null) }),
+                        new Stand(2, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Single", null), new Tuple<string, string[]>("Pair", null), new Tuple<string, string[]>("Pair", null) }),
+                        new Stand(3, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Single", null), new Tuple<string, string[]>("Pair", null), new Tuple<string, string[]>("Pair", null) }),
+                        new Stand(4, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Single", null), new Tuple<string, string[]>("Pair", null), new Tuple<string, string[]>("Pair", null) }),
+                        new Stand(5, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Single", null), new Tuple<string, string[]>("Pair", null), new Tuple<string, string[]>("Pair", null) })
                     };
                 }
             }
@@ -548,6 +556,7 @@ namespace ClubClays
                 //custom layouts
                 static public string name = "Super Sporting";
                 static public int scorePerHit = 1;
+                static public bool showDetails = false;
 
                 static public bool differentiateFirstAndSecondShot = false;
                 static public bool differentiateFirstAndSecondShotScore = false;

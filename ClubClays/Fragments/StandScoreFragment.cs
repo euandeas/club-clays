@@ -58,20 +58,21 @@ namespace ClubClays.Fragments
         {
             MyView myHolder = holder as MyView;
 
-            scoreManagementModel.ShooterStandData(position, standNum, out string name, out int standTotal, out List<Tuple<string, int[]>> shots);
+            scoreManagementModel.ShooterStandData(position, standNum, out string name, out int standTotal, out List<Tuple<int[], string[]>> shots);
             myHolder.ShooterName.Text = name;
             myHolder.ShooterStandTotal.Text = $"{standTotal}";
+            List<Tuple<string, string[]>> standFormat = scoreManagementModel.StandFormat(standNum);
 
             for (int x = 0; x <= shots.Count - 1; x++)
             {
-                if (shots[x].Item1 == "Pair")
+                if (standFormat[x].Item1 == "Pair")
                 {
-                    UpdateButton(shots[x].Item2[0], (ImageButton)myHolder.StandHits.FindViewWithTag($"{x}.1"));
-                    UpdateButton(shots[x].Item2[1], (ImageButton)myHolder.StandHits.FindViewWithTag($"{x}.2"));
+                    UpdateButton(shots[x].Item1[0], (ImageButton)myHolder.StandHits.FindViewWithTag($"{x}.1"));
+                    UpdateButton(shots[x].Item1[1], (ImageButton)myHolder.StandHits.FindViewWithTag($"{x}.2"));
                 }
-                if (shots[x].Item1 == "Single")
+                if (standFormat[x].Item1 == "Single")
                 {
-                    UpdateButton(shots[x].Item2[0], (ImageButton)myHolder.StandHits.FindViewWithTag($"{x}"));
+                    UpdateButton(shots[x].Item1[0], (ImageButton)myHolder.StandHits.FindViewWithTag($"{x}"));
                 }
             }
         }
@@ -112,10 +113,10 @@ namespace ClubClays.Fragments
 
             MyView view = new MyView(standCardView) { ShooterName = shooterName, ShooterStandTotal = shooterStandTotal, StandHits = standHits };
 
-            List<string> shotsFormat = scoreManagementModel.StandShots(standNum);
+            List<Tuple<string, string[]>> shotsFormat = scoreManagementModel.StandShots(standNum);
             for (int x = 0; x <= shotsFormat.Count - 1; x++)
             {
-                if (shotsFormat[x] == "Pair")
+                if (shotsFormat[x].Item1 == "Pair")
                 {
                     ImageButton view1 = new ImageButton(context);
                     ImageButton view2 = new ImageButton(context);
@@ -153,7 +154,7 @@ namespace ClubClays.Fragments
 
                     standHits.AddView(LL, llp);
                 }
-                if (shotsFormat[x] == "Single")
+                if (shotsFormat[x].Item1 == "Single")
                 {
                     ImageButton view1 = new ImageButton(context);
 
