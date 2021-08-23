@@ -22,52 +22,37 @@ namespace ClubClays
         //    }
         //}
 
-        static public class Discipline
-        {
-            static public string name = "";
-            static public int scorePerHit = 1;
-
-            static public bool differentiateFirstAndSecondShot = false;
-            static public bool differentiateFirstAndSecondShotScore = false;
-            static public int scorePerSecondHit = 1;
-
-            static public List<Stand> RoundLayout()
-            {
-                return null;
-            }
-        }
-
-        static private List<Stand> FiveStandOfFiveSingles()
-        {
-            return new List<Stand>()
-            {
-                new Stand(1, new List<Tuple<string,string[]>>() { "Single", "Single", "Single", "Single", "Single" }),
-                new Stand(2, new List<Tuple<string,string[]>>() { "Single", "Single", "Single", "Single", "Single" }),
-                new Stand(3, new List<Tuple<string,string[]>>() { "Single", "Single", "Single", "Single", "Single" }),
-                new Stand(4, new List<Tuple<string,string[]>>() { "Single", "Single", "Single", "Single", "Single" }),
-                new Stand(5, new List<Tuple<string,string[]>>() { "Single", "Single", "Single", "Single", "Single" })
-            };
-        }
-
-        static private List<Stand> FiveStandOfFivePairs()
-        {
-            return new List<Stand>()
-            { 
-                new Stand(1, new List<Tuple<string,string[]>>() { "Pair", "Pair", "Pair", "Pair", "Pair" }),
-                new Stand(2, new List<Tuple<string,string[]>>() { "Pair", "Pair", "Pair", "Pair", "Pair" }),
-                new Stand(3, new List<Tuple<string,string[]>>() { "Pair", "Pair", "Pair", "Pair", "Pair" }),
-                new Stand(4, new List<Tuple<string,string[]>>() { "Pair", "Pair", "Pair", "Pair", "Pair" }),
-                new Stand(5, new List<Tuple<string,string[]>>() { "Pair", "Pair", "Pair", "Pair", "Pair" })
-            };
-        }
-
         // Trap
         public static class Trap
         {
+            static private List<Stand> FiveStandOfFiveSingles()
+            {
+                return new List<Stand>()
+                {
+                    new Stand(1, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Single", null), new Tuple<string, string[]>("Single", null), new Tuple<string, string[]>("Single", null), new Tuple<string, string[]>("Single", null), new Tuple<string, string[]>("Single", null) }),
+                    new Stand(2, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Single", null), new Tuple<string, string[]>("Single", null), new Tuple<string, string[]>("Single", null), new Tuple<string, string[]>("Single", null), new Tuple<string, string[]>("Single", null) }),
+                    new Stand(3, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Single", null), new Tuple<string, string[]>("Single", null), new Tuple<string, string[]>("Single", null), new Tuple<string, string[]>("Single", null), new Tuple<string, string[]>("Single", null) }),
+                    new Stand(4, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Single", null), new Tuple<string, string[]>("Single", null), new Tuple<string, string[]>("Single", null), new Tuple<string, string[]>("Single", null), new Tuple<string, string[]>("Single", null) }),
+                    new Stand(5, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Single", null), new Tuple<string, string[]>("Single", null), new Tuple<string, string[]>("Single", null), new Tuple<string, string[]>("Single", null), new Tuple<string, string[]>("Single", null) })
+                };
+            }
+
+            static private List<Stand> FiveStandOfFivePairs()
+            {
+                return new List<Stand>()
+                {
+                    new Stand(1, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", null), new Tuple<string, string[]>("Pair", null), new Tuple<string, string[]>("Pair", null), new Tuple<string, string[]>("Pair", null), new Tuple<string, string[]>("Pair", null) }),
+                    new Stand(2, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", null), new Tuple<string, string[]>("Pair", null), new Tuple<string, string[]>("Pair", null), new Tuple<string, string[]>("Pair", null), new Tuple<string, string[]>("Pair", null) }),
+                    new Stand(3, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", null), new Tuple<string, string[]>("Pair", null), new Tuple<string, string[]>("Pair", null), new Tuple<string, string[]>("Pair", null), new Tuple<string, string[]>("Pair", null) }),
+                    new Stand(4, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", null), new Tuple<string, string[]>("Pair", null), new Tuple<string, string[]>("Pair", null), new Tuple<string, string[]>("Pair", null), new Tuple<string, string[]>("Pair", null)}),
+                    new Stand(5, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Pair", null), new Tuple<string, string[]>("Pair", null), new Tuple<string, string[]>("Pair", null), new Tuple<string, string[]>("Pair", null), new Tuple<string, string[]>("Pair", null) })
+                };
+            }
             static public class AmericanTrap
             {
                 static public string name = "American Trap";
                 static public int scorePerHit = 1;
+                static public bool showDetails = false;
 
                 static public bool differentiateFirstAndSecondShot = false;
                 static public bool differentiateFirstAndSecondShotScore = false;
@@ -82,6 +67,7 @@ namespace ClubClays
             {
                 static public string name = "American Trap Doubles";
                 static public int scorePerHit = 1;
+                static public bool showDetails = false;
 
                 static public bool differentiateFirstAndSecondShot = false;
                 static public bool differentiateFirstAndSecondShotScore = false;
@@ -96,6 +82,7 @@ namespace ClubClays
             {
                 static public string name = "Double Rise";
                 static public int scorePerHit = 1;
+                static public bool showDetails = false;
 
                 static public bool differentiateFirstAndSecondShot = false;
                 static public bool differentiateFirstAndSecondShotScore = false;
@@ -110,6 +97,7 @@ namespace ClubClays
             {
                 static public string name = "Down The Line";
                 static public int scorePerHit = 3;
+                static public bool showDetails = false;
 
                 static public bool differentiateFirstAndSecondShot = true;
                 static public bool differentiateFirstAndSecondShotScore = true;
@@ -124,6 +112,7 @@ namespace ClubClays
             {
                 static public string name = "Olympic Double Trap";
                 static public int scorePerHit = 1;
+                static public bool showDetails = false;
 
                 static public bool differentiateFirstAndSecondShot = false;
                 static public bool differentiateFirstAndSecondShotScore = false;
@@ -138,6 +127,7 @@ namespace ClubClays
             {
                 static public string name = "Olympic Trap";
                 static public int scorePerHit = 1;
+                static public bool showDetails = false;
 
                 static public bool differentiateFirstAndSecondShot = false;
                 static public bool differentiateFirstAndSecondShotScore = false;
@@ -152,6 +142,7 @@ namespace ClubClays
             {
                 static public string name = "Single Barrel";
                 static public int scorePerHit = 1;
+                static public bool showDetails = false;
 
                 static public bool differentiateFirstAndSecondShot = false;
                 static public bool differentiateFirstAndSecondShotScore = false;
@@ -166,6 +157,7 @@ namespace ClubClays
             {
                 static public string name = "Automatic Ball Trap";
                 static public int scorePerHit = 1;
+                static public bool showDetails = false;
 
                 static public bool differentiateFirstAndSecondShot = false;
                 static public bool differentiateFirstAndSecondShotScore = false;
@@ -181,6 +173,7 @@ namespace ClubClays
                 //Unsure of standard number of "stands"
                 static public string name = "Helice";
                 static public int scorePerHit = 1;
+                static public bool showDetails = false;
 
                 static public bool differentiateFirstAndSecondShot = false;
                 static public bool differentiateFirstAndSecondShotScore = false;
@@ -196,6 +189,7 @@ namespace ClubClays
                 //25 single targets with two shots allowed at each one. Scoring is based on a single point being awarded for each hit, regardless of whether it was the first or second shot.
                 static public string name = "Universal Trench";
                 static public int scorePerHit = 1;
+                static public bool showDetails = false;
 
                 static public bool differentiateFirstAndSecondShot = true;
                 static public bool differentiateFirstAndSecondShotScore = false;
@@ -211,6 +205,7 @@ namespace ClubClays
                 //Unsure of standard number of "stands"
                 static public string name = "Wobble Trap";
                 static public int scorePerHit = 1;
+                static public bool showDetails = false;
 
                 static public bool differentiateFirstAndSecondShot = false;
                 static public bool differentiateFirstAndSecondShotScore = false;
@@ -225,6 +220,7 @@ namespace ClubClays
             {
                 static public string name = "Nordic Trap";
                 static public int scorePerHit = 1;
+                static public bool showDetails = false;
 
                 static public bool differentiateFirstAndSecondShot = false;
                 static public bool differentiateFirstAndSecondShotScore = false;
