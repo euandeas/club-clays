@@ -244,6 +244,7 @@ namespace ClubClays
                 //The first miss is repeated immediately and is called an option. If no targets are missed during the round, the last or 25th target is shot at the last station.
                 static public string name = "American Skeet";
                 static public int scorePerHit = 1;
+                static public bool showDetails = true;
 
                 static public bool differentiateFirstAndSecondShot = false;
                 static public bool differentiateFirstAndSecondShotScore = false;
@@ -253,14 +254,14 @@ namespace ClubClays
                 {
                     return new List<Stand>()
                     {
-                        new Stand(1, new List<Tuple<string,string[]>>() { "Single", "Single", "Pair" }), // 1
-                        new Stand(2, new List<Tuple<string,string[]>>() { "Single", "Single", "Pair" }), // 2
-                        new Stand(3, new List<Tuple<string,string[]>>() { "Single", "Single" }), // 3
-                        new Stand(4, new List<Tuple<string,string[]>>() { "Single", "Single" }), // 4
-                        new Stand(5, new List<Tuple<string,string[]>>() { "Single", "Single" }), //5
-                        new Stand(6, new List<Tuple<string,string[]>>() { "Single", "Single", "Pair" }), //6
-                        new Stand(7, new List<Tuple<string,string[]>>() { "Single", "Single", "Pair" }),  //7
-                        new Stand(8, new List<Tuple<string,string[]>>() { "Single", "Single", })  //8
+                        new Stand(1, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Single", new string[] { "High" }), new Tuple<string, string[]>("Single", new string[] { "Low" }), new Tuple<string, string[]>("Pair", new string[] { "High", "Low" }) }), // 1
+                        new Stand(2, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Single", new string[] { "High" }), new Tuple<string, string[]>("Single", new string[] { "Low" }), new Tuple<string, string[]>("Pair", new string[] { "High", "Low" }) }), // 2
+                        new Stand(3, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Single", new string[] { "High" }), new Tuple<string, string[]>("Single", new string[] { "Low" }) }), // 3
+                        new Stand(4, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Single", new string[] { "High" }), new Tuple<string, string[]>("Single", new string[] { "Low" }) }), // 4
+                        new Stand(5, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Single", new string[] { "High" }), new Tuple<string, string[]>("Single", new string[] { "Low" }) }), //5
+                        new Stand(6, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Single", new string[] { "High" }), new Tuple<string, string[]>("Single", new string[] { "Low" }), new Tuple<string, string[]>("Pair", new string[] { "Low", "High" }) }), //6
+                        new Stand(7, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Single", new string[] { "High" }), new Tuple<string, string[]>("Single", new string[] { "Low" }), new Tuple<string, string[]>("Pair", new string[] { "Low", "High" }) }),  //7
+                        new Stand(8, new List<Tuple<string,string[]>>() { new Tuple<string, string[]>("Single", new string[] { "High" }), new Tuple<string, string[]>("Single", new string[] { "Low" }) })  //8
                     };
                 }
             }
