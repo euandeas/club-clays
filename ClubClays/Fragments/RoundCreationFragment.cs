@@ -13,23 +13,18 @@ using ClubClays.DatabaseModels;
 using AndroidX.Fragment.App;
 using Google.Android.Material.TextField;
 using Google.Android.Material.FloatingActionButton;
-using Google.Android.Material.DatePicker;
 
 namespace ClubClays.Fragments
 {
-    public class RoundCreationFragment : Fragment, IMaterialPickerOnPositiveButtonClickListener, IFragmentResultListener
+    public class RoundCreationFragment : Fragment, IFragmentResultListener
     {
-        private TextView datePickerView;
         private string discipline;
-        private TextInputEditText locationInput;
-        private MaterialDatePicker picker;
-        private DateTime date;
 
         private TextView shootersSelection;
         private TextView standFormatting;
+        AutoCompleteTextView subdisciplineSpinner;
 
         private ShooterStandData standShooterModel;
-        private TextInputEditText titleInput;
 
         public override void OnCreate(Bundle savedInstanceState)
         {
@@ -53,24 +48,18 @@ namespace ClubClays.Fragments
             supportBar.SetDisplayHomeAsUpEnabled(true);
             supportBar.SetDisplayShowHomeEnabled(true);
 
-            titleInput = view.FindViewById<TextInputEditText>(Resource.Id.titleEditText);
+            RadioGroup disciplinesRadioGroup = view.FindViewById<RadioGroup>(Resource.Id.disciplines);
+            disciplinesRadioGroup.CheckedChange += DisciplinesRadioGroup_Click;
 
-            AutoCompleteTextView spinner = view.FindViewById<AutoCompleteTextView>(Resource.Id.disciplineDropdown);
-            spinner.ItemClick += Spinner_ItemSelected;
-            var adapter = ArrayAdapter.CreateFromResource(view.Context, Resource.Array.disciplines, Android.Resource.Layout.SimpleSpinnerItem);
+            subdisciplineSpinner = view.FindViewById<AutoCompleteTextView>(Resource.Id.subdisciplineDropdown);
+            subdisciplineSpinner.ItemClick += Spinner_ItemSelected;
+            var adapter = ArrayAdapter.CreateFromResource(view.Context, Resource.Array.trap, Android.Resource.Layout.SimpleSpinnerItem);
             adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
-            spinner.Adapter = adapter;
+            subdisciplineSpinner.Adapter = adapter;
 
-            string defaultItem = spinner.Adapter.GetItem(0).ToString();
-            spinner.SetText(defaultItem, false);
+            string defaultItem = subdisciplineSpinner.Adapter.GetItem(0).ToString();
+            subdisciplineSpinner.SetText(defaultItem, false);
             discipline = defaultItem;
-
-            date = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-            datePickerView = view.FindViewById<TextInputEditText>(Resource.Id.dateEditText);
-            datePickerView.Text = $"{date:MMMM} {date:dd}, {date:yyyy}";
-            datePickerView.Click += DatePickerView_Click;
-
-            locationInput = view.FindViewById<TextInputEditText>(Resource.Id.locationEditText);
 
             shootersSelection = view.FindViewById<TextInputEditText>(Resource.Id.shootersEditText);
             shootersSelection.Text = "0 Shooter(s) Selected";
@@ -84,6 +73,35 @@ namespace ClubClays.Fragments
             fab.Click += NextButton_Click;
 
             return view;
+        }
+
+        private void DisciplinesRadioGroup_Click(object sender, EventArgs e)
+        {    
+            switch (((RadioGroup)sender).CheckedRadioButtonId)
+            {
+                case Resource.Id.trap:
+                    subdisciplineSpinner.ItemClick += Spinner_ItemSelected;
+                    var adapter1 = ArrayAdapter.CreateFromResource(((RadioGroup)sender).Context, Resource.Array.trap, Android.Resource.Layout.SimpleSpinnerItem);
+                    adapter1.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+                    subdisciplineSpinner.Adapter = adapter1;
+                    break;
+                case Resource.Id.skeet:
+                    subdisciplineSpinner.ItemClick += Spinner_ItemSelected;
+                    var adapter2 = ArrayAdapter.CreateFromResource(((RadioGroup)sender).Context, Resource.Array.skeet, Android.Resource.Layout.SimpleSpinnerItem);
+                    adapter2.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+                    subdisciplineSpinner.Adapter = adapter2;
+                    break;
+                case Resource.Id.sporting:
+                    subdisciplineSpinner.ItemClick += Spinner_ItemSelected;
+                    var adapter3 = ArrayAdapter.CreateFromResource(((RadioGroup)sender).Context, Resource.Array.sporting, Android.Resource.Layout.SimpleSpinnerItem);
+                    adapter3.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+                    subdisciplineSpinner.Adapter = adapter3;
+                    break;
+            }
+
+            string defaultItem = subdisciplineSpinner.Adapter.GetItem(0).ToString();
+            subdisciplineSpinner.SetText(defaultItem, false);
+            discipline = defaultItem;
         }
 
         private void StandFormatting_Click(object sender, EventArgs e)
@@ -107,20 +125,10 @@ namespace ClubClays.Fragments
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(titleInput.Text))
-            {
-                titleInput.Text = "";
-            }
-            
-            if (string.IsNullOrWhiteSpace(locationInput.Text))
-            {
-                locationInput.Text = "";
-            }
-
             FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
 
             Shoot activeShootModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(Shoot))) as Shoot;
-            activeShootModel.Initialise(standShooterModel.selectedShooters, standShooterModel.selectedFormat, date, locationInput.Text, discipline, titleInput.Text);    
+            activeShootModel.Initialise(standShooterModel.selectedShooters, standShooterModel.selectedFormat, new DateTime(Arguments.GetLong("shootDate")), Arguments.GetString("shootLocation"), discipline, Arguments.GetString("shootTitle"));    
             fragmentTx.Replace(Resource.Id.container, new ScoreTakingFragment());
             fragmentTx.Commit();       
         }
@@ -138,28 +146,6 @@ namespace ClubClays.Fragments
         private void Spinner_ItemSelected(object sender, AdapterView.ItemClickEventArgs e)
         {
             discipline = (sender as AutoCompleteTextView).Text;
-        }
-
-        private void DatePickerView_Click(object sender, EventArgs e)
-        {
-            TimeSpan diff = DateTime.Now - new DateTime(1970, 1, 1);
-            var constraintsBuilder = new CalendarConstraints.Builder();
-            constraintsBuilder.SetValidator(DateValidatorPointBackward.Before((long)diff.TotalMilliseconds));
-            constraintsBuilder.SetEnd((long)diff.TotalMilliseconds);
-
-            MaterialDatePicker.Builder mDatePicker = MaterialDatePicker.Builder.DatePicker();
-            mDatePicker.SetSelection((long)(date - new DateTime(1970, 1, 1)).TotalMilliseconds);
-            mDatePicker.SetCalendarConstraints(constraintsBuilder.Build());
-            picker = mDatePicker.Build();
-            picker.AddOnPositiveButtonClickListener(this);
-
-            picker.Show(ChildFragmentManager, "");
-        }
-
-        public void OnPositiveButtonClick(Java.Lang.Object p0)
-        {
-            date = new DateTime(1970, 1, 1).Add(TimeSpan.FromMilliseconds((double)p0));
-            datePickerView.Text = $"{date:MMMM} {date:dd}, {date:yyyy}";
         }
 
         public void OnFragmentResult(string p0, Bundle p1)

@@ -112,7 +112,7 @@ namespace ClubClays.Fragments
         private void Fab_Click(object sender, EventArgs e)
         {
             FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
-            fragmentTx.Replace(Resource.Id.container, new RoundCreationFragment());
+            fragmentTx.Replace(Resource.Id.container, new ShootCreationFragment());
             fragmentTx.AddToBackStack(null);
             fragmentTx.Commit();
         }

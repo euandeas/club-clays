@@ -28,6 +28,27 @@
                 android:orientation="vertical">
 
                 <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="5dp"
+                    app:boxStrokeColor="@color/colorAccent"
+                    app:hintTextColor="@color/colorAccent"
+                    app:endIconTint="#aaa"
+                    app:endIconDrawable="@drawable/arrow_drop_down"
+                    app:endIconMode="custom">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/dateEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Date"
+                        android:focusable="false"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -50,46 +71,6 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/discipline"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingBottom="5dp"
-                    app:boxStrokeColor="@color/colorAccent"
-                    app:hintTextColor="@color/colorAccent"
-                    app:endIconTint="#aaa">
-                    <AutoCompleteTextView
-                        android:id="@+id/disciplineDropdown"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="none"
-                        android:hint="Discipline"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/date"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingBottom="5dp"
-                    app:boxStrokeColor="@color/colorAccent"
-                    app:hintTextColor="@color/colorAccent"
-                    app:endIconTint="#aaa"
-                    app:endIconDrawable="@drawable/arrow_drop_down"
-                    app:endIconMode="custom">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/dateEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Date"
-                        android:focusable="false"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/location"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -109,50 +90,6 @@
                         android:maxLength="50"
                         android:maxLines="1"
                         android:inputType="text"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/shooters"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingBottom="5dp"
-                    app:boxStrokeColor="@color/colorAccent"
-                    app:hintTextColor="@color/colorAccent"
-                    app:endIconTint="#aaa"
-                    app:endIconDrawable="@drawable/small_arrow_right"
-                    app:endIconMode="custom">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/shootersEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Shooters"
-                        android:focusable="false"
-                        android:longClickable="false"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/stands"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:paddingBottom="5dp"
-                    app:boxStrokeColor="@color/colorAccent"
-                    app:hintTextColor="@color/colorAccent"
-                    app:endIconTint="#aaa"
-                    app:endIconDrawable="@drawable/small_arrow_right"
-                    app:endIconMode="custom">
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/standsEditText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Shoot Format"
-                        android:focusable="false"
-                        android:longClickable="false"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>

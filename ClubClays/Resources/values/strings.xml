@@ -12,7 +12,40 @@
       <item>light</item>
       <item>dark</item>
     </string-array>
-  <string-array name="disciplines">
-    <item>English Sporting</item>
+  <string-array name="trap">
+    <item>American Trap</item>
+	<item>American Trap Doubles</item>
+	<item>Double Rise</item>
+	<item>Down-The-Line</item>
+	<item>Olympic Double Trap</item>
+	<item>Olympic Trap</item>
+	<item>Single Barrel</item>
+	<item>Automatic Ball Trap</item>
+	<item>Helice (ZZ)</item>
+	<item>Universal trench</item>
+	<item>Wobble Trap</item>
+	<item>Nordic Trap</item>
+  </string-array>
+  <string-array name="skeet">
+	<item>
+		American Skeet
+		English Skeet
+		Olympic Skeet
+		Olympic Skeet Final
+		Olympic Skeet (Pre-2012)
+		Skeet Doubles
+		Skeet Shoot-Off
+		Wobble Skeet
+	</item>
+  </string-array>
+  <string-array name="sporting">
+	<item>
+		Compak Sporting
+		English Sporting
+		FITASC Sporting
+		Five Stand
+		Sportrap
+		Super Sporting
+	</item>
   </string-array>
 </resources>
