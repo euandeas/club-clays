@@ -22,30 +22,26 @@
 	<item>Single Barrel</item>
 	<item>Automatic Ball Trap</item>
 	<item>Helice (ZZ)</item>
-	<item>Universal trench</item>
+	<item>Universal Trench</item>
 	<item>Wobble Trap</item>
 	<item>Nordic Trap</item>
   </string-array>
   <string-array name="skeet">
-	<item>
-		American Skeet
-		English Skeet
-		Olympic Skeet
-		Olympic Skeet Final
-		Olympic Skeet (Pre-2012)
-		Skeet Doubles
-		Skeet Shoot-Off
-		Wobble Skeet
-	</item>
+	<item>American Skeet</item>
+	<item>English Skeet</item>
+	<item>Olympic Skeet</item>
+	<item>Olympic Skeet Final</item>
+	<item>Olympic Skeet (Pre-2012)</item>
+	<item>Skeet Doubles</item>
+	<item>Skeet Shoot-Off</item>
+	<item>Wobble Skeet</item>
   </string-array>
   <string-array name="sporting">
-	<item>
-		Compak Sporting
-		English Sporting
-		FITASC Sporting
-		Five Stand
-		Sportrap
-		Super Sporting
-	</item>
+	<item>Compak Sporting</item>
+	<item>English Sporting</item>
+	<item>FITASC Sporting</item>
+	<item>Five Stand</item>
+	<item>Sportrap</item>
+	<item>Super Sporting</item>
   </string-array>
 </resources>
