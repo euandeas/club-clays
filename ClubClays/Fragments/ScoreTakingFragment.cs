@@ -46,7 +46,7 @@ namespace ClubClays.Fragments
             viewPager.Adapter = scoreViewPagerAdapter;
 
             TabLayout tabLayout = view.FindViewById<TabLayout>(Resource.Id.tab_layout);
-            new TabLayoutMediator(tabLayout, viewPager, new TabConfigStrat()).Attach();
+            new TabLayoutMediator(tabLayout, viewPager, new TabConfigStrat(Activity)).Attach();
             tabLayout.TabSelected += TabLayout_TabSelected;
 
             fab = view.FindViewById<FloatingActionButton>(Resource.Id.addButton);

@@ -1,5 +1,6 @@
 ﻿using Android.OS;
 using AndroidX.Fragment.App;
+using AndroidX.Lifecycle;
 using AndroidX.ViewPager2.Adapter;
 using ClubClays.Fragments;
 using Google.Android.Material.Tabs;
@@ -42,9 +43,15 @@ namespace ClubClays
 
     public class TabConfigStrat : Java.Lang.Object, TabLayoutMediator.ITabConfigurationStrategy
     {
+        Shoot scoreManagementModel;
+        public TabConfigStrat(FragmentActivity activity)
+        {
+            scoreManagementModel = new ViewModelProvider(activity).Get(Java.Lang.Class.FromType(typeof(Shoot))) as Shoot;
+        }
+        
         public void OnConfigureTab(TabLayout.Tab p0, int p1)
         {
-            p0.SetText(p1 == 0 ? "Overall" : $"Stand {p1}");
+            p0.SetText(p1 == 0 ? "Overall" : $"Stand {scoreManagementModel.StandNum(p1)}");
         }
     }
 }

@@ -82,7 +82,7 @@ namespace ClubClays.Fragments
             viewPager.Adapter = new ScoreViewPagerAdapter(this, previousShootModel.NumStands, false);
 
             tabLayout = view.FindViewById<TabLayout>(Resource.Id.tab_layout);
-            new TabLayoutMediator(tabLayout, viewPager, new TabConfigStrat()).Attach();
+            new TabLayoutMediator(tabLayout, viewPager, new TabConfigStrat(Activity)).Attach();
 
             return view;
         }

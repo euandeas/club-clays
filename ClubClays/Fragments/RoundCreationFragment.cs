@@ -31,9 +31,6 @@ namespace ClubClays.Fragments
         private TextInputLayout subDisciplineLayoutsLayout;
         private AutoCompleteTextView subDisciplineLayouts;
 
-        private string disciplineType;
-        private string disciplineLayoutOptions;
-
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);

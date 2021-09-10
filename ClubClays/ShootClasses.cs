@@ -77,6 +77,11 @@ namespace ClubClays
 
         public int ShootID => shootID;
 
+        public int StandNum(int num)
+        {
+            return StandsByNum[num].standNum;
+        }
+
         public void ShooterOverallData(int position, out string name, out int overallTotal, out List<int> totals)
         {
             totals = new List<int>();
