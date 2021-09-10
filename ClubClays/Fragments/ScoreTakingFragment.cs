@@ -74,7 +74,14 @@ namespace ClubClays.Fragments
 
         private void FABVisibility(int pos)
         {
-            fab.Visibility = (pos == scoreManagementModel.NumStands) ? ViewStates.Visible : ViewStates.Gone;
+            if (scoreManagementModel.CustomLayout)
+            {
+                fab.Visibility = (pos == scoreManagementModel.NumStands) ? ViewStates.Visible : ViewStates.Gone;
+            }
+            else
+            {
+                fab.Visibility = ViewStates.Gone;
+            }
         }
 
         public override void OnCreateOptionsMenu(IMenu menu, MenuInflater inflater)

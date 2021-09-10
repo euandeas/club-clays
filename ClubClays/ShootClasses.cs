@@ -58,6 +58,7 @@ namespace ClubClays
         protected int numOfClays;
         protected string userNotes;
         protected int shootID;
+        protected bool customLayout;
 
         protected List<Shooter> Shooters = new List<Shooter>();
         protected SortedList<int, Stand> StandsByNum = new SortedList<int, Stand>();
@@ -76,6 +77,7 @@ namespace ClubClays
         public string Title => title;
 
         public int ShootID => shootID;
+        public bool CustomLayout => customLayout;
 
         public int StandNum(int num)
         {
@@ -152,6 +154,7 @@ namespace ClubClays
             var standlayout = discipline.RoundLayout();
             if (standlayout == null)
             {
+                customLayout = true;
                 if (shootFormat != null)
                 {
                     string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "ClubClaysData.db3");
@@ -174,7 +177,9 @@ namespace ClubClays
             }
             else
             {
-                foreach(Stand stand in standlayout)
+                customLayout = false;
+
+                foreach (Stand stand in standlayout)
                 {
                     AddStand(stand);
                 }
