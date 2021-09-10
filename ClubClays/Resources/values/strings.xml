@@ -1,47 +1,59 @@
 <resources>
-    <string name="app_name">Club Clays</string>
+	<string name="app_name">Club Clays</string>
 	<string name="app_version">1.0.1</string>
-    <string name="theme_def_value">sysdefault</string>
-    <string-array name="theme_array_entries">
-      <item>System Default</item>
-      <item>Light</item>
-      <item>Dark</item>
-    </string-array>
-    <string-array name="theme_array_entryvalues">
-      <item>sysdefault</item>
-      <item>light</item>
-      <item>dark</item>
-    </string-array>
-  <string-array name="trap">
-    <item>American Trap</item>
-	<item>American Trap Doubles</item>
-	<item>Double Rise</item>
-	<item>Down-The-Line</item>
-	<item>Olympic Double Trap</item>
-	<item>Olympic Trap</item>
-	<item>Single Barrel</item>
-	<item>Automatic Ball Trap</item>
-	<item>Helice (ZZ)</item>
-	<item>Universal Trench</item>
-	<item>Wobble Trap</item>
-	<item>Nordic Trap</item>
-  </string-array>
-  <string-array name="skeet">
-	<item>American Skeet</item>
-	<item>English Skeet</item>
-	<item>Olympic Skeet</item>
-	<item>Olympic Skeet Final</item>
-	<item>Olympic Skeet (Pre-2012)</item>
-	<item>Skeet Doubles</item>
-	<item>Skeet Shoot-Off</item>
-	<item>Wobble Skeet</item>
-  </string-array>
-  <string-array name="sporting">
-	<item>Compak Sporting</item>
-	<item>English Sporting</item>
-	<item>FITASC Sporting</item>
-	<item>Five Stand</item>
-	<item>Sportrap</item>
-	<item>Super Sporting</item>
-  </string-array>
+	<string name="theme_def_value">sysdefault</string>
+	<string-array name="theme_array_entries">
+		<item>System Default</item>
+		<item>Light</item>
+		<item>Dark</item>
+	</string-array>
+	<string-array name="theme_array_entryvalues">
+		<item>sysdefault</item>
+		<item>light</item>
+		<item>dark</item>
+	</string-array>
+	<string-array name="trap">
+		<item>American Trap</item>
+		<item>American Trap Doubles</item>
+		<item>Double Rise</item>
+		<item>Down-The-Line</item>
+		<item>Olympic Double Trap</item>
+		<item>Olympic Trap</item>
+		<item>Single Barrel</item>
+		<item>Automatic Ball Trap</item>
+		<item>Helice (ZZ)</item>
+		<item>Universal Trench</item>
+		<item>Wobble Trap</item>
+		<item>Nordic Trap</item>
+	</string-array>
+	<string-array name="skeet">
+		<item>American Skeet</item>
+		<item>English Skeet</item>
+		<item>Olympic Skeet</item>
+		<item>Olympic Skeet Final</item>
+		<item>Olympic Skeet (Pre-2012)</item>
+		<item>Skeet Doubles</item>
+		<item>Skeet Shoot-Off</item>
+		<item>Wobble Skeet</item>
+	</string-array>
+	<string-array name="sporting">
+		<item>Compak Sporting</item>
+		<item>English Sporting</item>
+		<item>FITASC Sporting</item>
+		<item>Five Stand</item>
+		<item>Sportrap</item>
+		<item>Super Sporting</item>
+	</string-array>
+	<string-array name="olympicskeet">
+		<item>Split Station 4</item>
+		<item>Unified Station 4</item>
+	</string-array>
+	<string-array name="olympicskeetfinal">
+		<item>Normal Station 4 Pair</item>
+		<item>Reverse Station 4 Pair</item>
+	</string-array>
+	<string-array name="skeetdoubles">
+		<item>Round 1 Layout</item>
+		<item>Round 2 Layout</item>
+	</string-array>
 </resources>

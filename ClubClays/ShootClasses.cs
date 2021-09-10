@@ -54,7 +54,7 @@ namespace ClubClays
         protected string title;
         protected DateTime date;
         protected string location;
-        protected string discipline;
+        protected Disciplines.IBaseDiscipline discipline;
         protected int numOfClays;
         protected string userNotes;
         protected int shootID;
@@ -132,7 +132,7 @@ namespace ClubClays
             }
         }
 
-        public void Initialise(List<Shooters> shooters, ShootFormats shootFormat, DateTime date, string location, string discipline, string title)
+        public void Initialise(List<Shooters> shooters, ShootFormats shootFormat, DateTime date, string location, Disciplines.IBaseDiscipline discipline, string title)
         {
             this.date = date;
             this.location = location;
@@ -144,25 +144,36 @@ namespace ClubClays
                 Shooters.Add(new Shooter(shooter.Id, shooter.Name, shooter.Class));
             }
 
-            if (shootFormat != null)
+            var standlayout = discipline.RoundLayout();
+            if (standlayout == null)
             {
-                string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "ClubClaysData.db3");
-                using (var db = new SQLiteConnection(dbPath))
+                if (shootFormat != null)
                 {
-                    var standFormats = db.Table<StandFormats>().Where(s => s.ShootFormatId == shootFormat.Id).OrderBy(s => s.StandNum).ToList();
-                    int x = 1;
-                    foreach (StandFormats stand in standFormats)
+                    string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "ClubClaysData.db3");
+                    using (var db = new SQLiteConnection(dbPath))
                     {
-                        List<Tuple<string, string[]>> shotsLayout = new List<Tuple<string, string[]>>();
-                        var shotsFormats = db.Table<StandShotsFormats>().Where(s => s.StandFormatId == stand.Id).OrderBy(s => s.ShotNum).ToList();
-                        foreach (StandShotsFormats shot in shotsFormats)
+                        var standFormats = db.Table<StandFormats>().Where(s => s.ShootFormatId == shootFormat.Id).OrderBy(s => s.StandNum).ToList();
+                        int x = 1;
+                        foreach (StandFormats stand in standFormats)
                         {
-                            shotsLayout.Add(new Tuple<string, string[]>(shot.Type, null));
+                            List<Tuple<string, string[]>> shotsLayout = new List<Tuple<string, string[]>>();
+                            var shotsFormats = db.Table<StandShotsFormats>().Where(s => s.StandFormatId == stand.Id).OrderBy(s => s.ShotNum).ToList();
+                            foreach (StandShotsFormats shot in shotsFormats)
+                            {
+                                shotsLayout.Add(new Tuple<string, string[]>(shot.Type, null));
+                            }
+                            AddStand(new Stand(x++, shotsLayout));
                         }
-                        AddStand(new Stand(x++, shotsLayout));
                     }
                 }
             }
+            else
+            {
+                foreach(Stand stand in standlayout)
+                {
+                    AddStand(stand);
+                }
+            }     
         }
 
         public void AddStand(Stand stand)
@@ -231,7 +242,7 @@ namespace ClubClays
                 title = shoot.Title;
                 date = shoot.Date;
                 location = shoot.Location;
-                discipline = shoot.EventType;
+                //discipline = shoot.EventType;
                 numOfClays = shoot.NumClays;
                 userNotes = shoot.Notes;
 
@@ -332,7 +343,7 @@ namespace ClubClays
             string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "ClubClaysData.db3");
             using (var db = new SQLiteConnection(dbPath))
             {
-                Shoots newShoot = new Shoots() { Title = title, Date = date, Location = location, EventType = discipline, NumStands = StandsByNum.Count, NumClays = numOfClays, Notes = userNotes };
+                Shoots newShoot = new Shoots() { Title = title, Date = date, Location = location, /*EventType = discipline*/ NumStands = StandsByNum.Count, NumClays = numOfClays, Notes = userNotes };
                 db.Insert(newShoot);
 
                 for (int x = 1; x <= StandsByNum.Count; x++)
@@ -410,7 +421,7 @@ namespace ClubClays
         public Java.IO.File ShootToCSV()
         {
             CalculateStats();
-            string csvPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), $"{discipline.Replace(" ", "")}{date:yyyyMMdd}.csv");
+            string csvPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), $"{discipline.name.Replace(" ", "")}{date:yyyyMMdd}.csv");
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine("OVERALL");

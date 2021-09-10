@@ -422,19 +422,28 @@ namespace ClubClays
 		{
 			
 			// aapt resource value: 0x7F030000
-			public const int skeet = 2130903040;
+			public const int olympicskeet = 2130903040;
 			
 			// aapt resource value: 0x7F030001
-			public const int sporting = 2130903041;
+			public const int olympicskeetfinal = 2130903041;
 			
 			// aapt resource value: 0x7F030002
-			public const int theme_array_entries = 2130903042;
+			public const int skeet = 2130903042;
 			
 			// aapt resource value: 0x7F030003
-			public const int theme_array_entryvalues = 2130903043;
+			public const int skeetdoubles = 2130903043;
 			
 			// aapt resource value: 0x7F030004
-			public const int trap = 2130903044;
+			public const int sporting = 2130903044;
+			
+			// aapt resource value: 0x7F030005
+			public const int theme_array_entries = 2130903045;
+			
+			// aapt resource value: 0x7F030006
+			public const int theme_array_entryvalues = 2130903046;
+			
+			// aapt resource value: 0x7F030007
+			public const int trap = 2130903047;
 			
 			static Array()
 			{

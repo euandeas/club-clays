@@ -31,6 +31,9 @@ namespace ClubClays.Fragments
         private TextInputLayout subDisciplineLayoutsLayout;
         private AutoCompleteTextView subDisciplineLayouts;
 
+        private string disciplineType;
+        private string disciplineLayoutOptions;
+
         public override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -57,7 +60,7 @@ namespace ClubClays.Fragments
 
             subDisciplineLayoutsLayout = view.FindViewById<TextInputLayout>(Resource.Id.layoutOptions);
             subDisciplineLayouts = view.FindViewById<AutoCompleteTextView>(Resource.Id.layoutOptionsDropdown);
-            subDisciplineLayouts.Click += SubDisciplineLayouts_Click;
+            subDisciplineLayouts.ItemClick += SubDisciplineLayouts_Click;
 
             customStandFormattingLayout = view.FindViewById<TextInputLayout>(Resource.Id.stands);
             customStandFormatting = view.FindViewById<TextInputEditText>(Resource.Id.standsEditText);
@@ -87,12 +90,37 @@ namespace ClubClays.Fragments
 
         private void SubDisciplineLayouts_Click(object sender, EventArgs e)
         {
+            SubDisciplineLayoutChanged((sender as AutoCompleteTextView).Text);
+        }
 
+        public void SubDisciplineLayoutChanged(string text)
+        {
+            switch (text)
+            {
+                case "Split Station 4":
+                    discipline = new Disciplines.Skeet.OlympicSkeet.OlympicSkeetVar1();
+                    break;
+                case "Unified Station 4":
+                    discipline = new Disciplines.Skeet.OlympicSkeet.OlympicSkeetVar2();
+                    break;
+                case "Normal Station 4 Pair":
+                    discipline = new Disciplines.Skeet.OlympicSkeetFinal.OlympicSkeetFinalVar1();
+                    break;
+                case "Reverse Station 4 Pair":
+                    discipline = new Disciplines.Skeet.OlympicSkeetFinal.OlympicSkeetFinalVar2();
+                    break;
+                case "Round 1 Layout":
+                    discipline = new Disciplines.Skeet.SkeetDoubles.SkeetDoublesVar1();
+                    break;
+                case "Round 2 Layout":
+                    discipline = new Disciplines.Skeet.SkeetDoubles.SkeetDoublesVar2();
+                    break;
+            }
         }
 
         private void DisciplinesRadioGroup_Click(object sender, EventArgs e)
         {
-            ChangeSubDisciplineSpinner(((RadioGroup)sender));
+              ChangeSubDisciplineSpinner(((RadioGroup)sender));
         }
 
         public void ChangeSubDisciplineSpinner(RadioGroup sender)
@@ -154,61 +182,73 @@ namespace ClubClays.Fragments
                 case "American Trap":
                     subDisciplineLayoutsLayout.Visibility = ViewStates.Gone;
                     customStandFormattingLayout.Visibility = ViewStates.Gone;
+                    discipline = new Disciplines.Trap.AmericanTrap();
                     break;
 
                 case "American Trap Doubles":
                     subDisciplineLayoutsLayout.Visibility = ViewStates.Gone;
                     customStandFormattingLayout.Visibility = ViewStates.Gone;
+                    discipline = new Disciplines.Trap.AmericanTrapDoubles();
                     break;
 
                 case "Double Rise":
                     subDisciplineLayoutsLayout.Visibility = ViewStates.Gone;
                     customStandFormattingLayout.Visibility = ViewStates.Gone;
+                    discipline = new Disciplines.Trap.DoubleRise();
                     break;
 
                 case "Down - The - Line":
                     subDisciplineLayoutsLayout.Visibility = ViewStates.Gone;
                     customStandFormattingLayout.Visibility = ViewStates.Gone;
+                    discipline = new Disciplines.Trap.DTL();
                     break;
 
                 case "Olympic Double Trap":
                     subDisciplineLayoutsLayout.Visibility = ViewStates.Gone;
                     customStandFormattingLayout.Visibility = ViewStates.Gone;
+                    discipline = new Disciplines.Trap.OlympicDoubleTrap();
                     break;
 
                 case "Olympic Trap":
                     subDisciplineLayoutsLayout.Visibility = ViewStates.Gone;
                     customStandFormattingLayout.Visibility = ViewStates.Gone;
+                    discipline = new Disciplines.Trap.OlympicTrap();
                     break;
 
                 case "Single Barrel":
                     subDisciplineLayoutsLayout.Visibility = ViewStates.Gone;
                     customStandFormattingLayout.Visibility = ViewStates.Gone;
+                    discipline = new Disciplines.Trap.SingleBarrel();
                     break;
 
                 case "Automatic Ball Trap":
                     subDisciplineLayoutsLayout.Visibility = ViewStates.Gone;
                     customStandFormattingLayout.Visibility = ViewStates.Gone;
+                    discipline = new Disciplines.Trap.AutomaticBallTrap();
                     break;
 
                 case "Helice(ZZ)":
                     subDisciplineLayoutsLayout.Visibility = ViewStates.Gone;
                     customStandFormattingLayout.Visibility = ViewStates.Gone;
+                    discipline = new Disciplines.Trap.Helice();
                     break;
 
                 case "Universal Trench":
                     subDisciplineLayoutsLayout.Visibility = ViewStates.Gone;
                     customStandFormattingLayout.Visibility = ViewStates.Gone;
+                    discipline = new Disciplines.Trap.UniversalTrench();
                     break;
 
                 case "Wobble Trap":
                     subDisciplineLayoutsLayout.Visibility = ViewStates.Gone;
                     customStandFormattingLayout.Visibility = ViewStates.Gone;
+                    discipline = new Disciplines.Trap.WobbleTrap();
                     break;
 
                 case "Nordic Trap":
                     subDisciplineLayoutsLayout.Visibility = ViewStates.Gone;
                     customStandFormattingLayout.Visibility = ViewStates.Gone;
+                    discipline = new Disciplines.Trap.NordicTrap();
                     break;
             }
         }
@@ -220,41 +260,70 @@ namespace ClubClays.Fragments
                 case "American Skeet":
                     subDisciplineLayoutsLayout.Visibility = ViewStates.Gone;
                     customStandFormattingLayout.Visibility = ViewStates.Gone;
+                    discipline = new Disciplines.Skeet.AmericanSkeet();
                     break;
 
                 case "English Skeet":
                     subDisciplineLayoutsLayout.Visibility = ViewStates.Gone;
                     customStandFormattingLayout.Visibility = ViewStates.Gone;
+                    discipline = new Disciplines.Skeet.EnglishSkeet();
                     break;
 
                 case "Olympic Skeet":
                     subDisciplineLayoutsLayout.Visibility = ViewStates.Visible;
                     customStandFormattingLayout.Visibility = ViewStates.Gone;
+
+                    var adapter1 = ArrayAdapter.CreateFromResource(Context, Resource.Array.olympicskeet, Android.Resource.Layout.SimpleSpinnerItem);
+                    adapter1.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+                    subDisciplineLayouts.Adapter = adapter1;
+
+                    var defaultItem1 = subDisciplineLayouts.Adapter.GetItem(0).ToString();
+                    subDisciplineLayouts.SetText(defaultItem1, false);
+                    SubDisciplineLayoutChanged(defaultItem1);
                     break;
 
                 case "Olympic Skeet Final":
                     subDisciplineLayoutsLayout.Visibility = ViewStates.Visible;
                     customStandFormattingLayout.Visibility = ViewStates.Gone;
+
+                    var adapter2 = ArrayAdapter.CreateFromResource(Context, Resource.Array.olympicskeetfinal, Android.Resource.Layout.SimpleSpinnerItem);
+                    adapter2.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+                    subDisciplineLayouts.Adapter = adapter2;
+
+                    var defaultItem2 = subDisciplineLayouts.Adapter.GetItem(0).ToString();
+                    subDisciplineLayouts.SetText(defaultItem2, false);
+                    SubDisciplineLayoutChanged(defaultItem2);
                     break;
 
                 case "Olympic Skeet(Pre - 2012)":
                     subDisciplineLayoutsLayout.Visibility = ViewStates.Gone;
                     customStandFormattingLayout.Visibility = ViewStates.Gone;
+                    discipline = new Disciplines.Skeet.OlympicSkeetPre2012();
                     break;
 
                 case "Skeet Doubles":
                     subDisciplineLayoutsLayout.Visibility = ViewStates.Visible;
                     customStandFormattingLayout.Visibility = ViewStates.Gone;
+
+                    var adapter3 = ArrayAdapter.CreateFromResource(Context, Resource.Array.skeet, Android.Resource.Layout.SimpleSpinnerItem);
+                    adapter3.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+                    subDisciplineLayouts.Adapter = adapter3;
+
+                    var defaultItem3 = subDisciplineLayouts.Adapter.GetItem(0).ToString();
+                    subDisciplineLayouts.SetText(defaultItem3, false);
+                    SubDisciplineLayoutChanged(defaultItem3);
                     break;
 
                 case "Skeet Shoot - Off":
                     subDisciplineLayoutsLayout.Visibility = ViewStates.Gone;
                     customStandFormattingLayout.Visibility = ViewStates.Gone;
+                    discipline = new Disciplines.Skeet.SkeetShootOff();
                     break;
 
                 case "Wobble Skeet":
                     subDisciplineLayoutsLayout.Visibility = ViewStates.Gone;
                     customStandFormattingLayout.Visibility = ViewStates.Gone;
+                    discipline = new Disciplines.Skeet.WobbleSkeet();
                     break;
             }
         }
@@ -266,31 +335,37 @@ namespace ClubClays.Fragments
                 case "Compak Sporting":
                     subDisciplineLayoutsLayout.Visibility = ViewStates.Gone;
                     customStandFormattingLayout.Visibility = ViewStates.Visible;
+                    discipline = new Disciplines.Sporting.CompakSporting();
                     break;
 
                 case "English Sporting":
                     subDisciplineLayoutsLayout.Visibility = ViewStates.Gone;
                     customStandFormattingLayout.Visibility = ViewStates.Visible;
+                    discipline = new Disciplines.Sporting.EnglishSporting();
                     break;
 
                 case "FITASC Sporting":
                     subDisciplineLayoutsLayout.Visibility = ViewStates.Gone;
                     customStandFormattingLayout.Visibility = ViewStates.Visible;
+                    discipline = new Disciplines.Sporting.FITASCSporting();
                     break;
 
                 case "Five Stand":
                     subDisciplineLayoutsLayout.Visibility = ViewStates.Gone;
                     customStandFormattingLayout.Visibility = ViewStates.Gone;
+                    discipline = new Disciplines.Sporting.FiveStand();
                     break;
 
                 case "Sportrap":
                     subDisciplineLayoutsLayout.Visibility = ViewStates.Gone;
                     customStandFormattingLayout.Visibility = ViewStates.Gone;
+                    discipline = new Disciplines.Sporting.Sportrap();
                     break;
 
                 case "Super Sporting":
                     subDisciplineLayoutsLayout.Visibility = ViewStates.Gone;
                     customStandFormattingLayout.Visibility = ViewStates.Visible;
+                    discipline = new Disciplines.Sporting.SuperSporting();
                     break;
             }
         }
@@ -302,7 +377,7 @@ namespace ClubClays.Fragments
             Bundle args = new Bundle();
             args.PutBoolean("selectable", true);
             standSetupFragment.Arguments = args;
-            fragmentTx.Replace(Resource.Id.container, standSetupFragment);
+            fragmentTx.Add(Resource.Id.container, standSetupFragment);
             fragmentTx.AddToBackStack(null);
             fragmentTx.Commit();
             Activity.SupportFragmentManager.SetFragmentResultListener("2", this, this);
@@ -319,7 +394,7 @@ namespace ClubClays.Fragments
             FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
 
             Shoot activeShootModel = new ViewModelProvider(Activity).Get(Java.Lang.Class.FromType(typeof(Shoot))) as Shoot;
-            activeShootModel.Initialise(standShooterModel.selectedShooters, standShooterModel.selectedFormat, new DateTime(Arguments.GetLong("shootDate")), Arguments.GetString("shootLocation"), null, Arguments.GetString("shootTitle"));
+            activeShootModel.Initialise(standShooterModel.selectedShooters, standShooterModel.selectedFormat, new DateTime(Arguments.GetLong("shootDate")), Arguments.GetString("shootLocation"), discipline, Arguments.GetString("shootTitle"));
             fragmentTx.Replace(Resource.Id.container, new ScoreTakingFragment());
             fragmentTx.Commit();
         }
@@ -328,7 +403,7 @@ namespace ClubClays.Fragments
         {
             FragmentTransaction fragmentTx = Activity.SupportFragmentManager.BeginTransaction();
             ShootersFragment shootersFragment = new ShootersFragment();
-            fragmentTx.Replace(Resource.Id.container, shootersFragment);
+            fragmentTx.Add(Resource.Id.container, shootersFragment);
             fragmentTx.AddToBackStack(null);
             fragmentTx.Commit();
             Activity.SupportFragmentManager.SetFragmentResultListener("1", this, this);
@@ -338,7 +413,7 @@ namespace ClubClays.Fragments
         {
             if (p0 == "1")
             {
-                shootersSelection.Text = $"{p1.GetInt("numSelected", 0)} Shooter(s) Selected";
+                shootersSelection.Text = $"{p1.GetInt("numSelected", 0)} Shooter(s) Selected";           
             }
             else if (p0 == "2")
             {
