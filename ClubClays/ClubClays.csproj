@@ -9,4 +9,15 @@
     <ApplicationVersion>1</ApplicationVersion>
     <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
   </PropertyGroup>
+  <ItemGroup>
+    <None Remove="Resources\drawable\ic_launcher_foreground.xml" />
+    <None Remove="Resources\values-night\themes.xml" />
+    <None Remove="Resources\xml\preferences.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Xamarin.AndroidX.AppCompat" Version="1.4.2.1" />
+    <PackageReference Include="Xamarin.AndroidX.Core.SplashScreen" Version="1.0.0.1-rc01" />
+    <PackageReference Include="Xamarin.AndroidX.Preference" Version="1.2.0.2" />
+    <PackageReference Include="Xamarin.Google.Android.Material" Version="1.6.1.1" />
+  </ItemGroup>
 </Project>
