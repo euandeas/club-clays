@@ -1,4 +1,3 @@
-# Specification
 
 ## What each shot value represents
 
@@ -7,3 +6,7 @@
 1 - Hit 
 
 2 - Miss 
+
+## Resources
+
+https://dbdiagram.io
